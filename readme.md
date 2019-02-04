@@ -48,11 +48,11 @@ Professeur encadrant : [M. Philippe RENEVIER](https://github.com/PhilippeRenevie
 
 *"The Miagestics"*
 
--[Rémi FELIN](https://github.com/RemiFELIN)
--[Yannick CARDINI](https://github.com/YannickCardini)
--[Benoît MONTORSI](https://github.com/BenoitMtr)
--[Thomas GAUCI](https://github.com/ThomasGauci)
--[Pierre SAUNDERS](https://github.com/saundersp)
+- [Rémi FELIN](https://github.com/RemiFELIN)
+- [Yannick CARDINI](https://github.com/YannickCardini)
+- [Benoît MONTORSI](https://github.com/BenoitMtr)
+- [Thomas GAUCI](https://github.com/ThomasGauci)
+- [Pierre SAUNDERS](https://github.com/saundersp)
 
 ## License
 
