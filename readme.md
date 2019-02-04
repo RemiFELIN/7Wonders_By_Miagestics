@@ -1,11 +1,11 @@
 # 7Wonders By Miagestics 
 ![7Wonders](https://image.noelshack.com/fichiers/2019/06/1/1549316565-7-wonders.jpg)
 
-##Notre projet
+## Notre projet
 
 Notre objectif est de réaliser une simulation complète d'une partie "7Wonders" jouée par 2 joueurs (version 1) et par 7 joueurs (version finale) répondant à un certains nombres de contraintes.
 
-##Descriptions et règles du jeu
+## Descriptions et règles du jeu
 
 *Chacun des 2 à 7 joueurs prend la tête d’une ville légendaire (Babylone, Éphèse, Rhodes…), et va disposer de trois Âges pour la faire prospérer et même bâtir la légendaire Merveille du monde qui y est associée. Le but du jeu est d’embellir sa cité et de la rendre plus influente que celle de ses adversaires.* 
 
@@ -13,13 +13,15 @@ En d'autres termes, le but de ce jeu est d'accumuler le maximum de points durant
 
 La documentation complète concernant les règles du jeu est disponibles [ici](http://www.7wonders.net/wp-content/uploads/2017/06/7WONDERS_RULES_FR.pdf)
 
-##Technologies et méthodes déployées
+## Technologies et méthodes déployées
 
 > Méthode AGILE
+
 > JAVA 
+
 > Maven Project
 
-##Spécification du projet
+## Spécification du projet
 
 > représentation de jeu (représentation des merveilles, des bâtiments, de l'argent, de l'achat chez les voisins, etc.).
 
@@ -40,7 +42,7 @@ La documentation complète concernant les règles du jeu est disponibles [ici](h
 
 > La priorité est donnée à une version à 2 joueurs robots intelligents + 1 "random", plutôt qu'à 3 ou 4 robots assez stupides.
 
-##Notre équipe
+## Notre équipe
 
 Professeur encadrant : [M. Philippe RENEVIER](https://github.com/PhilippeRenevierGonin)
 
@@ -52,7 +54,7 @@ Professeur encadrant : [M. Philippe RENEVIER](https://github.com/PhilippeRenevie
 -[Thomas GAUCI](https://github.com/ThomasGauci)
 -[Pierre SAUNDERS](https://github.com/saundersp)
 
-##License
+## License
 
 [MIT](http://opensource.org/licenses/MIT)
 
