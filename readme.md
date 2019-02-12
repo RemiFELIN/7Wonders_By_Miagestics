@@ -14,14 +14,15 @@ En d'autres termes, le but de ce jeu est d'accumuler le maximum de points durant
 
 La documentation complète concernant les règles du jeu est disponibles [ici](http://www.7wonders.net/wp-content/uploads/2017/06/7WONDERS_RULES_FR.pdf)
 
-# Usage
+## Usage
 
-**Ouvrir un terminal**
-1. git clone https://github.com/RemiFELIN/7Wonders_By_Miagestics
-2. cd 7Wonders_By_Miagestics
-3. mvn clean install
-4. cd lanceur
-5. mvn exec:java
+Ouvrir un terminal et executer:
+
+1. `git clone https://github.com/RemiFELIN/7Wonders_By_Miagestics`
+2. `cd 7Wonders_By_Miagestics`
+3. `mvn clean install`
+4. `cd lanceur`
+5. `mvn exec:java`
 
 
 ## Technologies et méthodes déployées
