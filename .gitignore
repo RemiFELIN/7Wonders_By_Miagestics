@@ -1,0 +1,9 @@
+/.idea
+/.vscode
+/.settings
+*.iml
+.project
+.classpath
+/*/bin
+/*/target
+/*/.settings
