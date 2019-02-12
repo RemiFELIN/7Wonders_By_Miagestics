@@ -5,24 +5,26 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>7w</groupId>
-        <artifactId>7Wonders</artifactId>
-        <version>0.1</version>
+        <groupId>client-serveur</groupId>
+        <artifactId>client-serveur</artifactId>
+        <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <artifactId>lanceur</artifactId>
-    <version>0.1</version>
 
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> <!-- éventuellement à changer : encodage de vos fichiers -->
-        <compiler.source>1.8</compiler.source> <!-- éventuellement à changer : version de java (sdk) utilisée pour le développement -->
-        <compiler.target>1.8</compiler.target> <!-- éventuellement à changer : version de java pour l'utilisateur -->
-    </properties>
+
+    <artifactId>lanceur</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
 
     <build>
-        <sourceDirectory>src/main/java</sourceDirectory>
-    
+        <sourceDirectory>src/main/java</sourceDirectory>  <!-- éventuellement à changer : localisation des fichiers sources -->
+
+
         <plugins>
+
+
+
+
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
@@ -35,10 +37,27 @@
                     </execution>
                 </executions>
                 <configuration>
-                    <mainClass>lanceur.Lanceur</mainClass>
+                    <mainClass>lanceur.Partie</mainClass>
                 </configuration>
             </plugin>
+
         </plugins>
     </build>
 
+    <dependencies>
+    <dependency>
+        <groupId>client-serveur</groupId>
+        <artifactId>serveur</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </dependency>
+
+        <dependency>
+            <groupId>client-serveur</groupId>
+            <artifactId>client</artifactId>
+            <version>1.0-SNAPSHOT</version>
+        </dependency>
+    </dependencies>
+
+
+    
 </project>
