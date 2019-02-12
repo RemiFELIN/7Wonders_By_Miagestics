@@ -17,11 +17,11 @@ La documentation complète concernant les règles du jeu est disponibles [ici](h
 # Usage
 
 **Ouvrir un terminal**
-    git clone https://github.com/RemiFELIN/7Wonders_By_Miagestics
-    cd 7Wonders_By_Miagestics
-    mvn clean install
-    cd lanceur
-    mvn exec:java
+1. git clone https://github.com/RemiFELIN/7Wonders_By_Miagestics
+2. cd 7Wonders_By_Miagestics
+3. mvn clean install
+4. cd lanceur
+5. mvn exec:java
 
 
 ## Technologies et méthodes déployées
