@@ -1,3 +1,4 @@
+
 # 7Wonders By Miagestics 
 ![7Wonders](https://image.noelshack.com/fichiers/2019/06/1/1549316565-7-wonders.jpg)
 
@@ -12,6 +13,16 @@ Notre objectif est de réaliser une simulation complète d'une partie "7Wonders"
 En d'autres termes, le but de ce jeu est d'accumuler le maximum de points durant les 3 âges du jeu (au cours desquels nous pouvons collecter un certain nombre de cartes), le gagnant est celui qui en accumulent le plus. Pour ce faire, le joueur a la possibilités d'adopter plusieurs stratégies ...
 
 La documentation complète concernant les règles du jeu est disponibles [ici](http://www.7wonders.net/wp-content/uploads/2017/06/7WONDERS_RULES_FR.pdf)
+
+# Usage
+
+**Ouvrir un terminal**
+    git clone https://github.com/RemiFELIN/7Wonders_By_Miagestics
+    cd 7Wonders_By_Miagestics
+    mvn clean install
+    cd lanceur
+    mvn exec:java
+
 
 ## Technologies et méthodes déployées
 
