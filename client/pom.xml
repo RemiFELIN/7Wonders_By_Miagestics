@@ -10,7 +10,7 @@
         <version>0.1</version>
     </parent>
 
-    <artifactId>joueur</artifactId>
+    <artifactId>client</artifactId>
     <version>0.1</version>
 
     <properties>
@@ -23,4 +23,16 @@
         <sourceDirectory>src/main/java</sourceDirectory>
     </build>
 
+    <dependencies>
+        <dependency>
+            <groupId>7w</groupId>
+            <artifactId>moteur</artifactId>
+            <version>0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>io.socket</groupId>
+            <artifactId>socket.io-client</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+    </dependencies>
 </project>

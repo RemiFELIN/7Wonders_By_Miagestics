@@ -21,8 +21,7 @@
 
     <build>
         <sourceDirectory>src/main/java</sourceDirectory>
-    
-        <plugins>
+        <plugins>            
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
@@ -37,8 +36,25 @@
                 <configuration>
                     <mainClass>lanceur.Lanceur</mainClass>
                 </configuration>
-            </plugin>
+            </plugin>  
         </plugins>
     </build>
-
+    
+    <dependencies>
+        <dependency>
+            <groupId>7w</groupId>
+            <artifactId>moteur</artifactId>
+            <version>0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>7w</groupId>
+            <artifactId>client</artifactId>
+            <version>0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>7w</groupId>
+            <artifactId>serveur</artifactId>
+            <version>0.1</version>
+        </dependency>
+    </dependencies>
 </project>

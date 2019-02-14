@@ -11,7 +11,7 @@
 	<modules>
 		<module>moteur</module>
 		<module>serveur</module>
-        <module>joueur</module>
+        <module>client</module>
         <module>lanceur</module>
 	</modules>
 	<packaging>pom</packaging>
@@ -30,7 +30,7 @@
                     <source>1.8</source> <!-- éventuellement à changer : version de java -->
                     <target>1.8</target> <!-- éventuellement à changer : version de java -->
                 </configuration>
-            </plugin>            
+            </plugin>
         </plugins>
     </build>
     <dependencies>
