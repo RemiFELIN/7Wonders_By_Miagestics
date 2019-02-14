@@ -20,7 +20,30 @@
     </properties>
 
     <build>
-        <sourceDirectory>src/main/java</sourceDirectory>
+        <sourceDirectory>src/main/java</sourceDirectory>  <!-- éventuellement à changer : localisation des fichiers sources -->
+
+
+        <plugins>
+
+
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>exec-maven-plugin</artifactId>
+                <version>1.6.0</version> <!-- à ne pas changer : c'est la version du plugin (et pas de java) -->
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <mainClass>client.Client</mainClass>
+                </configuration>
+            </plugin>
+
+        </plugins>
     </build>
 
     <dependencies>
