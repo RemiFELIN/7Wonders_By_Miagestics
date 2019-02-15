@@ -1,57 +1,73 @@
 package moteur;
 
+import java.util.ArrayList;
+import java.util.Collections;
 
 public class Jeu {
-    private final int NBCARTES = 23;
-    private final int TAILLE_DECK = 2;
+    private final int NBCARTES = 12;
+    private final int TAILLE_DECK = 4;
 
-    private Carte tabCarte[];
-    private int index[];
+    private ArrayList<Carte> tabCarte = new ArrayList<Carte>();
 
+    private Joueur mesJoueurs[];
 
     public Jeu(int nbJoueurs){
-        tabCarte = new Carte[NBCARTES];
-        index = new int[NBCARTES];
 
-        for( int i = 0; i<NBCARTES ;i++){
-            tabCarte[i]= new Carte(i);
-            index[i]=-1;
+        mesJoueurs = new Joueur[nbJoueurs];
+        for(int i=0; i<nbJoueurs; i++){
+            mesJoueurs[i] = new Joueur();
         }
-        
-        
+
+        initCartes();
+
+        distributionCarte();
     }
     
-    public Carte distributionCarte(){
-        boolean flag = false;
-        int rand =0;
-        int j =0;
-        do{
-            rand = (int)(Math.random()*(NBCARTES));
-            for( int i = 0; i<NBCARTES; i++){
-                if(index[i]==rand){
-                    flag = true;
-                }
-            }
-        }while(flag == true);
-        while(index[j]!=-1){
-            j++;
-        }
-        index[j]= rand;
-        return  tabCarte[rand];
+
+    public void initCartes(){
+        for(int i=0; i<NBCARTES; i++)
+            tabCarte.add(new Carte(i));
+        
+            Collections.shuffle(tabCarte);
     }
 
-    public Carte[] creationDeck(){
-        Carte deckJoueur[];
-        deckJoueur = new Carte[TAILLE_DECK];
-        for(int i = 0; i<TAILLE_DECK; i++){
-            deckJoueur[i] = distributionCarte();
+    public final static int indexOf(int[] tab, int n){
+
+        for(int i=0; i<tab.length; i++)
+            if(tab[i] == n)
+                return i;
+        
+        return -1;
+    }
+
+    public void distributionCarte(){
+
+        for(int i=0; i<mesJoueurs.length; i++){
+            mesJoueurs[i] = new Joueur();
+
+            Carte[] carteJoueur = new Carte[TAILLE_DECK];
+            int idCarte = 0;
+            for(int j=0; j<TAILLE_DECK; j++){
+                Carte c = tabCarte.get(0);
+                tabCarte.remove(0);
+                carteJoueur[idCarte++] = c;
+            }
+            mesJoueurs[i].setCartes(carteJoueur);
         }
-        return deckJoueur;
+    }
+
+    public void getJoueursCartes(){
+        for (int i=0; i<mesJoueurs.length; i++) {
+            mesJoueurs[i].getDeck();
+        }
+    }
+
+    public static final void main(String args[]){
+        Jeu j = new Jeu(3);
+        j.getJoueursCartes();
     }
     
     public final static void log(String s){
         System.out.println(s);
     }
-
-
 }
