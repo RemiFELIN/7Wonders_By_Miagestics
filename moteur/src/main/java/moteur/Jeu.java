@@ -1,8 +1,10 @@
 package moteur;
 
+
 public class Jeu {
-    private final int NBCARTES = 4;
+    private final int NBCARTES = 23;
     private final int TAILLE_DECK = 2;
+
     private Carte tabCarte[];
     private int index[];
 
