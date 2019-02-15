@@ -10,10 +10,13 @@ import moteur.Jeu;
 public class Serveur {
 
     SocketIOServer serveur;
+    SocketIOClient mesClient[];
     Object attenteConnexion = new Object();
     Jeu jeu;
-	int connexionsAutorisees=0;
-    int nbJoueurs;
+    int connexionsAutorisees = 0;
+
+    private final static int MIN_JOUEURS = 3;
+    private final static int MAX_JOUEURS = 3;
 
     public Serveur(String adresse, int port) {
 
@@ -25,30 +28,23 @@ public class Serveur {
 
         Jeu.log("Serveur: Création listener");
 
-        // j = new Joueur[NOMBRE_MAX_JOUEURS];
+        mesClient = new SocketIOClient[MAX_JOUEURS];
 
         serveur.addConnectListener(new ConnectListener() {
             public void onConnect(SocketIOClient socketIOClient) {
-				
-				connexionsAutorisees++;
-            	
-            	if(connexionsAutorisees==3)
-            	{
-            		Jeu.log("Serveur: Connexion de" + socketIOClient.getRemoteAddress());
-            		Jeu.log("3 joueurs de connectés: début de la partie");
-            	}
-            	else if(connexionsAutorisees>3)
-            	{
-            		Jeu.log("Connexion impossible: déjà 3 joueurs dans la partie");
-            		socketIOClient.disconnect();
-            	}
-            	else Jeu.log("Serveur: Connexion de" + socketIOClient.getRemoteAddress());
 
-				
-                /*
-                 * if (indJoueurs == NOMBRE_MAX_JOUEURS) { // Reject } else { j[indJoueurs++] =
-                 * new Joueur(); if (indJoueurs == NOMBRE_MIN_JOUEURS) { // Démarrer partie } }
-                 */
+                if (connexionsAutorisees > 3) {
+                    Jeu.log("Connexion impossible: déjà 3 joueurs dans la partie");
+                    socketIOClient.disconnect();
+                } else {
+                    Jeu.log("Serveur: Connexion de" + socketIOClient.getRemoteAddress());
+                    mesClient[connexionsAutorisees++] = socketIOClient;
+                    if (connexionsAutorisees == 3) {
+                        Jeu.log("Serveur: Connexion de" + socketIOClient.getRemoteAddress());
+                        Jeu.log("3 joueurs de connectés: début de la partie");
+                        // Jeu.démarrer();
+                    }
+                }
             }
         });
 
