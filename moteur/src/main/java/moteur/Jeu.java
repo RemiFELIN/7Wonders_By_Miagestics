@@ -46,6 +46,7 @@ public class Jeu {
         }
         return deckJoueur;
     }
+    
     public final static void log(String s){
         System.out.println(s);
     }
