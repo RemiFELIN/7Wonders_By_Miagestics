@@ -24,9 +24,16 @@ public class Serveur {
 
         Jeu.log("Serveur: Création listener");
 
+        // j = new Joueur[NOMBRE_MAX_JOUEURS];
+
         serveur.addConnectListener(new ConnectListener() {
             public void onConnect(SocketIOClient socketIOClient) {
                 Jeu.log("Serveur: Connexion de" + socketIOClient.getRemoteAddress());
+
+                /*
+                 * if (indJoueurs == NOMBRE_MAX_JOUEURS) { // Reject } else { j[indJoueurs++] =
+                 * new Joueur(); if (indJoueurs == NOMBRE_MIN_JOUEURS) { // Démarrer partie } }
+                 */
             }
         });
 
@@ -57,8 +64,5 @@ public class Serveur {
             s.démarrer();
         }
     }
-
-   
-    
 
 }

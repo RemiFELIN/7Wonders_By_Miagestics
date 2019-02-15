@@ -1,6 +1,7 @@
 package moteur;
 
 public class Joueur {
+
 	private int scoreJoueur;
 	private Carte[] deck;
 
@@ -16,3 +17,4 @@ public class Joueur {
 		return this.scoreJoueur;
 	}
 }
+
