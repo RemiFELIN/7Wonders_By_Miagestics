@@ -5,12 +5,14 @@ import com.corundumstudio.socketio.SocketIOClient;
 import com.corundumstudio.socketio.SocketIOServer;
 import com.corundumstudio.socketio.listener.ConnectListener;
 
-import moteur.Moteur;
+import moteur.Jeu;
 
 public class Serveur {
 
     SocketIOServer serveur;
     Object attenteConnexion = new Object();
+    Jeu jeu;
+    int nbJoueurs;
 
     public Serveur(String adresse, int port) {
 
@@ -20,29 +22,30 @@ public class Serveur {
 
         serveur = new SocketIOServer(config);
 
-        Moteur.log("Serveur: Création listener");
+        Jeu.log("Serveur: Création listener");
 
         serveur.addConnectListener(new ConnectListener() {
             public void onConnect(SocketIOClient socketIOClient) {
-                Moteur.log("Serveur: Connexion de" + socketIOClient.getRemoteAddress());
+                Jeu.log("Serveur: Connexion de" + socketIOClient.getRemoteAddress());
             }
         });
+
     }
 
     public void démarrer() {
-        Moteur.log("Serveur: Démarrage");
+        Jeu.log("Serveur: Démarrage");
         serveur.start();
 
-        Moteur.log("Serveur: en attente de connexion...");
+        Jeu.log("Serveur: en attente de connexion...");
         synchronized (attenteConnexion) {
             try {
                 attenteConnexion.wait();
             } catch (InterruptedException e) {
                 e.printStackTrace();
-                Moteur.log("Serveur: Crash");
+                Jeu.log("Serveur: Crash");
             }
         }
-        Moteur.log("Serveur: Une connexion est arrivée, on arrête");
+        Jeu.log("Serveur: Une connexion est arrivée, on arrête");
         serveur.stop();
     }
 
@@ -54,5 +57,8 @@ public class Serveur {
             s.démarrer();
         }
     }
+
+   
+    
 
 }

@@ -1,13 +1,13 @@
 package moteur;
 
-public class Moteur {
+public class Jeu {
     private final int NBCARTES = 4;
     private final int TAILLE_DECK = 2;
     private Carte tabCarte[];
     private int index[];
 
 
-    public Moteur(){
+    public Jeu(int nbJoueurs){
         tabCarte = new Carte[NBCARTES];
         index = new int[NBCARTES];
 
@@ -49,4 +49,6 @@ public class Moteur {
     public final static void log(String s){
         System.out.println(s);
     }
+
+
 }
