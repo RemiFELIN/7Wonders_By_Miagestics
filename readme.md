@@ -56,7 +56,9 @@ Ouvrir un terminal et executer:
 
 ## Notre équipe
 
-Professeur encadrant : [M. Philippe RENEVIER](https://github.com/PhilippeRenevierGonin)
+Professeurs encadrants : [M. Philippe RENEVIER GONIN](https://github.com/PhilippeRenevierGonin)
+                         [Mme. Audrey OCCELLO](https://github.com/occello)
+                         [Mme. Elena CABRIO](https://github.com/ElenaCabrio)
 
 *"The Miagestics"*
 
