@@ -11,35 +11,54 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import moteur.Jeu;
+import moteur.Coup;
 
 public class Client {
 
     private Socket connexion;
     private int id;
-    final Object attenteDéconnexion = new Object();
+    private final Object attenteDéconnexion = new Object();
 
-    public Client(int id, String adresse, int port) {
+    public Client(final int id, String adresse, int port) {
         this.id = id;
         String urlAdresse = "http://" + adresse + ":" + port;
 
-        Jeu.log("Hello therer");
-
         try {
             connexion = IO.socket(urlAdresse);
-            Jeu.log("Client: Abonnement connexion Joueur "+this.id);
+            Jeu.log("Client: Abonnement connexion Joueur " + this.id);
 
             connexion.on("connect", new Emitter.Listener() {
                 @Override
-                public void call(Object... args) {
+                public final void call(Object... args) {
                     Jeu.log("Client: connexion Joueur " + id);
-                    JSONObject myId = new JSONObject(id);
-                    connexion.emit("identification", myId);
+                    connexion.emit("rejoindre jeu", id);
+                }
+            });
+
+            connexion.on("getCarte" + id, new Emitter.Listener() {
+                @Override
+                public final void call(Object... args) {
+                    Jeu.log("Réception carte ! " + id);
+                    int carteN = -1, carteValue = -1;
+                    try {
+                        JSONArray jo = (JSONArray) args[0];
+                        for (int i = 0; i < args.length; i++){
+                            int value = jo.getJSONObject(i).getInt("value");
+                            if(value > carteValue){
+                                carteValue = value;
+                                carteN = i;
+                            }
+                        }
+                    } catch (JSONException e){
+                        Jeu.error("Error JSON !", e);
+                    }
+                    connexion.emit("jouerCarte", new JSONObject(new Coup(id, carteN)));
                 }
             });
 
             connexion.on("disconnect", new Emitter.Listener() {
                 @Override
-                public void call(Object... args) {
+                public final void call(Object... args) {
                     connexion.disconnect();
                     connexion.close();
 
@@ -50,28 +69,25 @@ public class Client {
                 }
             });
         } catch (URISyntaxException e) {
-            e.printStackTrace();
-            Jeu.log("Client: Crash dans Joueur " + this.id);
+            Jeu.error("Client: Crash dans Joueur " + this.id, e);
         }
     }
 
-    public void démarrer() {
+    public final void démarrer() {
         connexion.connect();
 
-        Jeu.log("Client: en attente de déconnexion Joueur "+this.id);
         synchronized (attenteDéconnexion) {
             try {
                 attenteDéconnexion.wait();
             } catch (InterruptedException e) {
-                e.printStackTrace();
-                Jeu.log("Client: erreur dans l'attente Joueur " + this.id);
+                Jeu.error("Client: erreur dans l'attente déconnexion Joueur " + this.id, e);
             }
         }
     }
 
-    public final static void main(String args[]){
+    public final static void main(String args[]) {
 
-        if(args.length == 3){
+        if (args.length == 3) {
             String adresse = args[0];
             int port = Integer.parseInt(args[1]);
             int id = Integer.parseInt(args[2]);
