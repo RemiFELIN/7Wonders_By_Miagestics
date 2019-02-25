@@ -16,8 +16,21 @@
 	</modules>
 	<packaging>pom</packaging>
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <compiler.source>1.8</compiler.source>
-        <compiler.target>1.8</compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> <!-- éventuellement à changer : encodage de vos fichiers -->
+        <compiler.source>1.8</compiler.source> <!-- éventuellement à changer : version de java (sdk) utilisée pour le développement -->
+        <compiler.target>1.8</compiler.target> <!-- éventuellement à changer : version de java pour l'utilisateur -->
     </properties>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.8.0</version>
+                <configuration>
+                    <source>1.8</source> <!-- éventuellement à changer : version de java -->
+                    <target>1.8</target> <!-- éventuellement à changer : version de java -->
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
