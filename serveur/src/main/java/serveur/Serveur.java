@@ -31,7 +31,7 @@ public class Serveur {
 
         serveur = new SocketIOServer(config);
 
-        Jeu.log("Serveur: Création listener");
+        Jeu.log("Serveur: Création listener\n");
 
         serveur.addConnectListener(new ConnectListener() {
             public final void onConnect(SocketIOClient socketIOClient) {
@@ -49,7 +49,7 @@ public class Serveur {
                     Jeu.log("Serveur: Connexion de joueur " + id);
                     nbJoueursConnectees++;
                     if (nbJoueursConnectees == MIN_JOUEURS) {
-                        Jeu.log(MIN_JOUEURS + " joueurs de connectés: début de la partie");
+                        Jeu.log(MIN_JOUEURS + " joueurs de connectés: début de la partie\n");
                         jeu = new Jeu(nbJoueursConnectees);
                         sendCartes();
                     }
@@ -64,10 +64,15 @@ public class Serveur {
                 jeu.getJoueurs().get(coup.getId()).poserCarte(coup.getNumeroCarte());
                 nbJoueurCoupFini++;
                 if(nbJoueurCoupFini == nbJoueursConnectees){
-                    Jeu.log("Fin tour !");
+                    Jeu.log("\nFin tour ! Les scores :");
                     ArrayList<Joueur> tabJ = jeu.getJoueurs();
-                    for(int i=0; i<tabJ.size(); i++) 
-                        Jeu.log("Score joueur "+i+" : " + tabJ.get(i).getScore());
+                    for(int i=0; i<tabJ.size(); i++) {
+                        Jeu.log("Score joueur " + i + " : " + tabJ.get(i).getScore());
+                    }
+                    for(int i = 0; i<tabJ.size()-2; i++){
+                        if(!jeu.finJeu())
+                            Jeu.log("Début du prochain tour ...\n");
+                    }
                     if(jeu.finJeu()){
                         Jeu.log("Fin du jeu !");
                         ArrayList<Joueur> clas = jeu.getClassement();
