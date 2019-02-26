@@ -18,6 +18,7 @@ public class Client {
     private Socket connexion;
     private int id;
     private final Object attenteDéconnexion = new Object();
+    private Coup coupAJouer;
 
     public Client(final int id, String adresse, int port) {
         this.id = id;
@@ -49,10 +50,23 @@ public class Client {
                                 carteN = i;
                             }
                         }
+                        coupAJouer = new Coup(id, carteN);
+
                     } catch (JSONException e){
                         Jeu.error("Error JSON !", e);
                     }
-                    connexion.emit("jouerCarte", new JSONObject(new Coup(id, carteN)));
+                	connexion.emit("recuCarte", id);
+                    
+                }
+            });
+
+            connexion.on("debutTour", new Emitter.Listener(){
+                
+	           @Override
+                public final void call(Object... args) {
+                    
+                	connexion.emit("jouerCarte", new JSONObject(coupAJouer));
+                    
                 }
             });
 
