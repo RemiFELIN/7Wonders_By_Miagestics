@@ -3,15 +3,15 @@ package moteur;
 public class Carte {
     private int valeur;
 
-    public Carte(int nb){
+    public Carte(int nb) {
         this.valeur = nb;
     }
-   
+
     public int getValue() {
-    	return this.valeur;
+        return this.valeur;
     }
 
-    String descriptionCarte(){
+    String descriptionCarte() {
         return "Ma valeur est" + Integer.toString(valeur);
     }
 }
