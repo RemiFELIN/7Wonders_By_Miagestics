@@ -19,6 +19,7 @@ public class Serveur {
     private Jeu jeu;
     private int nbJoueursConnectees = 0;
     private int nbJoueurCoupFini = 0;
+    private int carteDistribué =0;
 
     private final static int MIN_JOUEURS = 3;
     private final static int MAX_JOUEURS = 3;
@@ -60,6 +61,7 @@ public class Serveur {
         serveur.addEventListener("jouerCarte", Coup.class, new DataListener<Coup>(){
             @Override
             public final void onData(SocketIOClient socketIOClient, Coup coup, AckRequest ackRequest) throws Exception {
+
                 Jeu.log(coup.toString());
                 jeu.getJoueurs().get(coup.getId()).poserCarte(coup.getNumeroCarte());
                 nbJoueurCoupFini++;
@@ -71,7 +73,7 @@ public class Serveur {
                     }
                     for(int i = 0; i<tabJ.size()-2; i++){
                         if(!jeu.finJeu())
-                            Jeu.log("Début du prochain tour ...\n");
+                            Jeu.log("\nDébut du prochain tour:");
                     }
                     if(jeu.finJeu()){
                         Jeu.log("Fin du jeu !");
@@ -88,7 +90,24 @@ public class Serveur {
                 }
             }
         });
+
+        serveur.addEventListener("recuCarte", Integer.class, new DataListener<Integer>() {
+            @Override
+            public final void onData(SocketIOClient socketIOClient, Integer id, AckRequest ackRequest) throws Exception {
+
+                carteDistribué++;
+
+                if (carteDistribué == nbJoueursConnectees ){
+
+                    carteDistribué = 0;
+                    client.sendEvent("debutTour");
+                }
+
+            }
+        });
     }
+
+
 
     public final void sendCartes() {
         for (int i = 0; i < nbJoueursConnectees; i++) {
@@ -96,6 +115,8 @@ public class Serveur {
             client.sendEvent("getCarte" + i, carteJoueurs);
         }
     }
+
+
 
     public final void démarrer() {
         Jeu.log("Serveur: Démarrage");
