@@ -52,6 +52,7 @@ public class Serveur {
                     if (nbJoueursConnectees == MIN_JOUEURS) {
                         Jeu.log(MIN_JOUEURS + " joueurs de connectés: début de la partie\n");
                         jeu = new Jeu(nbJoueursConnectees);
+                        jeu.distributionCarte();
                         sendCartes();
                     }
                 }
