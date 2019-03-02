@@ -8,27 +8,34 @@ public class Jeu {
     private final int NBCARTES = 35;
     private int TAILLE_DECK = 0; //Taille initial ! (=== mesJoueurs.length)
 
-    private final ArrayList<Carte> tabCarte = new ArrayList<Carte>();
+    private final ArrayList<ArrayList<Carte>> tabDeck = new ArrayList<ArrayList<Carte>>();
+    private int age;
 
     private ArrayList<Joueur> mesJoueurs;
 
-    public Jeu(int nbJoueurs) {
 
+    public Jeu(int nbJoueurs) {
         mesJoueurs = new ArrayList<Joueur>(nbJoueurs);
         for (int i = 0; i < nbJoueurs; i++)
             mesJoueurs.add(new Joueur(i));
 
         TAILLE_DECK = (int) Math.floor(NBCARTES / nbJoueurs);
-
+        age = 1;
         initCartes();
         distributionCarte();
     }
 
     public final void initCartes() {
-        for (int i = 0; i < NBCARTES; i++)
-            tabCarte.add(new Carte(i));
-
-        Collections.shuffle(tabCarte);
+        for (int j = 1; j <= 3; j++){
+            ArrayList<Carte> tabCarte = new ArrayList<Carte>();
+            for (int i = 0; i < NBCARTES; i++){
+                tabCarte.add(new Carte(i,j));
+            }
+            Collections.shuffle(tabCarte);
+            tabDeck.add(tabCarte);
+        }
+            
+                
     }
 
     public final void roulementCarte(){
@@ -48,14 +55,19 @@ public class Jeu {
 
             ArrayList<Carte> carteJoueur = new ArrayList<Carte>(TAILLE_DECK);
             for (int j = 0; j < TAILLE_DECK; j++) {
-                Carte c = tabCarte.get(0);
-                tabCarte.remove(0);
+                Carte c = tabDeck.get(this.age-1).get(0);
+                tabDeck.get(this.age-1).remove(0);
                 carteJoueur.add(c);
             }
             mesJoueurs.get(i).setDeckMain(carteJoueur);
         }
     }
 
+    public final void recuperationCarte(){
+        for (int i=0; i<mesJoueurs.size(); i++) {
+            tabDeck.get(this.age-2).add(mesJoueurs.get(i).getDerniereCarte());
+        }
+    }
     //TODO add jUnit + seperate file
     //Unit test
     /*public static void main(String[] args) {
@@ -85,10 +97,23 @@ public class Jeu {
         }
     }*/
 
-    public final boolean finJeu(){
-        return mesJoueurs.get(0).getDeckMain().size() == 1;
+    public final boolean finAge(){
+        
+        if (mesJoueurs.get(0).getDeckMain().size() == 1){
+            this.age++;
+            return true;
+        }
+        else
+            return false;
     }
 
+    public final boolean finJeu(){
+        
+        if (age > 3)
+            return true;
+        else 
+            return false;
+    }
     public final ArrayList<Joueur> getClassement(){
         mesJoueurs.sort(new Comparator<Joueur>(){
             @Override

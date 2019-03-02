@@ -75,21 +75,36 @@ public class Serveur {
                         if(!jeu.finJeu())
                             Jeu.log("\nDébut du prochain tour:");
                     }
-                    if(jeu.finJeu()){
-                        Jeu.log("Fin du jeu !");
-                        ArrayList<Joueur> clas = jeu.getClassement();
-                        for(int i=0; i<clas.size(); i++) {
-                            Joueur j = clas.get(i);
-                            Jeu.log(i+1 + " > " + j.toString() + " avec " + j.getScore());
+                    if(jeu.finAge()){
+                        Jeu.log("Fin de l'Age !");
+                        if(jeu.finJeu()){
+                            Jeu.log("Fin du jeu !");
+                            ArrayList<Joueur> clas = jeu.getClassement();
+                            for(int i=0; i<clas.size(); i++) {
+                                Joueur j = clas.get(i);
+                                Jeu.log(i+1 + " > " + j.toString() + " avec " + j.getScore());
+                            }
+                        } else {
+                            // Amélioration 
+                            jeu.recuperationCarte();
+                            Jeu.log("\nRécupération de la dernière carte de l'Age");
+                            jeu.distributionCarte();
+                            Jeu.log("\nDistribution des nouveaux decks");
+                            jeu.roulementCarte();
+                            sendCartes();
+                            nbJoueurCoupFini = 0;
                         }
+                        
                     } else {
                         jeu.roulementCarte();
                         sendCartes();
                         nbJoueurCoupFini = 0;
+                        }
                     }
+
                 }
             }
-        });
+        );
 
         serveur.addEventListener("recuCarte", Integer.class, new DataListener<Integer>() {
             @Override
