@@ -21,7 +21,7 @@ public class Jeu {
         TAILLE_DECK = (int) Math.floor(NBCARTES / nbJoueurs);
 
         initCartes();
-        distributionCarte();
+        // distributionCarte();
     }
 
     public final void initCartes() {
@@ -54,6 +54,7 @@ public class Jeu {
             }
             mesJoueurs.get(i).setDeckMain(carteJoueur);
         }
+        log("Les cartes ont été distribuées !\n");
     }
 
     //TODO add jUnit + seperate file
@@ -120,5 +121,10 @@ public class Jeu {
     public final static void error(String s, Exception err){
         System.out.print(s);
         System.err.println(" : " + err.getMessage());
+    }
+
+    //GETTER
+    public ArrayList<Carte> getDeckPrincipal(){
+        return tabCarte;
     }
 }

@@ -52,6 +52,7 @@ public class Serveur {
                     if (nbJoueursConnectees == MIN_JOUEURS) {
                         Jeu.log(MIN_JOUEURS + " joueurs de connectés: début de la partie\n");
                         jeu = new Jeu(nbJoueursConnectees);
+                        jeu.distributionCarte();
                         sendCartes();
                     }
                 }
@@ -76,6 +77,7 @@ public class Serveur {
                             Jeu.log("\nDébut du prochain tour:");
                     }
                     if(jeu.finJeu()){
+                        Jeu.log("\n---------------------------");
                         Jeu.log("Fin du jeu !");
                         ArrayList<Joueur> clas = jeu.getClassement();
                         for(int i=0; i<clas.size(); i++) {
