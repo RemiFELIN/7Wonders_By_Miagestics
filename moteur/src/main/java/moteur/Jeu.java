@@ -48,6 +48,7 @@ public class Jeu {
             }
             mesJoueurs.get(i).setDeckMain(carteJoueur);
         }
+        log("Les cartes ont été distribuées !\n");
     }
 
     public final boolean finJeu(){
@@ -83,5 +84,10 @@ public class Jeu {
     public final static void error(String s, Exception err){
         System.out.print(s);
         System.err.println(" : " + err.getMessage());
+    }
+
+    //GETTER
+    public ArrayList<Carte> getDeckPrincipal(){
+        return tabCarte;
     }
 }

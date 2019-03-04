@@ -1,57 +1,49 @@
 package moteur;
 
-import org.junit.Before;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import java.lang.reflect.Field;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class JeuTest {
+class JeuTest {
 
-    private final int NB_JOUEURS_A_TEST = 7;
-    private final int NB_CARTES_A_TEST = 35;
+    public Jeu testDuJeu;
 
-    protected Jeu jeu;
-
-    @Before
-    public void setUp() throws Exception {
-        jeu = new Jeu(NB_JOUEURS_A_TEST);
-
-        Field f = Jeu.class.getDeclaredField("tabCarte");
-        ArrayList<Carte> tabCarte = new ArrayList<Carte>(NB_CARTES_A_TEST);
-        for(byte i=0; i<NB_CARTES_A_TEST; i++)
-            tabCarte.add(new Carte(i));
-        
-        f.setAccessible(true);
-        f.set(jeu, tabCarte);
+    @BeforeEach
+    public void setUp(){
+        testDuJeu =  new Jeu(3);
     }
 
     @Test
-    public void testDistribution(){
-        jeu.distributionCarte();
-        ArrayList<Joueur> alJoueurs = jeu.getJoueurs();
-        int value = 0;
-        for(int i=0; i<alJoueurs.size(); i++){
-            ArrayList<Carte> deckJoueur = alJoueurs.get(i).getDeckMain();
-            for(int j=0; j<deckJoueur.size(); j++)
-                assertEquals(deckJoueur.get(j).getValue(), value++);
-        }
+    public void distributionCarte() {
+        /*
+        Tests : le paquet se décrémente t-il lorsque le joueur tire une carte ?
+        */
+        ArrayList<Carte> deck = testDuJeu.getDeckPrincipal();
+        ArrayList<Joueur> joueurs = testDuJeu.getJoueurs();
+        int TAILLE_DECK = deck.size();
+        int NB_CARTES_PAR_JOUEURS = (int) Math.floor(testDuJeu.getDeckPrincipal().size()/joueurs.size());
+
+        testDuJeu.distributionCarte();
+
+        int TAILLE_DECK_ATTENDU = TAILLE_DECK-joueurs.size()*NB_CARTES_PAR_JOUEURS;
+        assertEquals( TAILLE_DECK_ATTENDU, testDuJeu.getDeckPrincipal().size() );
     }
 
     @Test
-    public void testRoulementCarte(){
-        jeu.distributionCarte();
-        jeu.roulementCarte();
-        ArrayList<Joueur> alJoueurs = jeu.getJoueurs();
-        int value = 5;
-        for(int i=0; i<alJoueurs.size(); i++){
-            ArrayList<Carte> deckJoueur = alJoueurs.get(i).getDeckMain();
-            if(i == alJoueurs.size()-1)
-                value = 0;
-            for(int j=0; j<deckJoueur.size(); j++)
-                assertEquals(deckJoueur.get(j).getValue(), value++);
+    public void roulementCarte() {
+        /*
+        Test : est-ce que chaques joueurs ont bien donné leur deck respectif au joueur suivant ?
+        */
+        ArrayList<Joueur> joueurs = testDuJeu.getJoueurs();
+        ArrayList<Carte> first = joueurs.get(0).getDeckMain();
+        testDuJeu.roulementCarte();
+
+        for(int j=0; j < joueurs.size()-1; j++){
+            assertEquals( joueurs.get(j).getDeckMain(), joueurs.get(j+1).getDeckMain() );
         }
+        assertEquals( joueurs.get(joueurs.size()-1).getDeckMain() , first);
     }
 }

@@ -77,6 +77,7 @@ public class Serveur {
                             Jeu.log("\nDébut du prochain tour:");
                     }
                     if(jeu.finJeu()){
+                        Jeu.log("\n---------------------------");
                         Jeu.log("Fin du jeu !");
                         ArrayList<Joueur> clas = jeu.getClassement();
                         for(int i=0; i<clas.size(); i++) {
@@ -95,15 +96,11 @@ public class Serveur {
         serveur.addEventListener("recuCarte", Integer.class, new DataListener<Integer>() {
             @Override
             public final void onData(SocketIOClient socketIOClient, Integer id, AckRequest ackRequest) throws Exception {
-                
                 carteDistribué++;
-                
                 if (carteDistribué == nbJoueursConnectees ){
-                    
                     carteDistribué = 0;
                     client.sendEvent("debutTour");
                 }
-
             }
         });
     }
