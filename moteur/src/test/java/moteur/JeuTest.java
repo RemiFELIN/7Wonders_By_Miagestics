@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-class JeuTest {
+public class JeuTest {
 
     public Jeu testDuJeu;
 
