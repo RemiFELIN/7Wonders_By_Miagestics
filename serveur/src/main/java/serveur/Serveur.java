@@ -15,7 +15,6 @@ public class Serveur {
 
     private SocketIOServer serveur;
     private SocketIOClient client;
-    final Object attenteConnexion = new Object();
     private Jeu jeu;
     private int nbJoueursConnectees = 0;
     private int nbJoueurCoupFini = 0;
@@ -119,17 +118,6 @@ public class Serveur {
     public final void démarrer() {
         Jeu.log("Serveur: Démarrage");
         serveur.start();
-
-        Jeu.log("Serveur: en attente de connexion...");
-        synchronized (attenteConnexion) {
-            try {
-                attenteConnexion.wait();
-            } catch (InterruptedException e) {
-                Jeu.error("Serveur: Crash", e);
-            }
-        }
-        Jeu.log("Serveur: Une connexion est arrivée, on arrête");
-        serveur.stop();
     }
 
     public static final void main(String args[]) {

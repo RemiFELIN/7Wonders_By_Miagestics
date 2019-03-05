@@ -17,7 +17,6 @@ public class Client {
 
     private Socket connexion;
     private int id;
-    private final Object attenteDéconnexion = new Object();
     private Coup coupAJouer;
 
     public Client(final int id, String adresse, int port) {
@@ -61,12 +60,9 @@ public class Client {
             });
 
             connexion.on("debutTour", new Emitter.Listener(){
-                
 	           @Override
                 public final void call(Object... args) {
-                    
                 	connexion.emit("jouerCarte", new JSONObject(coupAJouer));
-                    
                 }
             });
 
@@ -75,11 +71,6 @@ public class Client {
                 public final void call(Object... args) {
                     connexion.disconnect();
                     connexion.close();
-
-                    synchronized (attenteDéconnexion) {
-                        attenteDéconnexion.notify();
-                        Jeu.log("Client: déconnexion Joueur " + id);
-                    }
                 }
             });
         } catch (URISyntaxException e) {
@@ -89,14 +80,6 @@ public class Client {
 
     public final void démarrer() {
         connexion.connect();
-
-        synchronized (attenteDéconnexion) {
-            try {
-                attenteDéconnexion.wait();
-            } catch (InterruptedException e) {
-                Jeu.error("Client: erreur dans l'attente déconnexion Joueur " + this.id, e);
-            }
-        }
     }
 
     public final static void main(String args[]) {
