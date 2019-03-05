@@ -1,8 +1,10 @@
 package moteur;
 
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import moteur.carte.*;
 
 public class Jeu {
     private final int NBCARTES = 35;
@@ -25,9 +27,15 @@ public class Jeu {
     }
 
     public final void initCartes() {
-        for (int i = 0; i < NBCARTES; i++)
-            tabCarte.add(new Carte(i));
-
+        for (int i = 0; i < NBCARTES/2; i++)
+            tabCarte.add(new Taverne());
+        if(NBCARTES/2 == 1 ){
+            for (int i = 0; i < NBCARTES/2 + 1; i++)
+                tabCarte.add(new Theatre());
+        }else{
+            for (int i = 0; i < NBCARTES/2; i++)
+                tabCarte.add(new Theatre());
+        }
         Collections.shuffle(tabCarte);
     }
 
