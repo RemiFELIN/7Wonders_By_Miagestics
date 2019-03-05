@@ -14,12 +14,15 @@
         <module>client</module>
         <module>lanceur</module>
 	</modules>
+    
 	<packaging>pom</packaging>
+
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding> <!-- éventuellement à changer : encodage de vos fichiers -->
         <compiler.source>1.8</compiler.source> <!-- éventuellement à changer : version de java (sdk) utilisée pour le développement -->
         <compiler.target>1.8</compiler.target> <!-- éventuellement à changer : version de java pour l'utilisateur -->
     </properties>
+
     <build>
         <plugins>
             <plugin>

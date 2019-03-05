@@ -52,6 +52,7 @@ public class Serveur {
                     if (nbJoueursConnectees == MIN_JOUEURS) {
                         Jeu.log(MIN_JOUEURS + " joueurs de connectés: début de la partie\n");
                         jeu = new Jeu(nbJoueursConnectees);
+                        jeu.distributionCarte();
                         sendCartes();
                     }
                 }
@@ -109,15 +110,11 @@ public class Serveur {
         serveur.addEventListener("recuCarte", Integer.class, new DataListener<Integer>() {
             @Override
             public final void onData(SocketIOClient socketIOClient, Integer id, AckRequest ackRequest) throws Exception {
-                
                 carteDistribué++;
-                
                 if (carteDistribué == nbJoueursConnectees ){
-                    
                     carteDistribué = 0;
                     client.sendEvent("debutTour");
                 }
-
             }
         });
     }

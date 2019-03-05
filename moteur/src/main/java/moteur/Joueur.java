@@ -6,7 +6,7 @@ public class Joueur {
 
     private int id;
     private ArrayList<Carte> deckPlateau = new ArrayList<Carte>();
-    private ArrayList<Carte> deckMain;
+    private ArrayList<Carte> deckMain = new ArrayList<Carte>();
 
     //Constructeur vide pour la sérialisation du JSONObject
     public Joueur() {}
@@ -24,9 +24,7 @@ public class Joueur {
     }
 
     public final Carte getDerniereCarte(){
-        Carte c = this.deckMain.get(0);
-        this.deckMain.remove(0);
-        return c;
+        return this.deckMain.remove(0);
     }
 
     public final Carte poserCarte(int index){
