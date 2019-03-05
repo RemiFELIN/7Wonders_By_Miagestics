@@ -1,8 +1,8 @@
 package moteur;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.Before;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 
@@ -10,13 +10,13 @@ public class JoueurTest {
 
     public Joueur joueur;
 
-    @BeforeEach
+    @Before
     public void setUp(){
-        joueur = new Joueur(0);
+        joueur = new Joueur(1);
     }
 
     @Test
-    public void testCalculScore() throws Exception {
+    public void testCalculScore() {
         ArrayList<Carte> deck = new ArrayList<Carte>(5);
         for(byte i = 0; i<5; i++)
             deck.add(new Carte(2));

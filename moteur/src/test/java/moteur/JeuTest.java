@@ -1,17 +1,16 @@
 package moteur;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.Before;
+import org.junit.Test;
+import static org.junit.Assert.*;
 
 import java.util.ArrayList;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class JeuTest {
 
     public Jeu testDuJeu;
 
-    @BeforeEach
+    @Before
     public void setUp(){
         testDuJeu =  new Jeu(3);
     }
