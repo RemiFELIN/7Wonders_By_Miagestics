@@ -11,6 +11,7 @@ public class Lanceur {
     private final static int nombre_joueurs = 3;
 
     public final static void main(String args[]) {
+
         Jeu.log("\n\n------------------");
         Jeu.log("Début programme !!");
 

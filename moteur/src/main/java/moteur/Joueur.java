@@ -6,7 +6,7 @@ public class Joueur {
 
     private int id;
     private ArrayList<Carte> deckPlateau = new ArrayList<Carte>();
-    private ArrayList<Carte> deckMain;
+    private ArrayList<Carte> deckMain = new ArrayList<Carte>();
 
     //Constructeur vide pour la sérialisation du JSONObject
     public Joueur() {}

@@ -96,15 +96,11 @@ public class Serveur {
         serveur.addEventListener("recuCarte", Integer.class, new DataListener<Integer>() {
             @Override
             public final void onData(SocketIOClient socketIOClient, Integer id, AckRequest ackRequest) throws Exception {
-                
                 carteDistribué++;
-                
                 if (carteDistribué == nbJoueursConnectees ){
-                    
                     carteDistribué = 0;
                     client.sendEvent("debutTour");
                 }
-
             }
         });
     }
