@@ -16,7 +16,6 @@ public abstract class Carte implements ICarte {
     private String description;
     private String nextBuilding;
     private String getSpecialEffect;
-    private int valeur;
     private int age;
 
     public Carte(Color c,String n, int a){
@@ -38,7 +37,5 @@ public abstract class Carte implements ICarte {
     }
 
 
-    String descriptionCarte() {
-        return "Ma valeur est" + Integer.toString(valeur);
-    }
+
 }

@@ -44,7 +44,7 @@ public class Client {
                     try {
                         JSONArray jo = (JSONArray) args[0];
                         for (int i = 0; i < args.length; i++){
-                            int value = jo.getJSONObject(i).getInt("value");
+                            int value = jo.getJSONObject(i).getInt("laurier");
                             if(value > carteValue){
                                 carteValue = value;
                                 carteN = i;
