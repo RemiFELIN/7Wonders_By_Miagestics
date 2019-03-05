@@ -26,6 +26,8 @@
 > Intégration de *stratégie* pour les joueurs (1 pour le moment)
 
 ### Livraison 3 <img src="https://img.icons8.com/metro/26/000000/spinner-frame-3.png">
+> Intégration rapports UML (temporaires)
+>
 > Intégration des cartes "ressources" 
 > 
 > Intégration de la monnaie
@@ -43,9 +45,7 @@
 > 
 > amélioration *IA* joueurs (*"agressif"* par exemple)
  
-### Livraison 5 <img src="https://img.icons8.com/metro/26/000000/spinner-frame-3.png">
-> Intégration rapports UML (temporaires)
-> 
+### Livraison 5 <img src="https://img.icons8.com/metro/26/000000/spinner-frame-3.png"> 
 > Intégration des cartes "sciences"
 > 
 > Intégration d'autres règles (*défosser* une carte, ...)
