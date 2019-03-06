@@ -60,10 +60,8 @@ public class Jeu {
 
     public final void recuperationCarte(){
         for (int i=0; i<mesJoueurs.size(); i++) {
-            Jeu.log("testBidon"+mesJoueurs.get(i).getDeckMain().size());
             tabDeck.get(age-2).add(mesJoueurs.get(i).getDerniereCarte());
         }
-        Jeu.log("recup OUIII");
     }
     
     public final boolean finAge(){
