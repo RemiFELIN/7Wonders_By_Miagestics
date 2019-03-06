@@ -7,7 +7,7 @@ public class Joueur {
     private int id;
     private int gold = 5;
     private ArrayList<Carte> deckPlateau = new ArrayList<Carte>();
-    private ArrayList<Carte> deckMain;
+    private ArrayList<Carte> deckMain = new ArrayList<Carte>();
 
     //Constructeur vide pour la sérialisation du JSONObject
     public Joueur() {}
@@ -21,7 +21,11 @@ public class Joueur {
     }
 
     public final ArrayList<Carte> getDeckMain() {
-        return deckMain;
+        return this.deckMain;
+    }
+
+    public final Carte getDerniereCarte(){
+        return this.deckMain.remove(0);
     }
 
     public final Carte poserCarte(int index){

@@ -5,6 +5,7 @@ import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 
 import java.net.URISyntaxException;
+import java.util.Random;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -18,11 +19,16 @@ public class Client {
     private Socket connexion;
     private int id;
     private final Object attenteDéconnexion = new Object();
+    Strategie stratClient=null;
     private Coup coupAJouer;
 
     public Client(final int id, String adresse, int port) {
         this.id = id;
         String urlAdresse = "http://" + adresse + ":" + port;
+
+        Random r=new Random();
+        if(r.nextInt(2)==0) stratClient=new StratMax();
+        else stratClient=new StratRandom();
 
         try {
             connexion = IO.socket(urlAdresse);
@@ -40,33 +46,33 @@ public class Client {
                 @Override
                 public final void call(Object... args) {
                     Jeu.log("Réception carte ! " + id);
-                    int carteN = -1, carteValue = -1;
                     try {
-                        JSONArray jo = (JSONArray) args[0];
-                        for (int i = 0; i < args.length; i++){
-                            int value = jo.getJSONObject(i).getInt("laurier");
-                            if(value > carteValue){
-                                carteValue = value;
-                                carteN = i;
-                            }
-                        }
-                        coupAJouer = new Coup(id, carteN);
+//<<<<<<< HEAD
+                        // JSONArray jo = (JSONArray) args[0];
+                        // for (int i = 0; i < args.length; i++){
+                        //     int value = jo.getJSONObject(i).getInt("laurier");
+                        //     if(value > carteValue){
+                        //         carteValue = value;
+                        //         carteN = i;
+                        //     }
+                        // }
+                        // coupAJouer = new Coup(id, carteN);
 
+//=======
+
+                        coupAJouer = stratClient.getCoup(id, (JSONArray) args[0]);
+//>>>>>>> master
                     } catch (JSONException e){
                         Jeu.error("Error JSON !", e);
                     }
                 	connexion.emit("recuCarte", id);
-                    
                 }
             });
 
             connexion.on("debutTour", new Emitter.Listener(){
-                
-	           @Override
+                @Override
                 public final void call(Object... args) {
-                    
-                	connexion.emit("jouerCarte", new JSONObject(coupAJouer));
-                    
+                    connexion.emit("jouerCarte", new JSONObject(coupAJouer));
                 }
             });
 
