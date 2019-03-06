@@ -63,7 +63,7 @@ public class JeuTest {
         testDuJeu.recuperationCarte();
         // test le deck pour voir si le paquet a recupéré des cartes
         int tabDeck = testDuJeu.getDecks().get(0).size();
-        Jeu.log(tabDeck);
+        log(tabDeck);
         assertEquals(tailledeck+testDuJeu.getJoueurs().size(), tabDeck);
     }*/
 

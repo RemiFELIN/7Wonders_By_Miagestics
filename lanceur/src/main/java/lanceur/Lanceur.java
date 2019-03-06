@@ -2,7 +2,7 @@ package lanceur;
 
 import client.Client;
 import serveur.Serveur;
-import moteur.Jeu;
+import static moteur.Jeu.log;
 
 public class Lanceur {
 
@@ -12,8 +12,8 @@ public class Lanceur {
 
 
     public final static void main(String args[]) {
-        Jeu.log("\n\n------------------");
-        Jeu.log("Début programme !!");
+        log("\n\n------------------");
+        log("Début programme !!");
 
         final String info[] = new String[] { adresse, Integer.toString(port) };
         Thread serveur = new Thread(new Runnable() {
@@ -31,7 +31,6 @@ public class Lanceur {
                 @Override
                 public void run() {
                     Client.main(infoJoueur);
-
                 }
             });
             tabJoueurs[i].start();

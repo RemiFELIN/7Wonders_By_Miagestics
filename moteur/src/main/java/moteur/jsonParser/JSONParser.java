@@ -6,7 +6,7 @@ import org.json.JSONObject;
 
 import java.util.ArrayList;
 import moteur.Carte;
-import moteur.Jeu;
+import static moteur.Jeu.error;
 
 public class JSONParser {
     public static ArrayList<Carte> JSONToDeck(Object arg){
@@ -20,7 +20,7 @@ public class JSONParser {
             
             return al;
         } catch (JSONException e){
-            Jeu.error("JSON error", e);
+            error("JSON error", e);
             return null;
         }
     }

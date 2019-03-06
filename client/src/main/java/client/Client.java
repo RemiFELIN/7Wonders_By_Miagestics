@@ -8,7 +8,8 @@ import java.net.URISyntaxException;
 import java.util.Random;
 import java.util.ArrayList;
 
-import moteur.Jeu;
+import static moteur.Jeu.log;
+import static moteur.Jeu.error;
 import moteur.Carte;
 import moteur.action.Action;
 import static moteur.jsonParser.JSONParser.*;
@@ -32,15 +33,15 @@ public class Client {
         try {
             connexion = IO.socket(urlAdresse);
         } catch (URISyntaxException e) {
-            Jeu.error("Client: Crash dans Joueur " + this.id, e);
+            error("Client: Crash dans Joueur " + this.id, e);
             return;
         }
-        Jeu.log("Client: Abonnement connexion Joueur " + this.id);
+        log("Client: Abonnement connexion Joueur " + this.id);
 
         connexion.on("connect", new Emitter.Listener() {
             @Override
             public final void call(Object... args) {
-                Jeu.log("Client: connexion Joueur " + id);
+                log("Client: connexion Joueur " + id);
                 connexion.emit("rejoindre jeu", id);
             }
         });
@@ -48,7 +49,7 @@ public class Client {
         connexion.on("getCarte" + id, new Emitter.Listener() {
             @Override
             public final void call(Object... args) {
-                Jeu.log("Réception carte ! " + id);
+                log("Réception carte ! " + id);
                 ArrayList<Carte> deck = JSONToDeck(args[0]);
                 if(deck != null){
                     actionAJouer = (Action) stratClient.getAction(id, deck);

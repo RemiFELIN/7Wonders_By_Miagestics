@@ -11,6 +11,7 @@ import moteur.*;
 import moteur.jsonParser.JSONAction;
 import static moteur.jsonParser.JSONParser.*;
 import moteur.action.PoserCarte;
+import static moteur.Jeu.log;
 
 import java.util.ArrayList;
 
@@ -34,7 +35,7 @@ public class Serveur {
 
         serveur = new SocketIOServer(config);
 
-        Jeu.log("Serveur: Création listener\n");
+        log("Serveur: Création listener\n");
 
         serveur.addConnectListener(new ConnectListener() {
             public final void onConnect(SocketIOClient socketIOClient) {
@@ -47,12 +48,12 @@ public class Serveur {
             @Override
             public final void onData(SocketIOClient socketIOClient, Integer id, AckRequest ackRequest) throws Exception {
                 if (nbJoueursConnectees > MAX_JOUEURS) {
-                    Jeu.log("Connexion impossible: déjà " + MAX_JOUEURS + " joueurs dans la partie");
+                    log("Connexion impossible: déjà " + MAX_JOUEURS + " joueurs dans la partie");
                 } else {
-                    Jeu.log("Serveur: Connexion de joueur " + id);
+                    log("Serveur: Connexion de joueur " + id);
                     nbJoueursConnectees++;
                     if (nbJoueursConnectees == MIN_JOUEURS) {
-                        Jeu.log(MIN_JOUEURS + " joueurs de connectés: début de la partie\n");
+                        log(MIN_JOUEURS + " joueurs de connectés: début de la partie\n");
                         jeu = new Jeu(nbJoueursConnectees);
                         jeu.distributionCarte();
                         sendCartes();
@@ -82,30 +83,30 @@ public class Serveur {
 
                 nbJoueurCoupFini++;
                 if(nbJoueurCoupFini == nbJoueursConnectees){
-                    Jeu.log("\nFin tour ! Les scores :");
+                    log("\nFin tour ! Les scores :");
                     ArrayList<Joueur> tabJ = jeu.getJoueurs();
                     for(int i=0; i<tabJ.size(); i++) {
-                        Jeu.log("Score joueur " + i + " : " + tabJ.get(i).getScore());
+                        log("Score joueur " + i + " : " + tabJ.get(i).getScore());
                     }
                     for(int i = 0; i<tabJ.size()-2; i++){
                         if(!jeu.finJeu())
-                            Jeu.log("\nDébut du prochain tour:");
+                            log("\nDébut du prochain tour:");
                     }
                     if(jeu.finAge()){
-                        Jeu.log("Fin de l'Age !");
+                        log("Fin de l'Age !");
                         if(jeu.finJeu()){
-                            Jeu.log("Fin du jeu !");
+                            log("Fin du jeu !");
                             ArrayList<Joueur> clas = jeu.getClassement();
                             for(int i=0; i<clas.size(); i++) {
                                 Joueur j = clas.get(i);
-                                Jeu.log(i+1 + " > " + j.toString() + " avec " + j.getScore());
+                                log(i+1 + " > " + j.toString() + " avec " + j.getScore());
                             }
                         } else {
                             // Amélioration 
                             jeu.recuperationCarte();
-                            Jeu.log("\nRécupération de la dernière carte de l'Age");
+                            log("\nRécupération de la dernière carte de l'Age");
                             jeu.distributionCarte();
-                            Jeu.log("\nDistribution des nouveaux decks");
+                            log("\nDistribution des nouveaux decks");
                             jeu.roulementCarte();
                             sendCartes();
                             nbJoueurCoupFini = 0;
@@ -140,7 +141,7 @@ public class Serveur {
     }
 
     public final void démarrer() {
-        Jeu.log("Serveur: Démarrage");
+        log("Serveur: Démarrage");
         serveur.start();
     }
 
