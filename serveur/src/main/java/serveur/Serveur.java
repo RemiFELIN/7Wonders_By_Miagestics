@@ -18,7 +18,7 @@ public class Serveur {
     private Jeu jeu;
     private int nbJoueursConnectees = 0;
     private int nbJoueurCoupFini = 0;
-    private int carteDistribué =0;
+    private int carteDistribué = 0;
 
     private final static int MIN_JOUEURS = 3;
     private final static int MAX_JOUEURS = 3;
@@ -104,16 +104,12 @@ public class Serveur {
         });
     }
 
-
-
     public final void sendCartes() {
         for (int i = 0; i < nbJoueursConnectees; i++) {
             final ArrayList<Carte> carteJoueurs = jeu.getJoueurs().get(i).getDeckMain();
             client.sendEvent("getCarte" + i, carteJoueurs);
         }
     }
-
-
 
     public final void démarrer() {
         Jeu.log("Serveur: Démarrage");
@@ -128,5 +124,4 @@ public class Serveur {
             s.démarrer();
         }
     }
-
 }

@@ -23,7 +23,7 @@ public class JeuTest {
         ArrayList<Carte> deck = testDuJeu.getDeckPrincipal();
         ArrayList<Joueur> joueurs = testDuJeu.getJoueurs();
         int TAILLE_DECK = deck.size();
-        int NB_CARTES_PAR_JOUEURS = (int) Math.floor(testDuJeu.getDeckPrincipal().size()/joueurs.size());
+        int NB_CARTES_PAR_JOUEURS = (int) Math.floor(TAILLE_DECK/joueurs.size());
 
         testDuJeu.distributionCarte();
 
