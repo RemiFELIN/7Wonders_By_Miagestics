@@ -1,78 +1,44 @@
 package client;
 
-import moteur.Carte;
+import moteur.Coup;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
-
-import java.util.ArrayList;
-import java.util.Random;
 
 import static org.mockito.Mockito.* ;
-import org.mockito.Captor;
-import org.mockito.InjectMocks;
 import org.mockito.Mock;
 
 public class StratTest {
 
-    public String adresse="127.0.0.1";
-    public int port=10101;
-    public int id=1;
-
-    @Mock Client j1; Strategie stratClient;
+    @Mock
+    Strategie stratClient;
+    
+    JSONArray deck;
 
     @Before
-    public void setUp(){
-        j1=new Client(id,adresse,port);
+    public void setUp() throws JSONException {
+        deck = new JSONArray("[{value:1},{value:4},{value:2}]");
     }
 
     @Test
     public void testStratMax() throws Exception {
-        stratClient=new StratMax();
-        Field f2=Client.class.getDeclaredField("stratClient");
-        f2.setAccessible(true);
-        f2.set(j1,stratClient);
+        stratClient = new StratMax();
 
-        ArrayList<Carte> deck = new ArrayList<Carte>(5);
-        int carteN = -1, carteValue = -1;
-
-        for(byte i = 0; i<5; i++)
-            deck.add(new Carte(i));
-
-        for(int i = 0; i<5; i++)
-        {
-            int value = deck.get(i).getValue();
-            if(value > carteValue){
-                carteValue = value;
-                carteN = i;
-              }
-        }
-        assertEquals(4, carteValue);
+        assertEquals(1, stratClient.getCoup(0, deck).getNumeroCarte());
     }
 
     @Test
     public void testStratRandom() throws Exception {
-        stratClient=new StratRandom();
-        Field f2=Client.class.getDeclaredField("stratClient");
-        f2.setAccessible(true);
-        f2.set(j1,stratClient);
+        stratClient = new StratRandom();
 
-        ArrayList<Carte> deck = new ArrayList<Carte>(5);
-        Random randomNumberMock = org.mockito.Mockito.mock(Random.class);
+        StratRandom stratRandomMock = org.mockito.Mockito.mock(StratRandom.class);
+        when(stratRandomMock.getCoup(0, deck)).thenReturn(new Coup(0, 2));
 
-        for(byte i = 0; i<5; i++)
-        {
-            deck.add(new Carte(i));
-        }
 
-        when(randomNumberMock.nextInt(deck.size())).thenReturn(3);
-
-        int idCarte=randomNumberMock.nextInt(deck.size());
-
-        assertEquals(3, idCarte);
+        Coup coup = stratRandomMock.getCoup(0, deck);
+        assertEquals(2, coup.getNumeroCarte());
     }
 }

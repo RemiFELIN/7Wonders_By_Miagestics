@@ -2,13 +2,16 @@ package moteur;
 
 public class Carte {
     private int valeur;
+    private int age;
 
-    public Carte(int nb) {
-        this.valeur = nb;
+    public Carte(int val, int age) {
+        this.valeur = val;
+        this.age = age;
+
     }
 
     public int getValue() {
-        return this.valeur;
+        return this.valeur * this.age;
     }
 
     String descriptionCarte() {

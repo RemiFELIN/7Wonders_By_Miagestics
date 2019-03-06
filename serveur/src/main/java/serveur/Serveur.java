@@ -52,6 +52,7 @@ public class Serveur {
                     if (nbJoueursConnectees == MIN_JOUEURS) {
                         Jeu.log(MIN_JOUEURS + " joueurs de connectés: début de la partie\n");
                         jeu = new Jeu(nbJoueursConnectees);
+                        jeu.distributionCarte();
                         sendCartes();
                     }
                 }
@@ -61,7 +62,6 @@ public class Serveur {
         serveur.addEventListener("jouerCarte", Coup.class, new DataListener<Coup>(){
             @Override
             public final void onData(SocketIOClient socketIOClient, Coup coup, AckRequest ackRequest) throws Exception {
-
                 Jeu.log(coup.toString());
                 jeu.getJoueurs().get(coup.getId()).poserCarte(coup.getNumeroCarte());
                 nbJoueurCoupFini++;
@@ -75,39 +75,48 @@ public class Serveur {
                         if(!jeu.finJeu())
                             Jeu.log("\nDébut du prochain tour:");
                     }
-                    if(jeu.finJeu()){
-                        Jeu.log("Fin du jeu !");
-                        ArrayList<Joueur> clas = jeu.getClassement();
-                        for(int i=0; i<clas.size(); i++) {
-                            Joueur j = clas.get(i);
-                            Jeu.log(i+1 + " > " + j.toString() + " avec " + j.getScore());
+                    if(jeu.finAge()){
+                        Jeu.log("Fin de l'Age !");
+                        if(jeu.finJeu()){
+                            Jeu.log("Fin du jeu !");
+                            ArrayList<Joueur> clas = jeu.getClassement();
+                            for(int i=0; i<clas.size(); i++) {
+                                Joueur j = clas.get(i);
+                                Jeu.log(i+1 + " > " + j.toString() + " avec " + j.getScore());
+                            }
+                        } else {
+                            // Amélioration 
+                            jeu.recuperationCarte();
+                            Jeu.log("\nRécupération de la dernière carte de l'Age");
+                            jeu.distributionCarte();
+                            Jeu.log("\nDistribution des nouveaux decks");
+                            jeu.roulementCarte();
+                            sendCartes();
+                            nbJoueurCoupFini = 0;
                         }
+                        
                     } else {
                         jeu.roulementCarte();
                         sendCartes();
                         nbJoueurCoupFini = 0;
+                        }
                     }
+
                 }
             }
-        });
+        );
 
         serveur.addEventListener("recuCarte", Integer.class, new DataListener<Integer>() {
             @Override
             public final void onData(SocketIOClient socketIOClient, Integer id, AckRequest ackRequest) throws Exception {
-
                 carteDistribué++;
-
                 if (carteDistribué == nbJoueursConnectees ){
-
                     carteDistribué = 0;
                     client.sendEvent("debutTour");
                 }
-
             }
         });
     }
-
-
 
     public final void sendCartes() {
         for (int i = 0; i < nbJoueursConnectees; i++) {
@@ -115,8 +124,6 @@ public class Serveur {
             client.sendEvent("getCarte" + i, carteJoueurs);
         }
     }
-
-
 
     public final void démarrer() {
         Jeu.log("Serveur: Démarrage");

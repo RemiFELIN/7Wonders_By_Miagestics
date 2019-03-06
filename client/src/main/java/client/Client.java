@@ -3,14 +3,10 @@ package client;
 import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
-import com.google.gson.Gson;
 
-import java.lang.reflect.Type;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
 import java.util.Random;
 
-import moteur.Carte;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -50,29 +46,19 @@ public class Client {
                 @Override
                 public final void call(Object... args) {
                     Jeu.log("Réception carte ! " + id);
-                    int carteN = -1, carteValue = -1;
                     try {
-                        JSONArray jo = (JSONArray) args[0];
-
-                       /* Gson gson = new Gson();
-                        ArrayList<Carte> deck=gson.fromJson(jo.toString(), ArrayList.class);*/
-                        coupAJouer = stratClient.getCoup(jo,id);
-
+                        coupAJouer = stratClient.getCoup(id, (JSONArray) args[0]);
                     } catch (JSONException e){
                         Jeu.error("Error JSON !", e);
                     }
-                    connexion.emit("recuCarte", id);
-
+                	connexion.emit("recuCarte", id);
                 }
             });
 
             connexion.on("debutTour", new Emitter.Listener(){
-
                 @Override
                 public final void call(Object... args) {
-
                     connexion.emit("jouerCarte", new JSONObject(coupAJouer));
-
                 }
             });
 

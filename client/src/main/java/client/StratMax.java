@@ -1,17 +1,15 @@
 package client;
 
-import moteur.Carte;
 import moteur.Coup;
 import moteur.Jeu;
+
 import org.json.JSONArray;
 import org.json.JSONException;
-
-import java.util.ArrayList;
 
 public class StratMax extends Strategie {
 
 	@Override
-	public Coup getCoup(JSONArray deck, int idJoueur) throws JSONException {
+	public Coup getCoup(int idJoueur, JSONArray deck) throws JSONException {
 
         int carteN = -1, carteValue = -1;
         try
@@ -23,7 +21,6 @@ public class StratMax extends Strategie {
                     carteN = i;
                 }
             }
-
         }
         catch(JSONException e)
         {
@@ -31,5 +28,9 @@ public class StratMax extends Strategie {
         }
         return new Coup(idJoueur,carteN);
 	}
-
+	
+	@Override
+	public String toString(){
+		return super.toString() + " max";
+	}
 }
