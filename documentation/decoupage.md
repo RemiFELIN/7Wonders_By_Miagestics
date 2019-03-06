@@ -16,7 +16,7 @@
 > Une première version *minimaliste* du jeu (de 3 à 7 joueurs, uniquement des cartes *laurier* donnant des points)
 
 
-### Livraison 2 <img src="https://img.icons8.com/metro/26/000000/in-progress.png">
+### Livraison 2 <img src="https://img.icons8.com/metro/26/000000/checkmark.png">
 > Intégration des test unitaires et corrections de bugs
 >
 > Intégration de la notion *"d'âges"* (3 manches avec plusieurs tours)
@@ -25,7 +25,7 @@
 > 
 > Intégration de *stratégie* pour les joueurs (1 pour le moment)
 
-### Livraison 3 <img src="https://img.icons8.com/metro/26/000000/spinner-frame-3.png">
+### Livraison 3 <img src="https://img.icons8.com/metro/26/000000/in-progress.png">
 > Intégration rapports UML
 >
 > Intégration des cartes "ressources" 
