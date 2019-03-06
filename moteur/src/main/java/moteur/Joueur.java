@@ -20,7 +20,11 @@ public class Joueur {
     }
 
     public final ArrayList<Carte> getDeckMain() {
-        return deckMain;
+        return this.deckMain;
+    }
+
+    public final Carte getDerniereCarte(){
+        return this.deckMain.remove(0);
     }
 
     public final Carte poserCarte(int index){

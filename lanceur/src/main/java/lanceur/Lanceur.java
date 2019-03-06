@@ -10,8 +10,8 @@ public class Lanceur {
     private final static int port = 10101;
     private final static int nombre_joueurs = 3;
 
-    public final static void main(String args[]) {
 
+    public final static void main(String args[]) {
         Jeu.log("\n\n------------------");
         Jeu.log("Début programme !!");
 
@@ -31,6 +31,7 @@ public class Lanceur {
                 @Override
                 public void run() {
                     Client.main(infoJoueur);
+
                 }
             });
             tabJoueurs[i].start();

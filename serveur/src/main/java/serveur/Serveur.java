@@ -8,6 +8,9 @@ import com.corundumstudio.socketio.listener.ConnectListener;
 import com.corundumstudio.socketio.listener.DataListener;
 
 import moteur.*;
+import moteur.jsonParser.JSONAction;
+import static moteur.jsonParser.JSONParser.*;
+import moteur.action.PoserCarte;
 
 import java.util.ArrayList;
 
@@ -58,12 +61,25 @@ public class Serveur {
             }
         });
 
-        serveur.addEventListener("jouerCarte", Coup.class, new DataListener<Coup>(){
+        serveur.addEventListener("jouerCarte", JSONAction.class, new DataListener<JSONAction>(){
             @Override
-            public final void onData(SocketIOClient socketIOClient, Coup coup, AckRequest ackRequest) throws Exception {
-                
-                Jeu.log(coup.toString());
-                jeu.getJoueurs().get(coup.getId()).poserCarte(coup.getNumeroCarte());
+            public final void onData(SocketIOClient socketIOClient, JSONAction a, AckRequest ackRequest) throws Exception {
+                switch(a.type){
+
+                    case "DefausserCarte":
+                        //TODO: implementer Défaussage de carte !
+                        throw new Exception("Action non implémenter");
+
+                    case "PoserCarte":
+                        PoserCarte pc = new PoserCarte(a.idJoueur, a.numeroCarte);
+                        jeu.getJoueurs().get(pc.getIdJoueur()).poserCarte(pc.getNumeroCarte());
+                    break;
+
+
+                    default:
+                        throw new Exception("Action non autorisée");
+                }
+
                 nbJoueurCoupFini++;
                 if(nbJoueurCoupFini == nbJoueursConnectees){
                     Jeu.log("\nFin tour ! Les scores :");
@@ -75,14 +91,26 @@ public class Serveur {
                         if(!jeu.finJeu())
                             Jeu.log("\nDébut du prochain tour:");
                     }
-                    if(jeu.finJeu()){
-                        Jeu.log("\n---------------------------");
-                        Jeu.log("Fin du jeu !");
-                        ArrayList<Joueur> clas = jeu.getClassement();
-                        for(int i=0; i<clas.size(); i++) {
-                            Joueur j = clas.get(i);
-                            Jeu.log(i+1 + " > " + j.toString() + " avec " + j.getScore());
+                    if(jeu.finAge()){
+                        Jeu.log("Fin de l'Age !");
+                        if(jeu.finJeu()){
+                            Jeu.log("Fin du jeu !");
+                            ArrayList<Joueur> clas = jeu.getClassement();
+                            for(int i=0; i<clas.size(); i++) {
+                                Joueur j = clas.get(i);
+                                Jeu.log(i+1 + " > " + j.toString() + " avec " + j.getScore());
+                            }
+                        } else {
+                            // Amélioration 
+                            jeu.recuperationCarte();
+                            Jeu.log("\nRécupération de la dernière carte de l'Age");
+                            jeu.distributionCarte();
+                            Jeu.log("\nDistribution des nouveaux decks");
+                            jeu.roulementCarte();
+                            sendCartes();
+                            nbJoueurCoupFini = 0;
                         }
+                        
                     } else {
                         jeu.roulementCarte();
                         sendCartes();
@@ -106,8 +134,8 @@ public class Serveur {
 
     public final void sendCartes() {
         for (int i = 0; i < nbJoueursConnectees; i++) {
-            final ArrayList<Carte> carteJoueurs = jeu.getJoueurs().get(i).getDeckMain();
-            client.sendEvent("getCarte" + i, carteJoueurs);
+            String ja = deckToJSON(jeu.getJoueurs().get(i).getDeckMain());
+            client.sendEvent("getCarte" + i, ja);
         }
     }
 
