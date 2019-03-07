@@ -12,8 +12,6 @@ Nous avons réussi les points suivants (objectif atteint) :
 
 > Implémentation d'une interface *ICarte* et de cartes donnant accès à certaines ressources (*Caserne*, *Cavité*, *Taverne* et *Théâtre*)
 
-> Implémentation des 3 âges 
-
 > Implémentation stratégie "*farming*" (nommé "StratRessources" dans le projet)
 
 > implémentation de l'argent (pour les joueurs et les cartes implémentées)
