@@ -10,8 +10,8 @@ public abstract class Carte implements ICarte {
     protected int laurier = 0;
     protected int puissanceMilitaire = 0;
     protected int gold = 0;
-    protected ArrayList<Ressources> coutRessources;
-    protected ArrayList<Ressources> ressources;
+    protected ArrayList<Ressources> coutRessources = new ArrayList<Ressources>();
+    protected ArrayList<Ressources> ressources = new ArrayList<Ressources>();
     protected String nom;
     protected String symboleScientifique;//enum a rajouter par la suite
     protected String description;
@@ -58,7 +58,7 @@ public abstract class Carte implements ICarte {
     }
 
     public final String descriptionCarte() {
-        return "Ma valeur est " + Integer.toString(laurier);
+        return "Ma valeur est " + laurier;
     }
 
     public final String getSymboleScientifique() {

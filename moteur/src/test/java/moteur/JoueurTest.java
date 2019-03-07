@@ -3,7 +3,7 @@ package moteur;
 import org.junit.Before;
 import org.junit.Test;
 
-import moteur.carte.Taverne;
+import moteur.carte.Theatre;
 
 import static org.junit.Assert.*;
 
@@ -18,16 +18,18 @@ public class JoueurTest {
         joueur = new Joueur(1);
     }
 
-   // @Test
-   // public void testCalculScore() {
-   //     ArrayList<Carte> deck = new ArrayList<Carte>(5);
-   //     for(byte i = 0; i<5; i++)
-   //         deck.add();
-       
-   //     joueur.setDeckMain(deck);
-   //     for(byte i = 0; i<5; i++)
-   //         joueur.poserCarte(0);
+    @Test
+    public void testCalculScore() {
+        ArrayList<Carte> deck = new ArrayList<Carte>(5);
+        int nbCarte = 5;
+        for(byte i = 0; i<nbCarte; i++)
+            deck.add(new Theatre());
+     
+        joueur.setDeckMain(deck);
+        for(byte i = 0; i<nbCarte; i++)
+            joueur.poserCarte(0);
 
-   //     assertEquals(10, joueur.getScore());
-   // }
+        //5 gold + 10 Score laurier
+        assertEquals(15, joueur.getScore());
+    }
 }

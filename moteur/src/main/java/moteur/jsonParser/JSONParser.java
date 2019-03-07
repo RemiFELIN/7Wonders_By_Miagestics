@@ -17,24 +17,7 @@ public class JSONParser {
             ArrayList<Carte> al = new ArrayList<Carte>(deck.length());
             for (int i = 0; i < deck.length(); i++){
                 JSONObject oc = deck.getJSONObject(i);
-                Carte c = null;
-                switch(oc.getString("nom")){
-                    case "Taverne":
-                        c = new Taverne();
-                    break;
-
-                    case "Cavite":
-                        c = new Cavite();
-                    break;
-
-                    case "Theatre":
-                        c = new Theatre();
-                    break;
-
-                    case "Caserne":
-                        c = new Caserne();
-                    break;
-                }
+                Carte c = JSONToCarte(oc.getString("nom"));
                 if(c != null)
                     al.add(c);
             }
@@ -44,6 +27,28 @@ public class JSONParser {
             error("JSON error", e);
             return null;
         }
+    }
+
+    public static Carte JSONToCarte(String nom){
+        Carte c = null;
+        switch(nom){
+            case "Taverne":
+                c = new Taverne();
+            break;
+
+            case "Cavite":
+                c = new Cavite();
+            break;
+
+            case "Theatre":
+                c = new Theatre();
+            break;
+
+            case "Caserne":
+                c = new Caserne();
+            break;
+        }
+        return c;
     }
 
     public static String deckToJSON(ArrayList<Carte> deck){

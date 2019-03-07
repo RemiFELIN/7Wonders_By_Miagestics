@@ -36,9 +36,15 @@ public class Joueur {
 
     public final int getScore() {
         int score = 0;
-        for(int i=0; i<deckPlateau.size(); i++)
-            score += deckPlateau.get(i).getLaurier();
+        for(int i=0; i<deckPlateau.size(); i++){
+            Carte c = deckPlateau.get(i);
+            //Calcul laurier
+            score += c.getLaurier();
+        }
         
+        //Calcul gold
+        score += gold;
+
         return score;
     }
 

@@ -5,6 +5,8 @@ import org.junit.Test;
 
 import moteur.carte.Taverne;
 
+import static moteur.Jeu.log;
+
 import java.util.ArrayList;
 import java.lang.reflect.Field;
 
@@ -51,23 +53,23 @@ public class JeuTest {
         assertEquals(joueurs.get(joueurs.size() - 1).getDeckMain(), first);
     }
 
-    /*@Test
+    @Test
     public void recuperationCarteTest(){
 
-        changeField("age", 2);
         int tailledeck = testDuJeu.getDecks().get(0).size();
-        int joueurs = testDuJeu.getJoueurs().size();
-        ArrayList<Carte> c = new ArrayList<Carte>(1);
-        c.add(new Carte(2, 2));
-        for (int i = 0; i < joueurs; i++)
-           testDuJeu.getJoueurs().get(i).setDeckMain(c);
 
+        changeField("TAILLE_DECK", 1);
+        testDuJeu.distributionCarte();
+
+        assertEquals(true, testDuJeu.finAge());
         testDuJeu.recuperationCarte();
-        // test le deck pour voir si le paquet a recupéré des cartes
+        // test le deck pour voir si le paquet a recupéré toutes les cartes cartes
         int tabDeck = testDuJeu.getDecks().get(0).size();
-        log(tabDeck);
-        assertEquals(tailledeck+testDuJeu.getJoueurs().size(), tabDeck);
-    }*/
+        assertEquals(tailledeck, tabDeck);
+        ArrayList<Joueur> joueurs = testDuJeu.getJoueurs();
+        for (int i = 0; i < joueurs.size(); i++) 
+            assertEquals(0, joueurs.get(i).getDeckMain().size());
+    }
 
    @Test
    public void finAgeTest() {
@@ -90,12 +92,9 @@ public class JeuTest {
    @Test
    public void finJeuTest() {
        changeField("age", 1);
-       assertEquals(false,testDuJeu.finJeu());
-
+       assertEquals(false, testDuJeu.finJeu());
        changeField("age", 4);
-
-       assertEquals(true,testDuJeu.finJeu());
-
+       assertEquals(true, testDuJeu.finJeu());
    }
 
    private void changeField(String nomField, Object value){
@@ -105,7 +104,7 @@ public class JeuTest {
            f.setAccessible(true);
            f.set(testDuJeu, value); 
        } catch (Exception e) {
-           // TODO Auto-generated catch block
+           log("Test: Impossible de modifier le champ "+nomField);
        } 
    }
 }

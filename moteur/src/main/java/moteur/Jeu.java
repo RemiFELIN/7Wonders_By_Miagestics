@@ -27,15 +27,18 @@ public class Jeu {
     public final void initCartes() {
         for (int j = 1; j <= 3; j++){
             ArrayList<Carte> tabCarte = new ArrayList<Carte>(NBCARTES);
-            for (int i = 0; i < NBCARTES/2; i++)
+            byte moitier = (byte) Math.floor(NBCARTES/2);
+
+            for (byte i = 0; i < moitier; i++)
                 tabCarte.add(new Theatre());
-            if(NBCARTES/2 == 1){
-                for (int i = 0; i < NBCARTES/2 + 1; i++)
-                    tabCarte.add(new Taverne());
-            }else{
-                for (int i = 0; i < NBCARTES/2; i++)
-                    tabCarte.add(new Taverne());
-            }
+
+            for (byte i = 0; i < moitier+1; i++)
+                tabCarte.add(new Taverne());
+
+            //Code mort ==> 35%2 === 1
+            //if(NBCARTES%2 == 1)
+            //   tabCarte.add(new Taverne());
+            
             Collections.shuffle(tabCarte);
             tabDeck.add(tabCarte);
         }
@@ -65,18 +68,15 @@ public class Jeu {
     }
 
     public final void recuperationCarte(){
-        for (int i=0; i<mesJoueurs.size(); i++) {
+        for (int i=0; i<mesJoueurs.size(); i++)
             tabDeck.get(age-2).add(mesJoueurs.get(i).getDerniereCarte());
-        }
     }
     
     public final boolean finAge(){
-        
         if (mesJoueurs.get(0).getDeckMain().size() == 1){
             this.age++;
             return true;
-        }
-        else
+        } else
             return false;
     }
 
