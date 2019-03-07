@@ -1,6 +1,7 @@
 package client;
 
 import moteur.action.PoserCarte;
+import moteur.carte.Theatre;
 
 import java.util.ArrayList;
 import moteur.Carte;
@@ -22,9 +23,9 @@ public class StratTest {
     @Before
     public void setUp() {
         deck = new ArrayList<Carte>();
-        deck.add(new Carte(2,1));
-        deck.add(new Carte(4,1));
-        deck.add(new Carte(3,1));
+        deck.add(new Theatre());
+        deck.add(new Theatre());
+        deck.add(new Theatre());
     }
 
     @Test
@@ -32,7 +33,7 @@ public class StratTest {
         stratClient = new StratMax();
 
         PoserCarte pc = (PoserCarte) stratClient.getAction(0, deck);
-        assertEquals(1, pc.getNumeroCarte());
+        assertEquals(0, pc.getNumeroCarte());
     }
 
     @Test

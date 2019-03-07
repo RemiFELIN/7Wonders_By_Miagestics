@@ -10,7 +10,7 @@ import com.corundumstudio.socketio.listener.DataListener;
 import moteur.*;
 import moteur.jsonParser.JSONAction;
 import static moteur.jsonParser.JSONParser.*;
-import moteur.action.PoserCarte;
+//import moteur.action.PoserCarte;
 import static moteur.Jeu.log;
 
 import java.util.ArrayList;
@@ -72,8 +72,8 @@ public class Serveur {
                         throw new Exception("Action non implémenter");
 
                     case "PoserCarte":
-                        PoserCarte pc = new PoserCarte(a.idJoueur, a.numeroCarte);
-                        jeu.getJoueurs().get(pc.getIdJoueur()).poserCarte(pc.getNumeroCarte());
+                        //PoserCarte pc = new PoserCarte(a.idJoueur, a.numeroCarte);
+                        jeu.getJoueurs().get(a.idJoueur).poserCarte(a.numeroCarte);
                     break;
 
 

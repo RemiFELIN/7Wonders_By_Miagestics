@@ -3,6 +3,8 @@ package moteur;
 import org.junit.Before;
 import org.junit.Test;
 
+import moteur.carte.Taverne;
+
 import java.util.ArrayList;
 import java.lang.reflect.Field;
 
@@ -67,43 +69,43 @@ public class JeuTest {
         assertEquals(tailledeck+testDuJeu.getJoueurs().size(), tabDeck);
     }*/
 
-    @Test
-    public void finAgeTest() {
-        // modifier le deck main pour qu'il reste qu'une seule carte
-        ArrayList<Joueur> joueurs = testDuJeu.getJoueurs();
-        ArrayList<Carte> c = new ArrayList<Carte>();
-        c.add(new Carte(1, 1));
-        for (int i = 0; i < joueurs.size(); i++) {
-            joueurs.get(0).setDeckMain(c);
-        }
-        assertEquals(true, testDuJeu.finAge());
-        // modifier le deck main pour qu'il reste plusieurs cartes
-        c.add(new Carte(1, 1));
-        for (int i = 0; i < joueurs.size(); i++) {
-            joueurs.get(0).setDeckMain(c);
-        }
-        assertEquals(false, testDuJeu.finAge());
-    }
+   @Test
+   public void finAgeTest() {
+       // modifier le deck main pour qu'il reste qu'une seule carte
+       ArrayList<Joueur> joueurs = testDuJeu.getJoueurs();
+       ArrayList<Carte> c = new ArrayList<Carte>();
+       c.add(new Taverne());
+       for (int i = 0; i < joueurs.size(); i++) {
+           joueurs.get(0).setDeckMain(c);
+       }
+       assertEquals(true, testDuJeu.finAge());
+       // modifier le deck main pour qu'il reste plusieurs cartes
+       c.add(new Taverne());
+       for (int i = 0; i < joueurs.size(); i++) {
+           joueurs.get(0).setDeckMain(c);
+       }
+       assertEquals(false, testDuJeu.finAge());
+   }
 
-    @Test
-    public void finJeuTest() {
-        changeField("age", 1);
-        assertEquals(false,testDuJeu.finJeu());
+   @Test
+   public void finJeuTest() {
+       changeField("age", 1);
+       assertEquals(false,testDuJeu.finJeu());
 
-        changeField("age", 4);
+       changeField("age", 4);
 
-        assertEquals(true,testDuJeu.finJeu());
+       assertEquals(true,testDuJeu.finJeu());
 
-    }
+   }
 
-    private void changeField(String nomField, Object value){
-        Field f;
-        try {
-            f = Jeu.class.getDeclaredField(nomField);
-            f.setAccessible(true);
-            f.set(testDuJeu, value); 
-        } catch (Exception e) {
-            // TODO Auto-generated catch block
-        } 
-    }
+   private void changeField(String nomField, Object value){
+       Field f;
+       try {
+           f = Jeu.class.getDeclaredField(nomField);
+           f.setAccessible(true);
+           f.set(testDuJeu, value); 
+       } catch (Exception e) {
+           // TODO Auto-generated catch block
+       } 
+   }
 }
