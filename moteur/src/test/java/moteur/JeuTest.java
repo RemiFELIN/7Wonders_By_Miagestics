@@ -47,10 +47,21 @@ public class JeuTest {
         ArrayList<Carte> first = joueurs.get(0).getDeckMain();
         testDuJeu.roulementCarte();
 
-        for (int j = 0; j < joueurs.size() - 1; j++) {
+        for (int j = 0; j < joueurs.size() - 1; j++)
             assertEquals(joueurs.get(j).getDeckMain(), joueurs.get(j + 1).getDeckMain());
-        }
+        
         assertEquals(joueurs.get(joueurs.size() - 1).getDeckMain(), first);
+
+        changeField("age", 2);
+        int size = joueurs.size()-1;
+        ArrayList<Carte> last = joueurs.get(size).getDeckMain();
+        
+        testDuJeu.roulementCarte();
+
+        for(int j=size; j>0; j--)
+            assertEquals(joueurs.get(j).getDeckMain(), joueurs.get(j - 1).getDeckMain());
+        
+        assertEquals(joueurs.get(0).getDeckMain(), last);
     }
 
     @Test

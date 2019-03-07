@@ -1,6 +1,5 @@
 package moteur;
 
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -41,17 +40,24 @@ public class Jeu {
             
             Collections.shuffle(tabCarte);
             tabDeck.add(tabCarte);
-        }
-        
-}
+        }    
+    }
 
     public final void roulementCarte(){
-        //TODO autre sens
-        ArrayList<Carte> first = mesJoueurs.get(0).getDeckMain();
-        for(int i=0; i<mesJoueurs.size()-1; i++)
-            mesJoueurs.get(i).setDeckMain(mesJoueurs.get(i+1).getDeckMain());
-        
-        mesJoueurs.get(mesJoueurs.size()-1).setDeckMain(first);
+        if(age%2 == 1){ //Pour age 1 et 3
+            ArrayList<Carte> first = mesJoueurs.get(0).getDeckMain();
+            for(int i=0; i<mesJoueurs.size()-1; i++)
+                mesJoueurs.get(i).setDeckMain(mesJoueurs.get(i+1).getDeckMain());
+            
+            mesJoueurs.get(mesJoueurs.size()-1).setDeckMain(first);
+        } else { //Pour age 2
+            int size = mesJoueurs.size()-1;
+            ArrayList<Carte> last = mesJoueurs.get(size).getDeckMain();
+            for(int i=size; i>0; i--)
+                mesJoueurs.get(i).setDeckMain(mesJoueurs.get(i-1).getDeckMain());
+            
+            mesJoueurs.get(0).setDeckMain(last);
+        }
     }
 
     public final void distributionCarte() {
@@ -64,7 +70,6 @@ public class Jeu {
             }
             mesJoueurs.get(i).setDeckMain(carteJoueur);
         }
-        log("Les cartes ont été distribuées !\n");
     }
 
     public final void recuperationCarte(){
@@ -126,7 +131,6 @@ public class Jeu {
     public final int getTailleDeck(){
         return TAILLE_DECK;
     }
-
 
     public final ArrayList<Carte> getDeckMain(){
         return mesJoueurs.get(0).getDeckMain();
