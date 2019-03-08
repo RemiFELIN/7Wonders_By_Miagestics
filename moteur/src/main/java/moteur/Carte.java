@@ -6,19 +6,19 @@ import java.util.ArrayList;
 
 public abstract class Carte implements ICarte {
 
-    private Color couleur;
-    private int coutPiece = 0;
-    private int laurier = 0;
-    private int puissanceMilitaire = 0;
-    private int gold = 0;
-    private ArrayList<Ressources> coutRessources;
-    private ArrayList<Ressources> ressources;
-    private String nom;
-    private String symboleScientifique;//enum a rajouter par la suite
-    private String description;
-    private String nextBuilding;
-    private String getSpecialEffect;
-    private int age;
+    protected Color couleur;
+    protected int coutPiece = 0;
+    protected int laurier = 0;
+    protected int puissanceMilitaire = 0;
+    protected int piece = 0;
+    protected ArrayList<Ressources> coutRessources;
+    protected ArrayList<Ressources> ressources;
+    protected String nom;
+    protected String symboleScientifique;//enum a rajouter par la suite
+    protected String description;
+    protected String nextBuilding;
+    protected String specialEffect;
+    protected int age;
     
 
     public Carte(Color c,String n, int a){
@@ -33,14 +33,10 @@ public abstract class Carte implements ICarte {
     
     public int getValue() {
         return this.laurier;
-}
-//     public String toJSON(){
-//         return "{ valeur: "+this.laurier+" }";
-// }
+	}
 
     public String getNom() {
         return this.nom;
-
     }
 
     public int getAge() {
@@ -48,44 +44,42 @@ public abstract class Carte implements ICarte {
     }
 
     public int getCoutPiece() {
-        return 0;
+        return this.coutPiece;
     }
 
     public int getLaurier() {
-        return 0;
+        return this.laurier;
     }
 
     public int getPuissanceMilitaire() {
-        return 0;
+        return this.puissanceMilitaire;
     }
 
     public String getSymboleScientifique() {
-        return null;
+        return this.symboleScientifique;
     }
 
     public String getDescription() {
-        return null;
+        return this.description;
     }
 
     public String getNextBuilding() {
-        return null;
+        return this.nextBuilding;
     }
 
     public String getSpecialEffect() {
-        return null;
+        return this.specialEffect;
     }
 
-    public int getGold() {
-        return 0;
+    public int getPiece() {
+        return this.piece;
     }
 
     public ArrayList<Ressources> getRessources() {
-        return null;
+        return this.ressources;
     }
 
     public ArrayList<Ressources> getCoutRessources() {
-        return null;
+        return this.coutRessources;
     }
-
-
 }

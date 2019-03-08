@@ -7,14 +7,8 @@ import moteur.Ressources;
 
 public class Taverne extends Carte {
 
-    
-    public Taverne(){super(Color.YELLOW,"Taverne",1);}
-
-    @Override
-    public int getGold() {
-        return 5;
+    public Taverne(){
+    	super(Color.YELLOW,"Taverne",1);
+    	super.piece = 5;
     }
-
-
-    
 }
