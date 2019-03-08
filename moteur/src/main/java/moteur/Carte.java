@@ -13,14 +13,14 @@ public abstract class Carte implements ICarte {
     protected ArrayList<Ressources> coutRessources = new ArrayList<Ressources>();
     protected ArrayList<Ressources> ressources = new ArrayList<Ressources>();
     protected String nom;
-    protected String symboleScientifique;//enum a rajouter par la suite
+    protected String symboleScientifique;// enum a rajouter par la suite
     protected String description;
     protected String nextBuilding;
     protected String getSpecialEffect;
     protected int age;
-    
-    public Carte(Color c, String n, int a){
-        this.couleur = c;//couleur noir pour les ressources
+
+    public Carte(Color c, String n, int a) {
+        this.couleur = c;// couleur noir pour les ressources
         this.nom = n;
         this.age = a;
     }
@@ -28,7 +28,7 @@ public abstract class Carte implements ICarte {
     public final Color getCouleur() {
         return this.couleur;
     }
-    
+
     public final int getValue() {
         return this.laurier;
     }
@@ -53,14 +53,6 @@ public abstract class Carte implements ICarte {
         return puissanceMilitaire;
     }
 
-    public final String toJSON(){
-        return "{ nom: '"+nom+"' }";
-    }
-
-    public final String descriptionCarte() {
-        return "Ma valeur est " + laurier;
-    }
-
     public final String getSymboleScientifique() {
         return symboleScientifique;
     }
@@ -82,10 +74,14 @@ public abstract class Carte implements ICarte {
     }
 
     public final ArrayList<Ressources> getRessources() {
-        return coutRessources;
+        return ressources;
     }
 
     public final ArrayList<Ressources> getCoutRessources() {
-        return ressources;
+        return coutRessources;
+    }
+
+    public final String toJSON() {
+        return "{ nom: '" + nom + "' }";
     }
 }

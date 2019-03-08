@@ -1,7 +1,7 @@
 package client;
 
 import moteur.action.PoserCarte;
-import moteur.carte.Theatre;
+import moteur.carte.*;
 
 import java.util.ArrayList;
 import moteur.Carte;
@@ -10,20 +10,21 @@ import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-import static org.mockito.Mockito.* ;
+import static org.mockito.Mockito.*;
 import org.mockito.Mock;
 
 public class StratTest {
 
     @Mock
     Strategie stratClient;
-    
+
     ArrayList<Carte> deck;
 
     @Before
     public void setUp() {
         deck = new ArrayList<Carte>();
         deck.add(new Theatre());
+        deck.add(new Cavite());
         deck.add(new Theatre());
         deck.add(new Theatre());
     }
@@ -45,5 +46,13 @@ public class StratTest {
 
         PoserCarte pc = (PoserCarte) stratRandomMock.getAction(0, deck);
         assertEquals(2, pc.getNumeroCarte());
+    }
+
+    @Test
+    public void testStratRessources() throws Exception {
+        stratClient = new StratRessources();
+
+        PoserCarte pc = (PoserCarte) stratClient.getAction(0, deck);
+        assertEquals(1, pc.getNumeroCarte());
     }
 }
