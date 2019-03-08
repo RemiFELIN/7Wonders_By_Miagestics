@@ -4,6 +4,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import moteur.carte.Taverne;
+import moteur.jsonParser.JSONAction;
+import moteur.action.*;
 
 import static moteur.Jeu.log;
 
@@ -106,6 +108,35 @@ public class JeuTest {
        assertEquals(false, testDuJeu.finJeu());
        changeField("age", 4);
        assertEquals(true, testDuJeu.finJeu());
+   }
+
+   @Test
+   public void jouerActionTest(){
+        testDuJeu.distributionCarte();
+
+        JSONAction ja = new JSONAction();
+        ja.idJoueur = 0;
+        ja.numeroCarte = 2;
+        ja.type = "PoserCarte";
+
+        int prevSize = testDuJeu.getJoueurs().get(0).getDeckMain().size();
+        assertEquals(true, testDuJeu.jouerAction(ja));
+        int afterSize = testDuJeu.getJoueurs().get(0).getDeckMain().size();
+        assertEquals(afterSize, prevSize-1);
+
+        ja.idJoueur = 1;
+        ja.numeroCarte = 0;
+        ja.type = "DefausserCarte";
+
+        assertEquals(true, testDuJeu.jouerAction(ja));
+
+        prevSize = testDuJeu.getJoueurs().get(1).getDeckMain().size();
+        int prevPiece = testDuJeu.getJoueurs().get(1).getPiece();
+        assertEquals(true, testDuJeu.jouerAction(ja));
+        afterSize = testDuJeu.getJoueurs().get(1).getDeckMain().size();
+        int afterPiece = testDuJeu.getJoueurs().get(1).getPiece();
+        assertEquals(afterSize, prevSize-1);
+        assertEquals(prevPiece+3, afterPiece);
    }
 
    private void changeField(String nomField, Object value){

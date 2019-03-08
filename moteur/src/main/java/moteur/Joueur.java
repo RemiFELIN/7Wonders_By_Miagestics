@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Joueur {
 
     private int id;
-    private int gold = 5;
+    private int piece = 5;
     private ArrayList<Carte> deckPlateau = new ArrayList<Carte>();
     private ArrayList<Carte> deckMain = new ArrayList<Carte>();
 
@@ -28,6 +28,12 @@ public class Joueur {
         return this.deckMain.remove(0);
     }
 
+    public final Carte defausserCarte(int index){
+        Carte c = deckMain.remove(index);
+        piece += 3;
+        return c;
+    }
+
     public final Carte poserCarte(int index){
         Carte c = deckMain.remove(index);
         deckPlateau.add(c);
@@ -42,14 +48,14 @@ public class Joueur {
             score += c.getLaurier();
         }
         
-        //Calcul gold
-        score += gold;
+        //Calcul piece
+        score += piece;
 
         return score;
     }
 
-    public final int getGold(){
-        return this.gold;
+    public final int getPiece(){
+        return piece;
     }
 
     @Override

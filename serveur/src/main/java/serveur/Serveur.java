@@ -64,22 +64,10 @@ public class Serveur {
 
         serveur.addEventListener("jouerCarte", JSONAction.class, new DataListener<JSONAction>(){
             @Override
-            public final void onData(SocketIOClient socketIOClient, JSONAction a, AckRequest ackRequest) throws Exception {
-                switch(a.type){
-
-                    case "DefausserCarte":
-                        //TODO: implementer Défaussage de carte !
-                        throw new Exception("Action non implémenter");
-
-                    case "PoserCarte":
-                        //PoserCarte pc = new PoserCarte(a.idJoueur, a.numeroCarte);
-                        jeu.getJoueurs().get(a.idJoueur).poserCarte(a.numeroCarte);
-                    break;
-
-
-                    default:
-                        throw new Exception("Action non autorisée");
-                }
+            public final void onData(SocketIOClient socketIOClient, JSONAction ja, AckRequest ackRequest) throws Exception {
+                
+                if(jeu.jouerAction(ja) == false)
+                    throw new Exception("Action non autorisée");
 
                 nbJoueurCoupFini++;
                 if(nbJoueurCoupFini == nbJoueursConnectees){

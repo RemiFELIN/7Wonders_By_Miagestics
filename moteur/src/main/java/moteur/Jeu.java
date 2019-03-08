@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import moteur.carte.*;
+import moteur.jsonParser.JSONAction;
 
 public class Jeu {
     private final int NBCARTES = 35;
@@ -71,6 +72,29 @@ public class Jeu {
             mesJoueurs.get(i).setDeckMain(carteJoueur);
         }
     }
+
+    public final boolean jouerAction(JSONAction ja){
+        switch(ja.type){
+
+            case "DefausserCarte":
+                //DefausserCarte dc = new DefausserCarte(a.idJoueur, a.numeroCarte);
+                Carte c = mesJoueurs.get(ja.idJoueur).defausserCarte(ja.numeroCarte);
+                tabDeck.get(this.age-1).add(c);
+            break;
+
+            case "PoserCarte":
+                //PoserCarte pc = new PoserCarte(a.idJoueur, a.numeroCarte);
+                mesJoueurs.get(ja.idJoueur).poserCarte(ja.numeroCarte);
+            break;
+
+
+            default:
+                return false;
+        }
+
+        return true;
+    }
+
 
     public final void recuperationCarte(){
         for (int i=0; i<mesJoueurs.size(); i++)
