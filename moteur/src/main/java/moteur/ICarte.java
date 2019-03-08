@@ -3,8 +3,7 @@ package moteur;
 import java.awt.Color;
 import java.util.ArrayList;
 
-
-interface ICarte{
+interface ICarte {
     Color getCouleur();
     int getCoutPiece();
     int getLaurier();
@@ -14,9 +13,9 @@ interface ICarte{
     ArrayList<Ressources> getRessources();
     ArrayList<Ressources> getCoutRessources();
     String getNom();
-    String getSymboleScientifique();//enum a rajouter par la suite
+    String getSymboleScientifique();// enum a rajouter par la suite
     String getDescription();
     String getNextBuilding();
     String getSpecialEffect();
-
+    String toJSON();
 }

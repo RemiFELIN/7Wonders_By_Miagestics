@@ -5,19 +5,20 @@ import java.util.ArrayList;
 
 public abstract class Carte implements ICarte {
 
-    protected Color couleur;
+    private Color couleur;
+    private String nom;
+    private int age;
+
     protected int coutPiece = 0;
     protected int laurier = 0;
     protected int puissanceMilitaire = 0;
     protected int piece = 0;
     protected ArrayList<Ressources> coutRessources = new ArrayList<Ressources>();
     protected ArrayList<Ressources> ressources = new ArrayList<Ressources>();
-    protected String nom;
-    protected String symboleScientifique;// enum a rajouter par la suite
-    protected String description;
-    protected String nextBuilding;
-    protected String getSpecialEffect;
-    protected int age;
+    protected String symboleScientifique; // TODO enum a rajouter par la suite
+    protected String description = ""; // TODO remplir avec ???
+    protected String nextBuilding = ""; // TODO changer avec ???
+    protected String specialEffect = ""; // TODO changer string par un enum ?
 
     public Carte(Color c, String n, int a) {
         this.couleur = c;// couleur noir pour les ressources
@@ -26,15 +27,15 @@ public abstract class Carte implements ICarte {
     }
 
     public final Color getCouleur() {
-        return this.couleur;
+        return couleur;
     }
 
     public final String getNom() {
-        return this.nom;
+        return nom;
     }
 
     public final int getAge() {
-        return this.age;
+        return age;
     }
 
     public final int getCoutPiece() {
@@ -62,7 +63,7 @@ public abstract class Carte implements ICarte {
     }
 
     public final String getSpecialEffect() {
-        return getSpecialEffect;
+        return specialEffect;
     }
 
     public final int getPiece() {
