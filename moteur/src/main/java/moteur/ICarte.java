@@ -10,7 +10,7 @@ interface ICarte{
     int getLaurier();
     int getPuissanceMilitaire();
     int getAge();
-    int getGold();
+    int getPiece();
     ArrayList<Ressources> getRessources();
     ArrayList<Ressources> getCoutRessources();
     String getNom();

@@ -12,7 +12,7 @@ public class StratMax extends Strategie {
 
         int carteN = -1, carteValue = -1;
         for (int i = 0; i < deck.size(); i++){
-            int value = deck.get(i).getValue();
+            int value = deck.get(i).getLaurier();
             if(value > carteValue){
                 carteValue = value;
                 carteN = i;

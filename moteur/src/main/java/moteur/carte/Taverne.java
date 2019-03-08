@@ -7,6 +7,6 @@ public class Taverne extends Carte {
 
     public Taverne(){
         super(Color.YELLOW, "Taverne", 1);
-        super.gold = 5;
+        super.piece = 5;
     }
 }

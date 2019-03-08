@@ -9,7 +9,7 @@ public abstract class Carte implements ICarte {
     protected int coutPiece = 0;
     protected int laurier = 0;
     protected int puissanceMilitaire = 0;
-    protected int gold = 0;
+    protected int piece = 0;
     protected ArrayList<Ressources> coutRessources = new ArrayList<Ressources>();
     protected ArrayList<Ressources> ressources = new ArrayList<Ressources>();
     protected String nom;
@@ -27,10 +27,6 @@ public abstract class Carte implements ICarte {
 
     public final Color getCouleur() {
         return this.couleur;
-    }
-
-    public final int getValue() {
-        return this.laurier;
     }
 
     public final String getNom() {
@@ -69,8 +65,8 @@ public abstract class Carte implements ICarte {
         return getSpecialEffect;
     }
 
-    public final int getGold() {
-        return gold;
+    public final int getPiece() {
+        return piece;
     }
 
     public final ArrayList<Ressources> getRessources() {
