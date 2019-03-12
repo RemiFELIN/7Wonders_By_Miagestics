@@ -10,7 +10,6 @@ import com.corundumstudio.socketio.listener.DataListener;
 import moteur.*;
 import moteur.jsonParser.JSONAction;
 import static moteur.jsonParser.JSONParser.*;
-//import moteur.action.PoserCarte;
 import static moteur.Jeu.log;
 
 import java.util.ArrayList;
