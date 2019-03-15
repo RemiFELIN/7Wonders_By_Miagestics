@@ -1,4 +1,4 @@
-package moteur.jsonParser;
+package moteur.action;
 
 public class JSONAction {
     public int idJoueur;

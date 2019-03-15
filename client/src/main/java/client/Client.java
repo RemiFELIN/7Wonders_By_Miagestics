@@ -11,24 +11,29 @@ import java.util.ArrayList;
 import static moteur.Jeu.log;
 import static moteur.Jeu.error;
 import moteur.Carte;
+import moteur.Couleur;
+import moteur.Ressource;
 import moteur.action.Action;
-import static moteur.jsonParser.JSONParser.*;
+
+import client.strategie.*;
+
 import org.json.JSONObject;
+import org.json.JSONArray;
+import org.json.JSONException;
 
 public class Client {
 
     private Socket connexion;
     private int id;
-    Strategie stratClient = null;
+    private Strategie stratClient = null;
     private Action actionAJouer;
 
     public Client(final int id, String adresse, int port) {
         this.id = id;
         String urlAdresse = "http://" + adresse + ":" + port;
 
-        Random r=new Random();
-        if(r.nextInt(2)==0) stratClient=new StratMax();
-        else stratClient=new StratRandom();
+        Strategie[] mesStrat = new Strategie[]{new StratMax(), new StratRandom()};
+        stratClient = mesStrat[new Random().nextInt(mesStrat.length)];
 
         try {
             connexion = IO.socket(urlAdresse);
@@ -50,10 +55,34 @@ public class Client {
             @Override
             public final void call(Object... args) {
                 log("Le client " + id + " a reçu ses cartes");
-                ArrayList<Carte> deck = JSONToDeck(args[0]);
-                if(deck != null){
+                ArrayList<Carte> deck = new ArrayList<Carte>();
+                try  {
+                    JSONArray ja = (JSONArray) args[0];
+                    for(int i = 0; i < ja.length(); i++){
+                        JSONObject obj = ja.getJSONObject(i);
+                        Carte c = new Carte(
+                            obj.getString("nom"),
+                            Couleur.fromString(obj.getString("couleur")),
+                            obj.getInt("age"),
+                            obj.getInt("coutPiece"),
+                            obj.getInt("laurier"),
+                            obj.getInt("puissanceMilitaire"),
+                            obj.getInt("piece")
+                        );
+                        JSONArray coutRessources = (JSONArray) obj.get("coutRessources");
+                        for(int j=0; i<coutRessources.length(); i++)
+                            c.ajouterCoutRessource(Ressource.fromString(coutRessources.getString(j)));
+
+                        JSONArray ressources = (JSONArray) obj.get("ressources");
+                        for(int j=0; i<ressources.length(); i++)
+                            c.ajouterRessource(Ressource.fromString(ressources.getString(j)));
+                        deck.add(c);
+                    }
+                    
                     actionAJouer = (Action) stratClient.getAction(id, deck);
                     connexion.emit("recuCarte", id);
+                } catch (JSONException e){
+                    error("Client "+id+" erreur getCarte !", e);
                 }
             }
         });
