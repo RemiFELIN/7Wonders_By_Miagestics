@@ -75,6 +75,7 @@ public class JeuTest {
         testDuJeu.distributionCarte();
 
         assertEquals(true, testDuJeu.finAge());
+        testDuJeu.ageSuivant();
         testDuJeu.recuperationCarte();
         // test le deck pour voir si le paquet a recupéré toutes les cartes cartes
         int tabDeck = testDuJeu.getDecks().get(0).size();

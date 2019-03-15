@@ -53,6 +53,9 @@ public class Serveur {
                     nbJoueursConnectees++;
                     if (nbJoueursConnectees == MIN_JOUEURS) {
                         log(MIN_JOUEURS + " joueurs de connectés: début de la partie\n");
+                        log("\n-----------------------------------------------");
+                        log("- 7 WONDERS : nombre de joueurs connectés : " + nbJoueursConnectees + " -");
+                        log("-----------------------------------------------\n");
                         jeu = new Jeu(nbJoueursConnectees);
                         jeu.distributionCarte();
                         sendCartes();
@@ -70,17 +73,16 @@ public class Serveur {
 
                 nbJoueurCoupFini++;
                 if(nbJoueurCoupFini == nbJoueursConnectees){
-                    log("\nFin tour ! Les scores :");
+                    log("\nFin du tour ! Les scores :");
                     ArrayList<Joueur> tabJ = jeu.getJoueurs();
                     for(int i=0; i<tabJ.size(); i++) {
                         log("Score joueur " + i + " : " + tabJ.get(i).getScore());
                     }
-                    for(int i = 0; i<tabJ.size()-2; i++){
-                        if(!jeu.finJeu())
-                            log("\nDébut du prochain tour:");
-                    }
                     if(jeu.finAge()){
-                        log("Fin de l'Age !");
+                        log("\n--------------------");
+                        log("- Fin de l'Age " + jeu.getAge() + " ! -");
+                        log("--------------------\n");
+
                         if(jeu.finJeu()){
                             log("Fin du jeu !");
                             ArrayList<Joueur> clas = jeu.getClassement();
@@ -89,17 +91,19 @@ public class Serveur {
                                 log(i+1 + " > " + j.toString() + " avec " + j.getScore());
                             }
                         } else {
-                            // Amélioration 
+                            jeu.ageSuivant();
                             jeu.recuperationCarte();
-                            log("\nRécupération de la dernière carte de l'Age");
+                            log("Récupération de la dernière carte de l'Age");
                             jeu.distributionCarte();
-                            log("\nDistribution des nouveaux decks");
+                            log("Distribution des nouveaux decks\n");
                             jeu.roulementCarte();
                             sendCartes();
                             nbJoueurCoupFini = 0;
                         }
                         
                     } else {
+                        log("\nDébut du prochain tour...");
+                        log("-------------------------\n");
                         jeu.roulementCarte();
                         sendCartes();
                         nbJoueurCoupFini = 0;

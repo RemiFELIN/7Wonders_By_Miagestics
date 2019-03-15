@@ -49,7 +49,7 @@ public class Client {
         connexion.on("getCarte" + id, new Emitter.Listener() {
             @Override
             public final void call(Object... args) {
-                log("Réception carte ! " + id);
+                log("Le client " + id + " a reçu ses cartes");
                 ArrayList<Carte> deck = JSONToDeck(args[0]);
                 if(deck != null){
                     actionAJouer = (Action) stratClient.getAction(id, deck);

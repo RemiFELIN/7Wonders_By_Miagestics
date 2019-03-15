@@ -102,15 +102,15 @@ public class Jeu {
     }
     
     public final boolean finAge(){
-        if (mesJoueurs.get(0).getDeckMain().size() == 1){
-            this.age++;
-            return true;
-        } else
-            return false;
+        return mesJoueurs.get(0).getDeckMain().size() == 1;
+    }
+
+    public final void ageSuivant(){
+        age++;
     }
 
     public final boolean finJeu(){
-        return age > 3;
+        return age >= 3;
     }
     
     public final ArrayList<Joueur> getClassement(){
