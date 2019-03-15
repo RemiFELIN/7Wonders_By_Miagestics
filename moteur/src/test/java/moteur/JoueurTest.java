@@ -3,8 +3,6 @@ package moteur;
 import org.junit.Before;
 import org.junit.Test;
 
-import moteur.carte.Theatre;
-
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
@@ -23,7 +21,7 @@ public class JoueurTest {
         ArrayList<Carte> deck = new ArrayList<Carte>(5);
         int nbCarte = 5;
         for(byte i = 0; i<nbCarte; i++)
-            deck.add(new Theatre());
+            deck.add(new Carte("CarteTest", Couleur.BLANC, 1, 0, 2, 0, 0));
      
         joueur.setDeckMain(deck);
         for(byte i = 0; i<nbCarte; i++)

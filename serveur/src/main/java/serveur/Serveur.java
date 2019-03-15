@@ -8,8 +8,7 @@ import com.corundumstudio.socketio.listener.ConnectListener;
 import com.corundumstudio.socketio.listener.DataListener;
 
 import moteur.*;
-import moteur.jsonParser.JSONAction;
-import static moteur.jsonParser.JSONParser.*;
+import moteur.action.JSONAction;
 import static moteur.Jeu.log;
 
 import java.util.ArrayList;
@@ -125,10 +124,8 @@ public class Serveur {
     }
 
     public final void sendCartes() {
-        for (int i = 0; i < nbJoueursConnectees; i++) {
-            String ja = deckToJSON(jeu.getJoueurs().get(i).getDeckMain());
-            client.sendEvent("getCarte" + i, ja);
-        }
+        for (int i = 0; i < nbJoueursConnectees; i++)
+            client.sendEvent("getCarte" + i, jeu.getJoueurs().get(i).getDeckMain());
     }
 
     public final void démarrer() {

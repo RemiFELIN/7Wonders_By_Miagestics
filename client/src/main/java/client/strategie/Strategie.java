@@ -1,4 +1,4 @@
-package client;
+package client.strategie;
 
 import moteur.action.Action;
 

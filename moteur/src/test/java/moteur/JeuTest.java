@@ -3,8 +3,6 @@ package moteur;
 import org.junit.Before;
 import org.junit.Test;
 
-import moteur.carte.Taverne;
-import moteur.jsonParser.JSONAction;
 import moteur.action.*;
 
 import static moteur.Jeu.log;
@@ -90,13 +88,13 @@ public class JeuTest {
        // modifier le deck main pour qu'il reste qu'une seule carte
        ArrayList<Joueur> joueurs = testDuJeu.getJoueurs();
        ArrayList<Carte> c = new ArrayList<Carte>();
-       c.add(new Taverne());
+       c.add(new Carte("CarteTest", Couleur.BLANC, 0));
        for (int i = 0; i < joueurs.size(); i++) {
            joueurs.get(0).setDeckMain(c);
        }
        assertEquals(true, testDuJeu.finAge());
        // modifier le deck main pour qu'il reste plusieurs cartes
-       c.add(new Taverne());
+       c.add(new Carte("CarteTest", Couleur.BLANC, 0));
        for (int i = 0; i < joueurs.size(); i++) {
            joueurs.get(0).setDeckMain(c);
        }

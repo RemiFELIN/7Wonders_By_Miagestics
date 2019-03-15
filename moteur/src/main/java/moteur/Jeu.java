@@ -3,8 +3,7 @@ package moteur;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import moteur.carte.*;
-import moteur.jsonParser.JSONAction;
+import moteur.action.JSONAction;
 
 public class Jeu {
     private final int NBCARTES = 35;
@@ -25,19 +24,12 @@ public class Jeu {
     }
 
     public final void initCartes() {
-        for (int j = 1; j <= 3; j++){
+        for (int j = 0; j < 3; j++){
             ArrayList<Carte> tabCarte = new ArrayList<Carte>(NBCARTES);
-            byte moitier = (byte) Math.floor(NBCARTES/2);
+            ArrayList<Carte> tempDeck = Carte.getDeck();
 
-            for (byte i = 0; i < moitier; i++)
-                tabCarte.add(new Theatre());
-
-            for (byte i = 0; i < moitier+1; i++)
-                tabCarte.add(new Taverne());
-
-            //Code mort ==> 35%2 === 1
-            //if(NBCARTES%2 == 1)
-            //   tabCarte.add(new Taverne());
+            for (byte i = 0; i < NBCARTES; i++)
+                tabCarte.add(tempDeck.get(i % tempDeck.size()));
             
             Collections.shuffle(tabCarte);
             tabDeck.add(tabCarte);
@@ -74,17 +66,19 @@ public class Jeu {
     }
 
     public final boolean jouerAction(JSONAction ja){
-        switch(ja.type){
+        switch(ja.type.toLowerCase()){
 
-            case "DefausserCarte":
+            case "defaussercarte":
                 //DefausserCarte dc = new DefausserCarte(a.idJoueur, a.numeroCarte);
                 Carte c = mesJoueurs.get(ja.idJoueur).defausserCarte(ja.numeroCarte);
+                log("Le joueur "+ja.idJoueur+" à défausser la carte "+ja.numeroCarte);
                 tabDeck.get(this.age-1).add(c);
             break;
 
-            case "PoserCarte":
+            case "posercarte":
                 //PoserCarte pc = new PoserCarte(a.idJoueur, a.numeroCarte);
                 mesJoueurs.get(ja.idJoueur).poserCarte(ja.numeroCarte);
+                log("Le joueur "+ja.idJoueur+" à poser la carte "+ja.numeroCarte);
             break;
 
 
