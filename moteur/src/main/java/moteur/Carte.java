@@ -19,14 +19,13 @@ public class Carte {
     //TODO Dans une future itération
     /*
     protected String symboleScientifique; // TODO enum a rajouter par la suite
-    protected String description = ""; // TODO remplir avec ???
-    protected String nextBuilding = ""; // TODO changer avec ???
-    protected String specialEffect = ""; // TODO changer string par un enum ?
+    protected String batimentSuivant = ""; // TODO changer avec ???
+    protected String effetSpecial = ""; // TODO changer string par un enum ?
     */
 
     public Carte(String nom, Couleur couleur, int age) {
         this.nom = nom;
-        this.couleur = couleur;// couleur noir pour les ressources
+        this.couleur = couleur;// couleur MARRON pour les ressources
         this.age = age;
     }
 
@@ -54,15 +53,21 @@ public class Carte {
     public static ArrayList<Carte> getDeck(){
         ArrayList<Carte> deck = new ArrayList<Carte>();
         Carte c;
-
         deck.add(new Carte("Taverne", Couleur.JAUNE, 1, 0, 0, 0, 5));
 
         addCartesVictoire(deck);
         addCartesMilitaires(deck);
         addCartesRessources(deck);
         
+        addCartesScientifique(deck);
+        return deck;
+    }
+
+    private final static void addCartesScientifique(ArrayList<Carte> deck){
+
+        
         //-----------Cartes Scientifique------------------
-        c = new Carte("Apothicaire",Couleur.VERT,0,0,0,0,0,SymboleScientifique.COMPAS);
+        Carte c = new Carte("Apothicaire",Couleur.VERT,0,0,0,0,0,SymboleScientifique.COMPAS);
         c.ajouterRessource(Ressource.TEXTILE);
         deck.add(c);
 
@@ -123,9 +128,8 @@ public class Carte {
         c.ajouterCoutRessource(Ressource.PAPYRUS);
         c.ajouterCoutRessource(Ressource.TEXTILE);
         deck.add(c);
-        return deck;
-    }
 
+    }
     public final Couleur getCouleur() {
         return couleur;
     }
@@ -348,70 +352,70 @@ public class Carte {
     {   Carte c;
         //cartes ressources de l'âge 1
 
-        c = new Carte("Fosse", Couleur.NOIR, 1);
+        c = new Carte("Fosse", Couleur.MARRON, 1);
         c.ajouterRessource(Ressource.PIERRE);
         deck.add(c);
 
-        c = new Carte("Cour à bois", Couleur.NOIR, 1);
+        c = new Carte("Cour à bois", Couleur.MARRON, 1);
         c.ajouterRessource(Ressource.BOIS);
         deck.add(c);
 
-        c = new Carte("Piscine d'argile", Couleur.NOIR, 1);
+        c = new Carte("Piscine d'argile", Couleur.MARRON, 1);
         c.ajouterRessource(Ressource.ARGILE);
         deck.add(c);
 
-        c = new Carte("Cavite", Couleur.NOIR, 1);
+        c = new Carte("Cavite", Couleur.MARRON, 1);
         c.ajouterRessource(Ressource.MINERAI);
         deck.add(c);
 
-        c = new Carte("Forêt", Couleur.NOIR, 1, 1,0,0,0);
+        c = new Carte("Forêt", Couleur.MARRON, 1, 1,0,0,0);
         c.ajouterRessource(Ressource.BOIS);
         c.ajouterRessource(Ressource.ARGILE);
         deck.add(c);
 
-        c = new Carte("Excavation", Couleur.NOIR, 1, 1,0,0,0);
+        c = new Carte("Excavation", Couleur.MARRON, 1, 1,0,0,0);
         c.ajouterRessource(Ressource.PIERRE);
         c.ajouterRessource(Ressource.ARGILE);
         deck.add(c);
 
-        c = new Carte("Fosse d'argile", Couleur.NOIR, 1, 1,0,0,0);
+        c = new Carte("Fosse d'argile", Couleur.MARRON, 1, 1,0,0,0);
         c.ajouterRessource(Ressource.ARGILE);
         c.ajouterRessource(Ressource.MINERAI);
         deck.add(c);
 
-        c = new Carte("Cour à bois bis", Couleur.NOIR, 1, 1,0,0,0);
+        c = new Carte("Cour à bois bis", Couleur.MARRON, 1, 1,0,0,0);
         c.ajouterRessource(Ressource.PIERRE);
         c.ajouterRessource(Ressource.BOIS);
         deck.add(c);
 
-        c = new Carte("Cave forestière", Couleur.NOIR, 1, 1,0,0,0);
+        c = new Carte("Cave forestière", Couleur.MARRON, 1, 1,0,0,0);
         c.ajouterRessource(Ressource.BOIS);
         c.ajouterRessource(Ressource.MINERAI);
         deck.add(c);
 
-        c = new Carte("Mine", Couleur.NOIR, 1, 1,0,0,0);
+        c = new Carte("Mine", Couleur.MARRON, 1, 1,0,0,0);
         c.ajouterRessource(Ressource.PIERRE);
         c.ajouterRessource(Ressource.MINERAI);
         deck.add(c);
 
         //cartes ressources de l'âge 2
 
-        c = new Carte("Scierie", Couleur.NOIR, 2, 1,0,0,0);
+        c = new Carte("Scierie", Couleur.MARRON, 2, 1,0,0,0);
         c.ajouterRessource(Ressource.BOIS);
         c.ajouterRessource(Ressource.BOIS);
         deck.add(c);
 
-        c = new Carte("Carrière", Couleur.NOIR, 2, 1,0,0,0);
+        c = new Carte("Carrière", Couleur.MARRON, 2, 1,0,0,0);
         c.ajouterRessource(Ressource.PIERRE);
         c.ajouterRessource(Ressource.PIERRE);
         deck.add(c);
 
-        c = new Carte("Briquetterie", Couleur.NOIR, 2, 1,0,0,0);
+        c = new Carte("Briquetterie", Couleur.MARRON, 2, 1,0,0,0);
         c.ajouterRessource(Ressource.ARGILE);
         c.ajouterRessource(Ressource.ARGILE);
         deck.add(c);
 
-        c = new Carte("Fonderie", Couleur.NOIR, 2, 1,0,0,0);
+        c = new Carte("Fonderie", Couleur.MARRON, 2, 1,0,0,0);
         c.ajouterRessource(Ressource.MINERAI);
         c.ajouterRessource(Ressource.MINERAI);
         deck.add(c);

@@ -1,7 +1,7 @@
 package moteur;
 
 public enum Couleur {
-    NOIR ("NOIR"),
+    MARRON ("MARRON"),
     BLANC ("BLANC"),
     JAUNE ("JAUNE"),
     ROUGE ("ROUGE"),

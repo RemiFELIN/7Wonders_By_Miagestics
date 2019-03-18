@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import moteur.action.JSONAction;
+import java.util.Random;
 
 public class Jeu {
     private final int NBCARTES = 35;
+    private final int PLATEAU = 7;
     private int TAILLE_DECK = 0; //Taille initial ! (=== mesJoueurs.length)
 
     private final ArrayList<ArrayList<Carte>> tabDeck = new ArrayList<ArrayList<Carte>>(3);
@@ -20,8 +22,10 @@ public class Jeu {
             mesJoueurs.add(new Joueur(i));
 
         TAILLE_DECK = (int) Math.floor(NBCARTES / nbJoueurs);
+        distributionPlateau();
         initCartes();
     }
+
 
     public final void initCartes() {
         for (int j = 0; j < 3; j++){
@@ -62,6 +66,16 @@ public class Jeu {
                 carteJoueur.add(c);
             }
             mesJoueurs.get(i).setDeckMain(carteJoueur);
+        }
+    }
+
+    public final void distributionPlateau() {
+        ArrayList<Merveille> plateaux = Merveille.getPlateau();
+        Merveille m;
+        for (int i=0; i<mesJoueurs.size(); i++) {
+            Random random = new Random();
+            m = plateaux.remove(random.nextInt(plateaux.size()));
+            mesJoueurs.get(i).setPlateau(m);
         }
     }
 

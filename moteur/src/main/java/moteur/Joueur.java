@@ -8,6 +8,7 @@ public class Joueur {
 
     private int id;
     private int piece = 5;
+    private Merveille plateau;
     private ArrayList<Carte> deckPlateau = new ArrayList<Carte>();
     private ArrayList<Carte> deckMain = new ArrayList<Carte>();
 
@@ -20,6 +21,10 @@ public class Joueur {
 
     public final void setDeckMain(ArrayList<Carte> c) {
         this.deckMain = c;
+    }
+
+    public final void setPlateau(Merveille m){
+        this.plateau = m;
     }
 
     public final ArrayList<Carte> getDeckMain() {
