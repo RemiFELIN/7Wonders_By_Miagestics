@@ -29,5 +29,37 @@ public class JoueurTest {
 
         //5 gold + 10 Score laurier
         assertEquals(15, joueur.getScore());
+
+    }
+
+    @Test
+    public void testCalculScoreScientifiqueCarre(){
+        ArrayList<Carte> deck = new ArrayList<Carte>(5);
+        
+        int nbCarte = 5;
+        
+        for(byte i = 0; i<nbCarte; i++)
+            deck.add(new Carte("CarteTest", Couleur.VERT, 0, 0, 0, 0, 0,SymboleScientifique.COMPAS));
+     
+        joueur.setDeckMain(deck);
+        for(byte i = 0; i<nbCarte; i++)
+            joueur.poserCarte(0);
+
+        // Le joueur joue 5 cartes donc score = 5*5 + les 5 golds donc score = 30
+        assertEquals(30, joueur.getScore());
+    }
+    public void testCalculScoreScientifiqueGroupe(){
+        ArrayList<Carte> deck = new ArrayList<Carte>(5);     
+        int nbCarte = 3;
+        deck.add(new Carte("CarteTest", Couleur.VERT, 0, 0, 0, 0, 0,SymboleScientifique.COMPAS));
+        deck.add(new Carte("CarteTest", Couleur.VERT, 0, 0, 0, 0, 0,SymboleScientifique.TABLETTE));
+        deck.add(new Carte("CarteTest", Couleur.VERT, 0, 0, 0, 0, 0,SymboleScientifique.ROUAGE));
+
+        joueur.setDeckMain(deck);
+        for(byte i = 0; i<nbCarte; i++)
+            joueur.poserCarte(0);
+
+        // Le joueur joue 3 cartes scientifique différentes donc score = 7 + 3 + 5 
+        assertEquals(15, joueur.getScore());
     }
 }

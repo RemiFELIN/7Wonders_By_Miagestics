@@ -1,6 +1,8 @@
 package moteur;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.lang.Math;
 
 public class Joueur {
 
@@ -50,6 +52,24 @@ public class Joueur {
         
         //Calcul piece
         score += piece;
+
+        //Calcul scientifique
+        HashMap<SymboleScientifique,Integer> scientifique = new HashMap<SymboleScientifique,Integer>();
+        scientifique.put(SymboleScientifique.COMPAS,0);
+        scientifique.put(SymboleScientifique.TABLETTE,0);
+        scientifique.put(SymboleScientifique.ROUAGE,0);
+        for(int i=0; i<deckPlateau.size(); i++){
+            Carte c = deckPlateau.get(i);
+            SymboleScientifique symb = c.getSymboleScientifique();
+            if( symb != null){
+                scientifique.put(symb,scientifique.get(symb)+1);
+            }
+        }
+        score += Math.pow(scientifique.get(SymboleScientifique.COMPAS),2);
+        score += Math.pow(scientifique.get(SymboleScientifique.TABLETTE),2);
+        score += Math.pow(scientifique.get(SymboleScientifique.ROUAGE),2);
+        int groupe = Math.min(Math.min(scientifique.get(SymboleScientifique.COMPAS),scientifique.get(SymboleScientifique.TABLETTE)),scientifique.get(SymboleScientifique.ROUAGE));
+        score += 7 * groupe;
 
         return score;
     }

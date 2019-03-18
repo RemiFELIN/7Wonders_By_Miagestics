@@ -5,7 +5,8 @@ public enum Couleur {
     BLANC ("BLANC"),
     JAUNE ("JAUNE"),
     ROUGE ("ROUGE"),
-    BLEU ("BLEU");
+    BLEU ("BLEU"),
+    VERT ("VERT");
 
     private String nom = "";
 

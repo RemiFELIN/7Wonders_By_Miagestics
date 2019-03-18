@@ -12,6 +12,7 @@ public class Carte {
     private int laurier = 0;
     private int puissanceMilitaire = 0;
     private int piece = 0;
+    private SymboleScientifique symboleScientifique;
     private ArrayList<Ressource> coutRessources = new ArrayList<Ressource>();
     private ArrayList<Ressource> ressources = new ArrayList<Ressource>();
 
@@ -37,6 +38,11 @@ public class Carte {
         this.piece = piece;
     }
 
+    public Carte(String nom, Couleur couleur, int age, int coutPiece, int laurier, int puissanceMilitaire, int piece, SymboleScientifique symboleScientifique){
+        this(nom, couleur, age, coutPiece, laurier, puissanceMilitaire, piece);
+        this.symboleScientifique = symboleScientifique;
+    }
+
     public void ajouterCoutRessource(Ressource res){
         coutRessources.add(res);
     }
@@ -49,16 +55,74 @@ public class Carte {
         ArrayList<Carte> deck = new ArrayList<Carte>();
         Carte c;
 
-        c = new Carte("Cavite", Couleur.NOIR, 1);
-        c.ajouterRessource(Ressource.MINERAI);
-        deck.add(c);
-
         deck.add(new Carte("Taverne", Couleur.JAUNE, 1, 0, 0, 0, 5));
 
         addCartesVictoire(deck);
         addCartesMilitaires(deck);
         addCartesRessources(deck);
+        
+        //-----------Cartes Scientifique------------------
+        c = new Carte("Apothicaire",Couleur.VERT,0,0,0,0,0,SymboleScientifique.COMPAS);
+        c.ajouterRessource(Ressource.TEXTILE);
+        deck.add(c);
 
+        c = new Carte("Scriptorium",Couleur.VERT,0,0,0,0,0,SymboleScientifique.TABLETTE);
+        c.ajouterCoutRessource(Ressource.PAPYRUS);
+        deck.add(c);
+
+        c = new Carte("Atelier",Couleur.VERT,0,0,0,0,0,SymboleScientifique.ROUAGE);
+        c.ajouterCoutRessource(Ressource.VERRE);
+        deck.add(c);
+
+        c = new Carte("Laboratoire",Couleur.VERT,0,0,0,0,0,SymboleScientifique.ROUAGE);
+        c.ajouterCoutRessource(Ressource.ARGILE);
+        c.ajouterCoutRessource(Ressource.ARGILE);
+        c.ajouterCoutRessource(Ressource.PAPYRUS);
+        deck.add(c);
+        
+        c = new Carte("Ecole",Couleur.VERT,0,0,0,0,0,SymboleScientifique.TABLETTE);
+        c.ajouterCoutRessource(Ressource.BOIS);
+        c.ajouterCoutRessource(Ressource.PAPYRUS);
+        deck.add(c);
+
+        c = new Carte("Dispensaire",Couleur.VERT,0,0,0,0,0,SymboleScientifique.COMPAS);
+        c.ajouterCoutRessource(Ressource.MINERAI);
+        c.ajouterCoutRessource(Ressource.MINERAI);
+        c.ajouterCoutRessource(Ressource.VERRE);
+        deck.add(c);
+
+        c = new Carte("Librairie",Couleur.VERT,0,0,0,0,0,SymboleScientifique.TABLETTE);
+        c.ajouterCoutRessource(Ressource.PIERRE);
+        c.ajouterCoutRessource(Ressource.PIERRE);
+        c.ajouterCoutRessource(Ressource.TEXTILE);
+        deck.add(c);
+
+        c = new Carte("Academie",Couleur.VERT,0,0,0,0,0,SymboleScientifique.COMPAS);
+        c.ajouterCoutRessource(Ressource.PIERRE);
+        c.ajouterCoutRessource(Ressource.PIERRE);
+        c.ajouterCoutRessource(Ressource.PIERRE);
+        c.ajouterCoutRessource(Ressource.VERRE);
+        deck.add(c);
+
+        c = new Carte("Universite",Couleur.VERT,0,0,0,0,0,SymboleScientifique.TABLETTE);
+        c.ajouterCoutRessource(Ressource.BOIS);
+        c.ajouterCoutRessource(Ressource.BOIS);
+        c.ajouterCoutRessource(Ressource.PAPYRUS);
+        c.ajouterCoutRessource(Ressource.VERRE);
+        deck.add(c);
+
+        c = new Carte("Loge",Couleur.VERT,0,0,0,0,0,SymboleScientifique.COMPAS);
+        c.ajouterCoutRessource(Ressource.ARGILE);
+        c.ajouterCoutRessource(Ressource.ARGILE);
+        c.ajouterCoutRessource(Ressource.PAPYRUS);
+        c.ajouterCoutRessource(Ressource.TEXTILE);
+        deck.add(c);
+
+        c = new Carte("Salle d'etude",Couleur.VERT,0,0,0,0,0,SymboleScientifique.ROUAGE);
+        c.ajouterCoutRessource(Ressource.ARGILE);
+        c.ajouterCoutRessource(Ressource.PAPYRUS);
+        c.ajouterCoutRessource(Ressource.TEXTILE);
+        deck.add(c);
         return deck;
     }
 
@@ -351,5 +415,9 @@ public class Carte {
         c.ajouterRessource(Ressource.MINERAI);
         c.ajouterRessource(Ressource.MINERAI);
         deck.add(c);
+    }
+    
+    public final SymboleScientifique getSymboleScientifique(){
+        return symboleScientifique;
     }
 }
