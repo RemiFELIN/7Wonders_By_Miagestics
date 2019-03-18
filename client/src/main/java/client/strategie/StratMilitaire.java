@@ -1,33 +1,33 @@
 package client.strategie;
 
-import moteur.action.PoserCarte;
+import moteur.Carte;
 import moteur.action.Action;
+import moteur.action.PoserCarte;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-import moteur.Carte;
-
-public class StratRessources extends Strategie {
+public class StratMilitaire extends Strategie {
 
     public Action getAction(int idJoueur, ArrayList<Carte> deck) {
 
-        int carteN = 0, nbRessources = 0;
+        int carteN = 0, pMilitaire = 0;
         for (int i = 0; i < deck.size(); i++) {
             Carte c = deck.get(i);
-            int rs = c.getRessources().size();
-            if (rs > nbRessources) {
+            int pm = c.getPuissanceMilitaire();
+            if (pm > pMilitaire) {
                 carteN = i;
-                nbRessources = rs;
+                pMilitaire = pm;
             }
         }
 
-        if(carteN==0 && nbRessources==0) carteN=new Random().nextInt(deck.size());
+        if(carteN==0 && pMilitaire==0) carteN=new Random().nextInt(deck.size());
+
         return new PoserCarte(idJoueur, carteN);
     }
 
     @Override
     public String toString(){
-        return super.toString() + " ressources";
+        return super.toString() + " militaire";
     }
 }

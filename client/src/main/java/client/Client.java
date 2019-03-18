@@ -32,7 +32,7 @@ public class Client {
         this.id = id;
         String urlAdresse = "http://" + adresse + ":" + port;
 
-        Strategie[] mesStrat = new Strategie[]{new StratMax(), new StratRandom()};
+        Strategie[] mesStrat = new Strategie[]{new StratLaurier(), new StratRandom(), new StratRessources(), new StratMilitaire()};
         stratClient = mesStrat[new Random().nextInt(mesStrat.length)];
 
         try {

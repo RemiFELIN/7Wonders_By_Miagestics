@@ -78,7 +78,7 @@ public class Jeu {
             case "posercarte":
                 //PoserCarte pc = new PoserCarte(a.idJoueur, a.numeroCarte);
                 mesJoueurs.get(ja.idJoueur).poserCarte(ja.numeroCarte);
-                log("Le joueur "+ja.idJoueur+" à poser la carte "+ja.numeroCarte);
+                log("Le joueur "+ja.idJoueur+" a posé la carte "+ja.numeroCarte);
             break;
 
 
