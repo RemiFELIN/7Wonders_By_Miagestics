@@ -1,9 +1,6 @@
 package client;
 
-import client.strategie.StratLaurier;
 import client.strategie.StratRandom;
-import client.strategie.StratRessources;
-import client.strategie.Strategie;
 import moteur.Carte;
 import moteur.Couleur;
 import moteur.Ressource;
@@ -20,7 +17,7 @@ import static org.mockito.Mockito.when;
 public class StratRandomTest {
 
     @Mock
-    Strategie stratClient;
+    StratRandom stratClient;
 
     ArrayList<Carte> deck;
 

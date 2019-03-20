@@ -10,7 +10,6 @@ public class Lanceur {
     private final static int port = 10101;
     private final static int nombre_joueurs = 3;
 
-
     public final static void main(String args[]) {
         log("\n\n------------------");
         log("Début programme !!");

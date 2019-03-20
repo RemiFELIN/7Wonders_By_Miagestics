@@ -1,8 +1,6 @@
 package moteur;
 
-import java.awt.*;
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class Carte {
 
@@ -17,13 +15,13 @@ public class Carte {
     private SymboleScientifique symboleScientifique;
     private ArrayList<Ressource> coutRessources = new ArrayList<Ressource>();
     private ArrayList<Ressource> ressources = new ArrayList<Ressource>();
-    private ArrayList<Ressource> ressourcesRecues = new ArrayList<>();
+    private ArrayList<Ressource> ressourcesRecues = new ArrayList<Ressource>();
 
     //TODO Dans une future itération
     /*
-    protected String symboleScientifique; // TODO enum a rajouter par la suite
-    protected String batimentSuivant = ""; // TODO changer avec ???
-    protected String effetSpecial = ""; // TODO changer string par un enum ?
+    private String symboleScientifique; // TODO enum a rajouter par la suite
+    private String batimentSuivant = ""; // TODO changer avec ???
+    private String effetSpecial = ""; // TODO changer string par un enum ?
     */
 
     public Carte(String nom, Couleur couleur, int age) {
@@ -45,9 +43,7 @@ public class Carte {
         this.symboleScientifique = symboleScientifique;
     }
 
-    public void ajouterCoutRessource(Ressource res){
-        coutRessources.add(res);
-    }
+    public void ajouterCoutRessource(Ressource res){ coutRessources.add(res); }
 
 
 
@@ -60,13 +56,12 @@ public class Carte {
 
 
 
-    public void ajouterRessource(Ressource res){
-        ressources.add(res);
-    }
+    public void ajouterRessource(Ressource res){ ressources.add(res); }
 
     public static ArrayList<Carte> getDeck(){
         ArrayList<Carte> deck = new ArrayList<Carte>();
-        Carte c;
+        //Carte commercial
+        //TODO ajouter toutes les cartes commercial + function addCartesCommercial
         deck.add(new Carte("Taverne", Couleur.JAUNE, 1, 0, 0, 0, 5));
 
         addCartesVictoire(deck);
@@ -79,63 +74,25 @@ public class Carte {
         return deck;
     }
 
-    public final Couleur getCouleur() {
-        return couleur;
-    }
-
-    public final String getNom() {
-        return nom;
-    }
-
-    public final int getAge() {
-        return age;
-    }
-
-    public final int getCoutPiece() {
-        return coutPiece;
-    }
-
-    public final int getLaurier() {
-        return laurier;
-    }
-
-    public final int getPuissanceMilitaire() {
-        return puissanceMilitaire;
-    }
+    public final Couleur getCouleur() { return couleur; }
+    public final String getNom() { return nom; }
+    public final int getAge() { return age; }
+    public final int getCoutPiece() { return coutPiece; }
+    public final int getLaurier() { return laurier; }
+    public final int getPuissanceMilitaire() { return puissanceMilitaire; }
     
     //TODO Dans une future itération
     /*
-    public final String getSymboleScientifique() {
-        return symboleScientifique;
-    }
+    public final String getSymboleScientifique() { return symboleScientifique; }
+    public final String getDescription() { return description; }
+    public final String getNextBuilding() { return nextBuilding; }
+    public final String getSpecialEffect() { return specialEffect;}
+    */
 
-    public final String getDescription() {
-        return description;
-    }
-
-    public final String getNextBuilding() {
-        return nextBuilding;
-    }
-
-    public final String getSpecialEffect() {
-        return specialEffect;
-    }*/
-
-    public final int getPiece() {
-        return piece;
-    }
-
-    public final ArrayList<Ressource> getRessources() {
-        return ressources;
-    }
-
-    public final ArrayList<Ressource> getCoutRessources() {
-        return coutRessources;
-    }
-
-    public final SymboleScientifique getSymboleScientifique(){
-        return symboleScientifique;
-    }
+    public final int getPiece() { return piece; }
+    public final ArrayList<Ressource> getRessources() { return ressources; }
+    public final ArrayList<Ressource> getCoutRessources() { return coutRessources; }
+    public final SymboleScientifique getSymboleScientifique(){ return symboleScientifique; }
 
     public static ArrayList<Carte> genererCarteGuildes(){
         ArrayList<Carte> deck = new ArrayList<Carte>();
@@ -253,8 +210,7 @@ public class Carte {
 
     public final static void addCartesGuildes(ArrayList<Carte> deck){
         ArrayList<Carte> deckDeGuildes = genererCarteGuildes();
-        //On mélange
-        Collections.shuffle(deckDeGuildes);
+
         //En fct du nombre de joueurs, on ajoute (joueur + 2) cartes guildes au jeu
         //TMP : on admet le nombre de joueur égale à 3 -> nombre de guildes disponibles = 5
         for(int i=0; i<5; i++)
@@ -262,7 +218,6 @@ public class Carte {
     }
 
     private final static void addCartesScientifique(ArrayList<Carte> deck){
-
 
         //-----------Cartes Scientifique------------------
         Carte c = new Carte("Apothicaire",Couleur.VERT,0,0,0,0,0,SymboleScientifique.COMPAS);
@@ -329,11 +284,10 @@ public class Carte {
 
     }
 
-    private static void addCartesMilitaires(ArrayList<Carte> deck)
-    {   Carte c;
+    private static void addCartesMilitaires(ArrayList<Carte> deck){   
         //cartes militaires de l'âge 1
 
-        c = new Carte("Caserne", Couleur.ROUGE, 1, 0, 0, 1, 0);
+        Carte c = new Carte("Caserne", Couleur.ROUGE, 1, 0, 0, 1, 0);
         c.ajouterCoutRessource(Ressource.MINERAI);
         deck.add(c);
 
@@ -406,15 +360,12 @@ public class Carte {
         deck.add(c);
     }
 
-    private static void addCartesVictoire(ArrayList<Carte> deck)
-    {
-        Carte c;
-
+    private static void addCartesVictoire(ArrayList<Carte> deck){
         //cartes victoire de l'âge 1
 
         deck.add(new Carte("Theatre", Couleur.BLEU, 1, 0, 2, 0, 0));
 
-        c = new Carte("Prêteur sur gage", Couleur.BLEU, 1, 0, 2, 0, 0);
+        Carte c = new Carte("Prêteur sur gage", Couleur.BLEU, 1, 0, 2, 0, 0);
         deck.add(c);
 
         c = new Carte("Autel", Couleur.BLEU, 1, 0, 2, 0, 0);
@@ -493,11 +444,10 @@ public class Carte {
 
     }
 
-    private static void addCartesRessources(ArrayList<Carte> deck)
-    {   Carte c;
+    private static void addCartesRessources(ArrayList<Carte> deck){ 
         //cartes ressources de l'âge 1
 
-        c = new Carte("Fosse", Couleur.MARRON, 1);
+        Carte c = new Carte("Fosse", Couleur.MARRON, 1);
         c.ajouterRessource(Ressource.PIERRE);
         deck.add(c);
 
@@ -565,5 +515,4 @@ public class Carte {
         c.ajouterRessource(Ressource.MINERAI);
         deck.add(c);
     }
-
 }

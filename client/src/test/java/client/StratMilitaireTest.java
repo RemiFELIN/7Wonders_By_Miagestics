@@ -1,6 +1,6 @@
 package client;
 
-import client.strategie.*;
+import client.strategie.StratMilitaire;
 import moteur.Carte;
 import moteur.Couleur;
 import moteur.Ressource;
@@ -12,12 +12,11 @@ import org.mockito.Mock;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
 
 public class StratMilitaireTest {
 
     @Mock
-    Strategie stratClient;
+    StratMilitaire stratClient;
 
     ArrayList<Carte> deck;
 
@@ -32,7 +31,6 @@ public class StratMilitaireTest {
         deck.add(c);
         deck.add(new Carte("CarteTestLaurier", Couleur.BLANC, 0, 0, 2, 0, 0));
     }
-
 
     @Test
     public void testStratMilitaire() throws Exception {

@@ -7,8 +7,7 @@ import moteur.action.JSONAction;
 import java.util.Random;
 
 public class Jeu {
-    private final int NBCARTES = 35;
-    private final int PLATEAU = 7;
+    private final int NBCARTES = 75; //Voir documentation du jeu
     private int TAILLE_DECK = 0; //Taille initial ! (=== mesJoueurs.length)
 
     private final ArrayList<ArrayList<Carte>> tabDeck = new ArrayList<ArrayList<Carte>>(3);
@@ -25,7 +24,6 @@ public class Jeu {
         distributionPlateau();
         initCartes();
     }
-
 
     public final void initCartes() {
         for (int j = 0; j < 3; j++){
@@ -95,11 +93,9 @@ public class Jeu {
                 log("Le joueur "+ja.idJoueur+" a posé la carte "+ja.numeroCarte);
             break;
 
-
             default:
                 return false;
         }
-
         return true;
     }
 

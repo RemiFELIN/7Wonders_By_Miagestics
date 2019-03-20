@@ -1,9 +1,6 @@
 package client;
 
 import client.strategie.StratLaurier;
-import client.strategie.StratRandom;
-import client.strategie.StratRessources;
-import client.strategie.Strategie;
 import moteur.Carte;
 import moteur.Couleur;
 import moteur.Ressource;
@@ -15,12 +12,11 @@ import org.mockito.Mock;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
 
 public class StratLaurierTest {
 
     @Mock
-    Strategie stratClient;
+    StratLaurier stratClient;
 
     ArrayList<Carte> deck;
 
@@ -41,5 +37,4 @@ public class StratLaurierTest {
         PoserCarte pc = (PoserCarte) stratClient.getAction(0, deck);
         assertEquals(2, pc.getNumeroCarte());
     }
-
 }
