@@ -1,6 +1,8 @@
 package moteur;
 
+import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Carte {
 
@@ -15,6 +17,7 @@ public class Carte {
     private SymboleScientifique symboleScientifique;
     private ArrayList<Ressource> coutRessources = new ArrayList<Ressource>();
     private ArrayList<Ressource> ressources = new ArrayList<Ressource>();
+    private ArrayList<Ressource> ressourcesRecues = new ArrayList<>();
 
     //TODO Dans une future itération
     /*
@@ -46,6 +49,17 @@ public class Carte {
         coutRessources.add(res);
     }
 
+
+
+    /*************************/
+    /* POUR LES GUILDES*/
+    public void ajouterRessourcesRecues(Ressource res){ ressourcesRecues.add(res); }
+
+    public void ajouterPieces(int res){ piece += res; }
+    /*************************/
+
+
+
     public void ajouterRessource(Ressource res){
         ressources.add(res);
     }
@@ -58,78 +72,13 @@ public class Carte {
         addCartesVictoire(deck);
         addCartesMilitaires(deck);
         addCartesRessources(deck);
-        
         addCartesScientifique(deck);
+        //Cartes guildes
+        addCartesGuildes(deck);
+
         return deck;
     }
 
-    private final static void addCartesScientifique(ArrayList<Carte> deck){
-
-        
-        //-----------Cartes Scientifique------------------
-        Carte c = new Carte("Apothicaire",Couleur.VERT,0,0,0,0,0,SymboleScientifique.COMPAS);
-        c.ajouterRessource(Ressource.TEXTILE);
-        deck.add(c);
-
-        c = new Carte("Scriptorium",Couleur.VERT,0,0,0,0,0,SymboleScientifique.TABLETTE);
-        c.ajouterCoutRessource(Ressource.PAPYRUS);
-        deck.add(c);
-
-        c = new Carte("Atelier",Couleur.VERT,0,0,0,0,0,SymboleScientifique.ROUAGE);
-        c.ajouterCoutRessource(Ressource.VERRE);
-        deck.add(c);
-
-        c = new Carte("Laboratoire",Couleur.VERT,0,0,0,0,0,SymboleScientifique.ROUAGE);
-        c.ajouterCoutRessource(Ressource.ARGILE);
-        c.ajouterCoutRessource(Ressource.ARGILE);
-        c.ajouterCoutRessource(Ressource.PAPYRUS);
-        deck.add(c);
-        
-        c = new Carte("Ecole",Couleur.VERT,0,0,0,0,0,SymboleScientifique.TABLETTE);
-        c.ajouterCoutRessource(Ressource.BOIS);
-        c.ajouterCoutRessource(Ressource.PAPYRUS);
-        deck.add(c);
-
-        c = new Carte("Dispensaire",Couleur.VERT,0,0,0,0,0,SymboleScientifique.COMPAS);
-        c.ajouterCoutRessource(Ressource.MINERAI);
-        c.ajouterCoutRessource(Ressource.MINERAI);
-        c.ajouterCoutRessource(Ressource.VERRE);
-        deck.add(c);
-
-        c = new Carte("Librairie",Couleur.VERT,0,0,0,0,0,SymboleScientifique.TABLETTE);
-        c.ajouterCoutRessource(Ressource.PIERRE);
-        c.ajouterCoutRessource(Ressource.PIERRE);
-        c.ajouterCoutRessource(Ressource.TEXTILE);
-        deck.add(c);
-
-        c = new Carte("Academie",Couleur.VERT,0,0,0,0,0,SymboleScientifique.COMPAS);
-        c.ajouterCoutRessource(Ressource.PIERRE);
-        c.ajouterCoutRessource(Ressource.PIERRE);
-        c.ajouterCoutRessource(Ressource.PIERRE);
-        c.ajouterCoutRessource(Ressource.VERRE);
-        deck.add(c);
-
-        c = new Carte("Universite",Couleur.VERT,0,0,0,0,0,SymboleScientifique.TABLETTE);
-        c.ajouterCoutRessource(Ressource.BOIS);
-        c.ajouterCoutRessource(Ressource.BOIS);
-        c.ajouterCoutRessource(Ressource.PAPYRUS);
-        c.ajouterCoutRessource(Ressource.VERRE);
-        deck.add(c);
-
-        c = new Carte("Loge",Couleur.VERT,0,0,0,0,0,SymboleScientifique.COMPAS);
-        c.ajouterCoutRessource(Ressource.ARGILE);
-        c.ajouterCoutRessource(Ressource.ARGILE);
-        c.ajouterCoutRessource(Ressource.PAPYRUS);
-        c.ajouterCoutRessource(Ressource.TEXTILE);
-        deck.add(c);
-
-        c = new Carte("Salle d'etude",Couleur.VERT,0,0,0,0,0,SymboleScientifique.ROUAGE);
-        c.ajouterCoutRessource(Ressource.ARGILE);
-        c.ajouterCoutRessource(Ressource.PAPYRUS);
-        c.ajouterCoutRessource(Ressource.TEXTILE);
-        deck.add(c);
-
-    }
     public final Couleur getCouleur() {
         return couleur;
     }
@@ -182,6 +131,202 @@ public class Carte {
 
     public final ArrayList<Ressource> getCoutRessources() {
         return coutRessources;
+    }
+
+    public final SymboleScientifique getSymboleScientifique(){
+        return symboleScientifique;
+    }
+
+    public static ArrayList<Carte> genererCarteGuildes(){
+        ArrayList<Carte> deck = new ArrayList<Carte>();
+        /* 10 cartes Guildes au total: en fct du nombre de joueur, le nb de guildes equivaut à joueur + 2*/
+
+        //Guilde des travailleurs
+        Carte c = new Carte("Guilde des travailleurs", Couleur.VIOLET, 3);
+        c.ajouterCoutRessource(Ressource.MINERAI);
+        c.ajouterCoutRessource(Ressource.MINERAI);
+        c.ajouterCoutRessource(Ressource.ARGILE);
+        c.ajouterCoutRessource(Ressource.PIERRE);
+        c.ajouterCoutRessource(Ressource.BOIS);
+        //Pour chaques cartes MARRON que j'ai dans mon deck, je gagne un point de victoire
+
+        deck.add(c);
+
+
+        //Guilde des artisans
+        c = new Carte("Guilde des artisans", Couleur.VIOLET, 3);
+        c.ajouterCoutRessource(Ressource.MINERAI);
+        c.ajouterCoutRessource(Ressource.MINERAI);
+        c.ajouterCoutRessource(Ressource.PIERRE);
+        c.ajouterCoutRessource(Ressource.PIERRE);
+        //pour chaques cartes grises que j'ai dans mon deck, je gagne deux points de victoire
+
+        deck.add(c);
+
+        //Guilde des commerçants
+        c = new Carte("Guilde des commerçants", Couleur.VIOLET, 3);
+        c.ajouterCoutRessource(Ressource.TEXTILE);
+        c.ajouterCoutRessource(Ressource.PAPYRUS);
+        c.ajouterCoutRessource(Ressource.VERRE);
+        //Pour chaques cartes jaunes que j'ai dans mon deck, je gagne un point de victoire
+
+        deck.add(c);
+
+        //Guilde des philosophes
+        c = new Carte("Guilde des philosophes", Couleur.VIOLET, 3);
+        c.ajouterCoutRessource(Ressource.ARGILE);
+        c.ajouterCoutRessource(Ressource.ARGILE);
+        c.ajouterCoutRessource(Ressource.ARGILE);
+        c.ajouterCoutRessource(Ressource.TEXTILE);
+        c.ajouterCoutRessource(Ressource.PAPYRUS);
+        //Pour chaques cartes scientifiques que j'ai dans mon deck, je gagne un point de victoire
+
+        deck.add(c);
+
+        //Guilde des espions
+        c = new Carte("Guilde des espions", Couleur.VIOLET, 3);
+        c.ajouterCoutRessource(Ressource.ARGILE);
+        c.ajouterCoutRessource(Ressource.ARGILE);
+        c.ajouterCoutRessource(Ressource.ARGILE);
+        c.ajouterCoutRessource(Ressource.VERRE);
+        //Pour chaques cartes conflits que j'ai dans mon deck, je gagne un point de victoire
+
+        deck.add(c);
+
+        //Guilde des stratèges
+        c = new Carte("Guilde des stratèges", Couleur.VIOLET, 3);
+        c.ajouterCoutRessource(Ressource.MINERAI);
+        c.ajouterCoutRessource(Ressource.MINERAI);
+        c.ajouterCoutRessource(Ressource.PIERRE);
+        c.ajouterCoutRessource(Ressource.PAPYRUS);
+        //Pour chaques malus de conflits que j'ai reçu, je reçoit un point de victoire
+
+        deck.add(c);
+
+        //Guilde des armateurs
+        c = new Carte("Guilde des armateurs", Couleur.VIOLET, 3);
+        c.ajouterCoutRessource(Ressource.BOIS);
+        c.ajouterCoutRessource(Ressource.BOIS);
+        c.ajouterCoutRessource(Ressource.BOIS);
+        c.ajouterCoutRessource(Ressource.PAPYRUS);
+        c.ajouterCoutRessource(Ressource.VERRE);
+        //Pour chaques cartes marrons, grises et violettes, je gagne un point de victoire
+
+        deck.add(c);
+
+        //Guilde des scientifiques
+        c = new Carte("Guilde des scientifiques", Couleur.VIOLET, 3);
+        c.ajouterCoutRessource(Ressource.BOIS);
+        c.ajouterCoutRessource(Ressource.BOIS);
+        c.ajouterCoutRessource(Ressource.MINERAI);
+        c.ajouterCoutRessource(Ressource.MINERAI);
+        c.ajouterCoutRessource(Ressource.PAPYRUS);
+        //Je recoit une carte compas, rouage et tablette
+
+        deck.add(c);
+
+        //Guilde des magistrats
+        c = new Carte("Guilde des magistrats", Couleur.VIOLET, 3);
+        c.ajouterCoutRessource(Ressource.BOIS);
+        c.ajouterCoutRessource(Ressource.BOIS);
+        c.ajouterCoutRessource(Ressource.BOIS);
+        c.ajouterCoutRessource(Ressource.PIERRE);
+        c.ajouterCoutRessource(Ressource.TEXTILE);
+        //Pour chaques cartes bleues que j'ai dans mon deck, je gagne un point de victoire
+
+        deck.add(c);
+
+        //Guilde des bâtisseurs
+        c = new Carte("Guilde des bâtisseurs", Couleur.VIOLET, 3);
+        c.ajouterCoutRessource(Ressource.PIERRE);
+        c.ajouterCoutRessource(Ressource.PIERRE);
+        c.ajouterCoutRessource(Ressource.ARGILE);
+        c.ajouterCoutRessource(Ressource.ARGILE);
+        c.ajouterCoutRessource(Ressource.VERRE);
+        //Pour chaques merveilles construites, je gagne un point de victoire
+
+        deck.add(c);
+
+        // On retourne notre deck contenant 10 guildes
+        return deck;
+    }
+
+    public final static void addCartesGuildes(ArrayList<Carte> deck){
+        ArrayList<Carte> deckDeGuildes = genererCarteGuildes();
+        //On mélange
+        Collections.shuffle(deckDeGuildes);
+        //En fct du nombre de joueurs, on ajoute (joueur + 2) cartes guildes au jeu
+        //TMP : on admet le nombre de joueur égale à 3 -> nombre de guildes disponibles = 5
+        for(int i=0; i<5; i++)
+            deck.add(deckDeGuildes.get(i));
+    }
+
+    private final static void addCartesScientifique(ArrayList<Carte> deck){
+
+
+        //-----------Cartes Scientifique------------------
+        Carte c = new Carte("Apothicaire",Couleur.VERT,0,0,0,0,0,SymboleScientifique.COMPAS);
+        c.ajouterRessource(Ressource.TEXTILE);
+        deck.add(c);
+
+        c = new Carte("Scriptorium",Couleur.VERT,0,0,0,0,0,SymboleScientifique.TABLETTE);
+        c.ajouterCoutRessource(Ressource.PAPYRUS);
+        deck.add(c);
+
+        c = new Carte("Atelier",Couleur.VERT,0,0,0,0,0,SymboleScientifique.ROUAGE);
+        c.ajouterCoutRessource(Ressource.VERRE);
+        deck.add(c);
+
+        c = new Carte("Laboratoire",Couleur.VERT,0,0,0,0,0,SymboleScientifique.ROUAGE);
+        c.ajouterCoutRessource(Ressource.ARGILE);
+        c.ajouterCoutRessource(Ressource.ARGILE);
+        c.ajouterCoutRessource(Ressource.PAPYRUS);
+        deck.add(c);
+
+        c = new Carte("Ecole",Couleur.VERT,0,0,0,0,0,SymboleScientifique.TABLETTE);
+        c.ajouterCoutRessource(Ressource.BOIS);
+        c.ajouterCoutRessource(Ressource.PAPYRUS);
+        deck.add(c);
+
+        c = new Carte("Dispensaire",Couleur.VERT,0,0,0,0,0,SymboleScientifique.COMPAS);
+        c.ajouterCoutRessource(Ressource.MINERAI);
+        c.ajouterCoutRessource(Ressource.MINERAI);
+        c.ajouterCoutRessource(Ressource.VERRE);
+        deck.add(c);
+
+        c = new Carte("Librairie",Couleur.VERT,0,0,0,0,0,SymboleScientifique.TABLETTE);
+        c.ajouterCoutRessource(Ressource.PIERRE);
+        c.ajouterCoutRessource(Ressource.PIERRE);
+        c.ajouterCoutRessource(Ressource.TEXTILE);
+        deck.add(c);
+
+        c = new Carte("Academie",Couleur.VERT,0,0,0,0,0,SymboleScientifique.COMPAS);
+        c.ajouterCoutRessource(Ressource.PIERRE);
+        c.ajouterCoutRessource(Ressource.PIERRE);
+        c.ajouterCoutRessource(Ressource.PIERRE);
+        c.ajouterCoutRessource(Ressource.VERRE);
+        deck.add(c);
+
+        c = new Carte("Universite",Couleur.VERT,0,0,0,0,0,SymboleScientifique.TABLETTE);
+        c.ajouterCoutRessource(Ressource.BOIS);
+        c.ajouterCoutRessource(Ressource.BOIS);
+        c.ajouterCoutRessource(Ressource.PAPYRUS);
+        c.ajouterCoutRessource(Ressource.VERRE);
+        deck.add(c);
+
+        c = new Carte("Loge",Couleur.VERT,0,0,0,0,0,SymboleScientifique.COMPAS);
+        c.ajouterCoutRessource(Ressource.ARGILE);
+        c.ajouterCoutRessource(Ressource.ARGILE);
+        c.ajouterCoutRessource(Ressource.PAPYRUS);
+        c.ajouterCoutRessource(Ressource.TEXTILE);
+        deck.add(c);
+
+        c = new Carte("Salle d'etude",Couleur.VERT,0,0,0,0,0,SymboleScientifique.ROUAGE);
+        c.ajouterCoutRessource(Ressource.ARGILE);
+        c.ajouterCoutRessource(Ressource.PAPYRUS);
+        c.ajouterCoutRessource(Ressource.TEXTILE);
+        deck.add(c);
+
     }
 
     private static void addCartesMilitaires(ArrayList<Carte> deck)
@@ -420,8 +565,5 @@ public class Carte {
         c.ajouterRessource(Ressource.MINERAI);
         deck.add(c);
     }
-    
-    public final SymboleScientifique getSymboleScientifique(){
-        return symboleScientifique;
-    }
+
 }
