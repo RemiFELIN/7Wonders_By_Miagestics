@@ -10,9 +10,7 @@ import java.util.ArrayList;
 
 import static moteur.Jeu.log;
 import static moteur.Jeu.error;
-import moteur.Carte;
-import moteur.Couleur;
-import moteur.Ressource;
+import moteur.*;
 import moteur.action.Action;
 
 import client.strategie.*;
@@ -51,38 +49,42 @@ public class Client {
             }
         });
 
-        connexion.on("getCarte" + id, new Emitter.Listener() {
+        connexion.on("getVision" + id, new Emitter.Listener() {
             @Override
             public final void call(Object... args) {
-                log("Le client " + id + " a reçu ses cartes");
-                ArrayList<Carte> deck = new ArrayList<Carte>();
-                try  {
-                    JSONArray ja = (JSONArray) args[0];
-                    for(int i = 0; i < ja.length(); i++){
-                        JSONObject obj = ja.getJSONObject(i);
-                        Carte c = new Carte(
-                            obj.getString("nom"),
-                            Couleur.fromString(obj.getString("couleur")),
-                            obj.getInt("age"),
-                            obj.getInt("coutPiece"),
-                            obj.getInt("laurier"),
-                            obj.getInt("puissanceMilitaire"),
-                            obj.getInt("piece")
-                        );
-                        JSONArray coutRessources = (JSONArray) obj.get("coutRessources");
-                        for(int j=0; i<coutRessources.length(); i++)
-                            c.ajouterCoutRessource(Ressource.fromString(coutRessources.getString(j)));
+                log("Le client " + id + " a reçu sa vision de jeu");
+                try {
+                    JSONObject jo = (JSONObject) args[0];
+                    ArrayList<Carte> deckMain = parseJSONArray((JSONArray) jo.get("deckMain"));
+                    ArrayList<Carte> deckPlateau = parseJSONArray((JSONArray) jo.get("deckPlateau"));
+                    VisionJeu j = new VisionJeu(
+                        jo.getInt("id"),
+                        jo.getInt("piece"),
+                        deckMain,
+                        deckPlateau
+                    );
 
-                        JSONArray ressources = (JSONArray) obj.get("ressources");
-                        for(int j=0; i<ressources.length(); i++)
-                            c.ajouterRessource(Ressource.fromString(ressources.getString(j)));
-                        deck.add(c);
-                    }
+                    ArrayList<Carte> gaucheDeckPlateau = parseJSONArray((JSONArray) jo.get("voisinGaucheDeckPlateau"));
+                    VisionJeu g = new VisionJeu(
+                        jo.getInt("voisinGaucheId"),
+                        jo.getInt("voisinGauchePiece"),
+                        gaucheDeckPlateau
+                    );
+                    j.setVoisinGauche(g);
                     
-                    actionAJouer = (Action) stratClient.getAction(id, deck);
+                    ArrayList<Carte> droiteDeckPlateau = parseJSONArray((JSONArray) jo.get("voisinDroiteDeckPlateau"));
+                    VisionJeu d = new VisionJeu(
+                        jo.getInt("voisinDroiteId"),
+                        jo.getInt("voisinDroitePiece"),
+                        droiteDeckPlateau
+                    );
+                    j.setVoisinDroite(d);
+
+                    actionAJouer = (Action) stratClient.getAction(id, j.getDeckMain());
                     connexion.emit("recuCarte", id);
+
                 } catch (JSONException e){
-                    error("Client "+id+" erreur getCarte !", e);
+                    error("Client "+id+" erreur getVision !", e);
                 }
             }
         });
@@ -101,6 +103,31 @@ public class Client {
                 connexion.close();
             }
         });
+    }
+
+    private final ArrayList<Carte> parseJSONArray(JSONArray ja){
+        ArrayList<Carte> deck = new ArrayList<Carte>();
+        for(int i = 0; i < ja.length(); i++){
+            JSONObject obj = ja.getJSONObject(i);
+            Carte c = new Carte(
+                obj.getString("nom"),
+                Couleur.fromString(obj.getString("couleur")),
+                obj.getInt("age"),
+                obj.getInt("coutPiece"),
+                obj.getInt("laurier"),
+                obj.getInt("puissanceMilitaire"),
+                obj.getInt("piece")
+            );
+            JSONArray coutRessources = (JSONArray) obj.get("coutRessources");
+            for(int j=0; i<coutRessources.length(); i++)
+                c.ajouterCoutRessource(Ressource.fromString(coutRessources.getString(j)));
+
+            JSONArray ressources = (JSONArray) obj.get("ressources");
+            for(int j=0; i<ressources.length(); i++)
+                c.ajouterRessource(Ressource.fromString(ressources.getString(j)));
+            deck.add(c);
+        }
+        return deck;
     }
 
     public final void démarrer() {

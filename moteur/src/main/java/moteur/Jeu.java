@@ -103,7 +103,6 @@ public class Jeu {
         return true;
     }
 
-
     public final void recuperationCarte(){
         for (int i=0; i<mesJoueurs.size(); i++)
             tabDeck.get(age-2).add(mesJoueurs.get(i).getDerniereCarte());
@@ -135,6 +134,29 @@ public class Jeu {
         return mesJoueurs;
     }
 
+    public final ArrayList<VisionJeu> getVisionsJeu(){
+        ArrayList<VisionJeu> visions = new ArrayList<VisionJeu>(mesJoueurs.size());
+
+        for(int i=0; i<mesJoueurs.size(); i++){
+            Joueur j = mesJoueurs.get(i);
+            VisionJeu vj = new VisionJeu(i, j.getPiece(), j.getDeckMain(), j.getDeckPlateau());
+            visions.add(vj);
+        }
+
+        visions.get(0).setVoisinGauche(visions.get(visions.size()-1));
+        visions.get(0).setVoisinDroite(visions.get(1));
+
+        for(int i=1; i<visions.size()-1; i++){
+            visions.get(i).setVoisinGauche(visions.get(i-1));
+            visions.get(i).setVoisinDroite(visions.get(i+1));
+        }
+
+        visions.get(visions.size()-1).setVoisinGauche(visions.get(visions.size()-2));
+        visions.get(visions.size()-1).setVoisinDroite(visions.get(0));
+
+        return visions;
+    }
+
     public final static int indexOf(int[] tab, int n) {
         for (int i = 0; i < tab.length; i++)
             if (tab[i] == n)
@@ -162,10 +184,6 @@ public class Jeu {
 
     public final int getTailleDeck(){
         return TAILLE_DECK;
-    }
-
-    public final ArrayList<Carte> getDeckMain(){
-        return mesJoueurs.get(0).getDeckMain();
     }
     
     //GETTER

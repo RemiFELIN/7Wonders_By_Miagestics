@@ -44,7 +44,8 @@ public class Serveur {
 
         serveur.addEventListener("rejoindre jeu", Integer.class, new DataListener<Integer>() {
             @Override
-            public final void onData(SocketIOClient socketIOClient, Integer id, AckRequest ackRequest) throws Exception {
+            public final void onData(SocketIOClient socketIOClient, Integer id, AckRequest ackRequest)
+                    throws Exception {
                 if (nbJoueursConnectees > MAX_JOUEURS) {
                     log("Connexion impossible: déjà " + MAX_JOUEURS + " joueurs dans la partie");
                 } else {
@@ -57,37 +58,38 @@ public class Serveur {
                         log("-----------------------------------------------\n");
                         jeu = new Jeu(nbJoueursConnectees);
                         jeu.distributionCarte();
-                        sendCartes();
+                        sendVisionsJeu();
                     }
                 }
             }
         });
 
-        serveur.addEventListener("jouerCarte", JSONAction.class, new DataListener<JSONAction>(){
+        serveur.addEventListener("jouerCarte", JSONAction.class, new DataListener<JSONAction>() {
             @Override
-            public final void onData(SocketIOClient socketIOClient, JSONAction ja, AckRequest ackRequest) throws Exception {
-                
-                if(jeu.jouerAction(ja) == false)
+            public final void onData(SocketIOClient socketIOClient, JSONAction ja, AckRequest ackRequest)
+                    throws Exception {
+
+                if (jeu.jouerAction(ja) == false)
                     throw new Exception("Action non autorisée");
 
                 nbJoueurCoupFini++;
-                if(nbJoueurCoupFini == nbJoueursConnectees){
+                if (nbJoueurCoupFini == nbJoueursConnectees) {
                     log("\nFin du tour ! Les scores :");
                     ArrayList<Joueur> tabJ = jeu.getJoueurs();
-                    for(int i=0; i<tabJ.size(); i++) {
+                    for (int i = 0; i < tabJ.size(); i++) {
                         log("Score joueur " + i + " : " + tabJ.get(i).getScore());
                     }
-                    if(jeu.finAge()){
+                    if (jeu.finAge()) {
                         log("\n--------------------");
                         log("- Fin de l'Age " + jeu.getAge() + " ! -");
                         log("--------------------\n");
 
-                        if(jeu.finJeu()){
+                        if (jeu.finJeu()) {
                             log("Fin du jeu !");
                             ArrayList<Joueur> clas = jeu.getClassement();
-                            for(int i=0; i<clas.size(); i++) {
+                            for (int i = 0; i < clas.size(); i++) {
                                 Joueur j = clas.get(i);
-                                log(i+1 + " > " + j.toString() + " avec " + j.getScore());
+                                log(i + 1 + " > " + j.toString() + " avec " + j.getScore());
                             }
                         } else {
                             jeu.ageSuivant();
@@ -96,15 +98,15 @@ public class Serveur {
                             jeu.distributionCarte();
                             log("Distribution des nouveaux decks\n");
                             jeu.roulementCarte();
-                            sendCartes();
+                            sendVisionsJeu();
                             nbJoueurCoupFini = 0;
                         }
-                        
+
                     } else {
                         log("\nDébut du prochain tour...");
                         log("-------------------------\n");
                         jeu.roulementCarte();
-                        sendCartes();
+                        sendVisionsJeu();
                         nbJoueurCoupFini = 0;
                     }
                 }
@@ -113,9 +115,10 @@ public class Serveur {
 
         serveur.addEventListener("recuCarte", Integer.class, new DataListener<Integer>() {
             @Override
-            public final void onData(SocketIOClient socketIOClient, Integer id, AckRequest ackRequest) throws Exception {
+            public final void onData(SocketIOClient socketIOClient, Integer id, AckRequest ackRequest)
+                    throws Exception {
                 carteDistribué++;
-                if (carteDistribué == nbJoueursConnectees ){
+                if (carteDistribué == nbJoueursConnectees) {
                     carteDistribué = 0;
                     client.sendEvent("debutTour");
                 }
@@ -123,9 +126,10 @@ public class Serveur {
         });
     }
 
-    public final void sendCartes() {
-        for (int i = 0; i < nbJoueursConnectees; i++)
-            client.sendEvent("getCarte" + i, jeu.getJoueurs().get(i).getDeckMain());
+    public final void sendVisionsJeu() {
+        ArrayList<VisionJeu> vj = jeu.getVisionsJeu();
+        for (int i = 0; i < vj.size(); i++)
+            client.sendEvent("getVision" + i, vj.get(i));
     }
 
     public final void démarrer() {

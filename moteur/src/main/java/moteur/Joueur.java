@@ -27,8 +27,12 @@ public class Joueur {
         this.plateau = m;
     }
 
-    public final ArrayList<Carte> getDeckMain() {
-        return this.deckMain;
+    public final ArrayList<Carte> getDeckPlateau(){
+        return deckPlateau;
+    }
+
+    public final ArrayList<Carte> getDeckMain(){
+        return deckMain;
     }
 
     public final Carte getDerniereCarte(){
