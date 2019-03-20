@@ -29,10 +29,16 @@ public class Jeu {
         for (int j = 0; j < 3; j++){
             ArrayList<Carte> tabCarte = new ArrayList<Carte>(NBCARTES);
             ArrayList<Carte> tempDeck = Carte.getDeck();
+            ArrayList<Carte> deckGuildes = new ArrayList<Carte>();
 
             for (byte i = 0; i < NBCARTES; i++)
                 tabCarte.add(tempDeck.get(i % tempDeck.size()));
-            
+
+            if(j == 2){
+                deckGuildes = Carte.getDeckGuildes(mesJoueurs.size());
+                tabCarte.addAll(deckGuildes);
+            }
+
             Collections.shuffle(tabCarte);
             tabDeck.add(tabCarte);
         }    

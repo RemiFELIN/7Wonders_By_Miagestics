@@ -1,6 +1,7 @@
 package moteur;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Carte {
 
@@ -68,10 +69,19 @@ public class Carte {
         addCartesMilitaires(deck);
         addCartesRessources(deck);
         addCartesScientifique(deck);
-        //Cartes guildes
-        addCartesGuildes(deck);
-
         return deck;
+    }
+
+    public static ArrayList<Carte> getDeckGuildes(int nombreDeJoueur){
+        ArrayList<Carte> deckDeGuilde = genererCarteGuildes();
+        ArrayList<Carte> deckUtilisé = new ArrayList<Carte>();
+        //on melange
+        Collections.shuffle(deckDeGuilde);
+        //on constitue ...
+        for(int i=0; i<nombreDeJoueur+2; i++)
+            deckUtilisé.add(deckDeGuilde.get(i));
+        //on retourne
+        return deckUtilisé;
     }
 
     public final Couleur getCouleur() { return couleur; }
@@ -94,7 +104,7 @@ public class Carte {
     public final ArrayList<Ressource> getCoutRessources() { return coutRessources; }
     public final SymboleScientifique getSymboleScientifique(){ return symboleScientifique; }
 
-    public static ArrayList<Carte> genererCarteGuildes(){
+    private static ArrayList<Carte> genererCarteGuildes(){
         ArrayList<Carte> deck = new ArrayList<Carte>();
         /* 10 cartes Guildes au total: en fct du nombre de joueur, le nb de guildes equivaut à joueur + 2*/
 
@@ -208,14 +218,6 @@ public class Carte {
         return deck;
     }
 
-    public final static void addCartesGuildes(ArrayList<Carte> deck){
-        ArrayList<Carte> deckDeGuildes = genererCarteGuildes();
-
-        //En fct du nombre de joueurs, on ajoute (joueur + 2) cartes guildes au jeu
-        //TMP : on admet le nombre de joueur égale à 3 -> nombre de guildes disponibles = 5
-        for(int i=0; i<5; i++)
-            deck.add(deckDeGuildes.get(i));
-    }
 
     private final static void addCartesScientifique(ArrayList<Carte> deck){
 
