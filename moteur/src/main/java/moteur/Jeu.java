@@ -141,7 +141,7 @@ public class Jeu {
 
         for(int i=0; i<mesJoueurs.size(); i++){
             Joueur j = mesJoueurs.get(i);
-            VisionJeu vj = new VisionJeu(i, j.getPiece(), j.getDeckMain(), j.getDeckPlateau());
+            VisionJeu vj = new VisionJeu(i, j.getPiece(), j.getPlateau(), j.getDeckMain(), j.getDeckPlateau());
             visions.add(vj);
         }
 

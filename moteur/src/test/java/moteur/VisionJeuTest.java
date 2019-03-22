@@ -3,11 +3,7 @@ package moteur;
 import org.junit.Before;
 import org.junit.Test;
 
-import moteur.action.*;
-import static moteur.Jeu.log;
-
 import java.util.ArrayList;
-import java.lang.reflect.Field;
 
 import static org.junit.Assert.*;
 
@@ -28,7 +24,7 @@ public class VisionJeuTest {
         ArrayList<Joueur> joueurs = jeu.getJoueurs();
         for(int i=0; i<NOMBRE_JOUEURS; i++){
             Joueur j = joueurs.get(i);
-            vj.add(new VisionJeu(i, j.getPiece(), j.getDeckMain(), j.getDeckPlateau()));
+            vj.add(new VisionJeu(i, j.getPiece(), j.getPlateau(), j.getDeckMain(), j.getDeckPlateau()));
         }
 
         ArrayList<VisionJeu> vc = jeu.getVisionsJeu();
@@ -54,6 +50,7 @@ public class VisionJeuTest {
     private void assertEqualsVisionJeu(VisionJeu a, VisionJeu b){
         assertEquals(a.getId(), b.getId());
         assertEquals(a.getPiece(), b.getPiece());
+        assertEquals(a.getPlateau(), b.getPlateau());
         assertEquals(a.getDeckPlateau(), b.getDeckPlateau());
     }
 
@@ -61,9 +58,11 @@ public class VisionJeuTest {
         assertEquals(j.getVoisinGaucheId(), g.getId());
         assertEquals(j.getVoisinGauchePiece(), g.getPiece());
         assertEquals(j.getVoisinGaucheDeckPlateau(), g.getDeckPlateau());
+        assertEquals(j.getVoisinGauchePlateau(), g.getPlateau());
 
         assertEquals(j.getVoisinDroiteId(), d.getId());
         assertEquals(j.getVoisinDroitePiece(), d.getPiece());
         assertEquals(j.getVoisinDroiteDeckPlateau(), d.getDeckPlateau());
+        assertEquals(j.getVoisinDroitePlateau(), d.getPlateau());
     }
 }

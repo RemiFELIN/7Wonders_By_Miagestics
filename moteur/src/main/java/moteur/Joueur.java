@@ -27,6 +27,10 @@ public class Joueur {
         this.plateau = m;
     }
 
+    public final Merveille getPlateau(){
+        return plateau;
+    }
+
     public final ArrayList<Carte> getDeckPlateau(){
         return deckPlateau;
     }

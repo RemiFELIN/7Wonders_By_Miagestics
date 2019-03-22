@@ -4,18 +4,18 @@ import java.util.ArrayList;
 
 public class Merveille {
 
-    protected char face;
-    protected String nom;
-    protected Ressource res;
+    private char face;
+    private String nom;
+    private Ressource res;
 
-    protected Ressource[][] coutEtape;
-    protected Ressource[][] bonusEtapeRes;
-    protected int[] bonusEtapePv;
-    protected int[] bonusEtapeMilitaire;
-    protected int[] bonusEtapePiece;
-    protected String[] bonusEtapeEffect;
+    private Ressource[][] coutEtape;
+    private Ressource[][] bonusEtapeRes;
+    private int[] bonusEtapePv;
+    private int[] bonusEtapeMilitaire;
+    private int[] bonusEtapePiece;
+    private String[] bonusEtapeEffect;
 
-    public Merveille(String nom,char face,Ressource res) {
+    public Merveille(String nom, char face, Ressource res) {
         this.nom = nom;
         this.face = face;
         this.res = res;
@@ -25,32 +25,25 @@ public class Merveille {
         }
     }
 
-    public void setCoupEtape(Ressource[][] res){
-        this.coutEtape = res;
-    }
+    public final void setCoupEtape(Ressource[][] res){ this.coutEtape = res; }
+    public final void setBonusEtapePv(int[] pv){ this.bonusEtapePv = pv; }
+    public final void setBonusEtapeMilitaire(int[] militaire){ this.bonusEtapeMilitaire = militaire; }
+    public final void setBonusEtapePiece(int[] Piece){ this.bonusEtapePiece = Piece; }
+    public final void setBonusEtapeEffect(String[] Effect){ this.bonusEtapeEffect = Effect; }
+    public final void setBonusEtapeRes(Ressource[][] res){ this.bonusEtapeRes = res; }
 
-    public void setBonusEtapePv(int[] pv){
-        this.bonusEtapePv = pv;
-    }
+    public final char getFace(){ return face; }
+    public final String getNom(){ return nom; }
+    public final Ressource getRessource(){ return res; }
 
-    public void setBonusEtapeMilitaire(int[] militaire){
-        this.bonusEtapeMilitaire = militaire;
-    }
+    public final Ressource[][] getCoutEtape(){ return coutEtape; }
+    public final Ressource[][] getBonusEtapeRes(){ return bonusEtapeRes; }
+    public final int[] getBonusEtapePv(){ return bonusEtapePv; }
+    public final int[] getBonusEtapeMilitaire(){ return bonusEtapeMilitaire;}
+    public final int[] getBonusEtapePiece(){ return bonusEtapePiece; };
+    public final String[] getBonusEtapeEffect(){ return bonusEtapeEffect; };
 
-    public void setBonusEtapePiece(int[] Piece){
-        this.bonusEtapePiece = Piece;
-    }
-
-    public void setBonusEtapeEffect(String[] Effect){
-        this.bonusEtapeEffect = Effect;
-    }
-
-    public void setBonusEtapeRes(Ressource[][] res){
-        this.bonusEtapeRes = res;
-    }
-
-
-    public static ArrayList<Merveille> getPlateau(){
+    public final static ArrayList<Merveille> getPlateau(){
         ArrayList<Merveille> plateaux = new ArrayList<Merveille>();
         Merveille m;
 
@@ -70,7 +63,7 @@ public class Merveille {
         ,new Ressource[]{Ressource.MINERAI, Ressource.MINERAI}
         ,new Ressource[]{Ressource.VERRE, Ressource.VERRE}};
         m.setCoupEtape(ressources);
-        ressources = new Ressource[][]{null,new Ressource[]{Ressource.ARGILE, Ressource.BOIS,Ressource.MINERAI,Ressource.MINERAI},null};
+        ressources = new Ressource[][]{new Ressource[]{Ressource.ARGILE, Ressource.BOIS,Ressource.MINERAI,Ressource.MINERAI},null, null};
         m.setBonusEtapeRes(ressources);
         plateaux.add(m);
 
@@ -120,5 +113,4 @@ public class Merveille {
         
         return plateaux;
     }
-
 }

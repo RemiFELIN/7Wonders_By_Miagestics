@@ -55,36 +55,37 @@ public class Client {
                 log("Le client " + id + " a reçu sa vision de jeu");
                 try {
                     JSONObject jo = (JSONObject) args[0];
-                    ArrayList<Carte> deckMain = parseJSONArray((JSONArray) jo.get("deckMain"));
-                    ArrayList<Carte> deckPlateau = parseJSONArray((JSONArray) jo.get("deckPlateau"));
+                    
                     VisionJeu j = new VisionJeu(
                         jo.getInt("id"),
                         jo.getInt("piece"),
-                        deckMain,
-                        deckPlateau
+                        parseJSONMerveille(jo.getJSONObject("plateau")),
+                        JSONParser.parseJSONArray(jo.getJSONArray("deckMain")),
+                        JSONParser.parseJSONArray(jo.getJSONArray("deckPlateau"))
                     );
 
-                    ArrayList<Carte> gaucheDeckPlateau = parseJSONArray((JSONArray) jo.get("voisinGaucheDeckPlateau"));
                     VisionJeu g = new VisionJeu(
                         jo.getInt("voisinGaucheId"),
                         jo.getInt("voisinGauchePiece"),
-                        gaucheDeckPlateau
+                        parseJSONMerveille(jo.getJSONObject("plateau")),
+                        JSONParser.parseJSONArray(jo.getJSONArray("voisinGaucheDeckPlateau"))
                     );
                     j.setVoisinGauche(g);
                     
-                    ArrayList<Carte> droiteDeckPlateau = parseJSONArray((JSONArray) jo.get("voisinDroiteDeckPlateau"));
                     VisionJeu d = new VisionJeu(
                         jo.getInt("voisinDroiteId"),
                         jo.getInt("voisinDroitePiece"),
-                        droiteDeckPlateau
+                        parseJSONMerveille(jo.getJSONObject("plateau")),
+                        JSONParser.parseJSONArray(jo.getJSONArray("voisinDroiteDeckPlateau"))
                     );
                     j.setVoisinDroite(d);
 
-                    actionAJouer = (Action) stratClient.getAction(id, j.getDeckMain());
+                    actionAJouer = stratClient.getAction(id, j.getDeckMain());
                     connexion.emit("recuCarte", id);
 
                 } catch (JSONException e){
-                    error("Client "+id+" erreur getVision !", e);
+                    //error("Client "+id+" erreur getVision !", e);
+                    e.printStackTrace();
                 }
             }
         });
@@ -105,29 +106,21 @@ public class Client {
         });
     }
 
-    private final ArrayList<Carte> parseJSONArray(JSONArray ja){
-        ArrayList<Carte> deck = new ArrayList<Carte>();
-        for(int i = 0; i < ja.length(); i++){
-            JSONObject obj = ja.getJSONObject(i);
-            Carte c = new Carte(
-                obj.getString("nom"),
-                Couleur.fromString(obj.getString("couleur")),
-                obj.getInt("age"),
-                obj.getInt("coutPiece"),
-                obj.getInt("laurier"),
-                obj.getInt("puissanceMilitaire"),
-                obj.getInt("piece")
-            );
-            JSONArray coutRessources = (JSONArray) obj.get("coutRessources");
-            for(int j=0; i<coutRessources.length(); i++)
-                c.ajouterCoutRessource(Ressource.fromString(coutRessources.getString(j)));
+    private final Merveille parseJSONMerveille(JSONObject jm){
+        Merveille m = new Merveille(jm.getString("nom"), (jm.getString("face")).charAt(0), Ressource.fromString(jm.getString("ressource")));
 
-            JSONArray ressources = (JSONArray) obj.get("ressources");
-            for(int j=0; i<ressources.length(); i++)
-                c.ajouterRessource(Ressource.fromString(ressources.getString(j)));
-            deck.add(c);
-        }
-        return deck;
+        if(jm.isNull("coutEtape") == false)
+            m.setCoupEtape(JSONParser.parseJSONRessource(jm.getJSONArray("coutEtape")));
+        if(jm.isNull("bonusEtapeRes") == false)
+            m.setBonusEtapeRes(JSONParser.parseJSONRessource(jm.getJSONArray("bonusEtapeRes")));
+        if(jm.isNull("bonusEtapeMilitaire") == false)
+            m.setBonusEtapeMilitaire(JSONParser.parseJSONArrayInt(jm.getJSONArray("bonusEtapeMilitaire")));
+        if(jm.isNull("bonusEtapePiece") == false)
+            m.setBonusEtapePiece(JSONParser.parseJSONArrayInt(jm.getJSONArray("bonusEtapePiece")));
+        if(jm.isNull("bonusEtapeEffect") == false)
+            m.setBonusEtapeEffect(JSONParser.parseJSONArrayString(jm.getJSONArray("bonusEtapeEffect")));
+
+        return m;
     }
 
     public final void démarrer() {
