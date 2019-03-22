@@ -8,7 +8,7 @@ import com.corundumstudio.socketio.listener.ConnectListener;
 import com.corundumstudio.socketio.listener.DataListener;
 
 import moteur.*;
-import moteur.action.JSONAction;
+import moteur.action.Action;
 import static moteur.Jeu.log;
 
 import java.util.ArrayList;
@@ -64,9 +64,9 @@ public class Serveur {
             }
         });
 
-        serveur.addEventListener("jouerCarte", JSONAction.class, new DataListener<JSONAction>() {
+        serveur.addEventListener("jouerCarte", Action.class, new DataListener<Action>() {
             @Override
-            public final void onData(SocketIOClient socketIOClient, JSONAction ja, AckRequest ackRequest)
+            public final void onData(SocketIOClient socketIOClient, Action ja, AckRequest ackRequest)
                     throws Exception {
 
                 if (jeu.jouerAction(ja) == false)

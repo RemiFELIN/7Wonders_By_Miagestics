@@ -3,6 +3,7 @@ package client;
 import moteur.Ressource;
 import moteur.Carte;
 import moteur.Couleur;
+import moteur.Merveille;
 
 import org.json.JSONObject;
 import org.json.JSONArray;
@@ -14,12 +15,11 @@ public class JSONParser {
     public static final Ressource[][] parseJSONRessource(JSONArray ja){
         Ressource[][] r = new Ressource[ja.length()][];
         for(int i=0; i<ja.length(); i++){
-            if(ja.isNull(i) == false){
-                JSONArray jb = ja.getJSONArray(i);
-                r[i] = new Ressource[jb.length()];
-                for(int j=0; j<jb.length(); j++)
-                    r[i][j] = Ressource.fromString(jb.getString(j));
-            }
+            JSONArray jb = ja.getJSONArray(i);
+            r[i] = new Ressource[jb.length()];
+            for(int j=0; j<jb.length(); j++)
+                r[i][j] = Ressource.fromString(jb.getString(j));
+            
         }
         return r;
     }
@@ -61,5 +61,22 @@ public class JSONParser {
             deck.add(c);
         }
         return deck;
+    }
+
+    public static final Merveille parseJSONMerveille(JSONObject jm){
+        Merveille m = new Merveille(jm.getString("nom"), (jm.getString("face")).charAt(0), Ressource.fromString(jm.getString("ressource")));
+
+        if(jm.isNull("coutEtape") == false)
+            m.setCoupEtape(JSONParser.parseJSONRessource(jm.getJSONArray("coutEtape")));
+        if(jm.isNull("bonusEtapeRes") == false)
+            m.setBonusEtapeRes(JSONParser.parseJSONRessource(jm.getJSONArray("bonusEtapeRes")));
+        if(jm.isNull("bonusEtapeMilitaire") == false)
+            m.setBonusEtapeMilitaire(JSONParser.parseJSONArrayInt(jm.getJSONArray("bonusEtapeMilitaire")));
+        if(jm.isNull("bonusEtapePiece") == false)
+            m.setBonusEtapePiece(JSONParser.parseJSONArrayInt(jm.getJSONArray("bonusEtapePiece")));
+        if(jm.isNull("bonusEtapeEffect") == false)
+            m.setBonusEtapeEffect(JSONParser.parseJSONArrayString(jm.getJSONArray("bonusEtapeEffect")));
+
+        return m;
     }
 }

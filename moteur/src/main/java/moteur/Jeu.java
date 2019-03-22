@@ -3,7 +3,7 @@ package moteur;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import moteur.action.JSONAction;
+import moteur.action.Action;
 import java.util.Random;
 
 public class Jeu {
@@ -83,20 +83,18 @@ public class Jeu {
         }
     }
 
-    public final boolean jouerAction(JSONAction ja){
-        switch(ja.type.toLowerCase()){
+    public final boolean jouerAction(Action ja){
+        switch(ja.getType()){
 
             case "defaussercarte":
-                //DefausserCarte dc = new DefausserCarte(a.idJoueur, a.numeroCarte);
-                Carte c = mesJoueurs.get(ja.idJoueur).defausserCarte(ja.numeroCarte);
-                log("Le joueur "+ja.idJoueur+" à défausser la carte "+ja.numeroCarte);
+                Carte c = mesJoueurs.get(ja.getIdJoueur()).defausserCarte(ja.getNumeroCarte());
+                log("Le joueur "+ja.getIdJoueur()+" à défausser la carte "+ja.getNumeroCarte());
                 tabDeck.get(this.age-1).add(c);
             break;
 
             case "posercarte":
-                //PoserCarte pc = new PoserCarte(a.idJoueur, a.numeroCarte);
-                mesJoueurs.get(ja.idJoueur).poserCarte(ja.numeroCarte);
-                log("Le joueur "+ja.idJoueur+" a posé la carte "+ja.numeroCarte);
+                mesJoueurs.get(ja.getIdJoueur()).poserCarte(ja.getNumeroCarte());
+                log("Le joueur "+ja.getIdJoueur()+" a posé la carte "+ja.getNumeroCarte());
             break;
 
             default:

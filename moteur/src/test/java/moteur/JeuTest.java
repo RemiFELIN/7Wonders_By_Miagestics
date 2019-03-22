@@ -113,19 +113,14 @@ public class JeuTest {
    public void jouerActionTest(){
         testDuJeu.distributionCarte();
 
-        JSONAction ja = new JSONAction();
-        ja.idJoueur = 0;
-        ja.numeroCarte = 2;
-        ja.type = "PoserCarte";
+        Action ja = new PoserCarte(0, 2);
 
         int prevSize = testDuJeu.getJoueurs().get(0).getDeckMain().size();
         assertEquals(true, testDuJeu.jouerAction(ja));
         int afterSize = testDuJeu.getJoueurs().get(0).getDeckMain().size();
         assertEquals(afterSize, prevSize-1);
 
-        ja.idJoueur = 1;
-        ja.numeroCarte = 0;
-        ja.type = "DefausserCarte";
+        ja = new DefausserCarte(1, 0);
 
         assertEquals(true, testDuJeu.jouerAction(ja));
 

@@ -6,7 +6,6 @@ import io.socket.emitter.Emitter;
 
 import java.net.URISyntaxException;
 import java.util.Random;
-import java.util.ArrayList;
 
 import static moteur.Jeu.log;
 import static moteur.Jeu.error;
@@ -16,7 +15,6 @@ import moteur.action.Action;
 import client.strategie.*;
 
 import org.json.JSONObject;
-import org.json.JSONArray;
 import org.json.JSONException;
 
 public class Client {
@@ -59,7 +57,7 @@ public class Client {
                     VisionJeu j = new VisionJeu(
                         jo.getInt("id"),
                         jo.getInt("piece"),
-                        parseJSONMerveille(jo.getJSONObject("plateau")),
+                        JSONParser.parseJSONMerveille(jo.getJSONObject("plateau")),
                         JSONParser.parseJSONArray(jo.getJSONArray("deckMain")),
                         JSONParser.parseJSONArray(jo.getJSONArray("deckPlateau"))
                     );
@@ -67,7 +65,7 @@ public class Client {
                     VisionJeu g = new VisionJeu(
                         jo.getInt("voisinGaucheId"),
                         jo.getInt("voisinGauchePiece"),
-                        parseJSONMerveille(jo.getJSONObject("plateau")),
+                        JSONParser.parseJSONMerveille(jo.getJSONObject("plateau")),
                         JSONParser.parseJSONArray(jo.getJSONArray("voisinGaucheDeckPlateau"))
                     );
                     j.setVoisinGauche(g);
@@ -75,7 +73,7 @@ public class Client {
                     VisionJeu d = new VisionJeu(
                         jo.getInt("voisinDroiteId"),
                         jo.getInt("voisinDroitePiece"),
-                        parseJSONMerveille(jo.getJSONObject("plateau")),
+                        JSONParser.parseJSONMerveille(jo.getJSONObject("plateau")),
                         JSONParser.parseJSONArray(jo.getJSONArray("voisinDroiteDeckPlateau"))
                     );
                     j.setVoisinDroite(d);
@@ -84,8 +82,7 @@ public class Client {
                     connexion.emit("recuCarte", id);
 
                 } catch (JSONException e){
-                    //error("Client "+id+" erreur getVision !", e);
-                    e.printStackTrace();
+                    error("Client "+id+" erreur getVision !", e);
                 }
             }
         });
@@ -104,23 +101,6 @@ public class Client {
                 connexion.close();
             }
         });
-    }
-
-    private final Merveille parseJSONMerveille(JSONObject jm){
-        Merveille m = new Merveille(jm.getString("nom"), (jm.getString("face")).charAt(0), Ressource.fromString(jm.getString("ressource")));
-
-        if(jm.isNull("coutEtape") == false)
-            m.setCoupEtape(JSONParser.parseJSONRessource(jm.getJSONArray("coutEtape")));
-        if(jm.isNull("bonusEtapeRes") == false)
-            m.setBonusEtapeRes(JSONParser.parseJSONRessource(jm.getJSONArray("bonusEtapeRes")));
-        if(jm.isNull("bonusEtapeMilitaire") == false)
-            m.setBonusEtapeMilitaire(JSONParser.parseJSONArrayInt(jm.getJSONArray("bonusEtapeMilitaire")));
-        if(jm.isNull("bonusEtapePiece") == false)
-            m.setBonusEtapePiece(JSONParser.parseJSONArrayInt(jm.getJSONArray("bonusEtapePiece")));
-        if(jm.isNull("bonusEtapeEffect") == false)
-            m.setBonusEtapeEffect(JSONParser.parseJSONArrayString(jm.getJSONArray("bonusEtapeEffect")));
-
-        return m;
     }
 
     public final void démarrer() {

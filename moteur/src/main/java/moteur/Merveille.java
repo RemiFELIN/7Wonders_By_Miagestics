@@ -63,7 +63,7 @@ public class Merveille {
         ,new Ressource[]{Ressource.MINERAI, Ressource.MINERAI}
         ,new Ressource[]{Ressource.VERRE, Ressource.VERRE}};
         m.setCoupEtape(ressources);
-        ressources = new Ressource[][]{new Ressource[]{Ressource.ARGILE, Ressource.BOIS,Ressource.MINERAI,Ressource.MINERAI},null, null};
+        ressources = new Ressource[][]{new Ressource[]{Ressource.ARGILE, Ressource.BOIS,Ressource.MINERAI,Ressource.MINERAI}};
         m.setBonusEtapeRes(ressources);
         plateaux.add(m);
 
