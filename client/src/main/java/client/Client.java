@@ -7,8 +7,7 @@ import io.socket.emitter.Emitter;
 import java.net.URISyntaxException;
 import java.util.Random;
 
-import static moteur.Jeu.log;
-import static moteur.Jeu.error;
+import static moteur.ConsoleLogger.*;
 import moteur.*;
 import moteur.action.Action;
 
@@ -50,7 +49,7 @@ public class Client {
         connexion.on("getVision" + id, new Emitter.Listener() {
             @Override
             public final void call(Object... args) {
-                log("Le client " + id + " a reçu sa vision de jeu");
+                log(WHITE_BOLD+"Le client " + id + " a reçu sa vision de jeu");
                 try {
                     JSONObject jo = (JSONObject) args[0];
                     

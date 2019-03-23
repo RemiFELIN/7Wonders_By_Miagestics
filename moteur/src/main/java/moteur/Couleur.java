@@ -26,4 +26,25 @@ public enum Couleur {
 
         return null;
     }
+
+    public static String consoleColor(Couleur c){
+        switch(c){
+            case MARRON:
+                return ConsoleLogger.BLACK_BOLD_BRIGHT;
+            case BLANC:
+                return ConsoleLogger.WHITE_BOLD_BRIGHT;
+            case JAUNE:
+                return ConsoleLogger.YELLOW_BOLD_BRIGHT;
+            case ROUGE:
+                return ConsoleLogger.RED_BOLD_BRIGHT;
+            case BLEU:
+                return ConsoleLogger.BLUE_BOLD_BRIGHT;
+            case VIOLET:
+                return ConsoleLogger.PURPLE_BOLD_BRIGHT;
+            case VERT:
+                return ConsoleLogger.GREEN_BOLD_BRIGHT;
+            default:
+                return ConsoleLogger.WHITE_UNDERLINED;
+        }
+    }
 }
