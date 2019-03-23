@@ -2,9 +2,9 @@ package moteur.action;
 
 public class Action {
 
-    private int idJoueur;
+    private int idJoueur = -1;
 
-    protected int numeroCarte;
+    protected int numeroCarte = -1;
     protected String type = "Action";
 
     //Constructeur vide pour la serialization de JSON
