@@ -5,7 +5,7 @@ import org.junit.Test;
 
 import moteur.action.*;
 
-import static moteur.Jeu.log;
+import static moteur.ConsoleLogger.error;
 
 import java.util.ArrayList;
 import java.lang.reflect.Field;
@@ -72,6 +72,7 @@ public class JeuTest {
         changeField("TAILLE_DECK", 1);
         testDuJeu.distributionCarte();
 
+        changeField("tour", 6);
         assertEquals(true, testDuJeu.finAge());
         testDuJeu.ageSuivant();
         testDuJeu.recuperationCarte();
@@ -85,6 +86,14 @@ public class JeuTest {
 
    @Test
    public void finAgeTest() {
+       //Le jeu n'a pas été touché donc l'age n'est pas fini
+        assertEquals(false, testDuJeu.finAge());
+
+        //Est que le finAge se termine aprés 6 tour ?
+        changeField("tour", 6);
+        assertEquals(true, testDuJeu.finAge());
+        changeField("tour", 5);
+
        // modifier le deck main pour qu'il reste qu'une seule carte
        ArrayList<Joueur> joueurs = testDuJeu.getJoueurs();
        ArrayList<Carte> c = new ArrayList<Carte>();
@@ -92,7 +101,7 @@ public class JeuTest {
        for (int i = 0; i < joueurs.size(); i++) {
            joueurs.get(0).setDeckMain(c);
        }
-       assertEquals(true, testDuJeu.finAge());
+        assertEquals(false, testDuJeu.finAge());
        // modifier le deck main pour qu'il reste plusieurs cartes
        c.add(new Carte("CarteTest", Couleur.BLANC, 0));
        for (int i = 0; i < joueurs.size(); i++) {
@@ -106,6 +115,8 @@ public class JeuTest {
        changeField("age", 1);
        assertEquals(false, testDuJeu.finJeu());
        changeField("age", 4);
+       assertEquals(false, testDuJeu.finJeu());
+       changeField("tour", 6);
        assertEquals(true, testDuJeu.finJeu());
    }
 
@@ -116,17 +127,17 @@ public class JeuTest {
         Action ja = new PoserCarte(0, 2);
 
         int prevSize = testDuJeu.getJoueurs().get(0).getDeckMain().size();
-        assertEquals(true, testDuJeu.jouerAction(ja));
+        assertNotEquals(null, testDuJeu.jouerAction(ja));
         int afterSize = testDuJeu.getJoueurs().get(0).getDeckMain().size();
         assertEquals(afterSize, prevSize-1);
 
         ja = new DefausserCarte(1, 0);
 
-        assertEquals(true, testDuJeu.jouerAction(ja));
+        assertNotEquals(null, testDuJeu.jouerAction(ja));
 
         prevSize = testDuJeu.getJoueurs().get(1).getDeckMain().size();
         int prevPiece = testDuJeu.getJoueurs().get(1).getPiece();
-        assertEquals(true, testDuJeu.jouerAction(ja));
+        assertNotEquals(null, testDuJeu.jouerAction(ja));
         afterSize = testDuJeu.getJoueurs().get(1).getDeckMain().size();
         int afterPiece = testDuJeu.getJoueurs().get(1).getPiece();
         assertEquals(afterSize, prevSize-1);
@@ -140,7 +151,7 @@ public class JeuTest {
            f.setAccessible(true);
            f.set(testDuJeu, value); 
        } catch (Exception e) {
-           log("Test: Impossible de modifier le champ "+nomField);
+           error("Test: Impossible de modifier le champ "+nomField, e);
        } 
    }
 }

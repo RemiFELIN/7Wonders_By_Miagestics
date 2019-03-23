@@ -21,7 +21,7 @@ public class Carte {
     //TODO Dans une future itération
     /*
     private String symboleScientifique; // TODO enum a rajouter par la suite
-    private String batimentSuivant = ""; // TODO changer avec ???
+    private String batimentSuivant = ""; // TODO changer avec une carte ?
     private String effetSpecial = ""; // TODO changer string par un enum ?
     */
 
@@ -217,7 +217,6 @@ public class Carte {
         // On retourne notre deck contenant 10 guildes
         return deck;
     }
-
 
     private final static void addCartesScientifique(ArrayList<Carte> deck){
 

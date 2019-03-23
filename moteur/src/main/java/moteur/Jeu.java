@@ -7,11 +7,12 @@ import moteur.action.Action;
 import java.util.Random;
 
 public class Jeu {
-    private final int NBCARTES = 75; //Voir documentation du jeu
+    private final int NBCARTES = 49; //49 Age 1 et 2, 50 Age 3
     private int TAILLE_DECK = 0; //Taille initial ! (=== mesJoueurs.length)
 
     private final ArrayList<ArrayList<Carte>> tabDeck = new ArrayList<ArrayList<Carte>>(3);
     private int age = 1;
+    private int tour = 1;
 
     private ArrayList<Joueur> mesJoueurs;
 
@@ -83,24 +84,23 @@ public class Jeu {
         }
     }
 
-    public final boolean jouerAction(Action ja){
+    public final String jouerAction(Action ja){
+        Carte c;
+        String desc = null;
         switch(ja.getType()){
 
             case "defaussercarte":
-                Carte c = mesJoueurs.get(ja.getIdJoueur()).defausserCarte(ja.getNumeroCarte());
-                log("Le joueur "+ja.getIdJoueur()+" à défausser la carte "+ja.getNumeroCarte());
+                c = mesJoueurs.get(ja.getIdJoueur()).defausserCarte(ja.getNumeroCarte());
+                desc = "Le joueur "+ja.getIdJoueur()+" à défausser la carte "+Couleur.consoleColor(c.getCouleur())+c.getNom();
                 tabDeck.get(this.age-1).add(c);
             break;
 
             case "posercarte":
-                mesJoueurs.get(ja.getIdJoueur()).poserCarte(ja.getNumeroCarte());
-                log("Le joueur "+ja.getIdJoueur()+" a posé la carte "+ja.getNumeroCarte());
+                c = mesJoueurs.get(ja.getIdJoueur()).poserCarte(ja.getNumeroCarte());
+                desc = "Le joueur "+ja.getIdJoueur()+" a posé la carte "+Couleur.consoleColor(c.getCouleur())+c.getNom();
             break;
-
-            default:
-                return false;
         }
-        return true;
+        return desc;
     }
 
     public final void recuperationCarte(){
@@ -109,15 +109,30 @@ public class Jeu {
     }
     
     public final boolean finAge(){
-        return mesJoueurs.get(0).getDeckMain().size() == 1;
+        if(tour > 5)
+            return true;
+        
+        Boolean isFin = true;
+        for(byte i=0; i<mesJoueurs.size(); i++){
+            if(mesJoueurs.get(i).getDeckMain().size() != 1){
+                isFin = false;
+                break;
+            }
+        }
+        return isFin;
+    }
+
+    public final void tourSuivant(){
+        tour++;
     }
 
     public final void ageSuivant(){
         age++;
+        tour = 1;
     }
 
     public final boolean finJeu(){
-        return age >= 3;
+        return tour > 5 && age >= 3;
     }
     
     public final ArrayList<Joueur> getClassement(){
@@ -157,21 +172,8 @@ public class Jeu {
         return visions;
     }
 
-    public final static int indexOf(int[] tab, int n) {
-        for (int i = 0; i < tab.length; i++)
-            if (tab[i] == n)
-                return i;
-
-        return -1;
-    }
-
-    public final static void log(Object obj) {
-        System.out.println(obj);
-    }
-
-    public final static void error(String s, Exception err){
-        System.out.print(s);
-        System.err.println(" : " + err.getMessage());
+    public final int getTour(){
+        return tour;
     }
 
     public final int getAge(){
@@ -189,5 +191,13 @@ public class Jeu {
     //GETTER
     public ArrayList<Carte> getDeckPrincipal(){
         return tabDeck.get(this.age-1);
+    }
+
+    public final static int indexOf(int[] tab, int n) {
+        for (int i = 0; i < tab.length; i++)
+            if (tab[i] == n)
+                return i;
+
+        return -1;
     }
 }
