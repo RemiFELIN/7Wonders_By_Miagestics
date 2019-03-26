@@ -6,6 +6,7 @@ import org.junit.Test;
 import moteur.action.*;
 
 import static moteur.ConsoleLogger.error;
+import static moteur.Couleur.*;
 
 import java.util.ArrayList;
 import java.lang.reflect.Field;
@@ -97,13 +98,13 @@ public class JeuTest {
        // modifier le deck main pour qu'il reste qu'une seule carte
        ArrayList<Joueur> joueurs = testDuJeu.getJoueurs();
        ArrayList<Carte> c = new ArrayList<Carte>();
-       c.add(new Carte("CarteTest", Couleur.BLANC, 0));
+       c.add(new Carte("CarteTest", BLANC, 0));
        for (int i = 0; i < joueurs.size(); i++) {
            joueurs.get(0).setDeckMain(c);
        }
         assertEquals(false, testDuJeu.finAge());
        // modifier le deck main pour qu'il reste plusieurs cartes
-       c.add(new Carte("CarteTest", Couleur.BLANC, 0));
+       c.add(new Carte("CarteTest", BLANC, 0));
        for (int i = 0; i < joueurs.size(); i++) {
            joueurs.get(0).setDeckMain(c);
        }
@@ -142,6 +143,46 @@ public class JeuTest {
         int afterPiece = testDuJeu.getJoueurs().get(1).getPiece();
         assertEquals(afterSize, prevSize-1);
         assertEquals(prevPiece+3, afterPiece);
+   }
+
+   @Test
+   public void testCompareConfiltsJoueur(){
+        assertArrayEquals(new int[]{5,5,5}, getScoreJoueurs());
+
+        ArrayList<Carte> cs = new ArrayList<Carte>(1);
+        cs.add(new Carte("CarteTestMilitaire", BLANC, 1, 0, 0, 1, 0));
+
+        testDuJeu.getJoueurs().get(1).setDeckMain(cs);
+        testDuJeu.getJoueurs().get(1).poserCarte(0);
+
+        testDuJeu.ageSuivant();
+
+        //J1 perd et égalité => - 1
+        //J2 gagne 2 fois => + 2
+        //J3 perd et égalité => - 1
+        assertArrayEquals(new int[]{4,7,4}, getScoreJoueurs());
+
+        cs = new ArrayList<Carte>(1);
+        cs.add(new Carte("CarteTestMilitaire", BLANC, 1, 0, 0, 2, 0));
+
+        testDuJeu.getJoueurs().get(2).setDeckMain(cs);
+        testDuJeu.getJoueurs().get(2).poserCarte(0);
+
+        testDuJeu.ageSuivant();
+
+        //J1 perd 2 fois => - 6
+        //J2 gagne et perd => 0
+        //J3 gagne 2 fois => + 6
+        assertArrayEquals(new int[]{0,7,10}, getScoreJoueurs());
+   }
+
+   private int[] getScoreJoueurs(){
+        ArrayList<Joueur> mj = testDuJeu.getJoueurs();
+        int[] lesScores = new int[mj.size()];
+        for(byte i=0; i<mj.size(); i++)
+            lesScores[i] = mj.get(i).getScore();
+        
+        return lesScores;
    }
 
    private void changeField(String nomField, Object value){

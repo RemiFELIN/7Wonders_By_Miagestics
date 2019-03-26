@@ -126,7 +126,30 @@ public class Jeu {
         tour++;
     }
 
+    // (package) pour les tests unitaires
+    void compareConfiltsJoueur(Joueur j1, Joueur j2){
+        int r1 = j1.getForceMilitaire();
+        int r2 = j2.getForceMilitaire();
+        if(r1 != r2){
+            if(r1 > r2){
+                j1.ajouterJetonVictoire(age);
+                j2.ajouterJetonDefaite(age);
+            //r1 < r2
+            } else {
+                j2.ajouterJetonVictoire(age);
+                j1.ajouterJetonDefaite(age);
+            }
+        }
+    }
+
     public final void ageSuivant(){
+
+        //Calcul confilts militaire
+        for(byte i=0; i<mesJoueurs.size()-1; i++)
+            compareConfiltsJoueur(mesJoueurs.get(i), mesJoueurs.get(i+1));
+
+        compareConfiltsJoueur(mesJoueurs.get(mesJoueurs.size()-1), mesJoueurs.get(0));
+
         age++;
         tour = 1;
     }

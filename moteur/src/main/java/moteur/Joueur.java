@@ -11,12 +11,39 @@ public class Joueur {
     private Merveille plateau;
     private ArrayList<Carte> deckPlateau = new ArrayList<Carte>();
     private ArrayList<Carte> deckMain = new ArrayList<Carte>();
+    private int[] jetonsDefaite = new int[3];
+    private int[] jetonsVictoire = new int[3];
 
     //Constructeur vide pour la sérialisation du JSONObject
     public Joueur() {}
 
     public Joueur(int id) {
         this.id = id;
+    }
+
+    public final int[] getJetonsVictoire(){
+        return jetonsVictoire;
+    }
+
+    public final int[] getJetonsDefaite(){
+        return jetonsDefaite;
+    }
+
+    public final void ajouterJetonVictoire(int age){
+        jetonsVictoire[age-1]++;
+    }
+
+    public final void ajouterJetonDefaite(int age){
+        jetonsDefaite[age-1]++;
+    }
+
+    public final int getForceMilitaire(){
+        int r = 0;
+
+        for(Carte c : deckPlateau)
+            r += c.getPuissanceMilitaire();
+
+        return r;
     }
 
     public final void setDeckMain(ArrayList<Carte> c) {
@@ -84,6 +111,16 @@ public class Joueur {
         int groupe = Math.min(Math.min(scientifique.get(SymboleScientifique.COMPAS),scientifique.get(SymboleScientifique.TABLETTE)),scientifique.get(SymboleScientifique.ROUAGE));
         score += 7 * groupe;
 
+        //Calcul confilts militaire
+        for(int i=1; i<jetonsVictoire.length+1; i++)
+            score += jetonsVictoire[i-1] * (i * 2 - 1);
+
+        for(int i=1; i<jetonsDefaite.length+1; i++)
+            score -= jetonsDefaite[i-1] * (i * 2 - 1);
+
+        if(score < 0)
+            score = 0;
+        
         return score;
     }
 
