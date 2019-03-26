@@ -7,7 +7,8 @@ public enum Couleur {
     ROUGE ("ROUGE"),
     BLEU ("BLEU"),
     VIOLET ("VIOLET"),
-    VERT ("VERT");
+    VERT ("VERT"),
+    GRIS ("GRIS");
 
     private String nom = "";
 
@@ -43,6 +44,8 @@ public enum Couleur {
                 return ConsoleLogger.PURPLE_BOLD_BRIGHT;
             case VERT:
                 return ConsoleLogger.GREEN_BOLD_BRIGHT;
+            case GRIS:
+                return ConsoleLogger.WHITE_BOLD_BRIGHT;
             default:
                 return ConsoleLogger.WHITE_UNDERLINED;
         }

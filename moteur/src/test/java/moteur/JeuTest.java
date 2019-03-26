@@ -19,7 +19,7 @@ public class JeuTest {
 
     @Before
     public void setUp() {
-        testDuJeu = new Jeu(3);
+        testDuJeu = new Jeu(4);
     }
 
     @Test
@@ -30,8 +30,7 @@ public class JeuTest {
         ArrayList<Carte> deck = testDuJeu.getDecks().get(0);
         ArrayList<Joueur> joueurs = testDuJeu.getJoueurs();
         int TAILLE_DECK = deck.size();
-        int NB_CARTES_PAR_JOUEURS = (int) Math.floor(TAILLE_DECK/joueurs.size());
-
+        int NB_CARTES_PAR_JOUEURS = TAILLE_DECK/joueurs.size();
         testDuJeu.distributionCarte();
 
         int TAILLE_DECK_ATTENDU = TAILLE_DECK - joueurs.size() * NB_CARTES_PAR_JOUEURS;
@@ -65,26 +64,6 @@ public class JeuTest {
         assertEquals(joueurs.get(0).getDeckMain(), last);
     }
 
-    @Test
-    public void recuperationCarteTest(){
-
-        int tailledeck = testDuJeu.getDecks().get(0).size();
-
-        changeField("TAILLE_DECK", 1);
-        testDuJeu.distributionCarte();
-
-        changeField("tour", 6);
-        assertEquals(true, testDuJeu.finAge());
-        testDuJeu.ageSuivant();
-        testDuJeu.recuperationCarte();
-        // test le deck pour voir si le paquet a recupéré toutes les cartes cartes
-        int tabDeck = testDuJeu.getDecks().get(0).size();
-        assertEquals(tailledeck, tabDeck);
-        ArrayList<Joueur> joueurs = testDuJeu.getJoueurs();
-        for (int i = 0; i < joueurs.size(); i++) 
-            assertEquals(0, joueurs.get(i).getDeckMain().size());
-    }
-
    @Test
    public void finAgeTest() {
        //Le jeu n'a pas été touché donc l'age n'est pas fini
@@ -116,8 +95,6 @@ public class JeuTest {
        changeField("age", 1);
        assertEquals(false, testDuJeu.finJeu());
        changeField("age", 4);
-       assertEquals(false, testDuJeu.finJeu());
-       changeField("tour", 6);
        assertEquals(true, testDuJeu.finJeu());
    }
 
