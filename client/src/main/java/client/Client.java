@@ -8,6 +8,7 @@ import java.net.URISyntaxException;
 import java.util.Random;
 
 import static moteur.ConsoleLogger.*;
+import static client.JSONParser.*;
 import moteur.*;
 import moteur.action.Action;
 
@@ -56,24 +57,24 @@ public class Client {
                     VisionJeu j = new VisionJeu(
                         jo.getInt("id"),
                         jo.getInt("piece"),
-                        JSONParser.parseJSONMerveille(jo.getJSONObject("plateau")),
-                        JSONParser.parseJSONArray(jo.getJSONArray("deckMain")),
-                        JSONParser.parseJSONArray(jo.getJSONArray("deckPlateau"))
+                        parseJSONMerveille(jo.getJSONObject("plateau")),
+                        parseJSONArrayCarte(jo.getJSONArray("deckMain")),
+                        parseJSONArrayCarte(jo.getJSONArray("deckPlateau"))
                     );
 
                     VisionJeu g = new VisionJeu(
                         jo.getInt("voisinGaucheId"),
                         jo.getInt("voisinGauchePiece"),
-                        JSONParser.parseJSONMerveille(jo.getJSONObject("plateau")),
-                        JSONParser.parseJSONArray(jo.getJSONArray("voisinGaucheDeckPlateau"))
+                        parseJSONMerveille(jo.getJSONObject("plateau")),
+                        parseJSONArrayCarte(jo.getJSONArray("voisinGaucheDeckPlateau"))
                     );
                     j.setVoisinGauche(g);
                     
                     VisionJeu d = new VisionJeu(
                         jo.getInt("voisinDroiteId"),
                         jo.getInt("voisinDroitePiece"),
-                        JSONParser.parseJSONMerveille(jo.getJSONObject("plateau")),
-                        JSONParser.parseJSONArray(jo.getJSONArray("voisinDroiteDeckPlateau"))
+                        parseJSONMerveille(jo.getJSONObject("plateau")),
+                        parseJSONArrayCarte(jo.getJSONArray("voisinDroiteDeckPlateau"))
                     );
                     j.setVoisinDroite(d);
 

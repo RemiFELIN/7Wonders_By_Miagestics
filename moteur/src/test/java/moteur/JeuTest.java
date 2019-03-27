@@ -19,7 +19,7 @@ public class JeuTest {
 
     @Before
     public void setUp() {
-        testDuJeu = new Jeu(4);
+        testDuJeu = new Jeu(3);
     }
 
     @Test
