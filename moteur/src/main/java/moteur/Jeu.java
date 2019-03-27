@@ -7,8 +7,7 @@ import moteur.action.Action;
 import java.util.Random;
 
 public class Jeu {
-    private final int NBCARTES = 49; //49 Age 1 et 2, 50 Age 3
-    private int TAILLE_DECK = 0; //Taille initial ! (=== mesJoueurs.length)
+    //private int TAILLE_DECK = 0; //Taille initial ! (=== mesJoueurs.length)
 
     private final ArrayList<ArrayList<Carte>> tabDeck = new ArrayList<ArrayList<Carte>>(3);
     private int age = 1;
@@ -21,19 +20,19 @@ public class Jeu {
         for (int i = 0; i < nbJoueurs; i++)
             mesJoueurs.add(new Joueur(i));
 
-        TAILLE_DECK = (int) Math.floor(NBCARTES / nbJoueurs);
+        //TAILLE_DECK = (int) Math.floor(NBCARTES / nbJoueurs);
         distributionPlateau();
         initCartes();
     }
 
     public final void initCartes() {
         for (int j = 0; j < 3; j++){
-            ArrayList<Carte> tabCarte = new ArrayList<Carte>(NBCARTES);
-            ArrayList<Carte> tempDeck = Carte.getDeck();
+            //ArrayList<Carte> tabCarte = new ArrayList<Carte>(NBCARTES);
+            ArrayList<Carte> tabCarte = Carte.getDeck(j+1,mesJoueurs.size());
             ArrayList<Carte> deckGuildes = new ArrayList<Carte>();
 
-            for (byte i = 0; i < NBCARTES; i++)
-                tabCarte.add(tempDeck.get(i % tempDeck.size()));
+            //for (byte i = 0; i < tabCarte.size(); i++)
+            //    tabCarte.add(tempDeck.get(i % tempDeck.size()));
 
             if(j == 2){
                 deckGuildes = Carte.getDeckGuildes(mesJoueurs.size());
@@ -42,6 +41,7 @@ public class Jeu {
 
             Collections.shuffle(tabCarte);
             tabDeck.add(tabCarte);
+            
         }    
     }
 
@@ -63,14 +63,17 @@ public class Jeu {
     }
 
     public final void distributionCarte() {
+        int nbCartes = tabDeck.get(this.age-1).size()/mesJoueurs.size();
         for (int i=0; i<mesJoueurs.size(); i++) {
-            ArrayList<Carte> carteJoueur = new ArrayList<Carte>(TAILLE_DECK);
-            for (int j = 0; j < TAILLE_DECK; j++) {
+            ArrayList<Carte> carteJoueur = new ArrayList<Carte>();
+
+            for (int j = 0; j < nbCartes; j++) {
                 Carte c = tabDeck.get(this.age-1).get(0);
                 tabDeck.get(this.age-1).remove(0);
                 carteJoueur.add(c);
             }
             mesJoueurs.get(i).setDeckMain(carteJoueur);
+
         }
     }
 
@@ -103,10 +106,6 @@ public class Jeu {
         return desc;
     }
 
-    public final void recuperationCarte(){
-        for (int i=0; i<mesJoueurs.size(); i++)
-            tabDeck.get(age-2).add(mesJoueurs.get(i).getDerniereCarte());
-    }
     
     public final boolean finAge(){
         if(tour > 5)
@@ -126,13 +125,36 @@ public class Jeu {
         tour++;
     }
 
+    // (package) pour les tests unitaires
+    void compareConfiltsJoueur(Joueur j1, Joueur j2){
+        int r1 = j1.getForceMilitaire();
+        int r2 = j2.getForceMilitaire();
+        if(r1 != r2){
+            if(r1 > r2){
+                j1.ajouterJetonVictoire(age);
+                j2.ajouterJetonDefaite(age);
+            //r1 < r2
+            } else {
+                j2.ajouterJetonVictoire(age);
+                j1.ajouterJetonDefaite(age);
+            }
+        }
+    }
+
     public final void ageSuivant(){
+
+        //Calcul confilts militaire
+        for(byte i=0; i<mesJoueurs.size()-1; i++)
+            compareConfiltsJoueur(mesJoueurs.get(i), mesJoueurs.get(i+1));
+
+        compareConfiltsJoueur(mesJoueurs.get(mesJoueurs.size()-1), mesJoueurs.get(0));
+
         age++;
         tour = 1;
     }
 
     public final boolean finJeu(){
-        return tour > 5 && age >= 3;
+        return  age >= 3;
     }
     
     public final ArrayList<Joueur> getClassement(){
@@ -185,7 +207,7 @@ public class Jeu {
     }
 
     public final int getTailleDeck(){
-        return TAILLE_DECK;
+        return tabDeck.get(1).size();
     }
     
     //GETTER

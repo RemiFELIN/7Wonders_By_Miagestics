@@ -94,7 +94,6 @@ public class Serveur {
                             }
                         } else {
                             jeu.ageSuivant();
-                            jeu.recuperationCarte();
                             jeu.distributionCarte();
                             log(GREEN_BOLD+"Distribution des nouveaux decks\n");
                             jeu.roulementCarte();
