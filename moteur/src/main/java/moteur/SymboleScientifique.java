@@ -13,7 +13,7 @@ public enum SymboleScientifique {
 
     public static SymboleScientifique choisirSymbole(){
         //todo : Temporaire : On choisit aléatoirement un des trois symboles
-        switch((int)Math.random()*2){
+        switch((int) (Math.random()*3)){
             case 0:
                 return TABLETTE;
             case 1:

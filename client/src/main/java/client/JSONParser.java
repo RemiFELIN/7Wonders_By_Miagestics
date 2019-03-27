@@ -64,12 +64,12 @@ public class JSONParser {
                 obj.getInt("piece")
             );
             Ressource[] cr = parseJSONArrayRessource(obj.getJSONArray("coutRessources"));
-            for(int j=0; i<cr.length; i++)
-                c.ajouterCoutRessource(cr[i]);
+            for(int j=0; j<cr.length; j++)
+                c.ajouterCoutRessource(cr[j]);
 
             Ressource[] r = parseJSONArrayRessource(obj.getJSONArray("ressources"));
-            for(int j=0; i<r.length; i++)
-                c.ajouterRessource(r[i]);
+            for(int j=0; j<r.length; j++)
+                c.ajouterRessource(r[j]);
             deck.add(c);
         }
         return deck;
