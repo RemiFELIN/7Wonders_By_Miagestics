@@ -49,8 +49,6 @@ public class JoueurTest {
         // Le joueur joue 5 cartes donc score = 5*5 + les 5 golds donc score = 30
         assertEquals(30, joueur.getScore());
     }
-
-    @Test
     public void testCalculScoreScientifiqueGroupe(){
         ArrayList<Carte> deck = new ArrayList<Carte>(5);     
         int nbCarte = 3;
@@ -64,25 +62,5 @@ public class JoueurTest {
 
         // Le joueur joue 3 cartes scientifique différentes donc score = 7 + 3 + 5 
         assertEquals(15, joueur.getScore());
-    }
-
-    @Test
-    public void testCalculConflitsMilitaire(){
-        assertEquals(5, joueur.getScore());
-
-        //Jeton age 1
-        joueur.ajouterJetonVictoire(1); //Valeur jeton 1 donc 5+1
-        assertEquals(6, joueur.getScore());
-
-        //Jeton age 2
-        joueur.ajouterJetonVictoire(2); //Valeur jeton 3 donc 6 + 3
-        assertEquals(9, joueur.getScore());
-
-        //Jeton age 3
-        joueur.ajouterJetonDefaite(3); //Valeur jeton -5 donc 9-5
-        assertEquals(4, joueur.getScore());
-
-        joueur.ajouterJetonDefaite(2); //Valeur jeton -3 donc 4-3
-        assertEquals(1, joueur.getScore());
     }
 }

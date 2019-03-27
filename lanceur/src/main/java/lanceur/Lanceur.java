@@ -2,7 +2,7 @@ package lanceur;
 
 import client.Client;
 import serveur.Serveur;
-import static moteur.ConsoleLogger.*;
+import static moteur.ConsoleLogger.log;
 
 public class Lanceur {
 
