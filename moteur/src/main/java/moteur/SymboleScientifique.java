@@ -11,6 +11,19 @@ public enum SymboleScientifique {
         this.nom = nom;
     }
 
+    public static SymboleScientifique choisirSymbole(){
+        //todo : Temporaire : On choisit aléatoirement un des trois symboles
+        switch((int)Math.random()*2){
+            case 0:
+                return TABLETTE;
+            case 1:
+                return COMPAS;
+            case 2:
+                return ROUAGE;
+        }
+        return null;
+    }
+
     public String toString(){
         return nom;
     }

@@ -7,6 +7,7 @@ public class Etape {
     private int piece;
     private Ressource[] ressources;
     private String effet;
+    private SymboleScientifique[] symboleScientifique;
 
     Etape(){}
 
@@ -14,12 +15,13 @@ public class Etape {
         this.ressources = ressources;
     }
 
-    public void setBonus(int pointVictoire, int pointMilitaire, int piece, Ressource[] ressources, String effet){
+    public void setBonus(int pointVictoire, int pointMilitaire, int piece, Ressource[] ressources, SymboleScientifique[] symboleScientifique, String effet){
         this.pointVictoire = pointVictoire;
         this.pointMilitaire = pointMilitaire;
         this.piece = piece;
         this.ressources = ressources;
         this.effet = effet;
+        this.symboleScientifique = symboleScientifique;
     }
 
 }

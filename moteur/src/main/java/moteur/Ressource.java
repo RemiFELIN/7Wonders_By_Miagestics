@@ -6,8 +6,8 @@ public enum Ressource {
     BOIS ("BOIS"),
     MINERAI ("MINERAI"),
     VERRE ("VERRE"),
-    TEXTILE ("PAPYRUS"),
-    PAPYRUS ("TEXTILE");
+    TEXTILE ("TEXTILE"),
+    PAPYRUS ("PAPYRUS");
 
     private String nom = "";
 

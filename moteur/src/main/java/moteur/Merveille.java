@@ -25,7 +25,7 @@ public class Merveille {
     public final Ressource getRessource(){ return res; }
 
     public void ajouterEtape(Etape etape, int indice){
-        etapes[indice] = etape;
+        etapes[indice - 1] = etape;
     }
 
     public final static ArrayList<Merveille> getPlateau(){
@@ -33,95 +33,302 @@ public class Merveille {
         Merveille m;
         Etape etape;
 
-        //Plateau: Le Colosse de Rhodes
+        ////////////////////////////////
+        // Plateau: Le Colosse de Rhodes
+        ////////////////////////////////
+
         m = new Merveille("Le Colosse de Rhodes", 'A', MINERAI, 3);
             //etape 1
             etape = new Etape();
             etape.setCoup(new Ressource[]{BOIS, BOIS});
-            etape.setBonus(3, 0, 0, new Ressource[]{}, "");
+            etape.setBonus(3, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "");
             m.ajouterEtape(etape, 1);
             //etape 2
             etape = new Etape();
             etape.setCoup(new Ressource[]{ARGILE, ARGILE, ARGILE});
-            etape.setBonus(0, 2, 0, new Ressource[]{}, "");
+            etape.setBonus(0, 2, 0, new Ressource[]{}, new SymboleScientifique[]{}, "");
             m.ajouterEtape(etape, 2);
             //etape 3
             etape = new Etape();
             etape.setCoup(new Ressource[]{MINERAI, MINERAI, MINERAI, MINERAI});
-            etape.setBonus(7, 0, 0, new Ressource[]{}, "");
+            etape.setBonus(7, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "");
             m.ajouterEtape(etape, 3);
+            //fin
         plateaux.add(m);
 
         m = new Merveille("Le Colosse de Rhodes", 'B', MINERAI, 2);
             //etape 1
             etape = new Etape();
             etape.setCoup(new Ressource[]{PIERRE, PIERRE, PIERRE});
-            etape.setBonus(3, 1, 3, new Ressource[]{}, "");
+            etape.setBonus(3, 1, 3, new Ressource[]{}, new SymboleScientifique[]{}, "");
             m.ajouterEtape(etape, 1);
             //etape 2
             etape = new Etape();
             etape.setCoup(new Ressource[]{MINERAI, MINERAI, MINERAI, MINERAI});
-            etape.setBonus(4, 1, 4, new Ressource[]{}, "");
+            etape.setBonus(4, 1, 4, new Ressource[]{}, new SymboleScientifique[]{}, "");
             m.ajouterEtape(etape, 2);
+            //fin
         plateaux.add(m);
 
+        ////////////////////////////////
         //Plateau: Le phare d’Alexandrie
+        ////////////////////////////////
+
         m = new Merveille("Le phare d’Alexandrie", 'A', VERRE, 3);
             //etape 1
             etape = new Etape();
-                    /*
-        ressources = new Ressource[][]{new Ressource[]{PIERRE, PIERRE}
-        ,new Ressource[]{MINERAI, MINERAI}
-        ,new Ressource[]{VERRE, VERRE}};
-        m.setCoupEtape(ressources);
-        ressources = new Ressource[][]{new Ressource[]{ARGILE, BOIS, MINERAI, MINERAI}};
-        //m.setBonusEtapeRes(ressources);
+            etape.setCoup(new Ressource[]{PIERRE, PIERRE});
+            etape.setBonus(3, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "");
+            m.ajouterEtape(etape, 1);
+            //etape 2
+            etape = new Etape();
+            etape.setCoup(new Ressource[]{MINERAI, MINERAI});
+            etape.setBonus(0, 0, 0, new Ressource[]{ARGILE, MINERAI, BOIS, PIERRE}, new SymboleScientifique[]{}, "");
+            m.ajouterEtape(etape, 2);
+            //etape 3
+            etape = new Etape();
+            etape.setCoup(new Ressource[]{VERRE, VERRE});
+            etape.setBonus(7, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "");
+            m.ajouterEtape(etape, 3);
+            //fin
         plateaux.add(m);
 
+        m = new Merveille("Le Phare d'Alexandrie", 'B', VERRE, 3);
+            //etape 1
+            etape = new Etape();
+            etape.setCoup(new Ressource[]{ARGILE, ARGILE});
+            etape.setBonus(0, 0, 0, new Ressource[]{BOIS, PIERRE, MINERAI, ARGILE}, new SymboleScientifique[]{}, "");
+            m.ajouterEtape(etape, 1);
+            //etape 2
+            etape = new Etape();
+            etape.setCoup(new Ressource[]{BOIS, BOIS});
+            etape.setBonus(0, 0, 0, new Ressource[]{VERRE, TEXTILE, PAPYRUS}, new SymboleScientifique[]{}, "");
+            m.ajouterEtape(etape, 2);
+            //etape 3
+            etape = new Etape();
+            etape.setCoup(new Ressource[]{PIERRE, PIERRE, PIERRE});
+            etape.setBonus(7, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "");
+            m.ajouterEtape(etape, 3);
+            //fin
+        plateaux.add(m);
+
+        ///////////////////////////////////////
         //Plateau: Le temple d'Artémis à Ephèse
+        ///////////////////////////////////////
+
         m = new Merveille("Le temple d’Artémis à Ephèse", 'A', PAPYRUS, 3);
-        ressources = new Ressource[][]{new Ressource[]{PIERRE, PIERRE}
-        ,new Ressource[]{BOIS, BOIS}
-        ,new Ressource[]{PAPYRUS, PAPYRUS}};
-        m.setCoupEtape(ressources);
-        int[] piece = new int[] { 0,9,0 };
-        //m.setBonusEtapePiece(piece);
+            //etape 1
+            etape = new Etape();
+            etape.setCoup(new Ressource[]{PIERRE, PIERRE});
+            etape.setBonus(3, 0, 0, new Ressource[]{}, new SymboleScientifique[]{},"");
+            m.ajouterEtape(etape, 1);
+            //etape 2
+            etape = new Etape();
+            etape.setCoup(new Ressource[]{BOIS, BOIS});
+            etape.setBonus(0, 0, 9, new Ressource[]{}, new SymboleScientifique[]{}, "");
+            m.ajouterEtape(etape, 2);
+            //etape 3
+            etape = new Etape();
+            etape.setCoup(new Ressource[]{PAPYRUS, PAPYRUS});
+            etape.setBonus(7, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "");
+            m.ajouterEtape(etape, 3);
+            //fin
         plateaux.add(m);
 
+        m = new Merveille("Le temple d’Artémis à Ephèse", 'B', PAPYRUS, 3);
+            //etape 1
+            etape = new Etape();
+            etape.setCoup(new Ressource[]{PIERRE, PIERRE});
+            etape.setBonus(2, 0, 4, new Ressource[]{}, new SymboleScientifique[]{}, "");
+            m.ajouterEtape(etape, 1);
+            //etape 2
+            etape = new Etape();
+            etape.setCoup(new Ressource[]{BOIS, BOIS});
+            etape.setBonus(3, 0,4, new Ressource[]{}, new SymboleScientifique[]{}, "");
+            m.ajouterEtape(etape, 2);
+            //etape 3
+            etape = new Etape();
+            etape.setCoup(new Ressource[]{PAPYRUS, TEXTILE, VERRE});
+            etape.setBonus(5, 0, 4, new Ressource[]{}, new SymboleScientifique[]{}, "");
+            m.ajouterEtape(etape, 3);
+            //fin
+        plateaux.add(m);
+
+        ////////////////////////////////////////////
         //Plateau: Les jardins suspendus de Babylone
+        ////////////////////////////////////////////
+
         m = new Merveille("Les jardins suspendus de Babylone", 'A', ARGILE, 3);
-        ressources = new Ressource[][]{new Ressource[]{ARGILE, ARGILE}
-        ,new Ressource[]{BOIS, BOIS, BOIS, BOIS}
-        ,new Ressource[]{ARGILE, ARGILE, ARGILE, ARGILE}};
-        m.setCoupEtape(ressources);
+            //etape 1
+            etape = new Etape();
+            etape.setCoup(new Ressource[]{ARGILE, ARGILE});
+            etape.setBonus(3, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "");
+            m.ajouterEtape(etape, 1);
+            //etape 2
+            etape = new Etape();
+            etape.setCoup(new Ressource[]{BOIS, BOIS, BOIS});
+            etape.setBonus(0, 0, 0, new Ressource[]{}, new SymboleScientifique[]{SymboleScientifique.choisirSymbole()}, "");
+            m.ajouterEtape(etape, 2);
+            //etape 3
+            etape = new Etape();
+            etape.setCoup(new Ressource[]{ARGILE, ARGILE, ARGILE, ARGILE});
+            etape.setBonus(7, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "");
+            m.ajouterEtape(etape, 3);
+            //fin
         plateaux.add(m);
 
+        m = new Merveille("Les jardins suspendus de Babylone", 'B', ARGILE, 3);
+            //etape 1
+            etape = new Etape();
+            etape.setCoup(new Ressource[]{TEXTILE, ARGILE});
+            etape.setBonus(3, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "");
+            m.ajouterEtape(etape, 1);
+            //etape 2
+            etape = new Etape();
+            etape.setCoup(new Ressource[]{VERRE, BOIS, BOIS});
+            etape.setBonus(0, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "Jouer une carte en plus");
+            m.ajouterEtape(etape, 2);
+            //etape 3
+            etape = new Etape();
+            etape.setCoup(new Ressource[]{ARGILE, ARGILE, ARGILE, PAPYRUS});
+            etape.setBonus(0, 0, 0, new Ressource[]{}, new SymboleScientifique[]{SymboleScientifique.choisirSymbole()}, "");
+            m.ajouterEtape(etape, 3);
+            //fin
+        plateaux.add(m);
+
+        //////////////////////////////////////
         //Plateau: La statue de Zeus à Olympie
+        //////////////////////////////////////
+
         m = new Merveille("La statue de Zeus à Olympie", 'A', BOIS, 3);
-        ressources = new Ressource[][]{new Ressource[]{BOIS, BOIS}
-        ,new Ressource[]{PIERRE, PIERRE}
-        ,new Ressource[]{MINERAI, MINERAI}};
-        m.setCoupEtape(ressources);
+            //etape 1
+            etape = new Etape();
+            etape.setCoup(new Ressource[]{BOIS, BOIS});
+            etape.setBonus(3, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "");
+            m.ajouterEtape(etape, 1);
+            //etape 2
+            etape = new Etape();
+            etape.setCoup(new Ressource[]{PIERRE, PIERRE});
+            etape.setBonus(0, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "construire un bâtiment de mon choix");
+            m.ajouterEtape(etape, 2);
+            //etape 3
+            etape = new Etape();
+            etape.setCoup(new Ressource[]{MINERAI, MINERAI});
+            etape.setBonus(7, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "");
+            m.ajouterEtape(etape, 3);
+            //fin
         plateaux.add(m);
 
+        m = new Merveille("La statue de Zeus à Olympie", 'B', BOIS, 4);
+            //etape 1
+            etape = new Etape();
+            etape.setCoup(new Ressource[]{BOIS, BOIS});
+                //cas particulier : le bonus modifie le prix des ressources que l'on peut acheter au voisin
+            etape.setBonus(0, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "Payer les ressources aux voisins pour 1 pièce");
+            m.ajouterEtape(etape, 1);
+            //etape 2
+            etape = new Etape();
+            etape.setCoup(new Ressource[]{PIERRE, PIERRE});
+            etape.setBonus(5, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "");
+            m.ajouterEtape(etape, 2);
+            //etape 3
+            etape = new Etape();
+            etape.setCoup(new Ressource[]{MINERAI, MINERAI, TEXTILE});
+            etape.setBonus(0, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "Copier une guilde de mon choix");
+            m.ajouterEtape(etape, 3);
+            //fin
+        plateaux.add(m);
+
+        /////////////////////////////////////
         //Plateau: Le mausolée d’Halicarnasse
+        /////////////////////////////////////
+
         m = new Merveille("Le mausolée d’Halicarnasse", 'A', TEXTILE, 3);
-        ressources = new Ressource[][]{new Ressource[]{ARGILE, ARGILE}
-        ,new Ressource[]{MINERAI, MINERAI, MINERAI}
-        ,new Ressource[]{TEXTILE, TEXTILE}};
-        m.setCoupEtape(ressources);
+            //etape 1
+            etape = new Etape();
+            etape.setCoup(new Ressource[]{ARGILE, ARGILE});
+            etape.setBonus(3, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "");
+            m.ajouterEtape(etape, 1);
+            //etape 2
+            etape = new Etape();
+            etape.setCoup(new Ressource[]{MINERAI, MINERAI, MINERAI});
+            etape.setBonus(0, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "piocher une carte dans la fosse");
+            m.ajouterEtape(etape, 2);
+            //etape 3
+            etape = new Etape();
+            etape.setCoup(new Ressource[]{TEXTILE, TEXTILE});
+            etape.setBonus(7, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "");
+            m.ajouterEtape(etape, 3);
+            //fin
         plateaux.add(m);
 
-        //Plateau: La grande pyramide de Gizeh
-        m = new Merveille("La grande pyramide de Gizeh", 'A', PIERRE, 3);
-        ressources = new Ressource[][]{new Ressource[]{PIERRE, PIERRE}
-        ,new Ressource[]{BOIS, BOIS, BOIS}
-        ,new Ressource[]{PIERRE, PIERRE,PIERRE,PIERRE}};
-        m.setCoupEtape(ressources);
-        int[] pv = new int[] { 3,5,7 };
-        //m.setBonusEtapePv(pv);
+        m = new Merveille("Le mausolée d’Halicarnasse", 'B', TEXTILE, 3);
+            //etape 1
+            etape = new Etape();
+            etape.setCoup(new Ressource[]{MINERAI, MINERAI});
+            etape.setBonus(2, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "piocher une carte dans la fosse");
+            m.ajouterEtape(etape, 1);
+            //etape 2
+            etape = new Etape();
+            etape.setCoup(new Ressource[]{ARGILE, ARGILE, ARGILE});
+            etape.setBonus(1, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "piocher une carte dans la fosse");
+            m.ajouterEtape(etape, 2);
+            //etape 3
+            etape = new Etape();
+            etape.setCoup(new Ressource[]{VERRE, PAPYRUS, TEXTILE});
+            etape.setBonus(0, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "piocher une carte dans la fosse");
+            m.ajouterEtape(etape, 3);
+            //fin
         plateaux.add(m);
-        
-        return plateaux;*/
+
+        //////////////////////////////////////
+        //Plateau: La grande pyramide de Gizeh
+        //////////////////////////////////////
+
+        m = new Merveille("La grande pyramide de Gizeh", 'A', PIERRE, 3);
+            //etape 1
+            etape = new Etape();
+            etape.setCoup(new Ressource[]{PIERRE, PIERRE});
+            etape.setBonus(3, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "");
+            m.ajouterEtape(etape, 1);
+            //etape 2
+            etape = new Etape();
+            etape.setCoup(new Ressource[]{BOIS, BOIS, BOIS});
+            etape.setBonus(5, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "");
+            m.ajouterEtape(etape, 2);
+            //etape 3
+            etape = new Etape();
+            etape.setCoup(new Ressource[]{PIERRE, PIERRE, PIERRE, PIERRE});
+            etape.setBonus(7, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "");
+            m.ajouterEtape(etape, 3);
+            //fin
+        plateaux.add(m);
+
+        m = new Merveille("La grande pyramide de Gizeh", 'B', PIERRE, 4);
+            //etape 1
+            etape = new Etape();
+            etape.setCoup(new Ressource[]{BOIS, BOIS});
+            etape.setBonus(3, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "");
+            m.ajouterEtape(etape, 1);
+            //etape 2
+            etape = new Etape();
+            etape.setCoup(new Ressource[]{PIERRE, PIERRE, PIERRE});
+            etape.setBonus(5, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "");
+            m.ajouterEtape(etape, 2);
+            //etape 3
+            etape = new Etape();
+            etape.setCoup(new Ressource[]{ARGILE, ARGILE, ARGILE});
+            etape.setBonus(5, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "");
+            m.ajouterEtape(etape, 3);
+            //etape 4
+            etape = new Etape();
+            etape.setCoup(new Ressource[]{PIERRE, PIERRE, PIERRE, PIERRE, PAPYRUS});
+            etape.setBonus(7, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "");
+            m.ajouterEtape(etape, 4);
+            //fin
+        plateaux.add(m);
+
+        //fin merveille
+        return plateaux;
     }
 }
