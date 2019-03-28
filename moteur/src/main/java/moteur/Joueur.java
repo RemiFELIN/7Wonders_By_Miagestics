@@ -82,6 +82,8 @@ public class Joueur {
         return c;
     }
 
+
+
     public final int getScore() {
         int score = 0;
         for(int i=0; i<deckPlateau.size(); i++){
@@ -126,6 +128,17 @@ public class Joueur {
 
     public final int getPiece(){
         return piece;
+    }
+
+    public final int payer(int cout)
+    {
+        piece-=cout;
+        return cout;
+    }
+
+    public final void recevoirPaiement(int montant)
+    {
+        piece+=montant;
     }
 
     @Override

@@ -1,9 +1,7 @@
 package client;
 
 import client.strategie.StratMilitaire;
-import moteur.Carte;
-import moteur.Couleur;
-import moteur.Ressource;
+import moteur.*;
 import moteur.action.PoserCarte;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +15,8 @@ public class StratMilitaireTest {
 
     @Mock
     StratMilitaire stratClient;
-
+    Joueur j;
+    VisionJeu visionJ;
     ArrayList<Carte> deck;
 
     @Before
@@ -30,13 +29,15 @@ public class StratMilitaireTest {
         c = new Carte("CarteTestMilitaire", Couleur.ROUGE, 1, 0, 0, 2, 0);
         deck.add(c);
         deck.add(new Carte("CarteTestLaurier", Couleur.BLANC, 0, 0, 2, 0, 0));
+        visionJ=new VisionJeu(0,0,new Merveille("test",'A',Ressource.BOIS,1),deck,deck);
+
     }
 
     @Test
     public void testStratMilitaire() throws Exception {
         stratClient = new StratMilitaire();
 
-        PoserCarte pc = (PoserCarte) stratClient.getAction(0, deck);
+        PoserCarte pc = (PoserCarte) stratClient.getAction(visionJ);
         assertEquals(2, pc.getNumeroCarte());
     }
 }

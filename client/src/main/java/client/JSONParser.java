@@ -14,11 +14,11 @@ import org.json.JSONException;
 import java.util.ArrayList;
 
 public class JSONParser {
-    
+
     public static final Ressource[][] parseJSONArrayArrayRessource(JSONArray ja) throws JSONException {
         Ressource[][] r = new Ressource[ja.length()][];
         for(int i=0; i<ja.length(); i++)
-            r[i] = parseJSONArrayRessource(ja.getJSONArray(i));   
+            r[i] = parseJSONArrayRessource(ja.getJSONArray(i));
         return r;
     }
 
@@ -42,7 +42,7 @@ public class JSONParser {
             r[i] = ja.getInt(i);
         return r;
     }
-    
+
     public static final String[] parseJSONArrayString(JSONArray ja) throws JSONException {
         String[] r = new String[ja.length()];
         for(int i=0; i<ja.length(); i++)
@@ -55,13 +55,13 @@ public class JSONParser {
         for(int i = 0; i < ja.length(); i++){
             JSONObject obj = ja.getJSONObject(i);
             Carte c = new Carte(
-                obj.getString("nom"),
-                Couleur.fromString(obj.getString("couleur")),
-                obj.getInt("age"),
-                obj.getInt("coutPiece"),
-                obj.getInt("laurier"),
-                obj.getInt("puissanceMilitaire"),
-                obj.getInt("piece")
+                    obj.getString("nom"),
+                    Couleur.fromString(obj.getString("couleur")),
+                    obj.getInt("age"),
+                    obj.getInt("coutPiece"),
+                    obj.getInt("laurier"),
+                    obj.getInt("puissanceMilitaire"),
+                    obj.getInt("piece")
             );
             Ressource[] cr = parseJSONArrayRessource(obj.getJSONArray("coutRessources"));
             for(int j=0; j<cr.length; j++)
@@ -82,13 +82,13 @@ public class JSONParser {
         for(byte i=0; i<et.length(); i++){
             JSONObject je = et.getJSONObject(i);
             Etape e = new Etape(
-                parseJSONArrayRessource(je.getJSONArray("ressourcesCout")),
-                je.getInt("pointVictoire"),
-                je.getInt("pointMilitaire"),
-                je.getInt("piece"),
-                parseJSONArrayRessource(je.getJSONArray("ressourcesBonus")),
-                parseJSONArraySymbole(je.getJSONArray("symboleScientifique")),
-                je.getString("effet")
+                    parseJSONArrayRessource(je.getJSONArray("ressourcesCout")),
+                    je.getInt("pointVictoire"),
+                    je.getInt("pointMilitaire"),
+                    je.getInt("piece"),
+                    parseJSONArrayRessource(je.getJSONArray("ressourcesBonus")),
+                    parseJSONArraySymbole(je.getJSONArray("symboleScientifique")),
+                    je.getString("effet")
             );
             m.ajouterEtape(e, i+1);
         }

@@ -4,6 +4,7 @@ import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 
+import java.io.Console;
 import java.net.URISyntaxException;
 import java.util.Random;
 
@@ -28,7 +29,7 @@ public class Client {
         this.id = id;
         String urlAdresse = "http://" + adresse + ":" + port;
 
-        Strategie[] mesStrat = new Strategie[]{new StratLaurier(), new StratRandom(), new StratRessources(), new StratMilitaire()};
+        Strategie[] mesStrat = new Strategie[]{new StratLaurier(), new StratRandom(), new StratRessources(), new StratMilitaire(), new StratScientifique()};
         stratClient = mesStrat[new Random().nextInt(mesStrat.length)];
 
         try {
@@ -53,7 +54,7 @@ public class Client {
                 log(WHITE_BOLD+"Le client " + id + " a reçu sa vision de jeu");
                 try {
                     JSONObject jo = (JSONObject) args[0];
-                    
+
                     VisionJeu j = new VisionJeu(
                         jo.getInt("id"),
                         jo.getInt("piece"),
@@ -69,7 +70,7 @@ public class Client {
                         parseJSONArrayCarte(jo.getJSONArray("voisinGaucheDeckPlateau"))
                     );
                     j.setVoisinGauche(g);
-                    
+
                     VisionJeu d = new VisionJeu(
                         jo.getInt("voisinDroiteId"),
                         jo.getInt("voisinDroitePiece"),
@@ -78,7 +79,7 @@ public class Client {
                     );
                     j.setVoisinDroite(d);
 
-                    actionAJouer = stratClient.getAction(id, j.getDeckMain());
+                    actionAJouer = stratClient.getAction(j);
                     connexion.emit("recuCarte", id);
 
                 } catch (JSONException e){

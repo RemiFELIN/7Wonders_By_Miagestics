@@ -108,6 +108,69 @@ public class Carte {
     public final int getPiece() { return piece; }
     public final ArrayList<Ressource> getRessources() { return ressources; }
     public final ArrayList<Ressource> getCoutRessources() { return coutRessources; }
+
+
+    public int getCoutBois() {
+       int nb=0;
+        for(Ressource res : ressources)
+        {
+            if(res== BOIS) nb++;
+        }
+        return nb;
+    }
+
+    public int getCoutMinerai() {
+        int nb=0;
+        for(Ressource res : ressources)
+        {
+            if(res== MINERAI) nb++;
+        }
+        return nb;
+    }
+
+    public int getCoutArgile() {
+        int nb=0;
+        for(Ressource res : ressources)
+        {
+            if(res== ARGILE) nb++;
+        }
+        return nb;
+    }
+
+    public int getCoutPierre() {
+        int nb=0;
+        for(Ressource res : ressources)
+        {
+            if(res== PIERRE) nb++;
+        }
+        return nb;
+    }
+
+    public int getCoutVerre() {
+        int nb=0;
+        for(Ressource res : ressources)
+        {
+            if(res== VERRE) nb++;
+        }
+        return nb;
+    }
+    public int getCoutPapyrus() {
+        int nb=0;
+        for(Ressource res : ressources)
+        {
+            if(res== PAPYRUS) nb++;
+        }
+        return nb;
+    }
+    public int getCoutTextile() {
+        int nb=0;
+        for(Ressource res : ressources)
+        {
+            if(res== TEXTILE) nb++;
+        }
+        return nb;
+    }
+
     public final SymboleScientifique getSymboleScientifique(){ return symboleScientifique; }
 
     private static ArrayList<Carte> genererCarteGuildes(){

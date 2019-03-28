@@ -1,6 +1,7 @@
 package client;
 
 import client.strategie.StratLaurier;
+import client.strategie.StratScientifique;
 import moteur.*;
 import moteur.action.PoserCarte;
 import org.junit.Before;
@@ -11,10 +12,10 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 
-public class StratLaurierTest {
+public class StratScientifiqueTest {
 
     @Mock
-    StratLaurier stratClient;
+    StratScientifique stratClient;
     VisionJeu j,jGauche,jDroite;
     Joueur central, gauche, droite;
     ArrayList<Carte> deckMain, deckPlateau;
@@ -30,13 +31,13 @@ public class StratLaurierTest {
         Carte c = new Carte("CarteTestRessource", Couleur.BLANC, 0,0,0,0,0);
         deckMain.add(c);
 
-        c = new Carte("CarteTestLaurier", Couleur.BLEU, 0, 0, 2, 0, 0);
+        c = new Carte("CarteTestScientifique", Couleur.VERT, 0, SymboleScientifique.COMPAS);
         c.ajouterRessource(Ressource.MINERAI);
         c.ajouterRessource(Ressource.MINERAI);
         c.ajouterRessource(Ressource.BOIS);
         deckMain.add(c);
 
-        c = new Carte("CarteTestLaurier", Couleur.BLEU, 0, 0, 2, 0, 0);
+        c = new Carte("CarteTestScientifique", Couleur.VERT, 0, SymboleScientifique.COMPAS);
         c.ajouterRessource(Ressource.MINERAI);
         c.ajouterRessource(Ressource.BOIS);
         deckMain.add(c);
@@ -58,8 +59,8 @@ public class StratLaurierTest {
     }
 
     @Test
-    public void testStratLaurier() throws Exception {
-        stratClient = new StratLaurier();
+    public void testStratScientifique() throws Exception {
+        stratClient = new StratScientifique();
 
         PoserCarte pc = (PoserCarte) stratClient.getAction(j);
         assertEquals(2, pc.getNumeroCarte());

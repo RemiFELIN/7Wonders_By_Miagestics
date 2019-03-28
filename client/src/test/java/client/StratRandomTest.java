@@ -1,9 +1,7 @@
 package client;
 
 import client.strategie.StratRandom;
-import moteur.Carte;
-import moteur.Couleur;
-import moteur.Ressource;
+import moteur.*;
 import moteur.action.PoserCarte;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +16,8 @@ public class StratRandomTest {
 
     @Mock
     StratRandom stratClient;
-
+    Joueur j;
+    VisionJeu visionJ;
     ArrayList<Carte> deck;
 
     @Before
@@ -29,6 +28,8 @@ public class StratRandomTest {
         c.ajouterRessource(Ressource.MINERAI);
         deck.add(c);
         deck.add(new Carte("CarteTestLaurier", Couleur.BLANC, 0, 0, 2, 0, 0));
+        visionJ=new VisionJeu(0,0,new Merveille("test",'A',Ressource.BOIS,1),deck,deck);
+
     }
 
     @Test
@@ -36,9 +37,9 @@ public class StratRandomTest {
         stratClient = new StratRandom();
 
         StratRandom stratRandomMock = org.mockito.Mockito.mock(StratRandom.class);
-        when(stratRandomMock.getAction(0, deck)).thenReturn(new PoserCarte(0, 2));
+        when(stratRandomMock.getAction(visionJ)).thenReturn(new PoserCarte(0, 2));
 
-        PoserCarte pc = (PoserCarte) stratRandomMock.getAction(0, deck);
+        PoserCarte pc = (PoserCarte) stratRandomMock.getAction(visionJ);
         assertEquals(2, pc.getNumeroCarte());
     }
 

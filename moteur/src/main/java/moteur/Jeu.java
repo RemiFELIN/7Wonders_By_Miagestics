@@ -101,10 +101,26 @@ public class Jeu {
                 tabDeck.get(this.age-1).add(c);
             break;
 
+            case "acheterressource":
+                int idJoueurAPayer=ja.getIdJoueur()+ja.getNumVoisin();
+
+                if(idJoueurAPayer<0)
+                {
+                    idJoueurAPayer=mesJoueurs.size()-1;
+                }
+                else if(idJoueurAPayer>mesJoueurs.size()-1)
+                {
+                    idJoueurAPayer=0;
+                }
+
+                mesJoueurs.get(idJoueurAPayer).recevoirPaiement(mesJoueurs.get(ja.getIdJoueur()).payer(2));
+
+
             case "posercarte":
                 c = mesJoueurs.get(ja.getIdJoueur()).poserCarte(ja.getNumeroCarte());
                 desc = "Le joueur "+ja.getIdJoueur()+" a posé la carte "+Couleur.consoleColor(c.getCouleur())+c.getNom();
-            break;
+                break;
+
         }
         return desc;
     }
@@ -167,7 +183,9 @@ public class Jeu {
 
         for(int i=0; i<mesJoueurs.size(); i++){
             Joueur j = mesJoueurs.get(i);
-            VisionJeu vj = new VisionJeu(i, j.getPiece(), j.getPlateau(), j.getDeckMain(), j.getDeckPlateau());
+           /* VisionJeu vj=new VisionJeu();
+            vj.setJoueur(j);*/
+           VisionJeu vj= new VisionJeu(i, j.getPiece(), j.getPlateau(), j.getDeckMain(), j.getDeckPlateau());
             visions.add(vj);
         }
 

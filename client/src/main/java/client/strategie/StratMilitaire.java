@@ -1,6 +1,7 @@
 package client.strategie;
 
 import moteur.Carte;
+import moteur.VisionJeu;
 import moteur.action.Action;
 import moteur.action.PoserCarte;
 
@@ -9,21 +10,35 @@ import java.util.Random;
 
 public class StratMilitaire extends Strategie {
 
-    public Action getAction(int idJoueur, ArrayList<Carte> deck) {
+    @Override
+    public Action getAction(VisionJeu j) {
 
-        int carteN = 0, pMilitaire = 0;
-        for (int i = 0; i < deck.size(); i++) {
-            Carte c = deck.get(i);
-            int pm = c.getPuissanceMilitaire();
-            if (pm > pMilitaire) {
-                carteN = i;
-                pMilitaire = pm;
+        ArrayList<Carte> deck= j.getDeckMain();
+        int pMilitaire=0, carteN=0;
+
+        for (int i = 0; i < deck.size(); i++){
+            int value = deck.get(i).getPuissanceMilitaire();
+            if(value > pMilitaire){
+                carteN=i;
+                pMilitaire=value;
             }
         }
+        return new PoserCarte(j.getId(), carteN);
+    }
 
-        if(carteN==0 && pMilitaire==0) carteN=new Random().nextInt(deck.size());
+    @Override
+    int[] getPossibilitesGauche(VisionJeu j) {
+       return new int[0];
+    }
 
-        return new PoserCarte(idJoueur, carteN);
+    @Override
+    int[] getPossibilitesDroite(VisionJeu j) {
+        return new int[0];
+    }
+
+    @Override
+    int[] getPossibilitesSeul(VisionJeu j) {
+        return new int[0];
     }
 
     @Override
