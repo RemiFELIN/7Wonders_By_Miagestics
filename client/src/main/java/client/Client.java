@@ -37,12 +37,12 @@ public class Client {
             error("Client: Crash dans Joueur " + this.id, e);
             return;
         }
-        log("Client: Abonnement connexion Joueur " + this.id);
+        log(BLUE_BOLD_BRIGHT + "Client: Abonnement connexion Joueur " + this.id);
 
         connexion.on("connect", new Emitter.Listener() {
             @Override
             public final void call(Object... args) {
-                log("Client: connexion Joueur " + id);
+                log(BLUE_BOLD_BRIGHT + "Client: connexion Joueur " + id);
                 connexion.emit("rejoindre jeu", id);
             }
         });
@@ -50,7 +50,7 @@ public class Client {
         connexion.on("getVision" + id, new Emitter.Listener() {
             @Override
             public final void call(Object... args) {
-                log(WHITE_BOLD+"Le client " + id + " a reçu sa vision de jeu");
+                log(BLUE_BOLD_BRIGHT + "Le client " + id + " a reçu sa vision de jeu");
                 try {
                     JSONObject jo = (JSONObject) args[0];
 

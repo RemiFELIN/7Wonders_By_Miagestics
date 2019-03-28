@@ -4,7 +4,7 @@ public class ConsoleLogger {
 
     public final static void log(Object obj) {
         System.out.print(obj);
-        System.out.println(RESET);
+        System.out.println(" "+RESET);
     }
 
     public final static void error(String s, Exception err){

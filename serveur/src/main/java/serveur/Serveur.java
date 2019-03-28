@@ -53,9 +53,9 @@ public class Serveur {
                     nbJoueursConnectees++;
                     if (nbJoueursConnectees == MIN_JOUEURS) {
                         log(GREEN_BOLD_BRIGHT+MIN_JOUEURS + " joueurs de connectés: début de la partie\n");
-                        log("\n-----------------------------------------------");
-                        log("- 7 WONDERS : nombre de joueurs connectés : " + nbJoueursConnectees + " -");
-                        log("-----------------------------------------------\n");
+                        log(YELLOW_BOLD_BRIGHT + "\n-----------------------------------------------");
+                        log(YELLOW_BOLD_BRIGHT + "- 7 WONDERS : nombre de joueurs connectés : " + nbJoueursConnectees + " -");
+                        log(YELLOW_BOLD_BRIGHT + "-----------------------------------------------\n");
                         jeu = new Jeu(nbJoueursConnectees);
                         jeu.distributionCarte();
                         sendVisionsJeu();

@@ -1,10 +1,12 @@
 package moteur;
 
+import moteur.action.Action;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
-import moteur.action.Action;
 import java.util.Random;
+import java.util.HashMap;
 
 public class Jeu {
 
@@ -92,7 +94,7 @@ public class Jeu {
 
     public final String jouerAction(Action ja){
         Carte c;
-        String desc = null;
+        String desc = "";
         switch(ja.getType()){
 
             case "defaussercarte":
@@ -114,11 +116,24 @@ public class Jeu {
                 }
 
                 mesJoueurs.get(idJoueurAPayer).recevoirPaiement(mesJoueurs.get(ja.getIdJoueur()).payer(2));
-
+                desc = "Le joueur "+ja.getIdJoueur()+" a acheter des ressources au joueur "+ idJoueurAPayer + "\n";
 
             case "posercarte":
                 c = mesJoueurs.get(ja.getIdJoueur()).poserCarte(ja.getNumeroCarte());
-                desc = "Le joueur "+ja.getIdJoueur()+" a posé la carte "+Couleur.consoleColor(c.getCouleur())+c.getNom();
+                desc += "Le joueur "+ja.getIdJoueur()+" a posé la carte "+Couleur.consoleColor(c.getCouleur())+c.getNom();
+                ArrayList<Ressource> cr = c.getCoutRessources();
+                if(cr.size() > 0){
+                    desc += ConsoleLogger.WHITE + " qui coute ";
+                    HashMap<Ressource, Integer> hr = new HashMap<Ressource, Integer>();
+
+                    for(Ressource r : cr)
+                        hr.put(r, hr.get(r) == null ? 1 : hr.get(r)+1);
+
+                    for(Ressource r : hr.keySet())
+                            desc += hr.get(r) + " de "+r.toString()+", ";
+                    
+                    desc = desc.substring(0, desc.length()-2);
+                }
                 break;
 
         }

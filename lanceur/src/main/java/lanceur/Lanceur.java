@@ -11,8 +11,8 @@ public class Lanceur {
     private final static int nombre_joueurs = 4;
 
     public final static void main(String args[]) {
-        log("\n\n------------------");
-        log("Début programme !!");
+        log(YELLOW_BOLD_BRIGHT + "\n\n------------------");
+        log(YELLOW_BOLD_BRIGHT + "Début programme !!");
 
         final String info[] = new String[] { adresse, Integer.toString(port) };
         Thread serveur = new Thread(new Runnable() {
