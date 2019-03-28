@@ -1,100 +1,24 @@
 package client.strategie;
 
-import moteur.Couleur;
-import moteur.Jeu;
 import moteur.VisionJeu;
 import moteur.action.AcheterRessource;
 import moteur.action.PoserCarte;
 import moteur.action.Action;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Random;
 
 import moteur.Carte;
 
-@SuppressWarnings("ALL")
 public class StratLaurier extends Strategie {
 
-    ArrayList<HashMap<String, Integer>> ressourcesJ=null;
+    protected Action getAction(VisionJeu j, boolean[] posSeul, boolean[] posGauche, boolean[] posDroite) {
 
-     int[] getPossibilitesGauche(VisionJeu j)
-    {
-        int[] possibilites=new int[j.getDeckMain().size()];
-        ArrayList<Carte> deck= j.getVoisinGaucheDeckPlateau();
-        ArrayList<HashMap<String, Integer>> ressourcesGauche=j.calculRessources(deck);
+        ArrayList<Carte> deck = j.getDeckMain();
 
-        int index = 0;
-        for (int i = 0; i < j.getDeckMain().size(); i++){
-            Carte c = j.getDeckMain().get(i);
-
-            if(ressourcesJ.get(0).get("Bois")<c.getCoutBois() && (ressourcesJ.get(0).get("Bois")+ressourcesGauche.get(0).get("Bois"))>=c.getCoutBois())  possibilites[index]=++i;
-            if(ressourcesJ.get(1).get("Minerais")<c.getCoutMinerai() && (ressourcesJ.get(1).get("Minerais")+ressourcesGauche.get(1).get("Minerais"))>=c.getCoutMinerai())  possibilites[index]=++i;
-            if(ressourcesJ.get(2).get("Argile")<c.getCoutArgile() && (ressourcesJ.get(2).get("Argile")+ressourcesGauche.get(2).get("Argile"))>=c.getCoutArgile())  possibilites[index]=++i;
-            if(ressourcesJ.get(3).get("Pierre")<c.getCoutPierre() && (ressourcesJ.get(3).get("Pierre")+ressourcesGauche.get(3).get("Pierre"))>=c.getCoutPierre())  possibilites[index]=++i;
-            if(ressourcesJ.get(4).get("Verre")<c.getCoutVerre() && (ressourcesJ.get(4).get("Verre")+ressourcesGauche.get(4).get("Verre"))>=c.getCoutVerre())  possibilites[index]=++i;
-            if(ressourcesJ.get(5).get("Textile")<c.getCoutTextile() && (ressourcesJ.get(5).get("Textile")+ressourcesGauche.get(5).get("Textile"))>=c.getCoutTextile())  possibilites[index]=++i;
-            if(ressourcesJ.get(6).get("Papyrus")<c.getCoutPapyrus() && (ressourcesJ.get(6).get("Papyrus")+ressourcesGauche.get(6).get("Papyrus"))>=c.getCoutPapyrus())  possibilites[index]=++i;
-        }
-        return possibilites;
-    }
-
-     int[] getPossibilitesDroite(VisionJeu j)
-    {
-        int[] possibilites=new int[j.getDeckMain().size()];
-        ArrayList<Carte> deck= j.getVoisinDroiteDeckPlateau();
-        ArrayList<HashMap<String, Integer>> ressourcesDroite=j.calculRessources(deck);
-
-        int index = 0;
-        for (int i = 0; i < j.getDeckMain().size(); i++){
-            Carte c = j.getDeckMain().get(i);
-
-            if(ressourcesJ.get(0).get("Bois")<c.getCoutBois() && (ressourcesJ.get(0).get("Bois")+ressourcesDroite.get(0).get("Bois"))>=c.getCoutBois())  possibilites[index]=++i;
-            if(ressourcesJ.get(1).get("Minerais")<c.getCoutMinerai() && (ressourcesJ.get(1).get("Minerais")+ressourcesDroite.get(1).get("Minerais"))>=c.getCoutMinerai())  possibilites[index]=++i;
-            if(ressourcesJ.get(2).get("Argile")<c.getCoutArgile() && (ressourcesJ.get(2).get("Argile")+ressourcesDroite.get(2).get("Argile"))>=c.getCoutArgile())  possibilites[index]=++i;
-            if(ressourcesJ.get(3).get("Pierre")<c.getCoutPierre() && (ressourcesJ.get(3).get("Pierre")+ressourcesDroite.get(3).get("Pierre"))>=c.getCoutPierre())  possibilites[index]=++i;
-            if(ressourcesJ.get(4).get("Verre")<c.getCoutVerre() && (ressourcesJ.get(4).get("Verre")+ressourcesDroite.get(4).get("Verre"))>=c.getCoutVerre())  possibilites[index]=++i;
-            if(ressourcesJ.get(5).get("Textile")<c.getCoutTextile() && (ressourcesJ.get(5).get("Textile")+ressourcesDroite.get(5).get("Textile"))>=c.getCoutTextile())  possibilites[index]=++i;
-            if(ressourcesJ.get(6).get("Papyrus")<c.getCoutPapyrus() && (ressourcesJ.get(6).get("Papyrus")+ressourcesDroite.get(6).get("Papyrus"))>=c.getCoutPapyrus())  possibilites[index]=++i;
-        }
-        return possibilites;
-    }
-
-     int[] getPossibilitesSeul(VisionJeu j)
-    {
-        int[] possibilites=new int[j.getDeckMain().size()];
-        ArrayList<Carte> deck= j.getDeckPlateau();
-        ressourcesJ=j.calculRessources(deck);
-
-        int index = 0;
-        for (int i = 0; i < j.getDeckMain().size(); i++){
-            Carte c = j.getDeckMain().get(i);
-
-            if(ressourcesJ.get(0).get("Bois")<c.getCoutBois())  possibilites[index]=++i;
-            if(ressourcesJ.get(1).get("Minerais")<c.getCoutMinerai())  possibilites[index]=++i;
-            if(ressourcesJ.get(2).get("Argile")<c.getCoutArgile())  possibilites[index]=++i;
-            if(ressourcesJ.get(3).get("Pierre")<c.getCoutPierre())  possibilites[index]=++i;
-            if(ressourcesJ.get(4).get("Verre")<c.getCoutVerre())  possibilites[index]=++i;
-            if(ressourcesJ.get(5).get("Textile")<c.getCoutTextile())  possibilites[index]=++i;
-            if(ressourcesJ.get(6).get("Papyrus")<c.getCoutPapyrus())  possibilites[index]=++i;
-        }
-        return possibilites;
-    }
-
-    public Action getAction(VisionJeu j) {
-        int[] possibiliteSeul=getPossibilitesSeul(j);
-int[] possibilitesGauche=getPossibilitesGauche(j);
-int[] possibilitesDroite=getPossibilitesDroite(j);
-
-
-            ArrayList<Carte> deck= j.getDeckMain();
-
-        int carteN = 0, nbLaurier = 0, joueurAQuiPiocher=0;
-        for (int i = 0; i < deck.size(); i++){
-
-            if(Jeu.indexOf(possibiliteSeul,i)!=-1)
-            {
+        int carteN = 0, nbLaurier = 0, joueurAQuiPiocher = 0;
+        for (int i = 0; i < deck.size(); i++)
+            if(posSeul[i]){
                 int value = deck.get(i).getLaurier();
                 if(value > nbLaurier){
                     nbLaurier = value;
@@ -102,39 +26,29 @@ int[] possibilitesDroite=getPossibilitesDroite(j);
                 }
             }
 
-        }
-
-        for (int i = 0; i < deck.size(); i++){
-
-            if(Jeu.indexOf(possibilitesGauche,i)!=-1)
-            {
+        for (int i = 0; i < deck.size(); i++)
+            if(posGauche[i]){
                 int value = deck.get(i).getLaurier();
                 if(value > nbLaurier){
                     nbLaurier = value;
                     carteN = i;
-                    joueurAQuiPiocher=-1;
+                    joueurAQuiPiocher = -1;
                 }
             }
 
-        }
-
-        for (int i = 0; i < deck.size(); i++){
-
-            if(Jeu.indexOf(possibilitesDroite,i)!=-1)
-            {
+        for (int i = 0; i < deck.size(); i++)
+            if(posDroite[i]){
                 int value = deck.get(i).getLaurier();
                 if(value > nbLaurier){
                     nbLaurier = value;
                     carteN = i;
-                    joueurAQuiPiocher=1;
+                    joueurAQuiPiocher = 1;
                 }
             }
 
-        }
+        if(joueurAQuiPiocher != 0) return new AcheterRessource(j.getId(), joueurAQuiPiocher, carteN);
 
-        if(joueurAQuiPiocher!=0) return new AcheterRessource(j.getId(),joueurAQuiPiocher, carteN);
-
-       if(carteN==0 && nbLaurier==0) carteN=new Random().nextInt(deck.size());
+        if(carteN == 0 && nbLaurier == 0) carteN = new Random().nextInt(deck.size());
 
         return new PoserCarte(j.getId(), carteN);
 	}

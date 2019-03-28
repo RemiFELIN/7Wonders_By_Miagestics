@@ -10,6 +10,7 @@ public class ConsoleLogger {
     public final static void error(String s, Exception err){
         System.out.print(RED_BOLD+s);
         System.err.println(" : " + err.getMessage());
+        err.printStackTrace();
         System.out.print(RESET);
     }
 

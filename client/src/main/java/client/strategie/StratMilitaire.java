@@ -6,15 +6,13 @@ import moteur.action.Action;
 import moteur.action.PoserCarte;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 public class StratMilitaire extends Strategie {
 
-    @Override
-    public Action getAction(VisionJeu j) {
+    protected Action getAction(VisionJeu j, boolean[] posSeul, boolean[] posGauche, boolean[] posDroite ) {
 
         ArrayList<Carte> deck= j.getDeckMain();
-        int pMilitaire=0, carteN=0;
+        int pMilitaire = 0, carteN = 0;
 
         for (int i = 0; i < deck.size(); i++){
             int value = deck.get(i).getPuissanceMilitaire();
@@ -24,21 +22,6 @@ public class StratMilitaire extends Strategie {
             }
         }
         return new PoserCarte(j.getId(), carteN);
-    }
-
-    @Override
-    int[] getPossibilitesGauche(VisionJeu j) {
-       return new int[0];
-    }
-
-    @Override
-    int[] getPossibilitesDroite(VisionJeu j) {
-        return new int[0];
-    }
-
-    @Override
-    int[] getPossibilitesSeul(VisionJeu j) {
-        return new int[0];
     }
 
     @Override

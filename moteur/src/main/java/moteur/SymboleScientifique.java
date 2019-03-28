@@ -30,7 +30,7 @@ public enum SymboleScientifique {
 
     public static SymboleScientifique fromString(String nom){
         for(SymboleScientifique type : SymboleScientifique.values())
-            if(type.toString() == nom)
+            if(type.toString().equals(nom))
                 return type;
 
         return null;

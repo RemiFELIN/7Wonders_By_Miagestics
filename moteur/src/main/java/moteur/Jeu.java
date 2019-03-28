@@ -28,7 +28,7 @@ public class Jeu {
     public final int getAge(){ return age; }
     public final ArrayList<ArrayList<Carte>> getDecks(){ return tabDeck; }
     public final int getTailleDeck(){ return tabDeck.get(1).size(); }
-    public ArrayList<Carte> getDeckPrincipal(){ return tabDeck.get(this.age-1); }
+    public final ArrayList<Carte> getDeckPrincipal(){ return tabDeck.get(this.age-1); }
     public final ArrayList<Joueur> getJoueurs(){ return mesJoueurs; }
 
     public final void tourSuivant(){ tour++; }
@@ -183,9 +183,7 @@ public class Jeu {
 
         for(int i=0; i<mesJoueurs.size(); i++){
             Joueur j = mesJoueurs.get(i);
-           /* VisionJeu vj=new VisionJeu();
-            vj.setJoueur(j);*/
-           VisionJeu vj= new VisionJeu(i, j.getPiece(), j.getPlateau(), j.getDeckMain(), j.getDeckPlateau());
+            VisionJeu vj= new VisionJeu(i, j.getPiece(), j.getPlateau(), j.getDeckMain(), j.getDeckPlateau());
             visions.add(vj);
         }
 

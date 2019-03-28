@@ -21,7 +21,7 @@ public enum Ressource {
 
     public static Ressource fromString(String nom){
         for(Ressource type : Ressource.values())
-            if(type.toString() == nom)
+            if(type.toString().equals(nom))
                 return type;
 
         return null;

@@ -22,7 +22,7 @@ public enum Couleur {
 
     public static Couleur fromString(String nom){
         for(Couleur type : Couleur.values())
-            if(type.toString() == nom)
+            if(type.toString().equals(nom))
                 return type;
 
         return null;

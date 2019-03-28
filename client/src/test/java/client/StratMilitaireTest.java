@@ -3,6 +3,9 @@ package client;
 import client.strategie.StratMilitaire;
 import moteur.*;
 import moteur.action.PoserCarte;
+import static moteur.Ressource.*;
+import static moteur.Couleur.*;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -15,29 +18,34 @@ public class StratMilitaireTest {
 
     @Mock
     StratMilitaire stratClient;
-    Joueur j;
-    VisionJeu visionJ;
-    ArrayList<Carte> deck;
+    VisionJeu vj;
 
     @Before
     public void setUp() {
-        deck = new ArrayList<Carte>();
-        deck.add(new Carte("CarteTestVide", Couleur.BLANC, 0));
-        Carte c = new Carte("CarteTestRessource", Couleur.BLANC, 0);
-        c.ajouterRessource(Ressource.MINERAI);
-        deck.add(c);
-        c = new Carte("CarteTestMilitaire", Couleur.ROUGE, 1, 0, 0, 2, 0);
-        deck.add(c);
-        deck.add(new Carte("CarteTestLaurier", Couleur.BLANC, 0, 0, 2, 0, 0));
-        visionJ=new VisionJeu(0,0,new Merveille("test",'A',Ressource.BOIS,1),deck,deck);
+        ArrayList<Carte> deckMain = new ArrayList<Carte>();
+        deckMain.add(new Carte("CarteTestVide", BLANC, 0));
 
+        Carte c = new Carte("CarteTestRessource", BLANC, 0);
+        c.ajouterRessource(MINERAI);
+        deckMain.add(c);
+
+        c = new Carte("CarteTestMilitaire", ROUGE, 1, 0, 0, 2, 0);
+        deckMain.add(c);
+
+        deckMain.add(new Carte("CarteTestLaurier", BLANC, 0, 0, 2, 0, 0));
+
+        vj = new VisionJeu(0, 0, new Merveille("test", 'A', BOIS, 1), deckMain, new ArrayList<Carte>());
+        VisionJeu jGauche = new VisionJeu(1, 0, new Merveille("test2", 'A', BOIS, 1), new ArrayList<Carte>());
+        VisionJeu jDroite = new VisionJeu(2, 0, new Merveille("test3", 'A', BOIS, 1), new ArrayList<Carte>());
+        vj.setVoisinDroite(jDroite);
+        vj.setVoisinGauche(jGauche);
     }
 
     @Test
     public void testStratMilitaire() throws Exception {
         stratClient = new StratMilitaire();
 
-        PoserCarte pc = (PoserCarte) stratClient.getAction(visionJ);
+        PoserCarte pc = (PoserCarte) stratClient.getAction(vj);
         assertEquals(2, pc.getNumeroCarte());
     }
 }

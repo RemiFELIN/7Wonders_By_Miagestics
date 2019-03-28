@@ -1,6 +1,5 @@
 package client;
 
-import client.strategie.StratLaurier;
 import client.strategie.StratScientifique;
 import moteur.*;
 import moteur.action.PoserCarte;

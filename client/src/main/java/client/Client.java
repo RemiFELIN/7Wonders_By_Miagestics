@@ -4,7 +4,6 @@ import io.socket.client.IO;
 import io.socket.client.Socket;
 import io.socket.emitter.Emitter;
 
-import java.io.Console;
 import java.net.URISyntaxException;
 import java.util.Random;
 

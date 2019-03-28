@@ -174,7 +174,7 @@ public class Merveille {
             //fin
         plateaux.add(m);
 
-        m = new Merveille("La statue de Zeus à Olympie", 'B', BOIS, 4);
+        m = new Merveille("La statue de Zeus à Olympie", 'B', BOIS, 3);
             //etape 1
             etape = new Etape(new Ressource[]{BOIS, BOIS}, 0, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "Payer les ressources aux voisins pour 1 pièce");
                 //cas particulier : le bonus modifie le prix des ressources que l'on peut acheter au voisin

@@ -23,7 +23,6 @@ public class Carte {
 
     //TODO Dans une future itération
     /*
-    private String symboleScientifique; // TODO enum a rajouter par la suite
     private String batimentSuivant = ""; // TODO changer avec une carte ?
     private String effetSpecial = ""; // TODO changer string par un enum ?
     */
@@ -47,22 +46,39 @@ public class Carte {
         this.symboleScientifique = symboleScientifique;
     }
 
-    public void ajouterCoutRessource(Ressource res){ coutRessources.add(res); }
+    //GETTER
+    public final Couleur getCouleur() { return couleur; }
+    public final String getNom() { return nom; }
+    public final int getAge() { return age; }
+    public final int getCoutPiece() { return coutPiece; }
+    public final int getLaurier() { return laurier; }
+    public final int getPuissanceMilitaire() { return puissanceMilitaire; }
+    public final int getPiece() { return piece; }
+    public final ArrayList<Ressource> getRessources() { return ressources; }
+    public final ArrayList<Ressource> getCoutRessources() { return coutRessources; }
+    public final SymboleScientifique getSymboleScientifique(){ return symboleScientifique; }
+    
+    //TODO Dans une future itération
+    /*
+    public final String getNextBuilding() { return nextBuilding; }
+    public final String getSpecialEffect() { return specialEffect;}
+    */
 
+    //SETTER
+    public final void ajouterRessource(Ressource res){ ressources.add(res); }
+    public final void ajouterCoutRessource(Ressource res){ coutRessources.add(res); }
 
 
     /*************************/
     /* POUR LES GUILDES*/
-    public void ajouterRessourcesRecues(Ressource res){ ressourcesRecues.add(res); }
+    public final void ajouterRessourcesRecues(Ressource res){ ressourcesRecues.add(res); }
 
-    public void ajouterPieces(int res){ piece += res; }
+    public final void ajouterPieces(int res){ piece += res; }
     /*************************/
 
 
-
-    public void ajouterRessource(Ressource res){ ressources.add(res); }
-
-    public static ArrayList<Carte> getDeck(int age, int nbJoueurs){
+    //PARSER
+    public final static ArrayList<Carte> getDeck(int age, int nbJoueurs){
         ArrayList<Carte> deck = new ArrayList<Carte>();
         //Carte commercial
         //TODO ajouter toutes les cartes commercial + function addCartesCommercial
@@ -78,7 +94,7 @@ public class Carte {
         return deck;
     }
 
-    public static ArrayList<Carte> getDeckGuildes(int nombreDeJoueur){
+    public final static ArrayList<Carte> getDeckGuildes(int nombreDeJoueur){
         ArrayList<Carte> deckDeGuilde = genererCarteGuildes();
         ArrayList<Carte> deckUtilisé = new ArrayList<Carte>();
         //on melange
@@ -90,90 +106,7 @@ public class Carte {
         return deckUtilisé;
     }
 
-    public final Couleur getCouleur() { return couleur; }
-    public final String getNom() { return nom; }
-    public final int getAge() { return age; }
-    public final int getCoutPiece() { return coutPiece; }
-    public final int getLaurier() { return laurier; }
-    public final int getPuissanceMilitaire() { return puissanceMilitaire; }
-    
-    //TODO Dans une future itération
-    /*
-    public final String getSymboleScientifique() { return symboleScientifique; }
-    public final String getDescription() { return description; }
-    public final String getNextBuilding() { return nextBuilding; }
-    public final String getSpecialEffect() { return specialEffect;}
-    */
-
-    public final int getPiece() { return piece; }
-    public final ArrayList<Ressource> getRessources() { return ressources; }
-    public final ArrayList<Ressource> getCoutRessources() { return coutRessources; }
-
-
-    public int getCoutBois() {
-       int nb=0;
-        for(Ressource res : ressources)
-        {
-            if(res== BOIS) nb++;
-        }
-        return nb;
-    }
-
-    public int getCoutMinerai() {
-        int nb=0;
-        for(Ressource res : ressources)
-        {
-            if(res== MINERAI) nb++;
-        }
-        return nb;
-    }
-
-    public int getCoutArgile() {
-        int nb=0;
-        for(Ressource res : ressources)
-        {
-            if(res== ARGILE) nb++;
-        }
-        return nb;
-    }
-
-    public int getCoutPierre() {
-        int nb=0;
-        for(Ressource res : ressources)
-        {
-            if(res== PIERRE) nb++;
-        }
-        return nb;
-    }
-
-    public int getCoutVerre() {
-        int nb=0;
-        for(Ressource res : ressources)
-        {
-            if(res== VERRE) nb++;
-        }
-        return nb;
-    }
-    public int getCoutPapyrus() {
-        int nb=0;
-        for(Ressource res : ressources)
-        {
-            if(res== PAPYRUS) nb++;
-        }
-        return nb;
-    }
-    public int getCoutTextile() {
-        int nb=0;
-        for(Ressource res : ressources)
-        {
-            if(res== TEXTILE) nb++;
-        }
-        return nb;
-    }
-
-    public final SymboleScientifique getSymboleScientifique(){ return symboleScientifique; }
-
-    private static ArrayList<Carte> genererCarteGuildes(){
+    private final static ArrayList<Carte> genererCarteGuildes(){
         ArrayList<Carte> deck = new ArrayList<Carte>();
         /* 10 cartes Guildes au total: en fct du nombre de joueur, le nb de guildes equivaut à joueur + 2*/
 
@@ -365,7 +298,7 @@ public class Carte {
 
     }
 
-    private static void addCartesMilitaires(ArrayList<Carte> deck, int age, int nbJoueurs){   
+    private final static void addCartesMilitaires(ArrayList<Carte> deck, int age, int nbJoueurs){   
         switch(age) {
             //cartes militaires de l'âge 1
             case 1:
@@ -450,7 +383,7 @@ public class Carte {
         }
     }
 
-    private static void addCartesVictoire(ArrayList<Carte> deck, int age, int nbJoueurs){
+    private final static void addCartesVictoire(ArrayList<Carte> deck, int age, int nbJoueurs){
 
         Carte c;
         switch(age){
@@ -544,7 +477,7 @@ public class Carte {
 
     }
 
-    private static void addCartesRessources(ArrayList<Carte> deck, int age, int nbJoueurs){ 
+    private final static void addCartesRessources(ArrayList<Carte> deck, int age, int nbJoueurs){ 
         switch(age){
             //cartes ressources de l'âge 1
             case 1:
@@ -643,7 +576,7 @@ public class Carte {
         }
     }
 
-    private static void addCartesMarchandes(ArrayList<Carte> deck, int age, int nbJoueurs){
+    private final static void addCartesMarchandes(ArrayList<Carte> deck, int age, int nbJoueurs){
         switch(age){
             case 1:
                     Carte c = new Carte("Commerce Est", JAUNE, 1, 0, 0, 0, 0);

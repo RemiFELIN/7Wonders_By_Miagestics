@@ -1,50 +1,56 @@
 package client.strategie;
 
 import moteur.VisionJeu;
+import moteur.action.AcheterRessource;
 import moteur.action.PoserCarte;
 import moteur.action.Action;
+import moteur.Carte;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-import moteur.Carte;
-
-@SuppressWarnings("ALL")
 public class StratRessources extends Strategie {
 
     @Override
-    public Action getAction(VisionJeu j) {
-        int carteN = 0, nbRessources = 0;
-        for (int i = 0; i < j.getDeckMain().size(); i++) {
-            Carte c = j.getDeckMain().get(i);
-            int rs = c.getRessources().size();
-            if (rs > nbRessources) {
-                carteN = i;
-                nbRessources = rs;
-            }
-        }
+    protected Action getAction(VisionJeu j, boolean[] posSeul, boolean[] posGauche, boolean[] posDroite) {
 
-        if(carteN==0 && nbRessources==0) carteN=new Random().nextInt(j.getDeckMain().size());
+        ArrayList<Carte> deck = j.getDeckMain();
+        int carteN = 0, nbRessources = 0, joueurAQuiPiocher = 0;
+        
+        for (int i = 0; i < deck.size(); i++)
+            if(posSeul[i]){
+                int value = deck.get(i).getRessources().size();
+                if(value > nbRessources){
+                    nbRessources = value;
+                    carteN = i;
+                }
+            }
+
+        for (int i = 0; i < deck.size(); i++)
+            if(posGauche[i]){
+                int value = deck.get(i).getRessources().size();
+                if(value > nbRessources){
+                    nbRessources = value;
+                    carteN = i;
+                    joueurAQuiPiocher = -1;
+                }
+            }
+
+        for (int i = 0; i < deck.size(); i++)
+            if(posDroite[i]){
+                int value = deck.get(i).getRessources().size();
+                if(value > nbRessources){
+                    nbRessources = value;
+                    carteN = i;
+                    joueurAQuiPiocher = 1;
+                }
+            }
+
+        if(joueurAQuiPiocher != 0) return new AcheterRessource(j.getId(), joueurAQuiPiocher, carteN);
+
+        if(carteN == 0 && nbRessources == 0) carteN = new Random().nextInt(deck.size());
 
         return new PoserCarte(j.getId(), carteN);
-    }
-
-    @Override
-    int[] getPossibilitesGauche(VisionJeu j) {
-
-       return new int[0];
-    }
-
-    @Override
-    int[] getPossibilitesDroite(VisionJeu j) {
-
-        return new int[0];
-    }
-
-    @Override
-    int[] getPossibilitesSeul(VisionJeu j) {
-
-        return new int[0];
     }
 
     @Override

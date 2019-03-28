@@ -82,8 +82,6 @@ public class Joueur {
         return c;
     }
 
-
-
     public final int getScore() {
         int score = 0;
         for(int i=0; i<deckPlateau.size(); i++){
