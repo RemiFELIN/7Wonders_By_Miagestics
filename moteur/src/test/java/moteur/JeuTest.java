@@ -3,7 +3,8 @@ package moteur;
 import org.junit.Before;
 import org.junit.Test;
 
-import moteur.action.*;
+import moteur.Action;
+import static moteur.TypeAction.*;
 
 import static moteur.ConsoleLogger.error;
 import static moteur.Couleur.*;
@@ -102,14 +103,14 @@ public class JeuTest {
    public void jouerActionTest(){
         testDuJeu.distributionCarte();
 
-        Action ja = new PoserCarte(0, 2);
+        Action ja = new Action(PoserCarte, 0, 2);
 
         int prevSize = testDuJeu.getJoueurs().get(0).getDeckMain().size();
         assertNotEquals(null, testDuJeu.jouerAction(ja));
         int afterSize = testDuJeu.getJoueurs().get(0).getDeckMain().size();
         assertEquals(afterSize, prevSize-1);
 
-        ja = new DefausserCarte(1, 0);
+        ja = new Action(DefausserCarte, 1, 0);
 
         assertNotEquals(null, testDuJeu.jouerAction(ja));
 

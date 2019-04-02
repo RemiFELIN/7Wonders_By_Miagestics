@@ -8,7 +8,7 @@ import com.corundumstudio.socketio.listener.ConnectListener;
 import com.corundumstudio.socketio.listener.DataListener;
 
 import moteur.*;
-import moteur.action.Action;
+import moteur.Action;
 import static moteur.ConsoleLogger.*;
 
 import java.util.ArrayList;
@@ -122,7 +122,7 @@ public class Serveur {
                 carteDistribué++;
                 if (carteDistribué == nbJoueursConnectees) {
                     carteDistribué = 0;
-                    log(GREEN_BOLD + "Tout les client ont reçus leur vision, début du tour\n");
+                    log(GREEN_BOLD + "Tous les clients ont reçu leur vision, début du tour\n");
                     client.sendEvent("debutTour");
                 }
             }

@@ -2,7 +2,6 @@ package client;
 
 import client.strategie.StratLaurier;
 import moteur.*;
-import moteur.action.PoserCarte;
 import static moteur.Ressource.*;
 import static moteur.Couleur.*;
 
@@ -58,7 +57,7 @@ public class StratLaurierTest {
     public void testStratLaurier() throws Exception {
         stratClient = new StratLaurier();
 
-        PoserCarte pc = (PoserCarte) stratClient.getAction(vj);
+        Action pc = stratClient.getAction(vj);
         assertEquals(2, pc.getNumeroCarte());
     }
 }

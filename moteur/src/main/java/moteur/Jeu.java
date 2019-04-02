@@ -1,6 +1,7 @@
 package moteur;
 
-import moteur.action.Action;
+import static moteur.TypeAction.*;
+import moteur.Action;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -98,13 +99,13 @@ public class Jeu {
         String desc = "";
         switch(ja.getType()){
 
-            case "defaussercarte":
+            case DefausserCarte:
                 c = j.defausserCarte(ja.getNumeroCarte());
                 desc = "Le joueur "+ja.getIdJoueur()+" à défausser la carte "+Couleur.consoleColor(c.getCouleur())+c.getNom();
                 tabDeck.get(this.age-1).add(c);
             break;
 
-            case "acheterressource":
+            case AcheterRessource:
                 int idJoueurAPayer=ja.getIdJoueur()+ja.getNumVoisin();
 
                 if(idJoueurAPayer<0)
@@ -119,7 +120,7 @@ public class Jeu {
                 mesJoueurs.get(idJoueurAPayer).recevoirPaiement(j.payer(2));
                 desc = "Le joueur "+ja.getIdJoueur()+" a acheter des ressources au joueur "+ idJoueurAPayer + "\n";
 
-            case "posercarte":
+            case PoserCarte:
                 c = j.poserCarte(ja.getNumeroCarte());
                 desc += "Le joueur "+ja.getIdJoueur()+" a posé la carte "+Couleur.consoleColor(c.getCouleur())+c.getNom();
                 ArrayList<Ressource> cr = c.getCoutRessources();
@@ -137,7 +138,7 @@ public class Jeu {
                 }
             break;
 
-            case "consturiremerveille":
+            case ConstruireMerveille:
                 int etape = j.construireMerveille(ja.getNumeroCarte());
                 desc = "Le joueur "+ja.getIdJoueur()+" a construire l'étape "+etape+" de sa merveille "+j.getPlateau().getNom();
             break;

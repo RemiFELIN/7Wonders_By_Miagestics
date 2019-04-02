@@ -2,7 +2,7 @@ package client;
 
 import client.strategie.StratRessources;
 import moteur.*;
-import moteur.action.PoserCarte;
+import static moteur.TypeAction.*;
 import static moteur.Ressource.*;
 import static moteur.Couleur.*;
 
@@ -42,7 +42,7 @@ public class StratRessourcesTest {
     public void testStratRessources() throws Exception {
         stratClient = new StratRessources();
 
-        PoserCarte pc = (PoserCarte) stratClient.getAction(vj);
+        Action pc = stratClient.getAction(vj);
         assertEquals(1, pc.getNumeroCarte());
     }
 }

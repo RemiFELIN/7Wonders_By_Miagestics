@@ -2,7 +2,7 @@ package client;
 
 import client.strategie.StratRandom;
 import moteur.*;
-import moteur.action.PoserCarte;
+import static moteur.TypeAction.*;
 import static moteur.Ressource.*;
 import static moteur.Couleur.*;
 
@@ -44,9 +44,9 @@ public class StratRandomTest {
         stratClient = new StratRandom();
 
         StratRandom stratRandomMock = org.mockito.Mockito.mock(StratRandom.class);
-        when(stratRandomMock.getAction(vj)).thenReturn(new PoserCarte(0, 2));
+        when(stratRandomMock.getAction(vj)).thenReturn(new Action(PoserCarte,0, 2));
 
-        PoserCarte pc = (PoserCarte) stratRandomMock.getAction(vj);
+        Action pc = stratRandomMock.getAction(vj);
         assertEquals(2, pc.getNumeroCarte());
     }
 

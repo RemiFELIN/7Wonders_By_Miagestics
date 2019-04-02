@@ -1,15 +1,15 @@
 package client.strategie;
 
 import moteur.VisionJeu;
-import moteur.action.PoserCarte;
-import moteur.action.Action;
+import static moteur.TypeAction.*;
+import moteur.Action;
 
 import java.util.Random;
 
 public class StratRandom extends Strategie {
 
 	protected Action getAction(VisionJeu j, boolean[] posSeul, boolean[] posGauche, boolean[] posDroite) {
-		return new PoserCarte(j.getId(), new Random().nextInt(j.getDeckMain().size()));
+		return new Action(PoserCarte,j.getId(), new Random().nextInt(j.getDeckMain().size()));
 	}
 
 	@Override
