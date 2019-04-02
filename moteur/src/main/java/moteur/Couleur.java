@@ -16,11 +16,11 @@ public enum Couleur {
         this.nom = nom;
     }
 
-    public String toString(){
+    public final String toString(){
         return nom;
     }
 
-    public static Couleur fromString(String nom){
+    public static final Couleur fromString(String nom){
         for(Couleur type : Couleur.values())
             if(type.toString().equals(nom))
                 return type;
@@ -28,7 +28,7 @@ public enum Couleur {
         return null;
     }
 
-    public static String consoleColor(Couleur c){
+    public static final String consoleColor(Couleur c){
         switch(c){
             case MARRON:
                 return ConsoleLogger.BLACK_BOLD_BRIGHT;

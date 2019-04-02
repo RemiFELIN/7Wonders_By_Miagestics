@@ -94,11 +94,12 @@ public class Jeu {
 
     public final String jouerAction(Action ja){
         Carte c;
+        Joueur j = mesJoueurs.get(ja.getIdJoueur());
         String desc = "";
         switch(ja.getType()){
 
             case "defaussercarte":
-                c = mesJoueurs.get(ja.getIdJoueur()).defausserCarte(ja.getNumeroCarte());
+                c = j.defausserCarte(ja.getNumeroCarte());
                 desc = "Le joueur "+ja.getIdJoueur()+" à défausser la carte "+Couleur.consoleColor(c.getCouleur())+c.getNom();
                 tabDeck.get(this.age-1).add(c);
             break;
@@ -115,11 +116,11 @@ public class Jeu {
                     idJoueurAPayer=0;
                 }
 
-                mesJoueurs.get(idJoueurAPayer).recevoirPaiement(mesJoueurs.get(ja.getIdJoueur()).payer(2));
+                mesJoueurs.get(idJoueurAPayer).recevoirPaiement(j.payer(2));
                 desc = "Le joueur "+ja.getIdJoueur()+" a acheter des ressources au joueur "+ idJoueurAPayer + "\n";
 
             case "posercarte":
-                c = mesJoueurs.get(ja.getIdJoueur()).poserCarte(ja.getNumeroCarte());
+                c = j.poserCarte(ja.getNumeroCarte());
                 desc += "Le joueur "+ja.getIdJoueur()+" a posé la carte "+Couleur.consoleColor(c.getCouleur())+c.getNom();
                 ArrayList<Ressource> cr = c.getCoutRessources();
                 if(cr.size() > 0){
@@ -134,8 +135,12 @@ public class Jeu {
                     
                     desc = desc.substring(0, desc.length()-2);
                 }
-                break;
+            break;
 
+            case "consturiremerveille":
+                int etape = j.construireMerveille(ja.getNumeroCarte());
+                desc = "Le joueur "+ja.getIdJoueur()+" a construire l'étape "+etape+" de sa merveille "+j.getPlateau().getNom();
+            break;
         }
         return desc;
     }
