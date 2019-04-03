@@ -139,6 +139,13 @@ public class Joueur {
         piece+=montant;
     }
 
+    /**
+     * @return the id
+     */
+    public int getId() {
+        return id;
+    }
+
     @Override
     public final String toString(){
         return "Joueur "+id;

@@ -15,6 +15,7 @@ import moteur.action.Action;
 import client.strategie.*;
 
 import org.json.JSONObject;
+import org.json.JSONArray;
 import org.json.JSONException;
 
 public class Client {
@@ -94,10 +95,20 @@ public class Client {
             }
         });
 
+        connexion.on("finJeuClassement" + id, new Emitter.Listener() {
+            @Override
+            public final void call(Object... args) {
+                JSONArray info = (JSONArray) args[0];
+                log(BLUE_BOLD_BRIGHT + "Le client " + id + " est "+info.getInt(0) + " avec " + info.getInt(1)+" de score");
+            }
+        });
+
         connexion.on("disconnect", new Emitter.Listener() {
             @Override
             public final void call(Object... args) {
-                connexion.disconnect();
+                log(BLUE_BOLD_BRIGHT + "Le client " + id + " est déconnecter ");
+                //connexion.off();
+                //connexion.disconnect();
                 connexion.close();
             }
         });

@@ -88,10 +88,16 @@ public class Serveur {
                         if (jeu.finJeu()) {
                             log(YELLOW_BOLD_BRIGHT + "Fin du jeu !");
                             ArrayList<Joueur> clas = jeu.getClassement();
+                            // 7 + 3 + 8 + 6 + 3 + 1
+                            StringBuilder textClas = new StringBuilder(clas.size() * 28);
                             for (int i = 1; i < clas.size()+1; i++) {
                                 Joueur j = clas.get(i-1);
-                                log(YELLOW_BOLD_BRIGHT + i + " > " + j.toString() + " avec " + j.getScore());
+                                int s = j.getScore();
+                                textClas.append(YELLOW_BOLD_BRIGHT + i + " > " + j.toString() + " avec " + s + "\n");
+                                client.sendEvent("finJeuClassement"+j.getId(), new int[]{i, s});
                             }
+                            log(textClas.toString());
+                            terminer();
                         } else {
                             jeu.ageSuivant();
                             jeu.distributionCarte();
@@ -131,6 +137,16 @@ public class Serveur {
         ArrayList<VisionJeu> vj = jeu.getVisionsJeu();
         for (int i = 0; i < vj.size(); i++)
             client.sendEvent("getVision" + i, vj.get(i));
+    }
+
+    public final void terminer(){
+        log(GREEN_BOLD_BRIGHT+"Serveur: Fermeture");
+        client.disconnect();
+        serveur.removeAllListeners("rejoindre jeu");
+        serveur.removeAllListeners("jouerCarte");
+        serveur.removeAllListeners("recuCarte");
+        serveur.stop();
+        //System.exit(0);
     }
 
     public final void démarrer() {
