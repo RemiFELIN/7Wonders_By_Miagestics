@@ -10,7 +10,7 @@ import java.util.Random;
 import static moteur.ConsoleLogger.*;
 import static client.JSONParser.*;
 import moteur.*;
-import moteur.action.Action;
+import moteur.Action;
 
 import client.strategie.*;
 

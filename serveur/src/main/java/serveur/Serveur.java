@@ -8,7 +8,7 @@ import com.corundumstudio.socketio.listener.ConnectListener;
 import com.corundumstudio.socketio.listener.DataListener;
 
 import moteur.*;
-import moteur.action.Action;
+import moteur.Action;
 import static moteur.ConsoleLogger.*;
 
 import java.util.ArrayList;
@@ -33,7 +33,7 @@ public class Serveur {
 
         serveur = new SocketIOServer(config);
 
-        log(GREEN_BOLD_BRIGHT+"Serveur: Création listener\n");
+        log(GREEN_BOLD_BRIGHT + "Serveur: Création listener\n");
 
         serveur.addConnectListener(new ConnectListener() {
             public final void onConnect(SocketIOClient socketIOClient) {
@@ -47,14 +47,15 @@ public class Serveur {
             public final void onData(SocketIOClient socketIOClient, Integer id, AckRequest ackRequest)
                     throws Exception {
                 if (nbJoueursConnectees > MAX_JOUEURS) {
-                    log(RED_BOLD_BRIGHT+"Connexion impossible: déjà " + MAX_JOUEURS + " joueurs dans la partie");
+                    log(RED_BOLD_BRIGHT + "Connexion impossible: déjà " + MAX_JOUEURS + " joueurs dans la partie");
                 } else {
-                    log(GREEN_BOLD_BRIGHT+"Serveur: Connexion de joueur " + id);
+                    log(GREEN_BOLD_BRIGHT + "Serveur: Connexion de joueur " + id);
                     nbJoueursConnectees++;
                     if (nbJoueursConnectees == MIN_JOUEURS) {
-                        log(GREEN_BOLD_BRIGHT+MIN_JOUEURS + " joueurs de connectés: début de la partie\n");
+                        log(GREEN_BOLD_BRIGHT + MIN_JOUEURS + " joueurs de connectés: début de la partie\n");
                         log(YELLOW_BOLD_BRIGHT + "\n-----------------------------------------------");
-                        log(YELLOW_BOLD_BRIGHT + "- 7 WONDERS : nombre de joueurs connectés : " + nbJoueursConnectees + " -");
+                        log(YELLOW_BOLD_BRIGHT + "- 7 WONDERS : nombre de joueurs connectés : " + nbJoueursConnectees
+                                + " -");
                         log(YELLOW_BOLD_BRIGHT + "-----------------------------------------------\n");
                         jeu = new Jeu(nbJoueursConnectees);
                         jeu.distributionCarte();
@@ -66,20 +67,21 @@ public class Serveur {
 
         serveur.addEventListener("jouerCarte", Action.class, new DataListener<Action>() {
             @Override
-            public final void onData(SocketIOClient socketIOClient, Action ja, AckRequest ackRequest)
-                    throws Exception {
+            public final void onData(SocketIOClient socketIOClient, Action ja, AckRequest ackRequest) throws Exception {
 
                 String descJouer = jeu.jouerAction(ja);
-                if(descJouer == null) throw new Exception("Action non autorisée");
-                else log(descJouer);
+                if (descJouer == null)
+                    throw new Exception("Action non autorisée");
+                else
+                    log(descJouer);
 
                 nbJoueurCoupFini++;
                 if (nbJoueurCoupFini == nbJoueursConnectees) {
-                    log(YELLOW + "\nFin du tour "+jeu.getTour()+" Les scores :");
+                    log(YELLOW + "\nFin du tour " + jeu.getTour() + " Les scores :");
                     ArrayList<Joueur> tabJ = jeu.getJoueurs();
                     for (int i = 0; i < tabJ.size(); i++)
-                        log(YELLOW+"Score joueur " + i + " : " + tabJ.get(i).getScore());
-                    
+                        log(YELLOW + "Score joueur " + i + " : " + tabJ.get(i).getScore());
+
                     if (jeu.finAge()) {
                         log("\n--------------------");
                         log("- Fin de l'Age " + jeu.getAge() + " ! -");
@@ -101,7 +103,7 @@ public class Serveur {
                         } else {
                             jeu.ageSuivant();
                             jeu.distributionCarte();
-                            log(GREEN_BOLD+"Distribution des nouveaux decks\n");
+                            log(GREEN_BOLD + "Distribution des nouveaux decks\n");
                             jeu.roulementCarte();
                             sendVisionsJeu();
                             nbJoueurCoupFini = 0;
@@ -109,8 +111,8 @@ public class Serveur {
 
                     } else {
                         jeu.tourSuivant();
-                        log(GREEN_BOLD+"\nDébut du tour "+jeu.getTour());
-                        log(GREEN_BOLD+"-------------------------\n");
+                        log(GREEN_BOLD + "\nDébut du tour " + jeu.getTour());
+                        log(GREEN_BOLD + "-------------------------\n");
                         jeu.roulementCarte();
                         sendVisionsJeu();
                         nbJoueurCoupFini = 0;
@@ -126,7 +128,7 @@ public class Serveur {
                 carteDistribué++;
                 if (carteDistribué == nbJoueursConnectees) {
                     carteDistribué = 0;
-                    log(GREEN_BOLD+"Tout les client ont reçus leur vision, début du tour\n");
+                    log(GREEN_BOLD + "Tous les clients ont reçu leur vision, début du tour\n");
                     client.sendEvent("debutTour");
                 }
             }
@@ -150,7 +152,7 @@ public class Serveur {
     }
 
     public final void démarrer() {
-        log(GREEN_BOLD_BRIGHT+"Serveur: Démarrage");
+        log(GREEN_BOLD_BRIGHT + "Serveur: Démarrage");
         serveur.start();
     }
 

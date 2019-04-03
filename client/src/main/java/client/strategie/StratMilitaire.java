@@ -2,8 +2,8 @@ package client.strategie;
 
 import moteur.Carte;
 import moteur.VisionJeu;
-import moteur.action.Action;
-import moteur.action.PoserCarte;
+import moteur.Action;
+import static moteur.TypeAction.*;
 
 import java.util.ArrayList;
 
@@ -21,7 +21,7 @@ public class StratMilitaire extends Strategie {
                 pMilitaire=value;
             }
         }
-        return new PoserCarte(j.getId(), carteN);
+        return new Action(PoserCarte,j.getId(), carteN);
     }
 
     @Override

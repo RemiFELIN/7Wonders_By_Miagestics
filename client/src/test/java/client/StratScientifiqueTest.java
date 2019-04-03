@@ -2,7 +2,7 @@ package client;
 
 import client.strategie.StratScientifique;
 import moteur.*;
-import moteur.action.PoserCarte;
+import static moteur.TypeAction.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -61,7 +61,7 @@ public class StratScientifiqueTest {
     public void testStratScientifique() throws Exception {
         stratClient = new StratScientifique();
 
-        PoserCarte pc = (PoserCarte) stratClient.getAction(j);
+        Action pc = stratClient.getAction(j);
         assertEquals(2, pc.getNumeroCarte());
     }
 }

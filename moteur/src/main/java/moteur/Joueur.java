@@ -66,8 +66,9 @@ public class Joueur {
         return deckMain;
     }
 
-    public final Carte getDerniereCarte(){
-        return this.deckMain.remove(0);
+    public final int construireMerveille(int index){
+        deckMain.remove(index);
+        return plateau.construireEtape();
     }
 
     public final Carte defausserCarte(int index){

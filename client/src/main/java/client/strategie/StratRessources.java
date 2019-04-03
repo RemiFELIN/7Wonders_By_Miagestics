@@ -1,9 +1,8 @@
 package client.strategie;
 
 import moteur.VisionJeu;
-import moteur.action.AcheterRessource;
-import moteur.action.PoserCarte;
-import moteur.action.Action;
+import static moteur.TypeAction.*;
+import moteur.Action;
 import moteur.Carte;
 
 import java.util.ArrayList;
@@ -46,11 +45,11 @@ public class StratRessources extends Strategie {
                 }
             }
 
-        if(joueurAQuiPiocher != 0) return new AcheterRessource(j.getId(), joueurAQuiPiocher, carteN);
+        if(joueurAQuiPiocher != 0) return new Action(AcheterRessource, j.getId(), joueurAQuiPiocher, carteN);
 
         if(carteN == 0 && nbRessources == 0) carteN = new Random().nextInt(deck.size());
 
-        return new PoserCarte(j.getId(), carteN);
+        return new Action(PoserCarte,j.getId(), carteN);
     }
 
     @Override

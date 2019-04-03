@@ -26,9 +26,10 @@ public class Merveille {
     public final int getEtapesConstruites(){ return etapesConstruites; }
     public final Etape[] getEtapes(){ return etapes; }
 
-    public final void construireEtape(){
+    public final int construireEtape(){
         if(etapesConstruites < etapes.length)
             etapesConstruites++;
+        return etapesConstruites;
     }
 
     public void ajouterEtape(Etape etape, int indice){
