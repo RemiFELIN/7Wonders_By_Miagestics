@@ -6,29 +6,30 @@ import io.socket.emitter.Emitter;
 
 import java.net.URISyntaxException;
 import java.util.Random;
-import java.util.ArrayList;
 
-import static moteur.Jeu.log;
-import static moteur.Jeu.error;
-import moteur.Carte;
+import static moteur.ConsoleLogger.*;
+import static client.JSONParser.*;
+import moteur.*;
 import moteur.action.Action;
-import static moteur.jsonParser.JSONParser.*;
+
+import client.strategie.*;
+
 import org.json.JSONObject;
+import org.json.JSONException;
 
 public class Client {
 
     private Socket connexion;
     private int id;
-    Strategie stratClient = null;
+    private Strategie stratClient = null;
     private Action actionAJouer;
 
     public Client(final int id, String adresse, int port) {
         this.id = id;
         String urlAdresse = "http://" + adresse + ":" + port;
 
-        Random r=new Random();
-        if(r.nextInt(2)==0) stratClient=new StratMax();
-        else stratClient=new StratRandom();
+        Strategie[] mesStrat = new Strategie[]{new StratLaurier(), new StratRandom(), new StratRessources(), new StratMilitaire(), new StratScientifique()};
+        stratClient = mesStrat[new Random().nextInt(mesStrat.length)];
 
         try {
             connexion = IO.socket(urlAdresse);
@@ -36,24 +37,52 @@ public class Client {
             error("Client: Crash dans Joueur " + this.id, e);
             return;
         }
-        log("Client: Abonnement connexion Joueur " + this.id);
+        log(BLUE_BOLD_BRIGHT + "Client: Abonnement connexion Joueur " + this.id);
 
         connexion.on("connect", new Emitter.Listener() {
             @Override
             public final void call(Object... args) {
-                log("Client: connexion Joueur " + id);
+                log(BLUE_BOLD_BRIGHT + "Client: connexion Joueur " + id);
                 connexion.emit("rejoindre jeu", id);
             }
         });
 
-        connexion.on("getCarte" + id, new Emitter.Listener() {
+        connexion.on("getVision" + id, new Emitter.Listener() {
             @Override
             public final void call(Object... args) {
-                log("Réception carte ! " + id);
-                ArrayList<Carte> deck = JSONToDeck(args[0]);
-                if(deck != null){
-                    actionAJouer = (Action) stratClient.getAction(id, deck);
+                log(BLUE_BOLD_BRIGHT + "Le client " + id + " a reçu sa vision de jeu");
+                try {
+                    JSONObject jo = (JSONObject) args[0];
+
+                    VisionJeu j = new VisionJeu(
+                        jo.getInt("id"),
+                        jo.getInt("piece"),
+                        parseJSONMerveille(jo.getJSONObject("plateau")),
+                        parseJSONArrayCarte(jo.getJSONArray("deckMain")),
+                        parseJSONArrayCarte(jo.getJSONArray("deckPlateau"))
+                    );
+
+                    VisionJeu g = new VisionJeu(
+                        jo.getInt("voisinGaucheId"),
+                        jo.getInt("voisinGauchePiece"),
+                        parseJSONMerveille(jo.getJSONObject("plateau")),
+                        parseJSONArrayCarte(jo.getJSONArray("voisinGaucheDeckPlateau"))
+                    );
+                    j.setVoisinGauche(g);
+
+                    VisionJeu d = new VisionJeu(
+                        jo.getInt("voisinDroiteId"),
+                        jo.getInt("voisinDroitePiece"),
+                        parseJSONMerveille(jo.getJSONObject("plateau")),
+                        parseJSONArrayCarte(jo.getJSONArray("voisinDroiteDeckPlateau"))
+                    );
+                    j.setVoisinDroite(d);
+
+                    actionAJouer = stratClient.getAction(j);
                     connexion.emit("recuCarte", id);
+
+                } catch (JSONException e){
+                    error("Client "+id+" erreur getVision !", e);
                 }
             }
         });

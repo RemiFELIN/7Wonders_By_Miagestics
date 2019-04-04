@@ -3,11 +3,10 @@ package moteur;
 import org.junit.Before;
 import org.junit.Test;
 
-import moteur.carte.Taverne;
-import moteur.jsonParser.JSONAction;
 import moteur.action.*;
 
-import static moteur.Jeu.log;
+import static moteur.ConsoleLogger.error;
+import static moteur.Couleur.*;
 
 import java.util.ArrayList;
 import java.lang.reflect.Field;
@@ -31,8 +30,7 @@ public class JeuTest {
         ArrayList<Carte> deck = testDuJeu.getDecks().get(0);
         ArrayList<Joueur> joueurs = testDuJeu.getJoueurs();
         int TAILLE_DECK = deck.size();
-        int NB_CARTES_PAR_JOUEURS = (int) Math.floor(TAILLE_DECK/joueurs.size());
-
+        int NB_CARTES_PAR_JOUEURS = TAILLE_DECK/joueurs.size();
         testDuJeu.distributionCarte();
 
         int TAILLE_DECK_ATTENDU = TAILLE_DECK - joueurs.size() * NB_CARTES_PAR_JOUEURS;
@@ -66,36 +64,26 @@ public class JeuTest {
         assertEquals(joueurs.get(0).getDeckMain(), last);
     }
 
-    @Test
-    public void recuperationCarteTest(){
-
-        int tailledeck = testDuJeu.getDecks().get(0).size();
-
-        changeField("TAILLE_DECK", 1);
-        testDuJeu.distributionCarte();
-
-        assertEquals(true, testDuJeu.finAge());
-        testDuJeu.recuperationCarte();
-        // test le deck pour voir si le paquet a recupéré toutes les cartes cartes
-        int tabDeck = testDuJeu.getDecks().get(0).size();
-        assertEquals(tailledeck, tabDeck);
-        ArrayList<Joueur> joueurs = testDuJeu.getJoueurs();
-        for (int i = 0; i < joueurs.size(); i++) 
-            assertEquals(0, joueurs.get(i).getDeckMain().size());
-    }
-
    @Test
    public void finAgeTest() {
+       //Le jeu n'a pas été touché donc l'age n'est pas fini
+        assertEquals(false, testDuJeu.finAge());
+
+        //Est que le finAge se termine aprés 6 tour ?
+        changeField("tour", 6);
+        assertEquals(true, testDuJeu.finAge());
+        changeField("tour", 5);
+
        // modifier le deck main pour qu'il reste qu'une seule carte
        ArrayList<Joueur> joueurs = testDuJeu.getJoueurs();
        ArrayList<Carte> c = new ArrayList<Carte>();
-       c.add(new Taverne());
+       c.add(new Carte("CarteTest", BLANC, 0));
        for (int i = 0; i < joueurs.size(); i++) {
            joueurs.get(0).setDeckMain(c);
        }
-       assertEquals(true, testDuJeu.finAge());
+        assertEquals(false, testDuJeu.finAge());
        // modifier le deck main pour qu'il reste plusieurs cartes
-       c.add(new Taverne());
+       c.add(new Carte("CarteTest", BLANC, 0));
        for (int i = 0; i < joueurs.size(); i++) {
            joueurs.get(0).setDeckMain(c);
        }
@@ -114,29 +102,64 @@ public class JeuTest {
    public void jouerActionTest(){
         testDuJeu.distributionCarte();
 
-        JSONAction ja = new JSONAction();
-        ja.idJoueur = 0;
-        ja.numeroCarte = 2;
-        ja.type = "PoserCarte";
+        Action ja = new PoserCarte(0, 2);
 
         int prevSize = testDuJeu.getJoueurs().get(0).getDeckMain().size();
-        assertEquals(true, testDuJeu.jouerAction(ja));
+        assertNotEquals(null, testDuJeu.jouerAction(ja));
         int afterSize = testDuJeu.getJoueurs().get(0).getDeckMain().size();
         assertEquals(afterSize, prevSize-1);
 
-        ja.idJoueur = 1;
-        ja.numeroCarte = 0;
-        ja.type = "DefausserCarte";
+        ja = new DefausserCarte(1, 0);
 
-        assertEquals(true, testDuJeu.jouerAction(ja));
+        assertNotEquals(null, testDuJeu.jouerAction(ja));
 
         prevSize = testDuJeu.getJoueurs().get(1).getDeckMain().size();
         int prevPiece = testDuJeu.getJoueurs().get(1).getPiece();
-        assertEquals(true, testDuJeu.jouerAction(ja));
+        assertNotEquals(null, testDuJeu.jouerAction(ja));
         afterSize = testDuJeu.getJoueurs().get(1).getDeckMain().size();
         int afterPiece = testDuJeu.getJoueurs().get(1).getPiece();
         assertEquals(afterSize, prevSize-1);
         assertEquals(prevPiece+3, afterPiece);
+   }
+
+   @Test
+   public void testCompareConfiltsJoueur(){
+        assertArrayEquals(new int[]{5,5,5}, getScoreJoueurs());
+
+        ArrayList<Carte> cs = new ArrayList<Carte>(1);
+        cs.add(new Carte("CarteTestMilitaire", BLANC, 1, 0, 0, 1, 0));
+
+        testDuJeu.getJoueurs().get(1).setDeckMain(cs);
+        testDuJeu.getJoueurs().get(1).poserCarte(0);
+
+        testDuJeu.ageSuivant();
+
+        //J1 perd et égalité => - 1
+        //J2 gagne 2 fois => + 2
+        //J3 perd et égalité => - 1
+        assertArrayEquals(new int[]{4,7,4}, getScoreJoueurs());
+
+        cs = new ArrayList<Carte>(1);
+        cs.add(new Carte("CarteTestMilitaire", BLANC, 1, 0, 0, 2, 0));
+
+        testDuJeu.getJoueurs().get(2).setDeckMain(cs);
+        testDuJeu.getJoueurs().get(2).poserCarte(0);
+
+        testDuJeu.ageSuivant();
+
+        //J1 perd 2 fois => - 6
+        //J2 gagne et perd => 0
+        //J3 gagne 2 fois => + 6
+        assertArrayEquals(new int[]{0,7,10}, getScoreJoueurs());
+   }
+
+   private int[] getScoreJoueurs(){
+        ArrayList<Joueur> mj = testDuJeu.getJoueurs();
+        int[] lesScores = new int[mj.size()];
+        for(byte i=0; i<mj.size(); i++)
+            lesScores[i] = mj.get(i).getScore();
+        
+        return lesScores;
    }
 
    private void changeField(String nomField, Object value){
@@ -146,7 +169,7 @@ public class JeuTest {
            f.setAccessible(true);
            f.set(testDuJeu, value); 
        } catch (Exception e) {
-           log("Test: Impossible de modifier le champ "+nomField);
+           error("Test: Impossible de modifier le champ "+nomField, e);
        } 
    }
 }
