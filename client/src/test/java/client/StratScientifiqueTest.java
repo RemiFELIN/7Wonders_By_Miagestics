@@ -2,7 +2,6 @@ package client;
 
 import client.strategie.StratScientifique;
 import moteur.*;
-import static moteur.TypeAction.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -11,6 +10,10 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * Fichier de test unitaire pour test la classe StratScientifique
+ * @author Benoît Montorsi, Pierre Saunders
+ */
 public class StratScientifiqueTest {
 
     @Mock

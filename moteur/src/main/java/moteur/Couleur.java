@@ -1,5 +1,8 @@
 package moteur;
 
+/**
+ * @author Pierre Saunders
+ */
 public enum Couleur {
     MARRON ("MARRON"),
     BLANC ("BLANC"),
@@ -12,14 +15,19 @@ public enum Couleur {
 
     private String nom = "";
 
-    Couleur(String nom){
-        this.nom = nom;
-    }
-
-    public final String toString(){
-        return nom;
-    }
-
+    /**
+     * @param un nom
+     */
+    Couleur(String nom){ this.nom = nom; }
+    /**
+     * @return la transcription en string de la Couleur
+     */
+    public final String toString(){ return nom; }
+    /**
+     * Permet de retrouver la Couleur à partir de sa valeur en string
+     * @param le nom de la couleur
+     * @return l'enum Couleur correspondante
+     */
     public static final Couleur fromString(String nom){
         for(Couleur type : Couleur.values())
             if(type.toString().equals(nom))
@@ -27,7 +35,11 @@ public enum Couleur {
 
         return null;
     }
-
+    /**
+     * Permet de traduire la Couleur en couleur console/shell
+     * @param une Couleur
+     * @return la couleur correspondante à la console
+     */
     public static final String consoleColor(Couleur c){
         switch(c){
             case MARRON:

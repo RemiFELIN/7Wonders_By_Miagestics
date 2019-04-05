@@ -2,7 +2,6 @@ package client;
 
 import client.strategie.StratMilitaire;
 import moteur.*;
-import static moteur.TypeAction.*;
 import static moteur.Ressource.*;
 import static moteur.Couleur.*;
 
@@ -14,6 +13,10 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * Fichier de test unitaire pour test la classe StratMilitaire
+ * @author Benoît Montorsi, Pierre Saunders
+ */
 public class StratMilitaireTest {
 
     @Mock

@@ -9,6 +9,9 @@ import static moteur.SymboleScientifique.*;
 
 import java.util.ArrayList;
 
+/**
+ * Fichier de test unitaire pour tester la classe Joueur
+ */
 public class JoueurTest {
 
     public Joueur joueur;

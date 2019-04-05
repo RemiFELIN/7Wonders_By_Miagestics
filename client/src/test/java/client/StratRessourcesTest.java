@@ -2,7 +2,6 @@ package client;
 
 import client.strategie.StratRessources;
 import moteur.*;
-import static moteur.TypeAction.*;
 import static moteur.Ressource.*;
 import static moteur.Couleur.*;
 
@@ -14,6 +13,10 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * Fichier de test unitaire pour test la classe StratRessources
+ * @author Benoît Montorsi, Pierre Saunders
+ */
 public class StratRessourcesTest {
 
     @Mock

@@ -7,6 +7,10 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.*;
 
+/**
+ * Fichier de test unitaire pour tester la classe VisionJeu
+ * @author Pierre Saunders
+ */
 public class VisionJeuTest {
 
     public Jeu jeu;

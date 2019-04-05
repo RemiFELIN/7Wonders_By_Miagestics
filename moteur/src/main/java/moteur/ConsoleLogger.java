@@ -1,14 +1,22 @@
 package moteur;
 
+/**
+ * @author Pierre Saunders
+ */
 public class ConsoleLogger {
 
+    /**
+     * @param l'objet à afficher dans la console
+     */
     public final static void log(Object obj) {
         synchronized(System.out){
             System.out.print(obj);
             System.out.println(" "+RESET);
         }
     }
-
+    /**
+     * @param l'objet à afficher en erreur dans la console
+     */
     public final static void error(String s, Exception err){
         synchronized(System.out){
             System.out.print(RED_BOLD+s);

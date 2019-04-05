@@ -4,6 +4,10 @@ import client.Client;
 import serveur.Serveur;
 import static moteur.ConsoleLogger.*;
 
+/**
+ * Permet de lancer une partie avec un nombre défini de joueurs
+ * @author Pierre Saunders
+ */
 public class Lanceur {
 
     private final static String adresse = "127.0.0.1";

@@ -15,6 +15,10 @@ import java.util.ArrayList;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.when;
 
+/**
+ * Fichier de test unitaire pour test la classe StratRandom
+ * @author Benoît Montorsi, Pierre Saunders
+ */
 public class StratRandomTest {
 
     @Mock

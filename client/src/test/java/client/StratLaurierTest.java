@@ -13,6 +13,10 @@ import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
 
+/**
+ * Fichier de test unitaire pour test la classe StartLaurier
+ * @author Benoît Montorsi, Pierre Saunders
+ */
 public class StratLaurierTest {
 
     @Mock

@@ -6,47 +6,95 @@ import java.lang.Math;
 
 public class Joueur {
 
-    private int id;
-    private int piece = 5;
+    private int id, piece = 5;
     private Merveille plateau;
     private ArrayList<Carte> deckPlateau = new ArrayList<Carte>();
     private ArrayList<Carte> deckMain = new ArrayList<Carte>();
-    private int[] jetonsDefaite = new int[3];
-    private int[] jetonsVictoire = new int[3];
+    private int[] jetonsDefaite = new int[3], jetonsVictoire = new int[3];
 
     //Constructeur vide pour la sérialisation du JSONObject
-    public Joueur() {}
+    //public Joueur() {}
 
+    /**
+     * @param un id
+     */
     public Joueur(int id) {
         this.id = id;
     }
 
     /* AJOUT FONCTIONNALITE 'CONSTRUIRE MERVEILLE' */
 
-    public int construireEtape(int indice, int index){
+    /**
+     * @author Rémi Felin
+     * @param l'indice de l'étape a construire
+     * @param l'indice de la carte qui sert à construire
+     * @return l'indice de l'étape construite
+     */
+    public final int construireEtape(int indice, int index){
         deckMain.remove(index);
         this.getPlateau().getEtape(indice).construire();
         return indice;
     }
 
+    //Ancienne manière
+    /**
+     * @author Pierre Saunders
+     * @deprecated
+     * @param l'indice de l'étape a construire
+     * @return l'indice de l'étape construite
+    */
+    /*public final int construireMerveille(int index){
+        deckMain.remove(index);
+        return plateau.construireEtape();
+    }*/
+
     /*---------------------------------------------*/
 
-    public final int[] getJetonsVictoire(){
-        return jetonsVictoire;
-    }
-
-    public final int[] getJetonsDefaite(){
-        return jetonsDefaite;
-    }
-
-    public final void ajouterJetonVictoire(int age){
-        jetonsVictoire[age-1]++;
-    }
-
-    public final void ajouterJetonDefaite(int age){
-        jetonsDefaite[age-1]++;
-    }
-
+    //GETTER
+    /**
+     * @author Pierre Saunders
+     * @return les jetons victoire
+     */
+    public final int[] getJetonsVictoire(){ return jetonsVictoire; }
+    /**
+     * @author Pierre Saunders
+     * @return les jetons défaite
+     */
+    public final int[] getJetonsDefaite(){ return jetonsDefaite; }
+    /**
+     * @return le plateau/merveille
+     */
+    public final Merveille getPlateau(){ return plateau; }
+    /**
+     * @return le deck des cartes posés
+     */
+    public final ArrayList<Carte> getDeckPlateau(){ return deckPlateau; }
+    /**
+     * @return le deck en main
+     */
+    public final ArrayList<Carte> getDeckMain(){ return deckMain; }
+    /**
+     * @return les pieces
+     */
+    public final int getPiece(){ return piece; }
+    /**
+     * @return l'id
+     */
+    public int getId() { return id; }
+    /**
+     * @author Pierre Saunders
+     * @param l'indice age du jeton a ajouter
+     */
+    public final void ajouterJetonVictoire(int age){ jetonsVictoire[age-1]++; }
+    /**
+     * @author Pierre Saunders
+     * @param l'indice age du jeton a ajouter
+     */
+    public final void ajouterJetonDefaite(int age){ jetonsDefaite[age-1]++; }
+    /**
+     * @author Pierre Saunders
+     * @return the la force militaire totale
+     */
     public final int getForceMilitaire(){
         int r = 0;
 
@@ -54,72 +102,65 @@ public class Joueur {
             r += c.getPuissanceMilitaire();
 
         return r;
-    }
-
-    public final void setDeckMain(ArrayList<Carte> c) {
-        this.deckMain = c;
-    }
-
-    public final void setPlateau(Merveille m){
-        this.plateau = m;
-    }
-
-    public final Merveille getPlateau(){
-        return plateau;
-    }
-
-    public final ArrayList<Carte> getDeckPlateau(){
-        return deckPlateau;
-    }
-
-    public final ArrayList<Carte> getDeckMain(){
-        return deckMain;
-    }
-
-    /*public final int construireMerveille(int index){
-        deckMain.remove(index);
-        return plateau.construireEtape();
-    }*/
-
+    }    
+    /**
+     * @param le deck en main
+     */
+    public final void setDeckMain(ArrayList<Carte> c){ deckMain = c; }
+    /**
+     * @param la merveille
+     */
+    public final void setPlateau(Merveille m){ plateau = m; }
+    /**
+     * @author Pierre Saunders
+     * @param l'indice de la carte à défausser
+     * @return la carte défausser
+     */
     public final Carte defausserCarte(int index){
         Carte c = deckMain.remove(index);
         piece += 3;
         return c;
     }
-
+    /**
+     * @author Pierre Saunders
+     * @param the id
+     * @return la carte posé
+     */
     public final Carte poserCarte(int index){
         Carte c = deckMain.remove(index);
         deckPlateau.add(c);
         return c;
     }
-
+    /**
+     * @return le score total
+     */
     public final int getScore() {
         int score = 0;
-        for(int i=0; i<deckPlateau.size(); i++){
-            Carte c = deckPlateau.get(i);
-            //Calcul laurier
+        
+        //Calcul laurier
+        for(Carte c : deckPlateau)
             score += c.getLaurier();
-        }
         
         //Calcul piece
         score += piece;
 
         //Calcul scientifique
-        HashMap<SymboleScientifique,Integer> scientifique = new HashMap<SymboleScientifique,Integer>();
-        scientifique.put(SymboleScientifique.COMPAS,0);
-        scientifique.put(SymboleScientifique.TABLETTE,0);
-        scientifique.put(SymboleScientifique.ROUAGE,0);
-        for(int i=0; i<deckPlateau.size(); i++){
-            Carte c = deckPlateau.get(i);
+        HashMap<SymboleScientifique, Integer> scientifique = new HashMap<SymboleScientifique,Integer>();
+        for(SymboleScientifique s : SymboleScientifique.values())
+            scientifique.put(s, 0);
+
+        for(Carte c : deckPlateau){
             SymboleScientifique symb = c.getSymboleScientifique();
-            if( symb != null){
-                scientifique.put(symb,scientifique.get(symb)+1);
-            }
+            if( symb != null)
+                scientifique.put(symb, scientifique.get(symb)+1);
         }
-        score += Math.pow(scientifique.get(SymboleScientifique.COMPAS),2);
-        score += Math.pow(scientifique.get(SymboleScientifique.TABLETTE),2);
-        score += Math.pow(scientifique.get(SymboleScientifique.ROUAGE),2);
-        int groupe = Math.min(Math.min(scientifique.get(SymboleScientifique.COMPAS),scientifique.get(SymboleScientifique.TABLETTE)),scientifique.get(SymboleScientifique.ROUAGE));
+
+        int groupe = 99;
+        for(SymboleScientifique s : SymboleScientifique.values()){
+            int val = scientifique.get(s);
+            score += Math.pow(val, 2);
+            groupe = Math.min(groupe, val);
+        }
         score += 7 * groupe;
 
         //Calcul confilts militaire
@@ -134,31 +175,23 @@ public class Joueur {
         
         return score;
     }
-
-    public final int getPiece(){
-        return piece;
-    }
-
-    public final int payer(int cout)
-    {
-        piece-=cout;
+    /**
+     * @author Benoît Montorsi
+     * @param le cout à payer
+     * @return la cout payer
+     */
+    public final int payer(int cout){
+        piece -= cout;
         return cout;
     }
-
-    public final void recevoirPaiement(int montant)
-    {
-        piece+=montant;
-    }
-
     /**
-     * @return the id
+     * @author Benoît Montorsi
+     * @param le total de piece à recevoir
      */
-    public int getId() {
-        return id;
-    }
-
+    public final void recevoirPaiement(int montant){ piece += montant; }
+    /**
+     * @return description de l'objet
+     */
     @Override
-    public final String toString(){
-        return "Joueur "+id;
-    }
+    public final String toString(){ return "Joueur "+id; }
 }

@@ -10,7 +10,7 @@ import java.util.HashMap;
 
 public abstract class Strategie {
 
-	Strategie() {}
+	//Strategie() {}
     
     private HashMap<Ressource, Integer> resSeul;
 
@@ -111,7 +111,5 @@ public abstract class Strategie {
     }
 
 	@Override
-	public String toString(){
-		return "Strategie";
-	}
+	public String toString(){ return "Strategie"; }
 }
