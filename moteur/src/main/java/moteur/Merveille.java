@@ -9,9 +9,8 @@ public class Merveille {
     private char face;
     private String nom;
     private Ressource res;
-
     private Etape[] etapes;
-    private int etapesConstruites = 0;
+    //private int etapesConstruites = 0;
 
     public Merveille(String nom, char face, Ressource res, int nbEtapes) {
         this.nom = nom;
@@ -23,20 +22,16 @@ public class Merveille {
     public final char getFace(){ return face; }
     public final String getNom(){ return nom; }
     public final Ressource getRessource(){ return res; }
-    public final int getEtapesConstruites(){ return etapesConstruites; }
+    //public final int getEtapesConstruites(){ return etapesConstruites; }
     public final Etape[] getEtapes(){ return etapes; }
 
-    public final int construireEtape(){
-        if(etapesConstruites < etapes.length)
-            etapesConstruites++;
-        return etapesConstruites;
-    }
+    public Etape getEtape(int indice){ return etapes[indice - 1]; }
 
     public void ajouterEtape(Etape etape, int indice){
         etapes[indice - 1] = etape;
     }
 
-    public final static ArrayList<Merveille> getPlateau(){
+    public final static ArrayList<Merveille> getPlateaux(){
         ArrayList<Merveille> plateaux = new ArrayList<Merveille>();
         Merveille m;
         Etape etape;

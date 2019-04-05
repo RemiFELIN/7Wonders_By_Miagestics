@@ -15,6 +15,7 @@ public class Jeu {
     private int age = 1;
     private int tour = 1;
 
+
     private ArrayList<Joueur> mesJoueurs;
 
     public Jeu(int nbJoueurs) {
@@ -84,7 +85,7 @@ public class Jeu {
     }
 
     public final void distributionPlateau() {
-        ArrayList<Merveille> plateaux = Merveille.getPlateau();
+        ArrayList<Merveille> plateaux = Merveille.getPlateaux();
         Merveille m;
         for (int i=0; i<mesJoueurs.size(); i++) {
             Random random = new Random();
@@ -139,9 +140,14 @@ public class Jeu {
             break;
 
             case ConstruireMerveille:
-                int etape = j.construireMerveille(ja.getNumeroCarte());
+                if(age >= 2) {
+                    if (j.getPlateau().getEtape(age - 1).getEtat() == true)
+                        j.getPlateau().getEtape(age).construire();
+                }else
+                    j.getPlateau().getEtape(age).construire();
+                int etape = j.construireEtape(age, ja.getNumeroCarte());
                 desc = "Le joueur "+ja.getIdJoueur()+" a construire l'étape "+etape+" de sa merveille "+j.getPlateau().getNom();
-            break;
+                break;
         }
         return desc;
     }
@@ -177,14 +183,15 @@ public class Jeu {
 
     public final void ageSuivant(){
 
+        age++;
+        tour = 1; //reset tour
+
         //Calcul confilts militaire
         for(byte i=0; i<mesJoueurs.size()-1; i++)
             compareConfiltsJoueur(mesJoueurs.get(i), mesJoueurs.get(i+1));
 
-        compareConfiltsJoueur(mesJoueurs.get(mesJoueurs.size()-1), mesJoueurs.get(0));
 
-        age++;
-        tour = 1;
+        compareConfiltsJoueur(mesJoueurs.get(mesJoueurs.size()-1), mesJoueurs.get(0));
     }
 
     public final boolean finJeu(){ return  age >= 3; }

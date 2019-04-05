@@ -21,6 +21,16 @@ public class Joueur {
         this.id = id;
     }
 
+    /* AJOUT FONCTIONNALITE 'CONSTRUIRE MERVEILLE' */
+
+    public int construireEtape(int indice, int index){
+        deckMain.remove(index);
+        this.getPlateau().getEtape(indice).construire();
+        return indice;
+    }
+
+    /*---------------------------------------------*/
+
     public final int[] getJetonsVictoire(){
         return jetonsVictoire;
     }
@@ -66,10 +76,10 @@ public class Joueur {
         return deckMain;
     }
 
-    public final int construireMerveille(int index){
+    /*public final int construireMerveille(int index){
         deckMain.remove(index);
         return plateau.construireEtape();
-    }
+    }*/
 
     public final Carte defausserCarte(int index){
         Carte c = deckMain.remove(index);

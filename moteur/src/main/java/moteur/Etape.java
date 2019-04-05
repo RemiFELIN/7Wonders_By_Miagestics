@@ -9,6 +9,7 @@ public class Etape {
     private Ressource[] ressourcesBonus;
     private String effet;
     private SymboleScientifique[] symboleScientifique;
+    private boolean etat = false;
 
     public Etape(Ressource[] ressourcesCout, int pointVictoire, int pointMilitaire, int piece,
         Ressource[] ressourcesBonus, SymboleScientifique[] symboleScientifique, String effet){
@@ -21,11 +22,20 @@ public class Etape {
             this.symboleScientifique = symboleScientifique;
     }
 
-    public final int getPointVictoire(){ return pointVictoire; };
-    public final int getPointMilitaire(){ return pointMilitaire; };
-    public final int getPiece(){ return piece; };
-    public final Ressource[] getRessourcesCout(){ return ressourcesCout; };
-    public final Ressource[] getRessourcesBonus(){ return ressourcesBonus; };
-    public final String getEffet(){ return effet; };
-    public final SymboleScientifique[] getSymboleScientifique(){ return symboleScientifique; };
+    public void construire(){
+        etat = true;
+    }
+
+    public final boolean getEtat(){
+        return etat;
+    }
+
+    public final int getPointVictoire(){ return pointVictoire; }
+    public final int getPointMilitaire(){ return pointMilitaire; }
+    public final int getPiece(){ return piece; }
+    public final Ressource[] getRessourcesCout(){ return ressourcesCout; }
+    public final Ressource[] getRessourcesBonus(){ return ressourcesBonus; }
+    public final String getEffet(){ return effet; }
+    public final SymboleScientifique[] getSymboleScientifique(){ return symboleScientifique; }
+
 }
