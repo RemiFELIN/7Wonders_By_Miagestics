@@ -30,6 +30,11 @@
             <version>0.1</version>
         </dependency>
         <dependency>
+            <groupId>7w</groupId>
+            <artifactId>commun</artifactId>
+            <version>0.1</version>
+        </dependency>
+        <dependency>
             <groupId>com.corundumstudio.socketio</groupId>
             <artifactId>netty-socketio</artifactId>
             <version>1.7.17</version>

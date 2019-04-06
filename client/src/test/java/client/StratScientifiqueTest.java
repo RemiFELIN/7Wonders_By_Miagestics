@@ -1,7 +1,14 @@
 package client;
 
 import client.strategie.StratScientifique;
-import moteur.*;
+import moteur.Carte;
+import moteur.VisionJeu;
+import moteur.Joueur;
+import moteur.Merveille;
+import commun.Action;
+import static commun.Ressource.*;
+import static commun.Couleur.*;
+import static commun.SymboleScientifique.*;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -30,32 +37,32 @@ public class StratScientifiqueTest {
 
         deckMain = new ArrayList<Carte>();
 
-        Carte c = new Carte("CarteTestRessource", Couleur.BLANC, 0,0,0,0,0);
+        Carte c = new Carte("CarteTestRessource", BLANC, 0,0,0,0,0);
         deckMain.add(c);
 
-        c = new Carte("CarteTestScientifique", Couleur.VERT, 0, SymboleScientifique.COMPAS);
-        c.ajouterRessource(Ressource.MINERAI);
-        c.ajouterRessource(Ressource.MINERAI);
-        c.ajouterRessource(Ressource.BOIS);
+        c = new Carte("CarteTestScientifique", VERT, 0, COMPAS);
+        c.ajouterRessource(MINERAI);
+        c.ajouterRessource(MINERAI);
+        c.ajouterRessource(BOIS);
         deckMain.add(c);
 
-        c = new Carte("CarteTestScientifique", Couleur.VERT, 0, SymboleScientifique.COMPAS);
-        c.ajouterRessource(Ressource.MINERAI);
-        c.ajouterRessource(Ressource.BOIS);
+        c = new Carte("CarteTestScientifique", VERT, 0, COMPAS);
+        c.ajouterRessource(MINERAI);
+        c.ajouterRessource(BOIS);
         deckMain.add(c);
 
         deckPlateau=new ArrayList<Carte>();
-        c = new Carte("CarteTestRessource", Couleur.BLANC, 0);
-        c.ajouterRessource(Ressource.BOIS);
+        c = new Carte("CarteTestRessource", BLANC, 0);
+        c.ajouterRessource(BOIS);
         deckPlateau.add(c);
 
-        c = new Carte("CarteTestRessource2", Couleur.BLANC, 0);
-        c.ajouterRessource(Ressource.MINERAI);
+        c = new Carte("CarteTestRessource2", BLANC, 0);
+        c.ajouterRessource(MINERAI);
         deckPlateau.add(c);
 
-        j=new VisionJeu(0,0,new Merveille("test",'A',Ressource.BOIS,1),deckMain,deckPlateau);
-        jGauche=new VisionJeu(1,0,new Merveille("test2",'A',Ressource.BOIS,1),deckMain,deckPlateau);
-        jDroite=new VisionJeu(2,0,new Merveille("test3",'A',Ressource.BOIS,1),deckMain,deckPlateau);
+        j=new VisionJeu(0,0,new Merveille("test",'A',BOIS,1),deckMain,deckPlateau);
+        jGauche=new VisionJeu(1,0,new Merveille("test2",'A',BOIS,1),deckMain,deckPlateau);
+        jDroite=new VisionJeu(2,0,new Merveille("test3",'A',BOIS,1),deckMain,deckPlateau);
         j.setVoisinDroite(jDroite);
         j.setVoisinGauche(jGauche);
     }

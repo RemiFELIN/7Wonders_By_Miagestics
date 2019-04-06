@@ -7,17 +7,19 @@ import io.socket.emitter.Emitter;
 import java.net.URISyntaxException;
 import java.util.Random;
 
-import static moteur.ConsoleLogger.*;
-import static client.JSONParser.*;
-import moteur.*;
-import moteur.Action;
-
+import moteur.VisionJeu;
+import commun.Action;
 import client.strategie.*;
+import static commun.ConsoleLogger.*;
+import static client.JSONParser.*;
 
 import org.json.JSONObject;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+/**
+ * @authors Pierre Saunders, Yannick Cardini, Benoît Montorsi
+ */
 public class Client {
 
     private Socket connexion;
@@ -25,6 +27,12 @@ public class Client {
     private Strategie stratClient = null;
     private Action actionAJouer;
 
+    /**
+     * Constructeur
+     * @param un id
+     * @param l'adresse du serveur
+     * @param le port du serveur
+     */
     public Client(final int id, String adresse, int port) {
         this.id = id;
         String urlAdresse = "http://" + adresse + ":" + port;
@@ -114,12 +122,14 @@ public class Client {
         });
     }
 
+    /**
+     * Permet de débuter la connexion au serveur
+     */
     public final void démarrer() {
         connexion.connect();
     }
 
     public final static void main(String args[]) {
-
         if (args.length == 3) {
             String adresse = args[0];
             int port = Integer.parseInt(args[1]);

@@ -2,8 +2,8 @@ package client.strategie;
 
 import moteur.Carte;
 import moteur.VisionJeu;
-import moteur.Action;
-import static moteur.TypeAction.*;
+import commun.Action;
+import static commun.TypeAction.*;
 
 import java.util.ArrayList;
 

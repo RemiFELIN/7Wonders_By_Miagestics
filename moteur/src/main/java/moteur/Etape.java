@@ -1,5 +1,8 @@
 package moteur;
 
+import commun.Ressource;
+import commun.SymboleScientifique;
+
 public class Etape {
 
     private int pointVictoire;

@@ -1,4 +1,4 @@
-package moteur;
+package commun;
 
 /**
  * @author Pierre Saunders

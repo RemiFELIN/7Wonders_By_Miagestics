@@ -1,7 +1,9 @@
 package moteur;
 
-import static moteur.TypeAction.*;
-import moteur.Action;
+import commun.Action;
+import commun.Ressource;
+import commun.Couleur;
+import commun.ConsoleLogger;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -11,13 +13,13 @@ import java.util.HashMap;
 
 public class Jeu {
 
-    private final ArrayList<ArrayList<Carte>> tabDeck = new ArrayList<ArrayList<Carte>>(3);
-    private int age = 1;
-    private int tour = 1;
-
-
     private ArrayList<Joueur> mesJoueurs;
+    private final ArrayList<ArrayList<Carte>> tabDeck = new ArrayList<ArrayList<Carte>>(3);
+    private int age = 1, tour = 1;
 
+    /**
+     * @param le nombre de joueurs dans la partie
+     */
     public Jeu(int nbJoueurs) {
         mesJoueurs = new ArrayList<Joueur>(nbJoueurs);
         for (int i = 0; i < nbJoueurs; i++)
@@ -28,13 +30,35 @@ public class Jeu {
     }
     
     //GETTER
+    /**
+     * @author Pierre Saunders
+     * @return le tour en cours
+     */
     public final int getTour(){ return tour; }
+    /**
+     * @return l'âge en cours
+     */
     public final int getAge(){ return age; }
+    /**
+     * @return tous les deck de la fosse
+     */
     public final ArrayList<ArrayList<Carte>> getDecks(){ return tabDeck; }
+    /**
+     * @return la taille du deck de l'âge en cours
+     */
     public final int getTailleDeck(){ return tabDeck.get(1).size(); }
+    /**
+     * @return le deck de l'âge en cours
+     */
     public final ArrayList<Carte> getDeckPrincipal(){ return tabDeck.get(this.age-1); }
+    /**
+     * @return les joueurs
+     */
     public final ArrayList<Joueur> getJoueurs(){ return mesJoueurs; }
-
+    /**
+     * @author Pierre Saunders
+     * Permet de passer au tour suivant
+     */
     public final void tourSuivant(){ tour++; }
 
     public final void initCartes() {
@@ -173,7 +197,7 @@ public class Jeu {
             if(r1 > r2){
                 j1.ajouterJetonVictoire(age);
                 j2.ajouterJetonDefaite(age);
-            //r1 < r2
+            //r1 <= r2
             } else {
                 j2.ajouterJetonVictoire(age);
                 j1.ajouterJetonDefaite(age);
@@ -183,15 +207,14 @@ public class Jeu {
 
     public final void ageSuivant(){
 
-        age++;
-        tour = 1; //reset tour
-
         //Calcul confilts militaire
         for(byte i=0; i<mesJoueurs.size()-1; i++)
             compareConfiltsJoueur(mesJoueurs.get(i), mesJoueurs.get(i+1));
 
-
         compareConfiltsJoueur(mesJoueurs.get(mesJoueurs.size()-1), mesJoueurs.get(0));
+
+        age++;
+        tour = 1; //reset tour
     }
 
     public final boolean finJeu(){ return  age >= 3; }
@@ -227,13 +250,5 @@ public class Jeu {
         visions.get(visions.size()-1).setVoisinDroite(visions.get(0));
 
         return visions;
-    }
-
-    public final static int indexOf(int[] tab, int n) {
-        for (int i = 0; i < tab.length; i++)
-            if (tab[i] == n)
-                return i;
-
-        return -1;
     }
 }

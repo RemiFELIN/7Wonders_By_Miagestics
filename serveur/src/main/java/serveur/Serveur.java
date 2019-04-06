@@ -7,9 +7,11 @@ import com.corundumstudio.socketio.SocketIOServer;
 import com.corundumstudio.socketio.listener.ConnectListener;
 import com.corundumstudio.socketio.listener.DataListener;
 
-import moteur.*;
-import moteur.Action;
-import static moteur.ConsoleLogger.*;
+import commun.*;
+import moteur.Joueur;
+import moteur.VisionJeu;
+import moteur.Jeu;
+import static commun.ConsoleLogger.*;
 
 import java.util.ArrayList;
 

@@ -3,17 +3,20 @@ package moteur;
 import org.junit.Before;
 import org.junit.Test;
 
-import moteur.Action;
-import static moteur.TypeAction.*;
+import commun.Action;
+import static commun.TypeAction.*;
 
-import static moteur.ConsoleLogger.error;
-import static moteur.Couleur.*;
+import static commun.ConsoleLogger.error;
+import static commun.Couleur.*;
 
 import java.util.ArrayList;
 import java.lang.reflect.Field;
 
 import static org.junit.Assert.*;
 
+/**
+ * Fichier de test unitaire pour test la classe Jeu
+ */
 public class JeuTest {
 
     public Jeu testDuJeu;
@@ -122,7 +125,7 @@ public class JeuTest {
         assertEquals(afterSize, prevSize-1);
         assertEquals(prevPiece+3, afterPiece);
    }
-/* todo : adapter le test !!!
+   
    @Test
    public void testCompareConfiltsJoueur(){
         assertArrayEquals(new int[]{5,5,5}, getScoreJoueurs());
@@ -152,7 +155,7 @@ public class JeuTest {
         //J2 gagne et perd => 0
         //J3 gagne 2 fois => + 6
         assertArrayEquals(new int[]{0,7,10}, getScoreJoueurs());
-   }*/
+   }
 
    private int[] getScoreJoueurs(){
         ArrayList<Joueur> mj = testDuJeu.getJoueurs();

@@ -9,6 +9,7 @@
     <version>0.1</version>
 	
 	<modules>
+        <module>commun</module>
 		<module>moteur</module>
 		<module>serveur</module>
         <module>client</module>

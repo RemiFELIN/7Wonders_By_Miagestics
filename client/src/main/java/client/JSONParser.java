@@ -1,11 +1,11 @@
 package client;
 
-import moteur.Ressource;
 import moteur.Carte;
-import moteur.Couleur;
 import moteur.Merveille;
 import moteur.Etape;
-import moteur.SymboleScientifique;
+import commun.Couleur;
+import commun.SymboleScientifique;
+import commun.Ressource;
 
 import org.json.JSONObject;
 import org.json.JSONArray;

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.lang.Math;
 
+import commun.SymboleScientifique;
+
 public class Joueur {
 
     private int id, piece = 5;

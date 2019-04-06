@@ -4,8 +4,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
-import static moteur.Couleur.*;
-import static moteur.SymboleScientifique.*;
+import static commun.Couleur.*;
+import static commun.SymboleScientifique.*;
 
 import java.util.ArrayList;
 

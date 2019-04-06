@@ -1,10 +1,10 @@
 package client.strategie;
 
 import moteur.Carte;
-import moteur.Couleur;
+import commun.Couleur;
 import moteur.VisionJeu;
-import static moteur.TypeAction.*;
-import moteur.Action;
+import static commun.TypeAction.*;
+import commun.Action;
 
 import java.util.ArrayList;
 import java.util.Random;

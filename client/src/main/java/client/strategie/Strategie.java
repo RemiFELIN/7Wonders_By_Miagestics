@@ -1,9 +1,9 @@
 package client.strategie;
 
 import moteur.VisionJeu;
-import moteur.Action;
 import moteur.Carte;
-import moteur.Ressource;
+import commun.Ressource;
+import commun.Action;
 
 import java.util.ArrayList;
 import java.util.HashMap;

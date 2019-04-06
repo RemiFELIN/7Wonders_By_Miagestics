@@ -2,9 +2,12 @@ package moteur;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import static moteur.Couleur.*;
-import static moteur.SymboleScientifique.*;
-import static moteur.Ressource.*;
+import commun.Couleur;
+import commun.SymboleScientifique;
+import commun.Ressource;
+import static commun.Couleur.*;
+import static commun.SymboleScientifique.*;
+import static commun.Ressource.*;
 
 public class Carte {
 

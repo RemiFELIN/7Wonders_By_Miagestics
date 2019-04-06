@@ -1,8 +1,8 @@
 package client.strategie;
 
 import moteur.VisionJeu;
-import static moteur.TypeAction.*;
-import moteur.Action;
+import static commun.TypeAction.*;
+import commun.Action;
 
 import java.util.Random;
 

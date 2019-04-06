@@ -1,6 +1,6 @@
-package moteur;
+package commun;
 
-import moteur.TypeAction;
+import commun.TypeAction;
 
 /**
  * @author Pierre Saunders, Benoît Montorsi

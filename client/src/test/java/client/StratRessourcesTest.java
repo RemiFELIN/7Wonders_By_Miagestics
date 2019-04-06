@@ -1,9 +1,12 @@
 package client;
 
 import client.strategie.StratRessources;
-import moteur.*;
-import static moteur.Ressource.*;
-import static moteur.Couleur.*;
+import moteur.Carte;
+import moteur.VisionJeu;
+import moteur.Merveille;
+import commun.Action;
+import static commun.Ressource.*;
+import static commun.Couleur.*;
 
 import org.junit.Before;
 import org.junit.Test;

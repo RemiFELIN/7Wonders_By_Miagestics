@@ -1,10 +1,13 @@
 package client;
 
 import client.strategie.StratRandom;
-import moteur.*;
-import static moteur.TypeAction.*;
-import static moteur.Ressource.*;
-import static moteur.Couleur.*;
+import moteur.Carte;
+import moteur.Merveille;
+import moteur.VisionJeu;
+import commun.Action;
+import static commun.TypeAction.*;
+import static commun.Ressource.*;
+import static commun.Couleur.*;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -31,7 +34,7 @@ public class StratRandomTest {
         deckMain.add(new Carte("CarteTestVide", BLANC, 0));
 
         Carte c = new Carte("CarteTestRessource", BLANC, 0);
-        c.ajouterRessource(Ressource.MINERAI);
+        c.ajouterRessource(MINERAI);
         deckMain.add(c);
 
         deckMain.add(new Carte("CarteTestLaurier", BLANC, 0, 0, 2, 0, 0));
