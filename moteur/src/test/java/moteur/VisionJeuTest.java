@@ -3,6 +3,10 @@ package moteur;
 import org.junit.Before;
 import org.junit.Test;
 
+import commun.Carte;
+import commun.Joueur;
+import commun.VisionJeu;
+
 import java.util.ArrayList;
 
 import static org.junit.Assert.*;

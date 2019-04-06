@@ -1,8 +1,8 @@
 package client;
 
-import moteur.Carte;
-import moteur.Merveille;
-import moteur.Etape;
+import commun.Carte;
+import commun.Merveille;
+import commun.Etape;
 import commun.Couleur;
 import commun.SymboleScientifique;
 import commun.Ressource;

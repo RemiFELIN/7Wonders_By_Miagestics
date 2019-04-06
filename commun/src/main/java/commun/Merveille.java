@@ -1,9 +1,7 @@
-package moteur;
+package commun;
 
 import java.util.ArrayList;
 
-import commun.Ressource;
-import commun.SymboleScientifique;
 import static commun.Ressource.*;
 
 public class Merveille {

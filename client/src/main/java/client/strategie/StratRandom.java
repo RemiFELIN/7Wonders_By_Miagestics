@@ -1,6 +1,6 @@
 package client.strategie;
 
-import moteur.VisionJeu;
+import commun.VisionJeu;
 import static commun.TypeAction.*;
 import commun.Action;
 

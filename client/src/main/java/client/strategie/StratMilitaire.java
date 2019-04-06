@@ -1,7 +1,7 @@
 package client.strategie;
 
-import moteur.Carte;
-import moteur.VisionJeu;
+import commun.Carte;
+import commun.VisionJeu;
 import commun.Action;
 import static commun.TypeAction.*;
 

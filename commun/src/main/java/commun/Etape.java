@@ -1,7 +1,4 @@
-package moteur;
-
-import commun.Ressource;
-import commun.SymboleScientifique;
+package commun;
 
 public class Etape {
 

@@ -7,8 +7,9 @@ import io.socket.emitter.Emitter;
 import java.net.URISyntaxException;
 import java.util.Random;
 
-import moteur.VisionJeu;
+import commun.VisionJeu;
 import commun.Action;
+import commun.Merveille;
 import client.strategie.*;
 import static commun.ConsoleLogger.*;
 import static client.JSONParser.*;

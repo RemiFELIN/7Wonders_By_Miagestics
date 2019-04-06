@@ -1,7 +1,7 @@
 package client.strategie;
 
-import moteur.VisionJeu;
-import moteur.Carte;
+import commun.VisionJeu;
+import commun.Carte;
 import commun.Ressource;
 import commun.Action;
 

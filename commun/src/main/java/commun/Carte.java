@@ -1,10 +1,7 @@
-package moteur;
+package commun;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import commun.Couleur;
-import commun.SymboleScientifique;
-import commun.Ressource;
 import static commun.Couleur.*;
 import static commun.SymboleScientifique.*;
 import static commun.Ressource.*;

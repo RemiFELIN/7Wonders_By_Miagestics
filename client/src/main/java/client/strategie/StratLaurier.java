@@ -1,13 +1,13 @@
 package client.strategie;
 
-import moteur.VisionJeu;
+import commun.VisionJeu;
 import static commun.TypeAction.*;
 import commun.Action;
 
 import java.util.ArrayList;
 import java.util.Random;
 
-import moteur.Carte;
+import commun.Carte;
 
 public class StratLaurier extends Strategie {
 

@@ -1,8 +1,8 @@
 package client.strategie;
 
-import moteur.Carte;
+import commun.Carte;
 import commun.Couleur;
-import moteur.VisionJeu;
+import commun.VisionJeu;
 import static commun.TypeAction.*;
 import commun.Action;
 

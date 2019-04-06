@@ -1,10 +1,10 @@
 package client;
 
 import client.strategie.StratScientifique;
-import moteur.Carte;
-import moteur.VisionJeu;
-import moteur.Joueur;
-import moteur.Merveille;
+import commun.Carte;
+import commun.VisionJeu;
+import commun.Joueur;
+import commun.Merveille;
 import commun.Action;
 import static commun.Ressource.*;
 import static commun.Couleur.*;

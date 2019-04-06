@@ -3,7 +3,9 @@ package moteur;
 import org.junit.Before;
 import org.junit.Test;
 
+import commun.Carte;
 import commun.Action;
+import commun.Joueur;
 import static commun.TypeAction.*;
 
 import static commun.ConsoleLogger.error;

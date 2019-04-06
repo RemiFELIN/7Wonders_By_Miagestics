@@ -1,10 +1,8 @@
-package moteur;
+package commun;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.lang.Math;
-
-import commun.SymboleScientifique;
 
 public class Joueur {
 

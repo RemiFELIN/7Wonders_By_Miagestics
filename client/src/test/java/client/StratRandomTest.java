@@ -1,9 +1,9 @@
 package client;
 
 import client.strategie.StratRandom;
-import moteur.Carte;
-import moteur.Merveille;
-import moteur.VisionJeu;
+import commun.Carte;
+import commun.Merveille;
+import commun.VisionJeu;
 import commun.Action;
 import static commun.TypeAction.*;
 import static commun.Ressource.*;

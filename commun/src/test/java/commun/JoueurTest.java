@@ -1,9 +1,12 @@
-package moteur;
+package commun;
 
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
+
+import commun.Carte;
+import commun.Joueur;
 import static commun.Couleur.*;
 import static commun.SymboleScientifique.*;
 

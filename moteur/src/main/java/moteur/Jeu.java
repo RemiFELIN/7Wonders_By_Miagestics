@@ -3,6 +3,10 @@ package moteur;
 import commun.Action;
 import commun.Ressource;
 import commun.Couleur;
+import commun.Carte;
+import commun.Merveille;
+import commun.Joueur;
+import commun.VisionJeu;
 import static commun.ConsoleLogger.*;
 
 import java.util.ArrayList;
