@@ -8,22 +8,43 @@ import commun.Action;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * 
+ * @authors Benoît Montorsi, Pierre Saunders
+ */
 public abstract class Strategie {
-
-	//Strategie() {}
     
     private HashMap<Ressource, Integer> resSeul;
 
+    /**
+     * Récupère l'action à effectué selon la classe héritée
+     * @see getAction de toutes les classe héritée de Strategie
+     * @param la vision de jeu actuelle
+     * @return l'action à effectuée determinée par une classe héritée
+     */
 	public final Action getAction(VisionJeu j){
         boolean[] posSeul = getPossibilitesSeul(j);
-        boolean[] posGauche = getPossibilitesGauche(posSeul, resSeul, j);
-        boolean[] posDroite = getPossibilitesDroite(posSeul, resSeul, j);
+        boolean[] posGauche = getPossibilitesGauche(j, posSeul, resSeul);
+        boolean[] posDroite = getPossibilitesDroite(j, posSeul, resSeul);
         return getAction(j, posSeul, posGauche, posDroite);
     }
-
+    /**
+     * Récupère l'action à effectué selon la classe héritée
+     * @param la vision de jeu actuelle
+     * @param les possibilité d'achat soi-même
+     * @param les possibilité d'achat avec le voisin de gauche
+     * @param les possibilité d'achat  avec le voisin de droite
+     * @return l'action à effectué determinée
+     */
     protected abstract Action getAction(VisionJeu j, boolean[] posSeul, boolean[] posGauche, boolean[] posDroite);
-
-    protected final boolean[] getPossibilitesGauche(boolean[] posSeul, HashMap<Ressource, Integer> resSeul, VisionJeu j){
+    /**
+     * Détermine les possibilitées d'achat avec le voisin de gauche
+     * @param la vision de jeu actuelle
+     * @param les possibilité d'achat soi-même
+     * @param les ressources disponibles
+     * @return les possibilitées
+     */
+    protected final boolean[] getPossibilitesGauche(VisionJeu j, boolean[] posSeul, HashMap<Ressource, Integer> resSeul){
         ArrayList<Carte> deckMain = j.getDeckMain();
         boolean[] possibilites = new boolean[deckMain.size()];
 
@@ -43,8 +64,14 @@ public abstract class Strategie {
         }
         return possibilites;
     }
-
-    protected final boolean[] getPossibilitesDroite(boolean[] posSeul, HashMap<Ressource, Integer> resSeul, VisionJeu j){
+    /**
+     * Détermine les possibilitées d'achat avec le voisin de droite
+     * @param la vision de jeu actuelle
+     * @param les possibilité d'achat soi-même
+     * @param les ressources disponibles
+     * @return les possibilitées
+     */
+    protected final boolean[] getPossibilitesDroite(VisionJeu j, boolean[] posSeul, HashMap<Ressource, Integer> resSeul){
         ArrayList<Carte> deckMain = j.getDeckMain();
         boolean[] possibilites = new boolean[deckMain.size()];
 
@@ -64,7 +91,11 @@ public abstract class Strategie {
         }
         return possibilites;
     }
-
+    /**
+     * Détermine les possibilité d'achat par soi-même
+     * @param la vision de jeu actuelle
+     * @return  les possibilitées
+     */
     protected final boolean[] getPossibilitesSeul(VisionJeu j){
         ArrayList<Carte> deckMain = j.getDeckMain();
         boolean[] possibilites = new boolean[deckMain.size()];
@@ -85,7 +116,11 @@ public abstract class Strategie {
         }
         return possibilites;
     }
-
+    /**
+     * Détermine le prix total d'une carte
+     * @param une carte
+     * @return le prix par ressource
+     */
     private final HashMap<Ressource, Integer> calculPrixCarte(Carte c){
         HashMap<Ressource, Integer> prixCartes = new HashMap<Ressource, Integer>();
         for(Ressource r : Ressource.values())
@@ -96,7 +131,11 @@ public abstract class Strategie {
     
         return prixCartes;
     }
-
+    /**
+     * Détermine les ressources disponibles dans un deck
+     * @param un deck
+     * @return nombre par ressources 
+     */
 	private final HashMap<Ressource, Integer> calculRessources(ArrayList<Carte> deck){
         HashMap<Ressource, Integer> res = new HashMap<Ressource, Integer>();
 
@@ -109,7 +148,11 @@ public abstract class Strategie {
         
         return res;
     }
-
+    /**
+     * Décris la stratégie actuelle
+     * @see toutes les classe héritée de Strategie
+     * @return description
+     */
 	@Override
 	public String toString(){ return "Strategie"; }
 }

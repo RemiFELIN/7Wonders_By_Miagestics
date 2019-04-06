@@ -9,7 +9,6 @@ import java.util.Random;
 
 import commun.VisionJeu;
 import commun.Action;
-import commun.Merveille;
 import client.strategie.*;
 import static commun.ConsoleLogger.*;
 import static client.JSONParser.*;

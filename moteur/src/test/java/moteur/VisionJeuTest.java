@@ -3,7 +3,6 @@ package moteur;
 import org.junit.Before;
 import org.junit.Test;
 
-import commun.Carte;
 import commun.Joueur;
 import commun.VisionJeu;
 

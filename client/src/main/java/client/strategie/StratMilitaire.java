@@ -23,9 +23,11 @@ public class StratMilitaire extends Strategie {
         }
         return new Action(PoserCarte,j.getId(), carteN);
     }
-
+    /**
+     * Décris la stratégie actuelle
+     * @see classe Strategie
+     * @return description
+     */
     @Override
-    public String toString(){
-        return super.toString() + " militaire";
-    }
+    public String toString(){ return super.toString() + " militaire"; }
 }
