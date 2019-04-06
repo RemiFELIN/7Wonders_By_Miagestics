@@ -3,24 +3,6 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <dependencies>
-        <dependency>
-            <groupId>7w</groupId>
-            <artifactId>commun</artifactId>
-            <version>0.1</version>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.12</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.json</groupId>
-            <artifactId>json</artifactId>
-            <version>20180813</version>
-        </dependency>
-    </dependencies>
 
     <parent>
         <groupId>7w</groupId>
@@ -58,4 +40,27 @@
         </plugins>
     </build>
 
+    <dependencies>
+        <dependency>
+            <groupId>7w</groupId>
+            <artifactId>commun</artifactId>
+            <version>0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>7w</groupId>
+            <artifactId>serveur</artifactId>
+            <version>0.1</version>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20180813</version>
+        </dependency>
+    </dependencies>
 </project>

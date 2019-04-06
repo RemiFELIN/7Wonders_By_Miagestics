@@ -3,7 +3,7 @@ package moteur;
 import commun.Action;
 import commun.Ressource;
 import commun.Couleur;
-import commun.ConsoleLogger;
+import static commun.ConsoleLogger.*;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,7 +17,15 @@ public class Jeu {
     private final ArrayList<ArrayList<Carte>> tabDeck = new ArrayList<ArrayList<Carte>>(3);
     private int age = 1, tour = 1;
 
+    public static final void main(String args[]) {
+        if (args.length == 2) {
+            String adresse = args[0];
+            int port = Integer.parseInt(args[1]);
+            new wrapperJeu(adresse, port);
+        }
+    }
     /**
+     * Constructeur qui permet d'initialiser le début de partie
      * @param le nombre de joueurs dans la partie
      */
     public Jeu(int nbJoueurs) {
@@ -28,7 +36,6 @@ public class Jeu {
         distributionPlateau();
         initCartes();
     }
-    
     //GETTER
     /**
      * @author Pierre Saunders
@@ -56,11 +63,13 @@ public class Jeu {
      */
     public final ArrayList<Joueur> getJoueurs(){ return mesJoueurs; }
     /**
-     * @author Pierre Saunders
      * Permet de passer au tour suivant
+     * @author Pierre Saunders
      */
     public final void tourSuivant(){ tour++; }
-
+    /**
+     * Permet d'initialiser les cartes dans les deck
+     */
     public final void initCartes() {
         for (int j = 0; j < 3; j++){
             ArrayList<Carte> tabCarte = Carte.getDeck(j+1,mesJoueurs.size());
@@ -75,15 +84,18 @@ public class Jeu {
             tabDeck.add(tabCarte);
         }    
     }
-
+    /**
+     * Permet de faire tourner les cartes (hoiraire ou anti-horarie selon l'âge) parmi les joueurs
+     * @author Pierre Saunders
+     */
     public final void roulementCarte(){
-        if(age%2 == 1){ //Pour age 1 et 3
+        if(age%2 == 1){ //Pour age 1 et 3 => rotation horaire
             ArrayList<Carte> first = mesJoueurs.get(0).getDeckMain();
             for(int i=0; i<mesJoueurs.size()-1; i++)
                 mesJoueurs.get(i).setDeckMain(mesJoueurs.get(i+1).getDeckMain());
             
             mesJoueurs.get(mesJoueurs.size()-1).setDeckMain(first);
-        } else { //Pour age 2
+        } else { //Pour age 2 => rotation anti-hoiraire
             int size = mesJoueurs.size()-1;
             ArrayList<Carte> last = mesJoueurs.get(size).getDeckMain();
             for(int i=size; i>0; i--)
@@ -92,7 +104,10 @@ public class Jeu {
             mesJoueurs.get(0).setDeckMain(last);
         }
     }
-
+    /**
+     * Distribue les cartes des deck de l'âge en cours aux joueurs
+     * @author Thomas Gauci
+     */
     public final void distributionCarte() {
         int nbCartes = tabDeck.get(this.age-1).size()/mesJoueurs.size();
         for (int i=0; i<mesJoueurs.size(); i++) {
@@ -107,7 +122,10 @@ public class Jeu {
 
         }
     }
-
+    /**
+     * Distribue les plateaux aux joueurs
+     * @author Yannick Cardini
+     */
     public final void distributionPlateau() {
         ArrayList<Merveille> plateaux = Merveille.getPlateaux();
         Merveille m;
@@ -117,7 +135,11 @@ public class Jeu {
             mesJoueurs.get(i).setPlateau(m);
         }
     }
-
+    /**
+     * Permet d'effecter une action donnée
+     * @param l'action à effectuer
+     * @return description de l'action effectuée
+     */
     public final String jouerAction(Action ja){
         Carte c;
         Joueur j = mesJoueurs.get(ja.getIdJoueur());
@@ -150,7 +172,7 @@ public class Jeu {
                 desc += "Le joueur "+ja.getIdJoueur()+" a posé la carte "+Couleur.consoleColor(c.getCouleur())+c.getNom();
                 ArrayList<Ressource> cr = c.getCoutRessources();
                 if(cr.size() > 0){
-                    desc += ConsoleLogger.WHITE + " qui coute ";
+                    desc += WHITE + " qui coute ";
                     HashMap<Ressource, Integer> hr = new HashMap<Ressource, Integer>();
 
                     for(Ressource r : cr)
@@ -175,7 +197,11 @@ public class Jeu {
         }
         return desc;
     }
-    
+    /**
+     * Test si l'âge en cours est terminé
+     * @author Pierre Saunders
+     * @return vrai si âge terminé sinon faux
+     */
     public final boolean finAge(){
         if(tour > 5)
             return true;
@@ -189,7 +215,12 @@ public class Jeu {
         }
         return isFin;
     }
-
+    /**
+     * Permet d'appliquer les confilts miltaire entre 2 joueurs lors de la fin d'un âge
+     * @author Pierre Saunders
+     * @param Joueur 1
+     * @param Joueur 2
+     */
     private final void compareConfiltsJoueur(Joueur j1, Joueur j2){
         int r1 = j1.getForceMilitaire();
         int r2 = j2.getForceMilitaire();
@@ -204,7 +235,10 @@ public class Jeu {
             }
         }
     }
-
+    /**
+     * Permet de passer à l'âge suivant
+     * @author Pierre Saunders
+     */
     public final void ageSuivant(){
 
         //Calcul confilts militaire
@@ -216,39 +250,49 @@ public class Jeu {
         age++;
         tour = 1; //reset tour
     }
-
+    /**
+     * Test si le jeu est terminée
+     * @return vrai si le jeu est terminée sinon faux
+     */
     public final boolean finJeu(){ return  age >= 3; }
-    
+    /**
+     * Permet d'obtenir le classement final des joueurs
+     * @author Pierre Saunders
+     * @return liste classée des joueurs
+     */
     public final ArrayList<Joueur> getClassement(){
-        mesJoueurs.sort(new Comparator<Joueur>(){
+        ArrayList<Joueur> classé = new ArrayList<Joueur>(mesJoueurs);
+
+        classé.sort(new Comparator<Joueur>(){
             public int compare(Joueur j1, Joueur j2) {
                 // j2 > j1 ?  j2,j1 : j1,j2
                 return Integer.compare(j2.getScore(), j1.getScore());
             }
         });
-        return mesJoueurs;
+        return classé;
     }
-
+    /**
+     * Permet d'obtenir les VisionJeu de tous les joueurs
+     * @author Pierre Saunders
+     * @return les VisionJeu
+     */
     public final ArrayList<VisionJeu> getVisionsJeu(){
-        ArrayList<VisionJeu> visions = new ArrayList<VisionJeu>(mesJoueurs.size());
+        ArrayList<VisionJeu> v = new ArrayList<VisionJeu>(mesJoueurs.size());
 
-        for(int i=0; i<mesJoueurs.size(); i++){
-            Joueur j = mesJoueurs.get(i);
-            VisionJeu vj= new VisionJeu(i, j.getPiece(), j.getPlateau(), j.getDeckMain(), j.getDeckPlateau());
-            visions.add(vj);
+        for(Joueur j : mesJoueurs)
+            v.add(new VisionJeu(j));
+
+        v.get(0).setVoisinGauche(v.get(v.size()-1));
+        v.get(0).setVoisinDroite(v.get(1));
+
+        for(int i=1; i<v.size()-1; i++){
+            v.get(i).setVoisinGauche(v.get(i-1));
+            v.get(i).setVoisinDroite(v.get(i+1));
         }
 
-        visions.get(0).setVoisinGauche(visions.get(visions.size()-1));
-        visions.get(0).setVoisinDroite(visions.get(1));
+        v.get(v.size()-1).setVoisinGauche(v.get(v.size()-2));
+        v.get(v.size()-1).setVoisinDroite(v.get(0));
 
-        for(int i=1; i<visions.size()-1; i++){
-            visions.get(i).setVoisinGauche(visions.get(i-1));
-            visions.get(i).setVoisinDroite(visions.get(i+1));
-        }
-
-        visions.get(visions.size()-1).setVoisinGauche(visions.get(visions.size()-2));
-        visions.get(visions.size()-1).setVoisinDroite(visions.get(0));
-
-        return visions;
+        return v;
     }
 }

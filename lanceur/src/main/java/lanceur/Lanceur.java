@@ -1,7 +1,7 @@
 package lanceur;
 
 import client.Client;
-import serveur.Serveur;
+import moteur.Jeu;
 import static commun.ConsoleLogger.*;
 
 /**
@@ -22,7 +22,7 @@ public class Lanceur {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Serveur.main(info);
+                Jeu.main(info);
             }
         }).start();
 

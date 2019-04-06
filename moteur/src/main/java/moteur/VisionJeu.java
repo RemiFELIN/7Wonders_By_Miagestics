@@ -23,6 +23,13 @@ public class VisionJeu {
     private Merveille dPlateau;
 
     /**
+     * Constructeur vision de soi-même
+     * @param 
+     */
+    public VisionJeu(Joueur j){
+        this(j.getId(), j.getPiece(), j.getPlateau(), j.getDeckMain(), j.getDeckPlateau());
+    }
+    /**
      * Constructeur de la vision de soi-même
      * @param notre id
      * @param notre nombre de piece

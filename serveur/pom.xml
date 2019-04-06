@@ -26,11 +26,6 @@
     <dependencies>
         <dependency>
             <groupId>7w</groupId>
-            <artifactId>moteur</artifactId>
-            <version>0.1</version>
-        </dependency>
-        <dependency>
-            <groupId>7w</groupId>
             <artifactId>commun</artifactId>
             <version>0.1</version>
         </dependency>
