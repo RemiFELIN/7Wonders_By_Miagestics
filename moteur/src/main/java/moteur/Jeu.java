@@ -33,7 +33,7 @@ public class Jeu {
     }
     /**
      * Constructeur qui permet d'initialiser le début de partie
-     * @param le nombre de joueurs dans la partie
+     * @param nbJoueurs nombre de joueurs dans la partie
      */
     public Jeu(int nbJoueurs) {
         mesJoueurs = new ArrayList<Joueur>(nbJoueurs);
@@ -144,7 +144,7 @@ public class Jeu {
     }
     /**
      * Permet d'effecter une action donnée
-     * @param l'action à effectuer
+     * @param ja action à effectuer
      * @return description de l'action effectuée
      */
     public final String jouerAction(Action ja){
@@ -225,8 +225,8 @@ public class Jeu {
     /**
      * Permet d'appliquer les confilts miltaires entre 2 joueurs lors de la fin d'un âge
      * @author Pierre Saunders
-     * @param Joueur 1
-     * @param Joueur 2
+     * @param j1 joueur 1
+     * @param j2 joueur 2
      */
     private final void compareConfiltsJoueur(Joueur j1, Joueur j2){
         int r1 = j1.getForceMilitaire();

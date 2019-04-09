@@ -16,7 +16,7 @@ public enum Couleur {
     private String nom = "";
 
     /**
-     * @param un nom
+     * @param nom nom
      */
     Couleur(String nom){ this.nom = nom; }
     /**
@@ -25,7 +25,7 @@ public enum Couleur {
     public final String toString(){ return nom; }
     /**
      * Permet de retrouver la Couleur à partir de sa valeur en string
-     * @param le nom de la couleur
+     * @param nom nom de la couleur
      * @return l'enum Couleur correspondante
      */
     public static final Couleur fromString(String nom){
@@ -37,7 +37,7 @@ public enum Couleur {
     }
     /**
      * Permet de traduire la Couleur en couleur console/shell
-     * @param une Couleur
+     * @param c Couleur
      * @return la couleur correspondante à la console
      */
     public static final String consoleColor(Couleur c){

@@ -31,11 +31,11 @@ public class VisionJeu {
     }
     /**
      * Constructeur de la vision de soi-même
-     * @param notre id
-     * @param notre nombre de piece
-     * @param notre merveille
-     * @param notre deck en main
-     * @param notre deck des cartes posées
+     * @param id id
+     * @param piece nombre de piece
+     * @param plateau merveille
+     * @param deckMain deck en main
+     * @param deckPlateau deck des cartes posées
      */
     public VisionJeu(int id, int piece, Merveille plateau, ArrayList<Carte> deckMain, ArrayList<Carte> deckPlateau){
         this(id, piece, plateau, deckPlateau);
@@ -43,10 +43,10 @@ public class VisionJeu {
     }
     /**
      * Constructeur de la vision des voisins
-     * @param son id
-     * @param son nombre de piece
-     * @param sa merveille
-     * @param son deck des cartes posées
+     * @param id id
+     * @param piece nombre de piece
+     * @param plateau merveille
+     * @param deckPlateau deck des cartes posées
      */
     public VisionJeu( int id, int piece, Merveille plateau, ArrayList<Carte> deckPlateau){
         this.id = id;
@@ -114,7 +114,7 @@ public class VisionJeu {
     public final ArrayList<Carte> getVoisinDroiteDeckPlateau(){ return dDeckPlateau; }
 
     /**
-     * @param la VisionJeu du voisin de droite
+     * @param droite VisionJeu du voisin de droite
      */
     public final void setVoisinDroite(VisionJeu droite){
         dId = droite.getId();
@@ -123,7 +123,7 @@ public class VisionJeu {
         dPlateau = droite.getPlateau();
     }
     /**
-     * @param la VisionJeu du voisin de gauche
+     * @param gauche VisionJeu du voisin de gauche
      */
     public final void setVoisinGauche(VisionJeu gauche){
         gId = gauche.getId();

@@ -16,11 +16,12 @@ public class StratMilitaire extends Strategie {
 
     /**
      * Récupère l'action la plus adéquate à effectuer
-     * @param la vision de jeu actuelle
-     * @param les possibilités de jeu soi-même
+     * @param j vision de jeu actuelle
+     * @param posSeul possibilités de jeu soi-même
+     * @param posGauche celles de son voisin de gauche
+     * @param posDroite celles de son voisin de droite
      * @return l'action à effectuer determinée
      */
-
     @Override
     protected Action getAction(VisionJeu j, boolean[] posSeul, boolean[] posGauche, boolean[] posDroite ) {
 
@@ -38,7 +39,7 @@ public class StratMilitaire extends Strategie {
     }
     /**
      * Décris la stratégie actuelle
-     * @see classe Strategie
+     * @see Strategie
      * @return description
      */
     @Override

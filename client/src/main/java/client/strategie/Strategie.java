@@ -18,8 +18,8 @@ public abstract class Strategie {
 
     /**
      * Récupère l'action à effectuer selon la classe héritée
-     * @see getAction de toutes les classe héritées de Strategie
-     * @param la vision de jeu actuelle
+     * @see #getAction(VisionJeu) de toutes les classe héritées de Strategie
+     * @param j vision de jeu actuelle
      * @return l'action à effectuer determinée par une classe héritée
      */
 	public final Action getAction(VisionJeu j){
@@ -30,18 +30,18 @@ public abstract class Strategie {
     }
     /**
      * Récupère l'action à effectuer selon la classe héritée
-     * @param la vision de jeu actuelle
-     * @param les possibilité de jeu soi-même
-     * @param les possibilité d'achat avec le voisin de gauche
-     * @param les possibilité d'achat  avec le voisin de droite
+     * @param j vision de jeu actuelle
+     * @param posSeul possibilité de jeu soi-même
+     * @param posGauche possibilité d'achat avec le voisin de gauche
+     * @param posDroite possibilité d'achat  avec le voisin de droite
      * @return l'action à effectué determinée
      */
     protected abstract Action getAction(VisionJeu j, boolean[] posSeul, boolean[] posGauche, boolean[] posDroite);
     /**
      * Détermine les possibilitées d'achat avec le voisin de gauche
-     * @param la vision de jeu actuelle
-     * @param les possibilité de jeu soi-même
-     * @param les ressources disponibles
+     * @param j vision de jeu actuelle
+     * @param posSeul possibilité de jeu soi-même
+     * @param resSeul ressources disponibles
      * @return les possibilitées
      */
     protected final boolean[] getPossibilitesGauche(VisionJeu j, boolean[] posSeul, HashMap<Ressource, Integer> resSeul){
@@ -66,9 +66,9 @@ public abstract class Strategie {
     }
     /**
      * Détermine les possibilitées d'achat avec le voisin de droite
-     * @param la vision de jeu actuelle
-     * @param les possibilités de jeu soi-même
-     * @param les ressources disponibles
+     * @param j vision de jeu actuelle
+     * @param posSeul possibilités de jeu soi-même
+     * @param resSeul ressources disponibles
      * @return les possibilitées
      */
     protected final boolean[] getPossibilitesDroite(VisionJeu j, boolean[] posSeul, HashMap<Ressource, Integer> resSeul){
@@ -93,7 +93,7 @@ public abstract class Strategie {
     }
     /**
      * Détermine les possibilité de jeu par soi-même
-     * @param la vision de jeu actuelle
+     * @param j vision de jeu actuelle
      * @return  les possibilités
      */
     protected final boolean[] getPossibilitesSeul(VisionJeu j){
@@ -118,7 +118,7 @@ public abstract class Strategie {
     }
     /**
      * Détermine le prix total d'une carte
-     * @param une carte
+     * @param c carte
      * @return le prix par ressource
      */
     private final HashMap<Ressource, Integer> calculPrixCarte(Carte c){
@@ -133,7 +133,7 @@ public abstract class Strategie {
     }
     /**
      * Détermine les ressources disponibles dans un deck
-     * @param un deck
+     * @param deck deck
      * @return nombre par ressources 
      */
 	private final HashMap<Ressource, Integer> calculRessources(ArrayList<Carte> deck){
@@ -150,7 +150,7 @@ public abstract class Strategie {
     }
     /**
      * Décrit la stratégie actuelle
-     * @see toutes les classe héritées de Strategie
+     * @see Strategie toutes les classe héritées de Strategie
      * @return description
      */
 	@Override

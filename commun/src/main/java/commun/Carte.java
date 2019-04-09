@@ -29,9 +29,9 @@ public class Carte {
 
     /**
      * Constructeur carte basique
-     * @param un nom
-     * @param une couleur 
-     * @param un âge
+     * @param nom nom
+     * @param couleur couleur
+     * @param age âge
      */
     public Carte(String nom, Couleur couleur, int age) {
         this.nom = nom;
@@ -40,13 +40,13 @@ public class Carte {
     }
     /**
      * Constructeur carte classique
-     * @param un nom
-     * @param une couleur
-     * @param un âge
-     * @param le coût pièce pour pouvoir poser
-     * @param le nombre de laurier bonus si posé
-     * @param la puissance militaire si posé
-     * @param le nombre de piece bonus si posé
+     * @param nom nom
+     * @param couleur couleur
+     * @param age âge
+     * @param coutPiece coût pièce pour pouvoir poser
+     * @param laurier nombre de laurier bonus si posé
+     * @param puissanceMilitaire puissance militaire si posé
+     * @param piece nombre de piece bonus si posé
      */
     public Carte(String nom, Couleur couleur, int age, int coutPiece, int laurier, int puissanceMilitaire, int piece){
         this(nom, couleur, age);
@@ -57,10 +57,10 @@ public class Carte {
     }
     /**
      * Constructeur carte scientifique
-     * @param un nom
-     * @param une couleur
-     * @param un âge
-     * @param le symbole scientifique bonus si posé
+     * @param nom nom
+     * @param couleur couleur
+     * @param age âge
+     * @param symboleScientifique symbole scientifique bonus si posé
      */
     public Carte(String nom, Couleur couleur, int age, SymboleScientifique symboleScientifique){
         this(nom, couleur, age);
@@ -116,12 +116,12 @@ public class Carte {
 
     /**
      * Complémentaire au constructeur
-     * @param une ressource bonus à ajouter si posé
+     * @param res ressource bonus à ajouter si posé
      */
     public final void ajouterRessource(Ressource res){ ressources.add(res); }
     /**
      * Complémentaire au constructeur
-     * @param une ressource néccessaire à ajouter pour pouvoir poser
+     * @param res ressource néccessaire à ajouter pour pouvoir poser
      */
     public final void ajouterCoutRessource(Ressource res){ coutRessources.add(res); }
 
@@ -129,20 +129,20 @@ public class Carte {
     /* POUR LES GUILDES*/
     /**
      * Complémentaire au constructeur de carte guilde
-     * @param une ressource bonus de guilde à ajouter si posé
+     * @param res ressource bonus de guilde à ajouter si posé
      */
     public final void ajouterRessourcesRecues(Ressource res){ ressourcesRecues.add(res); }
     /**
      * Complémentaire au constructeur de carte guilde
-     * @param le nombre de pièce de guilde à ajouter si posé
+     * @param res nombre de pièce de guilde à ajouter si posé
      */
     public final void ajouterPieces(int res){ piece += res; }
     /*************************/
 
     /**
      * Parseur de cartes
-     * @param l'âge de la partie
-     * @param le nombre de joueurs de la partie
+     * @param age l'âge de la partie
+     * @param nbJoueurs nombre de joueurs de la partie
      * @return le deck de cartes adapté
      */
     public final static ArrayList<Carte> getDeck(int age, int nbJoueurs){
@@ -162,7 +162,7 @@ public class Carte {
     }
     /**
      * Parseur de cartes de guildes
-     * @param le nombre de joueurs de la partie
+     * @param nombreDeJoueur nombre de joueurs de la partie
      * @return le deck de cartes guilde adapté
      */
     public final static ArrayList<Carte> getDeckGuildes(int nombreDeJoueur){
@@ -295,8 +295,8 @@ public class Carte {
     }
     /**
      * Parseur de carte scientifiques
-     * @param le deck de carte ou les cartes seront ajoutés
-     * @param l'âge de la partie
+     * @param deck deck de carte ou les cartes seront ajoutés
+     * @param age l'âge de la partie
      */
     private final static void addCartesScientifique(ArrayList<Carte> deck, int age){
 
@@ -377,9 +377,9 @@ public class Carte {
     }
     /**
      * Parseur de carte miliaires
-     * @param le deck de carte ou les cartes seront ajoutés
-     * @param l'âge de la partie
-     * @param le nombre de joueurs de la partie
+     * @param deck deck de carte ou les cartes seront ajoutés
+     * @param age l'âge de la partie
+     * @param nbJoueurs nombre de joueurs de la partie
      */
     private final static void addCartesMilitaires(ArrayList<Carte> deck, int age, int nbJoueurs){   
         switch(age) {
@@ -467,9 +467,9 @@ public class Carte {
     }
     /**
      * Parseur de carte victoires (lauriers)
-     * @param le deck de carte ou les cartes seront ajoutés
-     * @param l'âge de la partie
-     * @param le nombre de joueurs de la partie
+     * @param deck deck de carte ou les cartes seront ajoutés
+     * @param age l'âge de la partie
+     * @param nbJoueurs nombre de joueurs de la partie
      */
     private final static void addCartesVictoire(ArrayList<Carte> deck, int age, int nbJoueurs){
 
@@ -566,9 +566,9 @@ public class Carte {
     }
     /**
      * Parseur de carte ressources
-     * @param le deck de carte ou les cartes seront ajoutés
-     * @param l'âge de la partie
-     * @param le nombre de joueurs de la partie
+     * @param deck deck de carte ou les cartes seront ajoutés
+     * @param age l'âge de la partie
+     * @param nbJoueurs nombre de joueurs de la partie
      */
     private final static void addCartesRessources(ArrayList<Carte> deck, int age, int nbJoueurs){ 
         switch(age){
@@ -670,9 +670,9 @@ public class Carte {
     }
     /**
      * Parseur de carte marchandes/commerciales
-     * @param le deck de carte ou les cartes seront ajoutés
-     * @param l'âge de la partie
-     * @param le nombre de joueurs de la partie
+     * @param deck deck de carte ou les cartes seront ajoutés
+     * @param age l'âge de la partie
+     * @param nbJoueurs nombre de joueurs de la partie
      */
     private final static void addCartesMarchandes(ArrayList<Carte> deck, int age, int nbJoueurs){
         switch(age){

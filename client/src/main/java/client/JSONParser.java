@@ -21,7 +21,7 @@ public class JSONParser {
 
     /**
      * Permet d'instancier un JSONArray de Ressource
-     * @param JSONArray de Ressource
+     * @param ja JSONArray de Ressource
      * @return les object instanciés de Ressource
      * @throws JSONException
      */
@@ -33,7 +33,7 @@ public class JSONParser {
     }
     /**
      * Permet d'instancier un JSONArray de SymboleScientifique
-     * @param JSONArray de SymboleScientifique
+     * @param ja JSONArray de SymboleScientifique
      * @return les object instanciés de SymboleScientifique
      * @throws JSONException
      */
@@ -45,7 +45,7 @@ public class JSONParser {
     }
     /**
      * Permet d'instancier un JSONArray de Integer
-     * @param JSONArray de Integer
+     * @param ja JSONArray de Integer
      * @return les object instanciés de Integer
      * @throws JSONException
      */
@@ -57,7 +57,7 @@ public class JSONParser {
     }
     /**
      * Permet d'instancier un JSONArray de String
-     * @param JSONArray de String
+     * @param ja JSONArray de String
      * @return les object instanciés de String
      * @throws JSONException
      */
@@ -69,7 +69,7 @@ public class JSONParser {
     }
     /**
      * Permet d'instancier un JSONArray de Carte
-     * @param JSONArray de Carte
+     * @param ja JSONArray de Carte
      * @return les object instanciés de Carte
      * @throws JSONException
      */
@@ -99,7 +99,7 @@ public class JSONParser {
     }
     /**
      * Permet d'instancier un JSONObject de Merveille
-     * @param JSONObject de Merveille
+     * @param jm JSONObject de Merveille
      * @return la Merveille instanciée
      * @throws JSONException
      */

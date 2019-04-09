@@ -14,8 +14,10 @@ public class StratRandom extends Strategie {
 
 	/**
 	 * Récupère une Action de manière aléatoire
-	 * @param la vision de jeu actuelle
-	 * @param les possibilités de jeu soi-même
+	 * @param j vision de jeu actuelle
+	 * @param posSeul possibilités de jeu soi-même
+	 * @param posGauche celles de son voisin de gauche
+	 * @param posDroite celles de son voisin de droite
 	 * @return l'action à effectuer determinée
 	 */
 
@@ -27,7 +29,7 @@ public class StratRandom extends Strategie {
 
     /**
      * Décrit la stratégie actuelle
-     * @see classe Strategie
+     * @see Strategie
      * @return description
      */
 	@Override

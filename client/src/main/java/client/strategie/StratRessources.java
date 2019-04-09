@@ -17,10 +17,10 @@ public class StratRessources extends Strategie {
 
     /**
      * Récupère l'action la plus adéquate à effectuer
-     * @param la vision de jeu actuelle
-     * @param les possibilités de jeu soi-même
-     * @param les possibilités d'achat avec le voisin de gauche
-     * @param les possibilités d'achat avec le voisin de droite
+     * @param j vision de jeu actuelle
+     * @param posSeul possibilités de jeu soi-même
+     * @param posGauche possibilités d'achat avec le voisin de gauche
+     * @param posDroite possibilités d'achat avec le voisin de droite
      * @return l'action à effectuer determinée
      */
 
@@ -67,7 +67,7 @@ public class StratRessources extends Strategie {
     }
     /**
      * Décrit la stratégie actuelle
-     * @see classe Strategie
+     * @see Strategie
      * @return description
      */
     @Override

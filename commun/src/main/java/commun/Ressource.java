@@ -15,7 +15,7 @@ public enum Ressource {
     private String nom = "";
 
     /**
-     * @param un nom
+     * @param nom nom
      */
     Ressource(String nom){ this.nom = nom; }
     /**
@@ -24,7 +24,7 @@ public enum Ressource {
     public final String toString(){ return nom; }
     /**
      * Permet de retrouver la Ressource à partir de sa valeur en string
-     * @param le nom de la Ressource
+     * @param nom nom de la Ressource
      * @return l'enum Ressource correspondante
      */
     public static Ressource fromString(String nom){

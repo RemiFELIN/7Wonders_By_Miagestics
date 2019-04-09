@@ -29,9 +29,9 @@ public class Client {
 
     /**
      * Constructeur
-     * @param un id
-     * @param l'adresse du serveur
-     * @param le port du serveur
+     * @param id id
+     * @param adresse l'adresse du serveur
+     * @param port port du serveur
      */
     public Client(final int id, String adresse, int port) {
         this.id = id;

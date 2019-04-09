@@ -27,10 +27,10 @@ public class Serveur {
 
     /**
      * Constructeur
-     * @param une adresse
-     * @param un port
-     * @param le nombre minimum de joueurs avant de commencer une partie
-     * @param le nombre maximum de joueurs autorisées dans une partie
+     * @param adresse adresse
+     * @param port port
+     * @param minJ nombre minimum de joueurs avant de commencer une partie
+     * @param maxJ nombre maximum de joueurs autorisées dans une partie
      */
     public Serveur(String adresse, int port, int minJ, int maxJ) {
 
@@ -67,7 +67,7 @@ public class Serveur {
     }
     /**
      * Permet de s'abonner à l'événement d'un client qui se connecte au serveur
-     * @param function de callback
+     * @param fnc callback
      */
     public final void onRejoindreJeu(Consumer<Integer> fnc){
         serveur.addEventListener("rejoindre jeu", Integer.class, new DataListener<Integer>() {
@@ -89,8 +89,8 @@ public class Serveur {
     }
     /**
      * Permet de s'abonner à l'événement de la réception d'un Action
-     * @param function de callback quand on reçoit l'Action
-     * @param function de callback quand c'est la fin d'un tour
+     * @param jouerAction callback quand on reçoit l'Action
+     * @param fin callback quand c'est la fin d'un tour
      */
     public final void onJouerCarte(Function<Action, Boolean> jouerAction, Supplier<Integer> fin){
         serveur.addEventListener("jouerCarte", Action.class, new DataListener<Action>() {
@@ -106,8 +106,8 @@ public class Serveur {
     }
     /**
      * Permet d'envoyer un Event aux clients (Warpper)
-     * @param nom de l'évenement
-     * @param data à envoyer
+     * @param evt nom de l'évenement
+     * @param o data à envoyer
      */
     public final void sendEvent(String evt, Object o){
         client.sendEvent(evt, o);

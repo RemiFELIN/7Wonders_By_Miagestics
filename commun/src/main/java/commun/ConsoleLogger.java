@@ -6,7 +6,7 @@ package commun;
 public class ConsoleLogger {
 
     /**
-     * @param l'objet à afficher dans la console
+     * @param obj l'objet à afficher dans la console
      */
     public final static void log(Object obj) {
         synchronized(System.out){
@@ -15,7 +15,8 @@ public class ConsoleLogger {
         }
     }
     /**
-     * @param l'objet à afficher en erreur dans la console
+     * @param s l'objet à afficher en erreur dans la console
+     * @param err exception
      */
     public final static void error(String s, Exception err){
         synchronized(System.out){

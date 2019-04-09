@@ -19,7 +19,7 @@ public class Joueur {
     //public Joueur() {}
 
     /**
-     * @param un id
+     * @param id id
      */
     public Joueur(int id) {
         this.id = id;
@@ -29,8 +29,8 @@ public class Joueur {
 
     /**
      * @author Rémi Felin
-     * @param l'indice de l'étape a construire
-     * @param l'indice de la carte qui sert à construire
+     * @param indice l'indice de l'étape a construire
+     * @param index l'indice de la carte qui sert à construire
      * @return l'indice de l'étape construite
      */
     public final int construireEtape(int indice, int index){
@@ -86,12 +86,12 @@ public class Joueur {
     public int getId() { return id; }
     /**
      * @author Pierre Saunders
-     * @param l'indice age du jeton a ajouter
+     * @param age l'indice age du jeton a ajouter
      */
     public final void ajouterJetonVictoire(int age){ jetonsVictoire[age-1]++; }
     /**
      * @author Pierre Saunders
-     * @param l'indice age du jeton a ajouter
+     * @param age l'indice age du jeton a ajouter
      */
     public final void ajouterJetonDefaite(int age){ jetonsDefaite[age-1]++; }
     /**
@@ -107,16 +107,16 @@ public class Joueur {
         return r;
     }    
     /**
-     * @param le deck en main
+     * @param c le deck en main
      */
     public final void setDeckMain(ArrayList<Carte> c){ deckMain = c; }
     /**
-     * @param la merveille
+     * @param m la merveille
      */
     public final void setPlateau(Merveille m){ plateau = m; }
     /**
      * @author Pierre Saunders
-     * @param l'indice de la carte à défausser
+     * @param index l'indice de la carte à défausser
      * @return la carte défausser
      */
     public final Carte defausserCarte(int index){
@@ -126,7 +126,7 @@ public class Joueur {
     }
     /**
      * @author Pierre Saunders
-     * @param the id
+     * @param index id
      * @return la carte posé
      */
     public final Carte poserCarte(int index){
@@ -180,7 +180,7 @@ public class Joueur {
     }
     /**
      * @author Benoît Montorsi
-     * @param le cout à payer
+     * @param cout cout à payer
      * @return la cout payer
      */
     public final int payer(int cout){
@@ -189,7 +189,7 @@ public class Joueur {
     }
     /**
      * @author Benoît Montorsi
-     * @param le total de piece à recevoir
+     * @param montant total de piece à recevoir
      */
     public final void recevoirPaiement(int montant){ piece += montant; }
     /**

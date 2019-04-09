@@ -10,7 +10,7 @@ public enum SymboleScientifique {
     private String nom = "";
 
     /**
-     * @param un nom
+     * @param nom nom
      */
     SymboleScientifique(String nom){ this.nom = nom; }
     /**
@@ -37,7 +37,7 @@ public enum SymboleScientifique {
     }
     /**
      * Permet de retrouver le SymboleScientifique à partir de sa valeur en string
-     * @param le nom du SymboleScientifique
+     * @param nom nom du SymboleScientifique
      * @return l'enum SymboleScientifique correspondante
      */
     public static SymboleScientifique fromString(String nom){

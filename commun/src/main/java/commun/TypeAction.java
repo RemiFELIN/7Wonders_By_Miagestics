@@ -12,7 +12,7 @@ public enum TypeAction {
     private int value = -1;
 
     /**
-     * @param un indice
+     * @param v indice
      */
     TypeAction(int v){ value = v; }
     /**
@@ -22,7 +22,7 @@ public enum TypeAction {
 
     /**
      * Permet de retrouver le TypeAction à partir de sa valeur en int
-     * @param l'indice de le TypeAction
+     * @param n l'indice de le TypeAction
      * @return l'enum TypeAction correspondante
      */
     public static final TypeAction fromInteger(int n){
