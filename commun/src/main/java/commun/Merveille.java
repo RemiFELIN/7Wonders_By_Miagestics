@@ -10,8 +10,15 @@ public class Merveille {
     private String nom;
     private Ressource res;
     private Etape[] etapes;
-    //private int etapesConstruites = 0;
 
+    /**
+     * @author Rémi Felin
+     * Constructeur de merveille, il prend en argument :
+     * @param nom (nom de la merveille)
+     * @param face ('A' ou 'B')
+     * @param res (La ressource que la merveille confère au joueur)
+     * @param nbEtapes (le nombre d'étapes dont la merveille dispose)
+     */
     public Merveille(String nom, char face, Ressource res, int nbEtapes) {
         this.nom = nom;
         this.face = face;
@@ -19,18 +26,45 @@ public class Merveille {
         etapes = new Etape[nbEtapes];
     }
 
+    /**
+     * @return la face de la merveille ('A' ou 'B')
+     */
     public final char getFace(){ return face; }
+
+    /**
+     * @return le nom de la merveille
+     */
     public final String getNom(){ return nom; }
+
+    /**
+     * @return la ressource que la merveille confère au joueur
+     */
     public final Ressource getRessource(){ return res; }
-    //public final int getEtapesConstruites(){ return etapesConstruites; }
+
+    /**
+     * @return le tableau d'étapes dont la merveille
+     */
     public final Etape[] getEtapes(){ return etapes; }
 
+    /**
+     * @param indice (le numéro de l'étape que l'on veut retourner)
+     * @return l'étape correspondant à l'indice fourni en argument
+     */
     public Etape getEtape(int indice){ return etapes[indice - 1]; }
 
+    /**
+     * Cette méthode permet d'ajouter une étape à une merveille
+     * @param etape (une instance d'étape)
+     * @param indice (en d'autres termes, son positionnement dans le plateau)
+     */
     public void ajouterEtape(Etape etape, int indice){
         etapes[indice - 1] = etape;
     }
 
+    /**
+     * Cette méthode permet de générer les plateaux (merveilles et les étapes liées à celles-ci)
+     * @return la collection complète des plateaux du jeu 7Wonders
+     */
     public final static ArrayList<Merveille> getPlateaux(){
         ArrayList<Merveille> plateaux = new ArrayList<Merveille>();
         Merveille m;
