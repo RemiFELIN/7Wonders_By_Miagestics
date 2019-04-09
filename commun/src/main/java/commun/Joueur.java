@@ -154,7 +154,7 @@ public class Joueur {
 
         for(Carte c : deckPlateau){
             SymboleScientifique symb = c.getSymboleScientifique();
-            if( symb != null)
+            if(symb != null)
                 scientifique.put(symb, scientifique.get(symb)+1);
         }
 
