@@ -24,7 +24,7 @@ public class VisionJeu {
 
     /**
      * Constructeur vision de soi-même
-     * @param 
+     * @param j un Joueur
      */
     public VisionJeu(Joueur j){
         this(j.getId(), j.getPiece(), j.getPlateau(), j.getDeckMain(), j.getDeckPlateau());
@@ -48,7 +48,7 @@ public class VisionJeu {
      * @param plateau merveille
      * @param deckPlateau deck des cartes posées
      */
-    public VisionJeu( int id, int piece, Merveille plateau, ArrayList<Carte> deckPlateau){
+    public VisionJeu(int id, int piece, Merveille plateau, ArrayList<Carte> deckPlateau){
         this.id = id;
         this.piece = piece;
         this.deckPlateau = deckPlateau;

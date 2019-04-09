@@ -8,7 +8,7 @@ import commun.TypeAction;
 public class Action {
 
     private int idJoueur = -1, numVoisin = 0, numeroCarte = -1;
-    protected TypeAction type;
+    private TypeAction type;
 
     /**
      * Constructeur vide pour la serialization de JSON

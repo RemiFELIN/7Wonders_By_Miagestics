@@ -107,6 +107,10 @@ public class Carte {
      * @return le symbole scientifique bonus si posé
      */
     public final SymboleScientifique getSymboleScientifique(){ return symboleScientifique; }
+    /**
+     * @return les ressources bonus de guilde
+     */
+    public final ArrayList<Ressource> getRessourcesRecues(){ return ressourcesRecues; }
     
     //TODO Dans une future itération
     /*
@@ -153,11 +157,11 @@ public class Carte {
 
         //deck.add(new Carte("Taverne", JAUNE, 1, 0, 0, 0, 5));
         
-        addCartesVictoire(deck,age,nbJoueurs);
-        addCartesMilitaires(deck,age,nbJoueurs);
-        addCartesRessources(deck,age,nbJoueurs);
-        addCartesMarchandes(deck,age,nbJoueurs);
-        addCartesScientifique(deck,age,nbJoueurs);
+        addCartesVictoire(deck, age, nbJoueurs);
+        addCartesMilitaires(deck, age, nbJoueurs);
+        addCartesRessources(deck, age, nbJoueurs);
+        addCartesMarchandes(deck, age, nbJoueurs);
+        addCartesScientifique(deck, age, nbJoueurs);
         return deck;
     }
     /**

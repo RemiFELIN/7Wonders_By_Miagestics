@@ -9,14 +9,11 @@ import java.lang.Math;
  */
 public class Joueur {
 
-    private int id, piece = 5;
+    private int id = -1, piece = 5;
     private Merveille plateau;
     private ArrayList<Carte> deckPlateau = new ArrayList<Carte>();
     private ArrayList<Carte> deckMain = new ArrayList<Carte>();
     private int[] jetonsDefaite = new int[3], jetonsVictoire = new int[3];
-
-    //Constructeur vide pour la sérialisation du JSONObject
-    //public Joueur() {}
 
     /**
      * @param id id
@@ -35,7 +32,7 @@ public class Joueur {
      */
     public final int construireEtape(int indice, int index){
         deckMain.remove(index);
-        this.getPlateau().getEtape(indice).construire();
+        plateau.getEtape(indice).construire();
         return indice;
     }
 
@@ -83,7 +80,7 @@ public class Joueur {
     /**
      * @return l'id
      */
-    public int getId() { return id; }
+    public final int getId() { return id; }
     /**
      * @author Pierre Saunders
      * @param age l'indice age du jeton a ajouter
@@ -96,6 +93,7 @@ public class Joueur {
     public final void ajouterJetonDefaite(int age){ jetonsDefaite[age-1]++; }
     /**
      * @author Pierre Saunders
+     * @see #compareConfiltsJoueur(Joueur j1, Joueur j2) dans Jeu
      * @return the la force militaire totale
      */
     public final int getForceMilitaire(){
@@ -138,17 +136,15 @@ public class Joueur {
      * @return le score total
      */
     public final int getScore() {
-        int score = 0;
+        //Calcul piece
+        int score = piece;
         
         //Calcul laurier
         for(Carte c : deckPlateau)
             score += c.getLaurier();
-        
-        //Calcul piece
-        score += piece;
 
         //Calcul scientifique
-        HashMap<SymboleScientifique, Integer> scientifique = new HashMap<SymboleScientifique,Integer>();
+        HashMap<SymboleScientifique, Integer> scientifique = new HashMap<SymboleScientifique, Integer>();
         for(SymboleScientifique s : SymboleScientifique.values())
             scientifique.put(s, 0);
 
