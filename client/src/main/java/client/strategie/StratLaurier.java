@@ -9,8 +9,22 @@ import java.util.Random;
 
 import commun.Carte;
 
+/**
+ * Choisit la meilleure carte octroyant des lauriers, selon le jeu du Joueur et celui des voisins
+ * @authors Benoît Montorsi, Pierre Saunders
+ */
 public class StratLaurier extends Strategie {
 
+    /**
+     * Récupère l'action la plus adéquate à effectuer
+     * @param la vision de jeu actuelle
+     * @param les possibilités de jeu soi-même
+     * @param les possibilités d'achat avec le voisin de gauche
+     * @param les possibilités d'achat avec le voisin de droite
+     * @return l'action à effectuer determinée
+     */
+
+    @Override
     protected Action getAction(VisionJeu j, boolean[] posSeul, boolean[] posGauche, boolean[] posDroite) {
 
         ArrayList<Carte> deck = j.getDeckMain();
@@ -52,7 +66,7 @@ public class StratLaurier extends Strategie {
         return new Action(PoserCarte, j.getId(), carteN);
 	}
 	/**
-     * Décris la stratégie actuelle
+     * Décrit la stratégie actuelle
      * @see classe Strategie
      * @return description
      */

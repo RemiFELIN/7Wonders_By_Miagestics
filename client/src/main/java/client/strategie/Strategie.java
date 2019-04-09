@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * 
+ * Permet au Client de faire l'action la plus adéquate à sa situation
  * @authors Benoît Montorsi, Pierre Saunders
  */
 public abstract class Strategie {
@@ -17,10 +17,10 @@ public abstract class Strategie {
     private HashMap<Ressource, Integer> resSeul;
 
     /**
-     * Récupère l'action à effectué selon la classe héritée
-     * @see getAction de toutes les classe héritée de Strategie
+     * Récupère l'action à effectuer selon la classe héritée
+     * @see getAction de toutes les classe héritées de Strategie
      * @param la vision de jeu actuelle
-     * @return l'action à effectuée determinée par une classe héritée
+     * @return l'action à effectuer determinée par une classe héritée
      */
 	public final Action getAction(VisionJeu j){
         boolean[] posSeul = getPossibilitesSeul(j);
@@ -29,9 +29,9 @@ public abstract class Strategie {
         return getAction(j, posSeul, posGauche, posDroite);
     }
     /**
-     * Récupère l'action à effectué selon la classe héritée
+     * Récupère l'action à effectuer selon la classe héritée
      * @param la vision de jeu actuelle
-     * @param les possibilité d'achat soi-même
+     * @param les possibilité de jeu soi-même
      * @param les possibilité d'achat avec le voisin de gauche
      * @param les possibilité d'achat  avec le voisin de droite
      * @return l'action à effectué determinée
@@ -40,7 +40,7 @@ public abstract class Strategie {
     /**
      * Détermine les possibilitées d'achat avec le voisin de gauche
      * @param la vision de jeu actuelle
-     * @param les possibilité d'achat soi-même
+     * @param les possibilité de jeu soi-même
      * @param les ressources disponibles
      * @return les possibilitées
      */
@@ -67,7 +67,7 @@ public abstract class Strategie {
     /**
      * Détermine les possibilitées d'achat avec le voisin de droite
      * @param la vision de jeu actuelle
-     * @param les possibilité d'achat soi-même
+     * @param les possibilités de jeu soi-même
      * @param les ressources disponibles
      * @return les possibilitées
      */
@@ -92,9 +92,9 @@ public abstract class Strategie {
         return possibilites;
     }
     /**
-     * Détermine les possibilité d'achat par soi-même
+     * Détermine les possibilité de jeu par soi-même
      * @param la vision de jeu actuelle
-     * @return  les possibilitées
+     * @return  les possibilités
      */
     protected final boolean[] getPossibilitesSeul(VisionJeu j){
         ArrayList<Carte> deckMain = j.getDeckMain();
@@ -149,8 +149,8 @@ public abstract class Strategie {
         return res;
     }
     /**
-     * Décris la stratégie actuelle
-     * @see toutes les classe héritée de Strategie
+     * Décrit la stratégie actuelle
+     * @see toutes les classe héritées de Strategie
      * @return description
      */
 	@Override

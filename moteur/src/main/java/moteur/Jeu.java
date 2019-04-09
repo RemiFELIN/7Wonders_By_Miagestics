@@ -75,7 +75,7 @@ public class Jeu {
      */
     public final void tourSuivant(){ tour++; }
     /**
-     * Permet d'initialiser les cartes dans les deck
+     * Permet d'initialiser les cartes dans les decks
      */
     public final void initCartes() {
         for (int j = 0; j < 3; j++){
@@ -155,7 +155,7 @@ public class Jeu {
 
             case DefausserCarte:
                 c = j.defausserCarte(ja.getNumeroCarte());
-                desc = "Le joueur "+ja.getIdJoueur()+" à défausser la carte "+Couleur.consoleColor(c.getCouleur())+c.getNom();
+                desc = "Le joueur "+ja.getIdJoueur()+" a défaussé la carte "+Couleur.consoleColor(c.getCouleur())+c.getNom();
                 tabDeck.get(this.age-1).add(c);
             break;
 
@@ -172,14 +172,14 @@ public class Jeu {
                 }
 
                 mesJoueurs.get(idJoueurAPayer).recevoirPaiement(j.payer(2));
-                desc = "Le joueur "+ja.getIdJoueur()+" a acheter des ressources au joueur "+ idJoueurAPayer + "\n";
+                desc = "Le joueur "+ja.getIdJoueur()+" a acheté des ressources au joueur "+ idJoueurAPayer + "\n";
 
             case PoserCarte:
                 c = j.poserCarte(ja.getNumeroCarte());
                 desc += "Le joueur "+ja.getIdJoueur()+" a posé la carte "+Couleur.consoleColor(c.getCouleur())+c.getNom();
                 ArrayList<Ressource> cr = c.getCoutRessources();
                 if(cr.size() > 0){
-                    desc += WHITE + " qui coute ";
+                    desc += WHITE + " qui coûte ";
                     HashMap<Ressource, Integer> hr = new HashMap<Ressource, Integer>();
 
                     for(Ressource r : cr)
@@ -199,7 +199,7 @@ public class Jeu {
                 }else
                     j.getPlateau().getEtape(age).construire();
                 int etape = j.construireEtape(age, ja.getNumeroCarte());
-                desc = "Le joueur "+ja.getIdJoueur()+" a construire l'étape "+etape+" de sa merveille "+j.getPlateau().getNom();
+                desc = "Le joueur "+ja.getIdJoueur()+" a construit l'étape "+etape+" de sa merveille "+j.getPlateau().getNom();
                 break;
         }
         return desc;
@@ -223,7 +223,7 @@ public class Jeu {
         return isFin;
     }
     /**
-     * Permet d'appliquer les confilts miltaire entre 2 joueurs lors de la fin d'un âge
+     * Permet d'appliquer les confilts miltaires entre 2 joueurs lors de la fin d'un âge
      * @author Pierre Saunders
      * @param Joueur 1
      * @param Joueur 2

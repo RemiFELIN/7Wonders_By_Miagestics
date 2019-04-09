@@ -1,7 +1,7 @@
 package moteur;
 
 import serveur.Serveur;
-import commun.Action;
+import commun. Action;
 import commun.Joueur;
 import commun.VisionJeu;
 import static commun.ConsoleLogger.*;

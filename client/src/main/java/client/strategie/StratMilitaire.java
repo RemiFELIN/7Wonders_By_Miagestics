@@ -7,8 +7,21 @@ import static commun.TypeAction.*;
 
 import java.util.ArrayList;
 
+/**
+ * Choisit la meilleure carte octroyant de la puissance militaire, uniquement selon le jeu du Joueur
+ * @authors Benoît Montorsi, Pierre Saunders
+ */
+
 public class StratMilitaire extends Strategie {
 
+    /**
+     * Récupère l'action la plus adéquate à effectuer
+     * @param la vision de jeu actuelle
+     * @param les possibilités de jeu soi-même
+     * @return l'action à effectuer determinée
+     */
+
+    @Override
     protected Action getAction(VisionJeu j, boolean[] posSeul, boolean[] posGauche, boolean[] posDroite ) {
 
         ArrayList<Carte> deck= j.getDeckMain();

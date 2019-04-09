@@ -6,13 +6,27 @@ import commun.Action;
 
 import java.util.Random;
 
+/**
+ * Choisit une Carte aléatoirement dans notre jeu
+ * @authors Benoît Montorsi, Pierre Saunders
+ */
 public class StratRandom extends Strategie {
 
+	/**
+	 * Récupère une Action de manière aléatoire
+	 * @param la vision de jeu actuelle
+	 * @param les possibilités de jeu soi-même
+	 * @return l'action à effectuer determinée
+	 */
+
+	@Override
 	protected Action getAction(VisionJeu j, boolean[] posSeul, boolean[] posGauche, boolean[] posDroite) {
 		return new Action(PoserCarte,j.getId(), new Random().nextInt(j.getDeckMain().size()));
 	}
+
+
     /**
-     * Décris la stratégie actuelle
+     * Décrit la stratégie actuelle
      * @see classe Strategie
      * @return description
      */
