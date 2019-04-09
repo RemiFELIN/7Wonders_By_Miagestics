@@ -6,6 +6,9 @@ import static commun.Couleur.*;
 import static commun.SymboleScientifique.*;
 import static commun.Ressource.*;
 
+/**
+ * @authors Yannick Cardini, Benoît Montorsi, Rémi Felin, Pierre Saunders
+ */
 public class Carte {
 
     private Couleur couleur;

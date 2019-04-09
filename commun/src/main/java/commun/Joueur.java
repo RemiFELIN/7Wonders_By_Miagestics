@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.lang.Math;
 
+/**
+ * @authors Yannick Cardini, Benoît Montorsi, Rémi Felin, Pierre Saunders
+ */
 public class Joueur {
 
     private int id, piece = 5;

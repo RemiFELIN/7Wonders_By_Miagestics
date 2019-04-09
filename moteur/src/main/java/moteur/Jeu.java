@@ -15,6 +15,9 @@ import java.util.Comparator;
 import java.util.Random;
 import java.util.HashMap;
 
+/**
+ * @authors Yannick Cardini, Benoît Montorsi, Rémi Felin, Pierre Saunders
+ */
 public class Jeu {
 
     private ArrayList<Joueur> mesJoueurs;
