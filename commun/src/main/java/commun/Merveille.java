@@ -4,6 +4,9 @@ import java.util.ArrayList;
 
 import static commun.Ressource.*;
 
+/**
+ * @authors Rémi Felin, Yannick Cardini
+ */
 public class Merveille {
 
     private char face;
@@ -12,7 +15,6 @@ public class Merveille {
     private Etape[] etapes;
 
     /**
-     * @author Rémi Felin
      * Constructeur de merveille, il prend en argument :
      * @param nom (nom de la merveille)
      * @param face ('A' ou 'B')
