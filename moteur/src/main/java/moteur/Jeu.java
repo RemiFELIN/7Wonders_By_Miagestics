@@ -86,13 +86,12 @@ public class Jeu {
                 deckGuildes = Carte.getDeckGuildes(mesJoueurs.size());
                 tabCarte.addAll(deckGuildes);
             }
-
             Collections.shuffle(tabCarte);
             tabDeck.add(tabCarte);
         }    
     }
     /**
-     * Permet de faire tourner les cartes (hoiraire ou anti-horarie selon l'âge) parmi les joueurs
+     * Permet de faire tourner les cartes (horaire ou anti-horaire selon l'âge) parmi les joueurs
      * @author Pierre Saunders
      */
     public final void roulementCarte(){
@@ -210,7 +209,7 @@ public class Jeu {
      * @return vrai si âge terminé sinon faux
      */
     public final boolean finAge(){
-        if(tour > 5)
+        if(tour > 7)
             return true;
         
         Boolean isFin = true;
@@ -260,8 +259,9 @@ public class Jeu {
     /**
      * Test si le jeu est terminée
      * @return vrai si le jeu est terminée sinon faux
+     * @author Thomas Gauci
      */
-    public final boolean finJeu(){ return  age >= 3; }
+    public final boolean finJeu(){ return age >= 3; }
     /**
      * Permet d'obtenir le classement final des joueurs
      * @author Pierre Saunders

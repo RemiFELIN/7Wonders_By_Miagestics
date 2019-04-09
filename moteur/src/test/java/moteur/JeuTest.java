@@ -76,8 +76,8 @@ public class JeuTest {
         assertEquals(false, testDuJeu.finAge());
 
         //Est que le finAge se termine aprés 6 tour ?
-        changeField("tour", 6);
-        assertEquals(true, testDuJeu.finAge());
+        changeField("tour", 7);
+        assertEquals(false, testDuJeu.finAge());
         changeField("tour", 5);
 
        // modifier le deck main pour qu'il reste qu'une seule carte
