@@ -12,7 +12,6 @@ import static commun.ConsoleLogger.*;
 
 import java.util.function.Consumer;
 import java.util.function.Function;
-import java.util.function.Supplier;
 
 /**
  * Permet la réception et envoi de message aux clients
@@ -22,8 +21,9 @@ public class Serveur {
 
     private SocketIOServer serveur;
     private SocketIOClient client;
-    private int nbJoueursConnectees, nbJoueurCoupFini, carteDistribué = 0;
+    private int nbJoueursConnectees, nbJoueurActionRecu, carteDistribué = 0;
     private int MIN_JOUEURS, MAX_JOUEURS;
+    private Action[] actionRecu;
 
     /**
      * Constructeur
@@ -81,6 +81,7 @@ public class Serveur {
                     nbJoueursConnectees++;
                     if (nbJoueursConnectees == MIN_JOUEURS) {
                         log(GREEN_BOLD_BRIGHT + MIN_JOUEURS + " joueurs de connectés: début de la partie\n");
+                        actionRecu = new Action[nbJoueursConnectees];
                         fnc.accept(nbJoueursConnectees);
                     }
                 }
@@ -88,18 +89,22 @@ public class Serveur {
         });
     }
     /**
-     * Permet de s'abonner à l'événement de la réception d'un Action
-     * @param jouerAction callback quand on reçoit l'Action
-     * @param fin callback quand c'est la fin d'un tour
+     * Permet de s'abonner à l'événement de la réception d'un Action et lancer le tour si suffisament d'action on était reçu
+     * @param debutTour callback quand on reçoit suffisament d'Action
      */
-    public final void onJouerCarte(Function<Action, Boolean> jouerAction, Supplier<Integer> fin){
-        serveur.addEventListener("jouerCarte", Action.class, new DataListener<Action>() {
+    public final void onDebutTour(Function<Action[], Integer> debutTour){
+        serveur.addEventListener("jouerAction", Action.class, new DataListener<Action>() {
             @Override
             public final void onData(SocketIOClient socketIOClient, Action ja, AckRequest ackRequest) throws Exception {
-                if(jouerAction.apply(ja)){
-                    nbJoueurCoupFini++;
-                    if (nbJoueurCoupFini == nbJoueursConnectees)
-                       nbJoueurCoupFini = fin.get();
+                actionRecu[nbJoueurActionRecu++] = ja;
+                if (nbJoueurActionRecu == nbJoueursConnectees){
+                    int idJoueur = debutTour.apply(actionRecu);
+                    if(idJoueur == nbJoueursConnectees){
+                        log(GREEN_BOLD_BRIGHT + "Serveur: fin du tour");
+                        nbJoueurActionRecu = 0;
+                    } else {
+                        log(GREEN_BOLD_BRIGHT + "Serveur: action du joueur "+idJoueur+" est incorrect\n en attente d'un renvoi");
+                    }
                 }
             }
         });
@@ -119,7 +124,7 @@ public class Serveur {
         log(GREEN_BOLD_BRIGHT+"Serveur: Fermeture");
         client.disconnect();
         serveur.removeAllListeners("rejoindre jeu");
-        serveur.removeAllListeners("jouerCarte");
+        serveur.removeAllListeners("jouerAction");
         serveur.removeAllListeners("recuCarte");
         serveur.stop();
         //System.exit(0);

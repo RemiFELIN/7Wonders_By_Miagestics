@@ -99,7 +99,7 @@ public class Client {
         connexion.on("debutTour", new Emitter.Listener(){
             @Override
             public final void call(Object... args) {
-                connexion.emit("jouerCarte", new JSONObject(actionAJouer));
+                connexion.emit("jouerAction", new JSONObject(actionAJouer));
             }
         });
 

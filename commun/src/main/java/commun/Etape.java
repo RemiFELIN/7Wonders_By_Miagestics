@@ -64,7 +64,7 @@ public class Etape {
     public final int getPiece(){ return piece; }
 
     /**
-     * @return le coup en ressources permettant de construire la merveille
+     * @return le cout en ressources permettant de construire la merveille
      */
     public final Ressource[] getRessourcesCout(){ return ressourcesCout; }
 

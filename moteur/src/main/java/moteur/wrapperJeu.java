@@ -26,7 +26,7 @@ public class wrapperJeu {
         //super(adresse, port);
         serveur = new Serveur(adresse, port, 4, 7);
         serveur.onRejoindreJeu(this::onRejoindreJeu);
-        serveur.onJouerCarte(this::onJouerCarte, this::onFinTour);
+        serveur.onDebutTour(this::onDebutTour);
         serveur.démarrer();
     }
     /**
@@ -51,23 +51,21 @@ public class wrapperJeu {
         sendVisionsJeu();
     }
     /**
-     * Permet lorsque de l'on reçoit une action de l'effectuer
-     * @param l'action à effectuer
-     * @return vrai si action valide sinon faux
-     */
-    public final boolean onJouerCarte(Action ja) {
-        String descJouer = jeu.jouerAction(ja);
-        if (descJouer == null)
-            return false;
-        else
-            log(descJouer);
-        return true;
-    }
-    /**
      * Permet lors de la fin d'un tour de poursuivre le dérouelement de la partie
-     * @return nombre de joueurs d'on le coup est fini
+     * @return nombre de joueurs d'on le Action est fini
      */
-    public final int onFinTour(){
+    public final int onDebutTour(Action acs[]){
+
+        for(byte i=0; i<acs.length; i++){
+            Action ja = acs[i];
+            String descJouer = jeu.jouerAction(ja);
+            if (descJouer == null){
+                log("Action du joueur "+ja.getIdJoueur()+" de type "+ja.getType().toString()+" est impossible !");
+                return i;
+            } else
+                log(descJouer);
+        }
+
         log(YELLOW + "\nFin du tour " + jeu.getTour() + " Les scores :");
         ArrayList<Joueur> tabJ = jeu.getJoueurs();
         for (int i = 0; i < tabJ.size(); i++)
@@ -105,6 +103,6 @@ public class wrapperJeu {
             jeu.roulementCarte();
             sendVisionsJeu();
         }
-        return 0;
+        return acs.length;
     }
 }
