@@ -2,22 +2,18 @@
 
 ![7Wonders](https://image.noelshack.com/fichiers/2019/06/1/1549316565-7-wonders.jpg)
 
-  
-
-## Détails de la livraison
-
-  
+## Détails de la livraison  
 
 Nous avons réussi les points suivants (objectif atteint) :
 
-> Implémentation d'une interface *ICarte* et de cartes donnant accès à certaines ressources (*Caserne*, *Cavité*, *Taverne* et *Théâtre*)
+* Implémentation d'une interface *ICarte* et de cartes donnant accès à certaines ressources (*Caserne*, *Cavité*, *Taverne* et *Théâtre*)
 
-> Implémentation stratégie "*farming*" (nommé "StratRessources" dans le projet)
+* Implémentation stratégie "*farming*" (nommé "StratRessources" dans le projet)
 
-> implémentation de l'argent (pour les joueurs et les cartes implémentées)
+* implémentation de l'argent (pour les joueurs et les cartes implémentées)
 
-> Intégration notion de _tas_ de cartes (les dernières cartes des decks sont mises dans le tas)
+* Intégration notion de _tas_ de cartes (les dernières cartes des decks sont mises dans le tas)
 
 Petit bilan concernant les tests unitaires :
 
-> Les tests unitaires concernant la stratégie "*farming*"  atteste que nos joueurs privilégient les cartes donnant accès au ressources et à de la monnaie. 
+* Les tests unitaires concernant la stratégie "*farming*" atteste que nos joueurs privilégient les cartes donnant accès au ressources et à de la monnaie.
