@@ -7,6 +7,7 @@ import commun.VisionJeu;
 import static commun.ConsoleLogger.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Permet de lancer le jeu avec le serveur
@@ -54,13 +55,13 @@ public class wrapperJeu {
      * Permet lors de la fin d'un tour de poursuivre le dérouelement de la partie
      * @return nombre de joueurs d'on le Action est fini
      */
-    public final int onDebutTour(Action acs[]){
+    public final int onDebutTour(HashMap<Integer, Action> acs){
 
-        for(byte i=0; i<acs.length; i++){
-            Action ja = acs[i];
+        for(int i=0; i<acs.size(); i++){
+            Action ja = acs.get(i);
             String descJouer = jeu.jouerAction(ja);
             if (descJouer == null){
-                log("Action du joueur "+ja.getIdJoueur()+" de type "+ja.getType().toString()+" est impossible !");
+                log("Action du joueur "+i+" de type "+ja.getType().toString()+" est impossible !");
                 return i;
             } else
                 log(descJouer);
@@ -103,6 +104,6 @@ public class wrapperJeu {
             jeu.roulementCarte();
             sendVisionsJeu();
         }
-        return acs.length;
+        return acs.size();
     }
 }
