@@ -9,6 +9,8 @@ import commun.Joueur;
 import commun.VisionJeu;
 import static commun.ConsoleLogger.*;
 
+import java.net.BindException;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -24,7 +26,7 @@ public class Jeu {
     private final ArrayList<ArrayList<Carte>> tabDeck = new ArrayList<ArrayList<Carte>>(3);
     private int age = 1, tour = 1;
 
-    public static final void main(String args[]) {
+    public static final void main(String args[]) throws BindException {
         if (args.length == 2) {
             String adresse = args[0];
             int port = Integer.parseInt(args[1]);

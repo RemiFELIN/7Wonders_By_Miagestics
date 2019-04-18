@@ -6,6 +6,7 @@ import org.junit.Test;
 import commun.Carte;
 import commun.Action;
 import commun.Joueur;
+import commun.VisionJeu;
 import static commun.TypeAction.*;
 
 import static commun.ConsoleLogger.error;
@@ -21,11 +22,12 @@ import static org.junit.Assert.*;
  */
 public class JeuTest {
 
-    public Jeu testDuJeu;
+    private Jeu testDuJeu;
+    private final int NOMBRE_JOUEURS = 3;
 
     @Before
     public void setUp() {
-        testDuJeu = new Jeu(3);
+        testDuJeu = new Jeu(NOMBRE_JOUEURS);
     }
 
     @Test
@@ -166,6 +168,54 @@ public class JeuTest {
             lesScores[i] = mj.get(i).getScore();
         
         return lesScores;
+   }
+
+   @Test
+   public void getVisionJeuTest(){
+       ArrayList<VisionJeu> vj = new ArrayList<VisionJeu>(NOMBRE_JOUEURS);
+       ArrayList<Joueur> joueurs = testDuJeu.getJoueurs();
+       for(int i=0; i<NOMBRE_JOUEURS; i++){
+           Joueur j = joueurs.get(i);
+           vj.add(new VisionJeu(i, j.getPiece(), j.getPlateau(), j.getDeckMain(), j.getDeckPlateau()));
+       }
+
+       ArrayList<VisionJeu> vc = testDuJeu.getVisionsJeu();
+
+       VisionJeu j = vj.get(0);
+       VisionJeu c = vc.get(0);
+       assertEqualsVisionJeu(j, c);
+       assertEqualsVisionJeuVoisin(c, vj.get(NOMBRE_JOUEURS-1), vc.get(1));
+
+       for(int i=1; i<NOMBRE_JOUEURS-1; i++){
+           j = vj.get(i);
+           c = vc.get(i);
+           assertEqualsVisionJeu(j, c);
+           assertEqualsVisionJeuVoisin(c, vj.get(i-1), vc.get(i+1));
+       }
+
+       j = vj.get(NOMBRE_JOUEURS-1);
+       c = vc.get(NOMBRE_JOUEURS-1);
+       assertEqualsVisionJeu(j, c);
+       assertEqualsVisionJeuVoisin(c, vj.get(NOMBRE_JOUEURS-2), vc.get(0));
+   }
+
+   private void assertEqualsVisionJeu(VisionJeu a, VisionJeu b){
+       assertEquals(a.getId(), b.getId());
+       assertEquals(a.getPiece(), b.getPiece());
+       assertEquals(a.getPlateau(), b.getPlateau());
+       assertEquals(a.getDeckPlateau(), b.getDeckPlateau());
+   }
+
+   private void assertEqualsVisionJeuVoisin(VisionJeu j, VisionJeu g, VisionJeu d){
+       assertEquals(j.getVoisinGaucheId(), g.getId());
+       assertEquals(j.getVoisinGauchePiece(), g.getPiece());
+       assertEquals(j.getVoisinGaucheDeckPlateau(), g.getDeckPlateau());
+       assertEquals(j.getVoisinGauchePlateau(), g.getPlateau());
+
+       assertEquals(j.getVoisinDroiteId(), d.getId());
+       assertEquals(j.getVoisinDroitePiece(), d.getPiece());
+       assertEquals(j.getVoisinDroiteDeckPlateau(), d.getDeckPlateau());
+       assertEquals(j.getVoisinDroitePlateau(), d.getPlateau());
    }
 
    private void changeField(String nomField, Object value){

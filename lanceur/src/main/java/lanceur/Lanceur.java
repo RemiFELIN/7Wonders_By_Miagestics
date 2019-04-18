@@ -4,6 +4,8 @@ import client.Client;
 import moteur.Jeu;
 import static commun.ConsoleLogger.*;
 
+import java.net.BindException;
+
 /**
  * Permet de lancer une partie avec un nombre défini de joueurs
  * @author Pierre Saunders
@@ -18,16 +20,15 @@ public class Lanceur {
         log(YELLOW_BOLD_BRIGHT + "\n\n------------------");
         log(YELLOW_BOLD_BRIGHT + "Début programme !!");
 
-        final String info[] = new String[] { adresse, Integer.toString(port) };
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Jeu.main(info);
-            }
-        }).start();
+        try {
+            Jeu.main(new String[]{adresse, port+""});
+        } catch (BindException e){
+            log(RED_BOLD+"Adresse "+adresse+":"+port+" déja utilisé, veuillez en utiliser un autre");
+            return;
+        }
 
         for (int i = 0; i < nombre_joueurs; i++) {
-            final String infoJoueur[] = new String[] { adresse, Integer.toString(port), Integer.toString(i) };
+            final String infoJoueur[] = new String[]{adresse, port+"", Integer.toString(i) };
             new Thread(new Runnable() {
                 @Override
                 public void run() {

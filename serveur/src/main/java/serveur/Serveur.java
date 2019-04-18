@@ -10,12 +10,15 @@ import com.corundumstudio.socketio.listener.DataListener;
 import commun.Action;
 import static commun.ConsoleLogger.*;
 
+import java.net.BindException;
+
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.HashMap;
 
 /**
  * Permet la réception et envoi de message aux clients
+ * 
  * @author Pierre Saunders
  */
 public class Serveur {
@@ -28,12 +31,13 @@ public class Serveur {
 
     /**
      * Constructeur
+     * 
      * @param adresse adresse
-     * @param port port
-     * @param minJ nombre minimum de joueurs avant de commencer une partie
-     * @param maxJ nombre maximum de joueurs autorisées dans une partie
+     * @param port    port
+     * @param minJ    nombre minimum de joueurs avant de commencer une partie
+     * @param maxJ    nombre maximum de joueurs autorisées dans une partie
      */
-    public Serveur(String adresse, int port, int minJ, int maxJ) {
+    public Serveur(String adresse, int port, int minJ, int maxJ) throws BindException {
 
         MIN_JOUEURS = minJ;
         MAX_JOUEURS = maxJ;
@@ -53,11 +57,13 @@ public class Serveur {
             }
         });
     }
+
     /**
      * Permet de s'abonner à l'événement d'un client qui se connecte au serveur
+     * 
      * @param fnc callback
      */
-    public final void onRejoindreJeu(Consumer<Integer> fnc){
+    public final void onRejoindreJeu(Consumer<Integer> fnc) {
         serveur.addEventListener("rejoindre jeu", Integer.class, new DataListener<Integer>() {
             @Override
             public final void onData(SocketIOClient socketIOClient, Integer id, AckRequest ackRequest)
@@ -76,54 +82,62 @@ public class Serveur {
             }
         });
     }
+
     /**
-     * Permet de s'abonner à l'événement de la réception d'un Action et lancer le tour si suffisament d'action on était reçu
+     * Permet de s'abonner à l'événement de la réception d'un Action et lancer le
+     * tour si suffisament d'action on était reçu
+     * 
      * @param debutTour callback quand on reçoit suffisament d'Action
      */
-    public final void onDebutTour(Function<HashMap<Integer, Action>, Integer> debutTour){
+    public final void onDebutTour(Function<HashMap<Integer, Action>, Integer> debutTour) {
         serveur.addEventListener("jouerAction", Action.class, new DataListener<Action>() {
             @Override
             public final void onData(SocketIOClient socketIOClient, Action ja, AckRequest ackRequest) throws Exception {
-                if(actionRecu.containsKey(ja.getIdJoueur()) == false){
+                if (actionRecu.containsKey(ja.getIdJoueur()) == false) {
                     nbJoueurActionRecu++;
                     actionRecu.put(ja.getIdJoueur(), ja);
-                    if (nbJoueurActionRecu == nbJoueursConnectees){
+                    if (nbJoueurActionRecu == nbJoueursConnectees) {
                         log(GREEN_BOLD_BRIGHT + "Serveur: fin du tour\n");
                         int idJoueur = debutTour.apply(actionRecu);
-                        if(idJoueur == nbJoueursConnectees){
+                        if (idJoueur == nbJoueursConnectees) {
                             nbJoueurActionRecu = 0;
                             actionRecu.clear();
                         } else {
-                            log(GREEN_BOLD_BRIGHT + "Serveur: action du joueur "+idJoueur+" est incorrect\n en attente d'un renvoi");
+                            log(GREEN_BOLD_BRIGHT + "Serveur: action du joueur " + idJoueur
+                                    + " est incorrect\n en attente d'un renvoi");
                             actionRecu.remove(idJoueur);
-                            nbJoueurActionRecu --;
+                            nbJoueurActionRecu--;
                         }
                     }
                 } else
-                    log(GREEN_BOLD_BRIGHT + "Serveur: action du joueur "+ja.getIdJoueur()+" déja reçu");
+                    log(GREEN_BOLD_BRIGHT + "Serveur: action du joueur " + ja.getIdJoueur() + " déja reçu");
             }
         });
     }
+
     /**
      * Permet d'envoyer un Event aux clients (Warpper)
+     * 
      * @param evt nom de l'évenement
-     * @param o data à envoyer
+     * @param o   data à envoyer
      */
-    public final void sendEvent(String evt, Object o){
+    public final void sendEvent(String evt, Object o) {
         client.sendEvent(evt, o);
     }
+
     /**
      * Permet de se désabonner des évenements et fermer le serveur
      */
-    public final void terminer(){
-        log(GREEN_BOLD_BRIGHT+"Serveur: Fermeture");
+    public final void terminer() {
+        log(GREEN_BOLD_BRIGHT + "Serveur: Fermeture");
         client.disconnect();
         serveur.removeAllListeners("rejoindre jeu");
         serveur.removeAllListeners("jouerAction");
         serveur.removeAllListeners("recuCarte");
         serveur.stop();
-        //System.exit(0);
+        // System.exit(0);
     }
+
     /**
      * Permet de démarrer le serveur
      */

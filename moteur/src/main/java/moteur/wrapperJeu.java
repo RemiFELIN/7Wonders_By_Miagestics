@@ -6,6 +6,8 @@ import commun.Joueur;
 import commun.VisionJeu;
 import static commun.ConsoleLogger.*;
 
+import java.net.BindException;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -23,7 +25,7 @@ public class wrapperJeu {
      * @param une adresse
      * @param un port
      */
-    public wrapperJeu(String adresse, int port){
+    public wrapperJeu(String adresse, int port) throws BindException {
         //super(adresse, port);
         serveur = new Serveur(adresse, port, 4, 7);
         serveur.onRejoindreJeu(this::onRejoindreJeu);
