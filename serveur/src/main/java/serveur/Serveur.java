@@ -14,6 +14,7 @@ import java.net.BindException;
 
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -24,7 +25,7 @@ import java.util.HashMap;
 public class Serveur {
 
     private SocketIOServer serveur;
-    private SocketIOClient client;
+    private ArrayList<SocketIOClient> clients = new ArrayList<SocketIOClient>();
     private int nbJoueursConnectees, nbJoueurActionRecu, carteDistribué = 0;
     private int MIN_JOUEURS, MAX_JOUEURS;
     private HashMap<Integer, Action> actionRecu;
@@ -52,8 +53,7 @@ public class Serveur {
 
         serveur.addConnectListener(new ConnectListener() {
             public final void onConnect(SocketIOClient socketIOClient) {
-                if (client == null)
-                    client = socketIOClient;
+                clients.add(socketIOClient);
             }
         });
     }
@@ -122,7 +122,8 @@ public class Serveur {
      * @param o   data à envoyer
      */
     public final void sendEvent(String evt, Object o) {
-        client.sendEvent(evt, o);
+        for (SocketIOClient client : clients)
+            client.sendEvent(evt, o);
     }
 
     /**
@@ -130,7 +131,8 @@ public class Serveur {
      */
     public final void terminer() {
         log(GREEN_BOLD_BRIGHT + "Serveur: Fermeture");
-        client.disconnect();
+        for (SocketIOClient client : clients)
+            client.disconnect();
         serveur.removeAllListeners("rejoindre jeu");
         serveur.removeAllListeners("jouerAction");
         serveur.removeAllListeners("recuCarte");
@@ -152,7 +154,8 @@ public class Serveur {
                 if (carteDistribué == nbJoueursConnectees) {
                     carteDistribué = 0;
                     log(GREEN_BOLD + "Tous les clients ont reçu leur vision, début du tour\n");
-                    client.sendEvent("debutTour");
+                    for (SocketIOClient client : clients)
+                        client.sendEvent("debutTour");
                 }
             }
         });
