@@ -33,14 +33,6 @@ public class wrapperJeu {
         serveur.démarrer();
     }
     /**
-     * Envoie les VisionJeu à tout les clients
-     */
-    public final void sendVisionsJeu() {
-        ArrayList<VisionJeu> vj = jeu.getVisionsJeu();
-        for (int i = 0; i < vj.size(); i++)
-            serveur.sendEvent("getVision" + i, vj.get(i));
-    }
-    /**
      * Permet lorsque suffisament de joueurs se soit connectées de lancer la partie
      * @param nbJoueursConnectees
      */
@@ -51,7 +43,7 @@ public class wrapperJeu {
         log(YELLOW_BOLD_BRIGHT + "-----------------------------------------------\n");
         jeu = new Jeu(nbJoueursConnectees);
         jeu.distributionCarte();
-        sendVisionsJeu();
+        serveur.sendVisionsJeu(jeu.getVisionsJeu());
     }
     /**
      * Permet lors de la fin d'un tour de poursuivre le dérouelement de la partie
@@ -82,14 +74,16 @@ public class wrapperJeu {
             if (jeu.finJeu()) {
                 log(YELLOW_BOLD_BRIGHT + "Fin du jeu !");
                 ArrayList<Joueur> clas = jeu.getClassement();
+                int[][] sClas = new int[clas.size()][];
                 // 7 + 3 + 8 + 6 + 3 + 1
                 StringBuilder textClas = new StringBuilder(clas.size() * 28);
                 for (int i = 1; i < clas.size()+1; i++) {
                     Joueur j = clas.get(i-1);
                     int s = j.getScore();
                     textClas.append(YELLOW_BOLD_BRIGHT + i + " > " + j.toString() + " avec " + s + "\n");
-                    serveur.sendEvent("finJeuClassement"+j.getId(), new int[]{i, s});
+                    sClas[j.getId()] = new int[]{i, s};
                 }
+                serveur.sendClassement(sClas);
                 log(textClas.toString());
                 serveur.terminer();
             } else {
@@ -97,14 +91,14 @@ public class wrapperJeu {
                 jeu.distributionCarte();
                 log(GREEN_BOLD + "Distribution des nouveaux decks\n");
                 jeu.roulementCarte();
-                sendVisionsJeu();
+                serveur.sendVisionsJeu(jeu.getVisionsJeu());
             }
         } else {
             jeu.tourSuivant();
             log(GREEN_BOLD + "\nDébut du tour " + jeu.getTour());
             log(GREEN_BOLD + "-------------------------\n");
             jeu.roulementCarte();
-            sendVisionsJeu();
+            serveur.sendVisionsJeu(jeu.getVisionsJeu());
         }
         return acs.size();
     }

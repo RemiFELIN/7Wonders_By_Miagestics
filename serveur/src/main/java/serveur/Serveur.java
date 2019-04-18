@@ -8,6 +8,8 @@ import com.corundumstudio.socketio.listener.ConnectListener;
 import com.corundumstudio.socketio.listener.DataListener;
 
 import commun.Action;
+import commun.VisionJeu;
+
 import static commun.ConsoleLogger.*;
 
 import java.net.BindException;
@@ -116,14 +118,25 @@ public class Serveur {
     }
 
     /**
-     * Permet d'envoyer un Event aux clients (Warpper)
+     * Wrapper pour envoyer les classement aux joueurs
      * 
-     * @param evt nom de l'évenement
-     * @param o   data à envoyer
+     * @param clas tableau bi-dimensionnel de format clas[idJoueur] = [place, score]
      */
-    public final void sendEvent(String evt, Object o) {
-        for (SocketIOClient client : clients)
-            client.sendEvent(evt, o);
+    public final void sendClassement(int[][] clas) {
+        for (byte i = 0; i < clas.length; i++)
+            for (SocketIOClient client : clients)
+                client.sendEvent("finJeuClassement" + i, clas[i]);
+    }
+
+    /**
+     * Wrapper pour envoyer les VisionJeu aux clients
+     * 
+     * @param vj collections de VisionJeu
+     */
+    public final void sendVisionsJeu(ArrayList<VisionJeu> vj) {
+        for (byte i = 0; i < vj.size(); i++)
+            for (SocketIOClient client : clients)
+                client.sendEvent("getVision" + i, vj.get(i));
     }
 
     /**
