@@ -3,7 +3,7 @@ package commun;
 /**
  * @author Pierre Saunders
  */
-public class ConsoleLogger {
+public abstract class ConsoleLogger {
 
     /**
      * @param obj l'objet à afficher dans la console

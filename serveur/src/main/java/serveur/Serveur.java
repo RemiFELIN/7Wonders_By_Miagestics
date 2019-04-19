@@ -9,7 +9,7 @@ import com.corundumstudio.socketio.listener.DataListener;
 
 import commun.Action;
 import commun.VisionJeu;
-
+import static commun.EventConnection.*;
 import static commun.ConsoleLogger.*;
 
 import java.net.BindException;
@@ -66,7 +66,7 @@ public class Serveur {
      * @param fnc callback
      */
     public final void onRejoindreJeu(Consumer<Integer> fnc) {
-        serveur.addEventListener("rejoindre jeu", Integer.class, new DataListener<Integer>() {
+        serveur.addEventListener(REJOINDRE_JEU, Integer.class, new DataListener<Integer>() {
             @Override
             public final void onData(SocketIOClient socketIOClient, Integer id, AckRequest ackRequest)
                     throws Exception {
@@ -92,7 +92,7 @@ public class Serveur {
      * @param debutTour callback quand on reçoit suffisament d'Action
      */
     public final void onDebutTour(Function<HashMap<Integer, Action>, Integer> debutTour) {
-        serveur.addEventListener("jouerAction", Action.class, new DataListener<Action>() {
+        serveur.addEventListener(JOUER_ACTION, Action.class, new DataListener<Action>() {
             @Override
             public final void onData(SocketIOClient socketIOClient, Action ja, AckRequest ackRequest) throws Exception {
                 if (actionRecu.containsKey(ja.getIdJoueur()) == false) {
@@ -125,7 +125,7 @@ public class Serveur {
     public final void sendClassement(int[][] clas) {
         for (byte i = 0; i < clas.length; i++)
             for (SocketIOClient client : clients)
-                client.sendEvent("finJeuClassement" + i, clas[i]);
+                client.sendEvent(FIN_JEU(i), clas[i]);
     }
 
     /**
@@ -136,7 +136,7 @@ public class Serveur {
     public final void sendVisionsJeu(ArrayList<VisionJeu> vj) {
         for (byte i = 0; i < vj.size(); i++)
             for (SocketIOClient client : clients)
-                client.sendEvent("getVision" + i, vj.get(i));
+                client.sendEvent(GET_VISIONJEU(i), vj.get(i));
     }
 
     /**
@@ -146,9 +146,9 @@ public class Serveur {
         log(GREEN_BOLD_BRIGHT + "Serveur: Fermeture");
         for (SocketIOClient client : clients)
             client.disconnect();
-        serveur.removeAllListeners("rejoindre jeu");
-        serveur.removeAllListeners("jouerAction");
-        serveur.removeAllListeners("recuCarte");
+        serveur.removeAllListeners(REJOINDRE_JEU);
+        serveur.removeAllListeners(JOUER_ACTION);
+        serveur.removeAllListeners(RECU_CARTE);
         serveur.stop();
         // System.exit(0);
     }
@@ -159,7 +159,7 @@ public class Serveur {
     public final void démarrer() {
         log(GREEN_BOLD_BRIGHT + "Serveur: Démarrage");
 
-        serveur.addEventListener("recuCarte", Integer.class, new DataListener<Integer>() {
+        serveur.addEventListener(RECU_CARTE, Integer.class, new DataListener<Integer>() {
             @Override
             public final void onData(SocketIOClient socketIOClient, Integer id, AckRequest ackRequest)
                     throws Exception {
@@ -168,7 +168,7 @@ public class Serveur {
                     carteDistribué = 0;
                     log(GREEN_BOLD + "Tous les clients ont reçu leur vision, début du tour\n");
                     for (SocketIOClient client : clients)
-                        client.sendEvent("debutTour");
+                        client.sendEvent(DEBUT_TOUR);
                 }
             }
         });

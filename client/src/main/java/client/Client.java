@@ -11,6 +11,7 @@ import commun.VisionJeu;
 import commun.Action;
 import client.strategie.*;
 import static commun.ConsoleLogger.*;
+import static commun.EventConnection.*;
 import static client.JSONParser.*;
 
 import org.json.JSONObject;
@@ -48,15 +49,15 @@ public class Client {
         }
         log(BLUE_BOLD_BRIGHT + "Client: Abonnement connexion Joueur " + this.id);
 
-        connexion.on("connect", new Emitter.Listener() {
+        connexion.on(CONNEXION, new Emitter.Listener() {
             @Override
             public final void call(Object... args) {
                 log(BLUE_BOLD_BRIGHT + "Client: connexion Joueur " + id);
-                connexion.emit("rejoindre jeu", id);
+                connexion.emit(REJOINDRE_JEU, id);
             }
         });
 
-        connexion.on("getVision" + id, new Emitter.Listener() {
+        connexion.on(GET_VISIONJEU(id), new Emitter.Listener() {
             @Override
             public final void call(Object... args) {
                 log(BLUE_BOLD_BRIGHT + "Le client " + id + " a reçu sa vision de jeu");
@@ -88,7 +89,7 @@ public class Client {
                     j.setVoisinDroite(d);
 
                     actionAJouer = stratClient.getAction(j);
-                    connexion.emit("recuCarte", id);
+                    connexion.emit(RECU_CARTE, id);
 
                 } catch (JSONException e){
                     error("Client "+id+" erreur getVision !", e);
@@ -96,14 +97,14 @@ public class Client {
             }
         });
 
-        connexion.on("debutTour", new Emitter.Listener(){
+        connexion.on(DEBUT_TOUR, new Emitter.Listener(){
             @Override
             public final void call(Object... args) {
-                connexion.emit("jouerAction", new JSONObject(actionAJouer));
+                connexion.emit(JOUER_ACTION, new JSONObject(actionAJouer));
             }
         });
 
-        connexion.on("finJeuClassement" + id, new Emitter.Listener() {
+        connexion.on(FIN_JEU(id), new Emitter.Listener() {
             @Override
             public final void call(Object... args) {
                 JSONArray info = (JSONArray) args[0];
@@ -111,7 +112,7 @@ public class Client {
             }
         });
 
-        connexion.on("disconnect", new Emitter.Listener() {
+        connexion.on(DECONNEXION, new Emitter.Listener() {
             @Override
             public final void call(Object... args) {
                 log(BLUE_BOLD_BRIGHT + "Le client " + id + " est déconnecté ");
