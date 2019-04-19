@@ -6,6 +6,9 @@ import static org.junit.Assert.*;
 
 import static commun.TypeAction.*;
 
+/**
+ * Fichier de test unitaire pour tester la classe Action
+ */
 public class ActionTest {
 
     private Action a;

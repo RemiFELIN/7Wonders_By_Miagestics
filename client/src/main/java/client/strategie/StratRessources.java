@@ -1,9 +1,9 @@
 package client.strategie;
 
 import commun.VisionJeu;
-import static commun.TypeAction.*;
 import commun.Action;
 import commun.Carte;
+import static commun.TypeAction.*;
 
 import java.util.ArrayList;
 import java.util.Random;

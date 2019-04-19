@@ -7,12 +7,13 @@ import io.socket.emitter.Emitter;
 import java.net.URISyntaxException;
 import java.util.Random;
 
+import client.strategie.*;
+import static client.JSONParser.*;
+
 import commun.VisionJeu;
 import commun.Action;
-import client.strategie.*;
 import static commun.ConsoleLogger.*;
 import static commun.EventConnection.*;
-import static client.JSONParser.*;
 
 import org.json.JSONObject;
 import org.json.JSONArray;

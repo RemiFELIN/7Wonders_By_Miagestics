@@ -1,20 +1,19 @@
 package moteur;
 
-import org.junit.Before;
-import org.junit.Test;
-
 import commun.Carte;
 import commun.Action;
 import commun.Joueur;
 import commun.VisionJeu;
-import static commun.TypeAction.*;
-
-import static commun.ConsoleLogger.error;
 import static commun.Couleur.*;
+import static commun.TypeAction.*;
+import static commun.ConsoleLogger.error;
 
 import java.util.ArrayList;
+
 import java.lang.reflect.Field;
 
+import org.junit.Before;
+import org.junit.Test;
 import static org.junit.Assert.*;
 
 /**

@@ -1,6 +1,7 @@
 package client;
 
 import client.strategie.StratScientifique;
+
 import commun.Carte;
 import commun.VisionJeu;
 import commun.Joueur;
@@ -9,13 +10,12 @@ import commun.Action;
 import static commun.Ressource.*;
 import static commun.Couleur.*;
 import static commun.SymboleScientifique.*;
+
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * Fichier de test unitaire pour test la classe StratScientifique
@@ -23,7 +23,6 @@ import static org.junit.Assert.assertEquals;
  */
 public class StratScientifiqueTest {
 
-    @Mock
     StratScientifique stratClient;
     VisionJeu j,jGauche,jDroite;
     Joueur central, gauche, droite;

@@ -10,6 +10,9 @@ import static commun.SymboleScientifique.*;
 
 import java.util.ArrayList;
 
+/**
+ * Fichier de test unitaire pour tester la classe VisionJeu
+ */
 public class VisionTest {
 
     //VisionJeu de soi voisin gauche et voisin droite respectivement

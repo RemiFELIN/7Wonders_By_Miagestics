@@ -1,13 +1,12 @@
 package client.strategie;
 
+import commun.Carte;
 import commun.VisionJeu;
-import static commun.TypeAction.*;
 import commun.Action;
+import static commun.TypeAction.*;
 
 import java.util.ArrayList;
 import java.util.Random;
-
-import commun.Carte;
 
 /**
  * Choisit la meilleure carte octroyant des lauriers, selon le jeu du Joueur et celui des voisins

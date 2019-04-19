@@ -1,6 +1,7 @@
 package client;
 
 import client.strategie.StratRandom;
+
 import commun.Carte;
 import commun.Merveille;
 import commun.VisionJeu;
@@ -11,12 +12,13 @@ import static commun.Couleur.*;
 
 import org.junit.Before;
 import org.junit.Test;
+import static org.junit.Assert.assertEquals;
+
 import org.mockito.Mock;
+import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.mock;
 
 import java.util.ArrayList;
-
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.when;
 
 /**
  * Fichier de test unitaire pour test la classe StratRandom
@@ -50,7 +52,7 @@ public class StratRandomTest {
     public void testStratRandom() throws Exception {
         stratClient = new StratRandom();
 
-        StratRandom stratRandomMock = org.mockito.Mockito.mock(StratRandom.class);
+        StratRandom stratRandomMock = mock(StratRandom.class);
         when(stratRandomMock.getAction(vj)).thenReturn(new Action(PoserCarte,0, 2));
 
         Action pc = stratRandomMock.getAction(vj);

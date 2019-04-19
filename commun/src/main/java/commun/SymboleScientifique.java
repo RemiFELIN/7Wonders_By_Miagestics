@@ -1,4 +1,5 @@
 package commun;
+
 /**
  * @authors Thomas Gauci, Pierre Saunders
  */

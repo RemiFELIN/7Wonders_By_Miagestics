@@ -1,6 +1,7 @@
 package client;
 
 import client.strategie.StratRessources;
+
 import commun.Carte;
 import commun.VisionJeu;
 import commun.Merveille;
@@ -10,11 +11,9 @@ import static commun.Couleur.*;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mock;
+import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * Fichier de test unitaire pour test la classe StratRessources
@@ -22,7 +21,6 @@ import static org.junit.Assert.assertEquals;
  */
 public class StratRessourcesTest {
 
-    @Mock
     StratRessources stratClient;
     VisionJeu vj;
 

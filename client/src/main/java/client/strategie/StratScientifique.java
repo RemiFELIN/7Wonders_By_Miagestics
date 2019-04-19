@@ -3,8 +3,8 @@ package client.strategie;
 import commun.Carte;
 import commun.Couleur;
 import commun.VisionJeu;
-import static commun.TypeAction.*;
 import commun.Action;
+import static commun.TypeAction.*;
 
 import java.util.ArrayList;
 import java.util.Random;
