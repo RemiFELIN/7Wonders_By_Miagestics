@@ -82,7 +82,7 @@ public class JSONParser {
                 Couleur.fromString(obj.getString("couleur")),
                 obj.getInt("age"),
                 obj.getInt("coutPiece"),
-                obj.getInt("laurier"),
+                obj.getInt("pointVictoire"),
                 obj.getInt("puissanceMilitaire"),
                 obj.getInt("piece")
             );

@@ -14,7 +14,7 @@
 >
 > Connecter des clients au serveur
 >
-> Une première version *minimaliste* du jeu (de 3 à 7 joueurs, uniquement des cartes *laurier* donnant des points)
+> Une première version *minimaliste* du jeu (de 3 à 7 joueurs, uniquement des cartes *civils* donnant des points)
 
 ### Livraison 2 ![checkmark](https://img.icons8.com/metro/26/000000/checkmark.png)
 

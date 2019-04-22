@@ -131,7 +131,7 @@ public class JeuTest {
    
    @Test
    public void testCompareConfiltsJoueur(){
-        assertArrayEquals(new int[]{5, 5, 5}, getScoreJoueurs());
+        assertArrayEquals(new int[]{2, 2, 2}, getScoreJoueurs());
 
         ArrayList<Carte> cs = new ArrayList<Carte>(1);
         cs.add(new Carte("CarteTestMilitaire", BLANC, 1, 0, 0, 1, 0));
@@ -144,7 +144,7 @@ public class JeuTest {
         //J1 perd et égalité => - 1
         //J2 gagne 2 fois => + 2
         //J3 perd et égalité => - 1
-        assertArrayEquals(new int[]{4, 7, 4}, getScoreJoueurs());
+        assertArrayEquals(new int[]{1, 4, 1}, getScoreJoueurs());
 
         cs = new ArrayList<Carte>(1);
         cs.add(new Carte("CarteTestMilitaire", BLANC, 1, 0, 0, 2, 0));
@@ -157,7 +157,7 @@ public class JeuTest {
         //J1 perd 2 fois => - 2
         //J2 gagne et perd => + 3 - 1
         //J3 gagne 2 fois => + 6
-        assertArrayEquals(new int[]{2, 9, 10}, getScoreJoueurs());
+        assertArrayEquals(new int[]{0, 6, 7}, getScoreJoueurs());
    }
 
    private int[] getScoreJoueurs(){

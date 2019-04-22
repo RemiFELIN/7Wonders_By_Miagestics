@@ -137,14 +137,31 @@ public class Joueur {
      * @author Rémi Felin, Pierre Sanders, Thomas Gauci
      */
     public final int getScore() {
-        //Calcul piece
-        int score = piece;
-        
-        //Calcul laurier
-        for(Carte c : deckPlateau)
-            score += c.getLaurier();
 
-        //Calcul scientifique
+        int score = 0;
+
+        //1. Confilts militaire
+        for(int i=1; i<jetonsVictoire.length+1; i++)
+            score += jetonsVictoire[i-1] * (i * 2 - 1);
+
+        score -= jetonsDefaite;
+
+        //2. Contenu du trésor
+        //chaque lot de 3 piece => + 1 de score
+        score += piece % 3;
+        
+        //3. Merveilles
+        for(Etape e : plateau.getEtapes())
+            if(e.getEtat()){
+                score += e.getPointVictoire();
+            } else break;
+
+        //4. Bâtiments civils
+        for(Carte c : deckPlateau)
+            score += c.getPointVictoire();
+
+        //5. Bâtiments scientifiques
+        // Famille de symboles identiques
         HashMap<SymboleScientifique, Integer> scientifique = new HashMap<SymboleScientifique, Integer>();
         for(SymboleScientifique s : SymboleScientifique.values())
             scientifique.put(s, 0);
@@ -155,6 +172,7 @@ public class Joueur {
                 scientifique.put(symb, scientifique.get(symb)+1);
         }
 
+        //Groupe de 3 symboles différents
         int groupe = 99;
         for(SymboleScientifique s : SymboleScientifique.values()){
             int val = scientifique.get(s);
@@ -162,17 +180,14 @@ public class Joueur {
             groupe = Math.min(groupe, val);
         }
         score += 7 * groupe;
-
-        //Calcul confilts militaire
-        for(int i=1; i<jetonsVictoire.length+1; i++)
-            score += jetonsVictoire[i-1] * (i * 2 - 1);
-
-        score -= jetonsDefaite;
-
-        if(score < 0)
-            score = 0;
         
-        return score;
+        //6. Bâtiments commerciaux
+        //TODO
+
+        //7. Guildes
+        //TODO
+
+        return score < 0 ? 0 : score;
     }
     /**
      * @author Benoît Montorsi

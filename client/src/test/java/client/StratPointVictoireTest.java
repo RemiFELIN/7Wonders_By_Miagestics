@@ -1,6 +1,6 @@
 package client;
 
-import client.strategie.StratLaurier;
+import client.strategie.StratPointVictoire;
 
 import commun.Carte;
 import commun.VisionJeu;
@@ -16,12 +16,12 @@ import static org.junit.Assert.assertEquals;
 import java.util.ArrayList;
 
 /**
- * Fichier de test unitaire pour test la classe StartLaurier
+ * Fichier de test unitaire pour test la classe StartPointVictoire
  * @author Benoît Montorsi, Pierre Saunders
  */
-public class StratLaurierTest {
+public class StratPointVictoireTest {
 
-    StratLaurier stratClient;
+    StratPointVictoire stratClient;
     VisionJeu vj;
 
     @Before
@@ -31,13 +31,13 @@ public class StratLaurierTest {
         Carte c = new Carte("CarteTestRessource", BLANC, 0);
         deckMain.add(c);
 
-        c = new Carte("CarteTestLaurier", BLEU, 0, 0, 2, 0, 0);
+        c = new Carte("CarteTestPointVictoire", BLEU, 0, 0, 2, 0, 0);
         c.ajouterRessource(MINERAI);
         c.ajouterRessource(MINERAI);
         c.ajouterRessource(BOIS);
         deckMain.add(c);
 
-        c = new Carte("CarteTestLaurier", BLEU, 0, 0, 3, 0, 0);
+        c = new Carte("CarteTestPointVictoire", BLEU, 0, 0, 3, 0, 0);
         c.ajouterRessource(MINERAI);
         c.ajouterRessource(BOIS);
         deckMain.add(c);
@@ -59,8 +59,8 @@ public class StratLaurierTest {
     }
 
     @Test
-    public void testStratLaurier() throws Exception {
-        stratClient = new StratLaurier();
+    public void testStratPointVictoire() throws Exception {
+        stratClient = new StratPointVictoire();
 
         Action pc = stratClient.getAction(vj);
         assertEquals(2, pc.getNumeroCarte());

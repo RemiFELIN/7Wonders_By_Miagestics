@@ -15,7 +15,7 @@ public class Carte {
     private String nom;
     private int age;
 
-    private int coutPiece, laurier, puissanceMilitaire, piece;
+    private int coutPiece, pointVictoire, puissanceMilitaire, piece;
     private SymboleScientifique symboleScientifique;
     private ArrayList<Ressource> coutRessources = new ArrayList<Ressource>();
     private ArrayList<Ressource> ressources = new ArrayList<Ressource>();
@@ -44,14 +44,14 @@ public class Carte {
      * @param couleur couleur
      * @param age âge
      * @param coutPiece coût pièce pour pouvoir poser
-     * @param laurier nombre de laurier bonus si posé
+     * @param pointVictoire nombre de pointVictoire bonus si posé
      * @param puissanceMilitaire puissance militaire si posé
      * @param piece nombre de piece bonus si posé
      */
-    public Carte(String nom, Couleur couleur, int age, int coutPiece, int laurier, int puissanceMilitaire, int piece){
+    public Carte(String nom, Couleur couleur, int age, int coutPiece, int pointVictoire, int puissanceMilitaire, int piece){
         this(nom, couleur, age);
         this.coutPiece = coutPiece;
-        this.laurier = laurier;
+        this.pointVictoire = pointVictoire;
         this.puissanceMilitaire = puissanceMilitaire;
         this.piece = piece;
     }
@@ -84,9 +84,9 @@ public class Carte {
      */
     public final int getCoutPiece() { return coutPiece; }
     /**
-     * @return le nombre de laurier bonus si posé
+     * @return le nombre de pointVictoire bonus si posé
      */
-    public final int getLaurier() { return laurier; }
+    public final int getPointVictoire() { return pointVictoire; }
     /**
      * @return la puissance militaire si posé
      */
@@ -152,8 +152,7 @@ public class Carte {
     public final static ArrayList<Carte> getDeck(int age, int nbJoueurs){
         ArrayList<Carte> deck = new ArrayList<Carte>();
 
-        
-        addCartesVictoire(deck, age, nbJoueurs);
+        addCarteCivils(deck, age, nbJoueurs);
         addCartesMilitaires(deck, age, nbJoueurs);
         addCartesRessources(deck, age, nbJoueurs);
         addCartesMarchandes(deck, age, nbJoueurs);
@@ -637,13 +636,13 @@ public class Carte {
         }
     }
     /**
-     * Parseur de carte victoires (lauriers)
+     * Parseur de carte civils
      * @param deck deck de carte ou les cartes seront ajoutés
      * @param age l'âge de la partie
      * @param nbJoueurs nombre de joueurs de la partie
      * @author Thomas Gauci
      */
-    private final static void addCartesVictoire(ArrayList<Carte> deck, int age, int nbJoueurs){
+    private final static void addCarteCivils(ArrayList<Carte> deck, int age, int nbJoueurs){
 
         Carte c;
         switch(age){

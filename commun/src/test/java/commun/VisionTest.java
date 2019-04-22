@@ -30,13 +30,13 @@ public class VisionTest {
     @Before
     public void setUp(){
         d.add(new Carte("CarteTestVide", BLANC, 0));        
-        d.add(new Carte("CarteTestLaurier", BLANC, 0, 0, 2, 0, 0));
+        d.add(new Carte("CarteTestPointVictoire", BLANC, 0, 0, 2, 0, 0));
 
         d1.add(new Carte("CarteTestVideGauche", ROUGE, 2)); 
-        d1.add(new Carte("CarteTestLaurierGauche", VERT, 3, 0, 3, 1, 0));
+        d1.add(new Carte("CarteTestPointVictoireGauche", VERT, 3, 0, 3, 1, 0));
 
         d2.add(new Carte("CarteTestVideDroite", MARRON, 1)); 
-        d2.add(new Carte("CarteTestLaurierDroite", VIOLET, 1, 0, 5, 1, 5));
+        d2.add(new Carte("CarteTestPointVictoireDroite", VIOLET, 1, 0, 5, 1, 5));
 
         m = new Merveille("test", 'A', BOIS, 1);
         m1 = new Merveille("test2", 'A', BOIS, 1);

@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * Choisit la meilleure carte octroyant des lauriers, selon le jeu du Joueur et celui des voisins
+ * Choisit la meilleure carte octroyant des point de victoire, selon le jeu du Joueur et celui des voisins
  * @authors Benoît Montorsi, Pierre Saunders
  */
-public class StratLaurier extends Strategie {
+public class StratPointVictoire extends Strategie {
 
     /**
      * Récupère l'action la plus adéquate à effectuer
@@ -28,21 +28,21 @@ public class StratLaurier extends Strategie {
 
         ArrayList<Carte> deck = j.getDeckMain();
 
-        int carteN = 0, nbLaurier = 0, joueurAQuiPiocher = 0;
+        int carteN = 0, nbPointVictoire = 0, joueurAQuiPiocher = 0;
         for (int i = 0; i < deck.size(); i++)
             if(posSeul[i]){
-                int value = deck.get(i).getLaurier();
-                if(value > nbLaurier){
-                    nbLaurier = value;
+                int value = deck.get(i).getPointVictoire();
+                if(value > nbPointVictoire){
+                    nbPointVictoire = value;
                     carteN = i;
                 }
             }
 
         for (int i = 0; i < deck.size(); i++)
             if(posGauche[i]){
-                int value = deck.get(i).getLaurier();
-                if(value > nbLaurier){
-                    nbLaurier = value;
+                int value = deck.get(i).getPointVictoire();
+                if(value > nbPointVictoire){
+                    nbPointVictoire = value;
                     carteN = i;
                     joueurAQuiPiocher = -1;
                 }
@@ -50,9 +50,9 @@ public class StratLaurier extends Strategie {
 
         for (int i = 0; i < deck.size(); i++)
             if(posDroite[i]){
-                int value = deck.get(i).getLaurier();
-                if(value > nbLaurier){
-                    nbLaurier = value;
+                int value = deck.get(i).getPointVictoire();
+                if(value > nbPointVictoire){
+                    nbPointVictoire = value;
                     carteN = i;
                     joueurAQuiPiocher = 1;
                 }
@@ -60,7 +60,7 @@ public class StratLaurier extends Strategie {
 
         if(joueurAQuiPiocher != 0) return new Action(AcheterRessource, j.getId(), joueurAQuiPiocher, carteN);
 
-        if(carteN == 0 && nbLaurier == 0) carteN = new Random().nextInt(deck.size());
+        if(carteN == 0 && nbPointVictoire == 0) carteN = new Random().nextInt(deck.size());
 
         return new Action(PoserCarte, j.getId(), carteN);
 	}
@@ -70,5 +70,5 @@ public class StratLaurier extends Strategie {
      * @return description
      */
 	@Override
-	public String toString(){ return super.toString() + " laurier"; }
+	public String toString(){ return super.toString() + " PointVictoire"; }
 }

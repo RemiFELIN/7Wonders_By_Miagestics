@@ -44,7 +44,7 @@ public class Merveille {
     public final Ressource getRessource(){ return res; }
 
     /**
-     * @return le tableau d'étapes dont la merveille
+     * @return le tableau d'étapes dont la merveille dispose
      */
     public final Etape[] getEtapes(){ return etapes; }
 

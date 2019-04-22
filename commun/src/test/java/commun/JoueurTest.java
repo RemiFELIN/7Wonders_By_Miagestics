@@ -6,7 +6,9 @@ import static org.junit.Assert.*;
 
 import commun.Carte;
 import commun.Joueur;
+import commun.Merveille;
 import static commun.Couleur.*;
+import static commun.Ressource.*;
 import static commun.SymboleScientifique.*;
 
 import java.util.ArrayList;
@@ -21,13 +23,16 @@ public class JoueurTest {
     @Before
     public final void setUp(){
         joueur = new Joueur(1);
+        Merveille m = new Merveille("MerveilleTest", 'A', MINERAI, 3);
+        m.ajouterEtape(new Etape(new Ressource[]{BOIS, BOIS}, 3, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, ""), 1);
+        joueur.setPlateau(m);
     }
 
     @Test
     public final void testGetterInitial(){
         assertEquals("joueur id inital :", 1, joueur.getId());
         assertEquals("joueur nombre de piece inital :", 5, joueur.getPiece());
-        assertEquals("joueur score inital :", 5, joueur.getScore());
+        assertEquals("joueur score inital :", 2, joueur.getScore());
         assertEquals("joueur taille deck main inital :", 0, joueur.getDeckMain().size());
         assertEquals("joueur taille deck plateau inital :", 0, joueur.getDeckPlateau().size());
         assertArrayEquals("joueur jetons victoire initial :", joueur.getJetonsVictoire(), new int[]{0, 0, 0});
@@ -37,7 +42,7 @@ public class JoueurTest {
     }
 
     @Test
-    public final void testCalculScoreLaurier() {
+    public final void testCalculScorePointVictoire() {
         ArrayList<Carte> deck = new ArrayList<Carte>(5);
 
         final int nbCarte = 5;
@@ -48,8 +53,8 @@ public class JoueurTest {
         for(byte i = 0; i<nbCarte; i++)
             joueur.poserCarte(0);
 
-        //5 gold + 10 Score laurier
-        assertEquals("joueur score avec les lauriers :", 15, joueur.getScore());
+        //2 point d'or + 10 Score pointVictoire
+        assertEquals("joueur score avec les pointVictoires :", 12, joueur.getScore());
     }
 
     @Test
@@ -69,8 +74,8 @@ public class JoueurTest {
 
         assertEquals("joueur taille deck aprés pose :", 0, joueur.getDeckMain().size());
 
-        // Le joueur joue 5 cartes donc score = 5*5 + les 5 golds donc score = 30
-        assertEquals("joueur score aprés pose :", 30, joueur.getScore());
+        // Le joueur joue 5 cartes donc score = 5*5 + les 2 point d'or donc score = 27
+        assertEquals("joueur score aprés pose :", 27, joueur.getScore());
     }
 
     @Test
@@ -90,8 +95,8 @@ public class JoueurTest {
 
         assertEquals("joueur taille deck aprés pose :", 0, joueur.getDeckMain().size());
      
-        // Le joueur joue 3 cartes scientifique différentes donc score = 7 + 3 + 5 
-        assertEquals("joueur score aprés pose :", 15, joueur.getScore());
+        // Le joueur joue 3 cartes scientifique différentes donc score = 7 + 3 + 2
+        assertEquals("joueur score aprés pose :", 12, joueur.getScore());
     }
 
     @Test
@@ -118,28 +123,28 @@ public class JoueurTest {
     public final void testCalculConflitsMilitaire(){
 
         //Jeton victoire age 1
-        joueur.ajouterJetonVictoire(1); //Valeur jeton 1 donc 5 + 1
+        joueur.ajouterJetonVictoire(1); //Valeur jeton 1 donc 2 + 1
         assertArrayEquals("joueur jetons victoire aprés ajout 1 :", joueur.getJetonsVictoire(), new int[]{1, 0, 0});
         assertEquals("joueur jetons défaite aprés ajout 1 :", joueur.getJetonsDefaite(), 0);
-        assertEquals("joueur score aprés ajout 1 :", 6, joueur.getScore());
+        assertEquals("joueur score aprés ajout 1 :", 3, joueur.getScore());
 
         //Jeton victoire age 2
-        joueur.ajouterJetonVictoire(2); //Valeur jeton 3 donc 6 + 3
+        joueur.ajouterJetonVictoire(2); //Valeur jeton 3 donc 3 + 3
         assertArrayEquals("joueur jetons victoire aprés ajout 2 :", joueur.getJetonsVictoire(), new int[]{1, 1, 0});
         assertEquals("joueur jetons défaite aprés ajout 2 :", joueur.getJetonsDefaite(), 0);
-        assertEquals("joueur score aprés ajout 2 :", 9, joueur.getScore());
+        assertEquals("joueur score aprés ajout 2 :", 6, joueur.getScore());
 
         //Jeton victoire age 3
-        joueur.ajouterJetonVictoire(3); //Valeur jeton 5 donc 9 + 5
+        joueur.ajouterJetonVictoire(3); //Valeur jeton 5 donc 6 + 5
         assertArrayEquals("joueur jetons victoire aprés ajout 3 :", joueur.getJetonsVictoire(), new int[]{1, 1, 1});
         assertEquals("joueur jetons défaite aprés ajout 3 :", joueur.getJetonsDefaite(), 0);
-        assertEquals("joueur score aprés ajout 3 :", 14, joueur.getScore());
+        assertEquals("joueur score aprés ajout 3 :", 11, joueur.getScore());
 
         //Jeton age 3
-        joueur.ajouterJetonDefaite(); //Valeur jeton -1 donc 14 - 1
+        joueur.ajouterJetonDefaite(); //Valeur jeton -1 donc 11 - 1
         assertArrayEquals("joueur jetons victoire aprés ajout 4 :", joueur.getJetonsVictoire(), new int[]{1, 1, 1});
         assertEquals("joueur jetons défaite aprés ajout 4 :", joueur.getJetonsDefaite(), 1);
-        assertEquals("joueur score aprés ajout 4 :", 13, joueur.getScore());
+        assertEquals("joueur score aprés ajout 4 :", 10, joueur.getScore());
     }
 
     @Test
@@ -173,7 +178,7 @@ public class JoueurTest {
         assertEquals("carte equal nom :", c.getNom(), d.getNom());
         assertEquals("carte equal age :", c.getAge(), d.getAge());
         assertEquals("carte equal cout piece :", c.getCoutPiece(), d.getCoutPiece());
-        assertEquals("carte equal laurier :", c.getLaurier(), d.getLaurier());
+        assertEquals("carte equal pointVictoire :", c.getPointVictoire(), d.getPointVictoire());
         assertEquals("carte equal puissance militaire :", c.getPuissanceMilitaire(), d.getPuissanceMilitaire());
         assertEquals("carte equal piece :", c.getPiece(), d.getPiece());
         assertEquals("carte equal symbole scientifique :", c.getSymboleScientifique(), d.getSymboleScientifique());
