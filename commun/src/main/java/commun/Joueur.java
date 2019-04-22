@@ -2,10 +2,11 @@ package commun;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.lang.Math;
 
 /**
- * @authors Yannick Cardini, Benoît Montorsi, Rémi Felin, Pierre Saunders
+ * @authors Yannick Cardini, Benoît Montorsi, Rémi Felin, Pierre Saunders, Thomas Gauci
  */
 public class Joueur {
 
@@ -134,6 +135,7 @@ public class Joueur {
     }
     /**
      * @return le score total
+     * @author Rémi Felin, Pierre Sanders, Thomas Gauci
      */
     public final int getScore() {
         //Calcul piece
@@ -183,6 +185,41 @@ public class Joueur {
         piece -= cout;
         return cout;
     }
+  
+
+     /**
+     * Affiche les ressources disponibles dans un deck
+     * @return l'affichage des ressources du joueur
+     * @author Thomas Gauci
+     */
+	public final String getAffichageRessources(){
+        HashMap<Ressource, Integer> res = new HashMap<Ressource, Integer>();
+        String af="";
+        for(Ressource r : Ressource.values())
+            res.put(r, 0);
+
+        for(Carte c : deckPlateau)
+            for(Ressource r : c.getRessources())
+                res.put(r, res.get(r)+1);
+
+        for(Map.Entry resentry : res.entrySet())
+            af+= resentry.getKey() + " : " + resentry.getValue() + " | ";
+
+        return af;
+    }
+     /**
+     * Affiche les ressources disponibles dans un deck
+     * @return l'affichage des ressources du joueur
+     * @author Thomas Gauci
+     */
+	public final String getAffichageJetons(){
+        HashMap<Ressource, Integer> res = new HashMap<Ressource, Integer>();
+        String af="";
+        for(int i =0; i< jetonsDefaite.length;i++)
+            af+= "\n" + " Age : " + (i+1) + " Jetons victoire " + jetonsVictoire[i] + " Jetons défaite " + jetonsDefaite[i] ;
+
+        return af;
+    }
     /**
      * @author Benoît Montorsi
      * @param montant total de piece à recevoir
@@ -191,6 +228,7 @@ public class Joueur {
     /**
      * @return description de l'objet
      */
+    
     @Override
     public final String toString(){ return "Joueur "+id; }
 }

@@ -7,7 +7,7 @@ import static commun.SymboleScientifique.*;
 import static commun.Ressource.*;
 
 /**
- * @authors Yannick Cardini, Benoît Montorsi, Rémi Felin, Pierre Saunders
+ * @author Yannick Cardini, Benoît Montorsi, Rémi Felin, Pierre Saunders, Gauci Thomas
  */
 public class Carte {
 
@@ -151,11 +151,7 @@ public class Carte {
      */
     public final static ArrayList<Carte> getDeck(int age, int nbJoueurs){
         ArrayList<Carte> deck = new ArrayList<Carte>();
-        //Carte commercial
-        //TODO ajouter toutes les cartes commercial + function addCartesCommercial
-        // Créer des deck en fonction de l'âge et du nombre de joueurs
 
-        //deck.add(new Carte("Taverne", JAUNE, 1, 0, 0, 0, 5));
         
         addCartesVictoire(deck, age, nbJoueurs);
         addCartesMilitaires(deck, age, nbJoueurs);
@@ -301,6 +297,8 @@ public class Carte {
      * Parseur de carte scientifiques
      * @param deck deck de carte ou les cartes seront ajoutés
      * @param age l'âge de la partie
+     * @param nbJoueurs le nombre de joueurs dans la partie
+     * @author Thomas Gauci
      */
     private final static void addCartesScientifique(ArrayList<Carte> deck, int age, int nbJoueurs){
 
@@ -462,6 +460,7 @@ public class Carte {
      * @param deck deck de carte ou les cartes seront ajoutés
      * @param age l'âge de la partie
      * @param nbJoueurs nombre de joueurs de la partie
+     * @author Thomas Gauci
      */
     private final static void addCartesMilitaires(ArrayList<Carte> deck, int age, int nbJoueurs){   
         switch(age) {
@@ -642,6 +641,7 @@ public class Carte {
      * @param deck deck de carte ou les cartes seront ajoutés
      * @param age l'âge de la partie
      * @param nbJoueurs nombre de joueurs de la partie
+     * @author Thomas Gauci
      */
     private final static void addCartesVictoire(ArrayList<Carte> deck, int age, int nbJoueurs){
 
@@ -831,6 +831,7 @@ public class Carte {
      * @param deck deck de carte ou les cartes seront ajoutés
      * @param age l'âge de la partie
      * @param nbJoueurs nombre de joueurs de la partie
+     * @author Thomas Gauci
      */
     private final static void addCartesRessources(ArrayList<Carte> deck, int age, int nbJoueurs){ 
         switch(age){
@@ -1009,6 +1010,7 @@ public class Carte {
      * @param deck deck de carte ou les cartes seront ajoutés
      * @param age l'âge de la partie
      * @param nbJoueurs nombre de joueurs de la partie
+     * @author Thomas Gauci
      */
     private final static void addCartesMarchandes(ArrayList<Carte> deck, int age, int nbJoueurs){
         switch(age){

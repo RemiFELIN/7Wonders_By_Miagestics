@@ -18,7 +18,7 @@ import java.util.Random;
 import java.util.HashMap;
 
 /**
- * @authors Yannick Cardini, Benoît Montorsi, Rémi Felin, Pierre Saunders
+ * @author Yannick Cardini, Benoît Montorsi, Rémi Felin, Pierre Saunders, Gauci Thomas
  */
 public class Jeu {
 
@@ -78,6 +78,7 @@ public class Jeu {
     public final void tourSuivant(){ tour++; }
     /**
      * Permet d'initialiser les cartes dans les decks
+     * @author Thomas Gauci
      */
     public final void initCartes() {
         for (int j = 0; j < 3; j++){
@@ -207,7 +208,7 @@ public class Jeu {
     }
     /**
      * Test si l'âge en cours est terminé
-     * @author Pierre Saunders
+     * @author Pierre Saunders, Thomas Gauci
      * @return vrai si âge terminé sinon faux
      */
     public final boolean finAge(){
@@ -304,4 +305,5 @@ public class Jeu {
 
         return v;
     }
+    
 }

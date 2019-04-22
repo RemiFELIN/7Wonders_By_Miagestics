@@ -72,6 +72,7 @@ public class Client {
                         parseJSONArrayCarte(jo.getJSONArray("deckMain")),
                         parseJSONArrayCarte(jo.getJSONArray("deckPlateau"))
                     );
+                    log(PURPLE_BOLD_BRIGHT + "Le client " + id + " possède " + j.getPiece() +" pieces ");
 
                     VisionJeu g = new VisionJeu(
                         jo.getInt("voisinGaucheId"),
