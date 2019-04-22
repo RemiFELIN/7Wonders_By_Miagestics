@@ -175,7 +175,7 @@ public class JeuTest {
        ArrayList<Joueur> joueurs = testDuJeu.getJoueurs();
        for(int i=0; i<NOMBRE_JOUEURS; i++){
            Joueur j = joueurs.get(i);
-           vj.add(new VisionJeu(i, j.getPiece(), j.getPlateau(), j.getDeckMain(), j.getDeckPlateau()));
+           vj.add(new VisionJeu(j));
        }
 
        ArrayList<VisionJeu> vc = testDuJeu.getVisionsJeu();
@@ -201,6 +201,8 @@ public class JeuTest {
    private void assertEqualsVisionJeu(VisionJeu a, VisionJeu b){
        assertEquals(a.getId(), b.getId());
        assertEquals(a.getPiece(), b.getPiece());
+       assertEquals(a.getJetonsVictoire(), b.getJetonsVictoire());
+       assertEquals(a.getJetonsDefaite(), b.getJetonsDefaite());
        assertEquals(a.getPlateau(), b.getPlateau());
        assertEquals(a.getDeckPlateau(), b.getDeckPlateau());
    }
@@ -208,11 +210,15 @@ public class JeuTest {
    private void assertEqualsVisionJeuVoisin(VisionJeu j, VisionJeu g, VisionJeu d){
        assertEquals(j.getVoisinGaucheId(), g.getId());
        assertEquals(j.getVoisinGauchePiece(), g.getPiece());
+       assertEquals(j.getVoisinGaucheJetonsVictoire(), g.getJetonsVictoire());
+       assertEquals(j.getVoisinGaucheJetonsDefaite(), g.getJetonsDefaite());
        assertEquals(j.getVoisinGaucheDeckPlateau(), g.getDeckPlateau());
        assertEquals(j.getVoisinGauchePlateau(), g.getPlateau());
 
        assertEquals(j.getVoisinDroiteId(), d.getId());
        assertEquals(j.getVoisinDroitePiece(), d.getPiece());
+       assertEquals(j.getVoisinDroiteJetonsVictoire(), d.getJetonsVictoire());
+       assertEquals(j.getVoisinDroiteJetonsDefaite(), d.getJetonsDefaite());
        assertEquals(j.getVoisinDroiteDeckPlateau(), d.getDeckPlateau());
        assertEquals(j.getVoisinDroitePlateau(), d.getPlateau());
    }

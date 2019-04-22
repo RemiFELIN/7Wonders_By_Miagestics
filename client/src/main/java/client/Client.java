@@ -68,6 +68,8 @@ public class Client {
                     VisionJeu j = new VisionJeu(
                         jo.getInt("id"),
                         jo.getInt("piece"),
+                        parseJSONArrayInt(jo.getJSONArray("jetonsVictoire")),
+                        parseJSONArrayInt(jo.getJSONArray("jetonsDefaite")),
                         parseJSONMerveille(jo.getJSONObject("plateau")),
                         parseJSONArrayCarte(jo.getJSONArray("deckMain")),
                         parseJSONArrayCarte(jo.getJSONArray("deckPlateau"))
@@ -77,6 +79,8 @@ public class Client {
                     VisionJeu g = new VisionJeu(
                         jo.getInt("voisinGaucheId"),
                         jo.getInt("voisinGauchePiece"),
+                        parseJSONArrayInt(jo.getJSONArray("voisinGaucheJetonsVictoire")),
+                        parseJSONArrayInt(jo.getJSONArray("voisinGaucheJetonsDefaite")),
                         parseJSONMerveille(jo.getJSONObject("plateau")),
                         parseJSONArrayCarte(jo.getJSONArray("voisinGaucheDeckPlateau"))
                     );
@@ -85,6 +89,8 @@ public class Client {
                     VisionJeu d = new VisionJeu(
                         jo.getInt("voisinDroiteId"),
                         jo.getInt("voisinDroitePiece"),
+                        parseJSONArrayInt(jo.getJSONArray("voisinDroiteJetonsVictoire")),
+                        parseJSONArrayInt(jo.getJSONArray("voisinDroiteJetonsDefaite")),
                         parseJSONMerveille(jo.getJSONObject("plateau")),
                         parseJSONArrayCarte(jo.getJSONArray("voisinDroiteDeckPlateau"))
                     );
