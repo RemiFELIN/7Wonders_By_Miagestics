@@ -98,12 +98,7 @@ public class wrapperJeu {
             log(GREEN_BOLD + "\nDébut du tour " + jeu.getTour());
             log(GREEN_BOLD + "-------------------------\n");
             jeu.roulementCarte();
-            serveur.sendVisionsJeu(jeu.getVisionsJeu());
-            for (int i = 0; i < tabJ.size(); i++){
-                log(CYAN_UNDERLINED + "Ressources joueur " + i + " : " + tabJ.get(i).getAffichageRessources());
-                log(RED_UNDERLINED + "Jetons joueur " + i + " : " + tabJ.get(i).getAffichageJetons());
-            }
-                
+            serveur.sendVisionsJeu(jeu.getVisionsJeu());                
         }
         return acs.size();
     }

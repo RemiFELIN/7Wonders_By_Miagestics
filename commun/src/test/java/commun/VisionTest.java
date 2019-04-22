@@ -24,8 +24,8 @@ public class VisionTest {
     private ArrayList<Carte> d1 = new ArrayList<Carte>();
     private ArrayList<Carte> d2 = new ArrayList<Carte>();
 
-    private int nbPiece, id;
-    private int[] jVic, jDef;
+    private int nbPiece, id, jDef;
+    private int[] jVic;
 
     @Before
     public void setUp(){
@@ -45,11 +45,11 @@ public class VisionTest {
         nbPiece = 4;
         id = 0;
         jVic = new int[]{0, 0, 0};
-        jDef = new int[]{1, 1, 0};
+        jDef = 0;
 
         vj = new VisionJeu(id, nbPiece, jVic, jDef, m, new ArrayList<Carte>(), d);
-        vjG = new VisionJeu(1, 0, new int[]{0, 1, 0}, new int[]{1, 0, 1}, m1, d1);
-        vjD = new VisionJeu(2, 0, new int[]{2, 0, 1}, new int[]{0, 0, 0}, m2, d2);
+        vjG = new VisionJeu(1, 0, new int[]{0, 1, 0}, 2, m1, d1);
+        vjD = new VisionJeu(2, 0, new int[]{2, 0, 1}, 0, m2, d2);
         vj.setVoisinGauche(vjG);
         vj.setVoisinDroite(vjD);
     }
@@ -60,7 +60,7 @@ public class VisionTest {
         assertEquals("visionJeu getPiece :", nbPiece, vj.getPiece());
         assertEquals("visionJeu getPlateau", m, vj.getPlateau());
         assertArrayEquals("visionJeu getJetonsVictoire", jVic, vj.getJetonsVictoire());
-        assertArrayEquals("visionJeu getJetonsDefaite", jDef, vj.getJetonsDefaite());
+        assertEquals("visionJeu getJetonsDefaite", jDef, vj.getJetonsDefaite());
         assertEquals("visionJeu getDeckMain", 0, vj.getDeckMain().size());
         assertEquals("visionJeu getDeckPlateau", d, vj.getDeckPlateau());
     }
@@ -70,7 +70,7 @@ public class VisionTest {
         assertEquals("visionJeu getVoisinGaucheId :", vjG.getId(), vj.getVoisinGaucheId());
         assertEquals("visionJeu getVoisinGauchePiece", vjG.getPiece(), vj.getVoisinGauchePiece());
         assertArrayEquals("visionJeu getVoisinGaucheJetonsVictoire", vjG.getJetonsVictoire(), vj.getVoisinGaucheJetonsVictoire());
-        assertArrayEquals("visionJeu getVoisinGaucheJetonsDefaite", vjG.getJetonsDefaite(), vj.getVoisinGaucheJetonsDefaite());
+        assertEquals("visionJeu getVoisinGaucheJetonsDefaite", vjG.getJetonsDefaite(), vj.getVoisinGaucheJetonsDefaite());
 
         Merveille vgp = vj.getVoisinGauchePlateau();
         assertEquals("visionJeu getVoisinGauchePlateau setter", m1, vgp);
@@ -86,7 +86,7 @@ public class VisionTest {
         assertEquals("visionJeu getVoisinDroiteId :", vjD.getId(), vj.getVoisinDroiteId());
         assertEquals("visionJeu getVoisinDroitePiece", vjD.getPiece(), vj.getVoisinDroitePiece());
         assertArrayEquals("visionJeu getVoisinDroiteJetonsVictoire", vjD.getJetonsVictoire(), vj.getVoisinDroiteJetonsVictoire());
-        assertArrayEquals("visionJeu getVoisinDroiteJetonsDefaite", vjD.getJetonsDefaite(), vj.getVoisinDroiteJetonsDefaite());
+        assertEquals("visionJeu getVoisinDroiteJetonsDefaite", vjD.getJetonsDefaite(), vj.getVoisinDroiteJetonsDefaite());
 
         Merveille vdp = vj.getVoisinDroitePlateau();
         assertEquals("visionJeu getVoisinDroitePlateau setter", m2, vdp);

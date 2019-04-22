@@ -10,11 +10,11 @@ import java.lang.Math;
  */
 public class Joueur {
 
-    private int id = -1, piece = 5;
+    private int id = -1, piece = 5, jetonsDefaite = 0;
     private Merveille plateau;
     private ArrayList<Carte> deckPlateau = new ArrayList<Carte>();
     private ArrayList<Carte> deckMain = new ArrayList<Carte>();
-    private int[] jetonsDefaite = new int[3], jetonsVictoire = new int[3];
+    private int[] jetonsVictoire = new int[3];
 
     /**
      * @param id id
@@ -61,7 +61,7 @@ public class Joueur {
      * @author Pierre Saunders
      * @return les jetons défaite
      */
-    public final int[] getJetonsDefaite(){ return jetonsDefaite; }
+    public final int getJetonsDefaite(){ return jetonsDefaite; }
     /**
      * @return le plateau/merveille
      */
@@ -89,9 +89,8 @@ public class Joueur {
     public final void ajouterJetonVictoire(int age){ jetonsVictoire[age-1]++; }
     /**
      * @author Pierre Saunders
-     * @param age l'indice age du jeton a ajouter
      */
-    public final void ajouterJetonDefaite(int age){ jetonsDefaite[age-1]++; }
+    public final void ajouterJetonDefaite(){ jetonsDefaite++; }
     /**
      * @author Pierre Saunders
      * @see #compareConfiltsJoueur(Joueur j1, Joueur j2) dans Jeu
@@ -168,8 +167,7 @@ public class Joueur {
         for(int i=1; i<jetonsVictoire.length+1; i++)
             score += jetonsVictoire[i-1] * (i * 2 - 1);
 
-        for(int i=1; i<jetonsDefaite.length+1; i++)
-            score -= jetonsDefaite[i-1] * (i * 2 - 1);
+        score -= jetonsDefaite;
 
         if(score < 0)
             score = 0;
@@ -184,41 +182,6 @@ public class Joueur {
     public final int payer(int cout){
         piece -= cout;
         return cout;
-    }
-  
-
-     /**
-     * Affiche les ressources disponibles dans un deck
-     * @return l'affichage des ressources du joueur
-     * @author Thomas Gauci
-     */
-	public final String getAffichageRessources(){
-        HashMap<Ressource, Integer> res = new HashMap<Ressource, Integer>();
-        String af="";
-        for(Ressource r : Ressource.values())
-            res.put(r, 0);
-
-        for(Carte c : deckPlateau)
-            for(Ressource r : c.getRessources())
-                res.put(r, res.get(r)+1);
-
-        for(Map.Entry resentry : res.entrySet())
-            af+= resentry.getKey() + " : " + resentry.getValue() + " | ";
-
-        return af;
-    }
-     /**
-     * Affiche les ressources disponibles dans un deck
-     * @return l'affichage des ressources du joueur
-     * @author Thomas Gauci
-     */
-	public final String getAffichageJetons(){
-        HashMap<Ressource, Integer> res = new HashMap<Ressource, Integer>();
-        String af="";
-        for(int i =0; i< jetonsDefaite.length;i++)
-            af+= "\n" + " Age : " + (i+1) + " Jetons victoire " + jetonsVictoire[i] + " Jetons défaite " + jetonsDefaite[i] ;
-
-        return af;
     }
     /**
      * @author Benoît Montorsi

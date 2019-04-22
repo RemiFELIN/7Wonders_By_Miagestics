@@ -59,9 +59,9 @@ public class StratScientifiqueTest {
         c.ajouterRessource(MINERAI);
         deckPlateau.add(c);
 
-        j = new VisionJeu(0, 0, new int[]{0, 0, 0}, new int[]{0, 0, 0}, new Merveille("test", 'A', BOIS, 1), deckMain, deckPlateau);
-        jGauche = new VisionJeu(1, 0, new int[]{0, 0, 0}, new int[]{0, 0, 0}, new Merveille("test2", 'A', BOIS, 1), deckPlateau);
-        jDroite = new VisionJeu(2, 0, new int[]{0, 0, 0}, new int[]{0, 0, 0}, new Merveille("test3", 'A', BOIS, 1), deckPlateau);
+        j = new VisionJeu(0, 0, new int[]{0, 0, 0}, 0, new Merveille("test", 'A', BOIS, 1), deckMain, deckPlateau);
+        jGauche = new VisionJeu(1, 0, new int[]{0, 0, 0}, 0, new Merveille("test2", 'A', BOIS, 1), deckPlateau);
+        jDroite = new VisionJeu(2, 0, new int[]{0, 0, 0}, 0, new Merveille("test3", 'A', BOIS, 1), deckPlateau);
         j.setVoisinDroite(jDroite);
         j.setVoisinGauche(jGauche);
     }

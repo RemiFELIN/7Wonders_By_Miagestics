@@ -51,9 +51,9 @@ public class StratLaurierTest {
         c.ajouterRessource(MINERAI);
         deckPlateau.add(c);
 
-        vj = new VisionJeu(0, 0, new int[]{0, 0, 0}, new int[]{0, 0, 0}, new Merveille("test", 'A', BOIS, 1), deckMain, deckPlateau);
-        VisionJeu jGauche = new VisionJeu(1, 0, new int[]{0, 0, 0}, new int[]{0, 0, 0}, new Merveille("test2", 'A', BOIS, 1), new ArrayList<Carte>());
-        VisionJeu jDroite = new VisionJeu(2, 0, new int[]{0, 0, 0}, new int[]{0, 0, 0}, new Merveille("test3", 'A', BOIS, 1), new ArrayList<Carte>());
+        vj = new VisionJeu(0, 0, new int[]{0, 0, 0}, 0, new Merveille("test", 'A', BOIS, 1), deckMain, deckPlateau);
+        VisionJeu jGauche = new VisionJeu(1, 0, new int[]{0, 0, 0}, 0, new Merveille("test2", 'A', BOIS, 1), new ArrayList<Carte>());
+        VisionJeu jDroite = new VisionJeu(2, 0, new int[]{0, 0, 0}, 0, new Merveille("test3", 'A', BOIS, 1), new ArrayList<Carte>());
         vj.setVoisinDroite(jDroite);
         vj.setVoisinGauche(jGauche);
     }

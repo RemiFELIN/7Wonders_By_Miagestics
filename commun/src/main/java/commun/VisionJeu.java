@@ -8,20 +8,20 @@ import java.util.ArrayList;
 public class VisionJeu {
 
     //Vision de lui-même
-    private int id, piece;
-    private int[] jetonsVictoire, jetonsDefaite;
+    private int id, piece, jetonsDefaite;
+    private int[] jetonsVictoire;
     private ArrayList<Carte> deckMain, deckPlateau;
     private Merveille plateau;
 
     //Vision du voisin de gauche
-    private int gId, gPiece;
-    private int[] gJetonsVictoire, gJetonsDefaite;
+    private int gId, gPiece, gJetonsDefaite;
+    private int[] gJetonsVictoire;
     private ArrayList<Carte> gDeckPlateau;
     private Merveille gPlateau;
 
     //Vision du voisin de droite
-    private int dId, dPiece;
-    private int[] dJetonsVictoire, dJetonsDefaite;
+    private int dId, dPiece, dJetonsDefaite;
+    private int[] dJetonsVictoire;
     private ArrayList<Carte> dDeckPlateau;
     private Merveille dPlateau;
 
@@ -42,7 +42,7 @@ public class VisionJeu {
      * @param deckMain deck en main
      * @param deckPlateau deck des cartes posées
      */
-    public VisionJeu(int id, int piece, int[] jetonsVictoire, int[] jetonsDefaite, Merveille plateau, ArrayList<Carte> deckMain, ArrayList<Carte> deckPlateau){
+    public VisionJeu(int id, int piece, int[] jetonsVictoire, int jetonsDefaite, Merveille plateau, ArrayList<Carte> deckMain, ArrayList<Carte> deckPlateau){
         this(id, piece, jetonsVictoire, jetonsDefaite, plateau, deckPlateau);
         this.deckMain = deckMain;
     }
@@ -55,7 +55,7 @@ public class VisionJeu {
      * @param plateau merveille
      * @param deckPlateau deck des cartes posées
      */
-    public VisionJeu(int id, int piece, int[] jetonsVictoire, int[] jetonsDefaite, Merveille plateau, ArrayList<Carte> deckPlateau){
+    public VisionJeu(int id, int piece, int[] jetonsVictoire, int jetonsDefaite, Merveille plateau, ArrayList<Carte> deckPlateau){
         this.id = id;
         this.piece = piece;
         this.jetonsVictoire = jetonsVictoire;
@@ -80,7 +80,7 @@ public class VisionJeu {
     /**
      * @return nos jetons de défaite
      */
-    public final int[] getJetonsDefaite(){ return jetonsDefaite; }
+    public final int getJetonsDefaite(){ return jetonsDefaite; }
     /**
      * @return notre merveille
      */
@@ -110,7 +110,7 @@ public class VisionJeu {
     /**
      * @return les jetons de défaite du voisin de gauche
      */
-    public final int[] getVoisinGaucheJetonsDefaite(){ return gJetonsDefaite; }
+    public final int getVoisinGaucheJetonsDefaite(){ return gJetonsDefaite; }
     /**
      * @return la merveille du voisin de gauche
      */
@@ -136,7 +136,7 @@ public class VisionJeu {
     /**
      * @return les jetons de défaite du voisin de droite
      */
-    public final int[] getVoisinDroiteJetonsDefaite(){ return dJetonsDefaite; }
+    public final int getVoisinDroiteJetonsDefaite(){ return dJetonsDefaite; }
     /**
      * @return la merveille du voisin de droite
      */

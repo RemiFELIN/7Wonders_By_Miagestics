@@ -236,11 +236,11 @@ public class Jeu {
         if(r1 != r2){
             if(r1 > r2){
                 j1.ajouterJetonVictoire(age);
-                j2.ajouterJetonDefaite(age);
+                j2.ajouterJetonDefaite();
             //r1 <= r2
             } else {
                 j2.ajouterJetonVictoire(age);
-                j1.ajouterJetonDefaite(age);
+                j1.ajouterJetonDefaite();
             }
         }
     }
