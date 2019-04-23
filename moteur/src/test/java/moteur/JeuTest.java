@@ -133,7 +133,7 @@ public class JeuTest {
         assertArrayEquals(new int[]{1, 1, 1, 1, 1, 1, 1}, getScoreJoueurs());
 
         ArrayList<Carte> cs = new ArrayList<Carte>(1);
-        cs.add(new Carte("CarteTestMilitaire", BLANC, 1, 0, 0, 1, 0));
+        cs.add(new Carte("CarteTestMilitaire", BLANC, 1, 0, 0, 1));
 
         testDuJeu.getJoueurs().get(1).setDeckMain(cs);
         testDuJeu.getJoueurs().get(1).poserCarte(0);
@@ -146,7 +146,7 @@ public class JeuTest {
         assertArrayEquals(new int[]{0, 3, 0, 1, 1, 1, 1}, getScoreJoueurs());
 
         cs = new ArrayList<Carte>(1);
-        cs.add(new Carte("CarteTestMilitaire", BLANC, 1, 0, 0, 2, 0));
+        cs.add(new Carte("CarteTestMilitaire", BLANC, 1, 0, 0, 2));
 
         testDuJeu.getJoueurs().get(2).setDeckMain(cs);
         testDuJeu.getJoueurs().get(2).poserCarte(0);

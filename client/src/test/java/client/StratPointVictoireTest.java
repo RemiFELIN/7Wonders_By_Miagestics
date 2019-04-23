@@ -31,13 +31,13 @@ public class StratPointVictoireTest {
         Carte c = new Carte("CarteTestRessource", BLANC, 0);
         deckMain.add(c);
 
-        c = new Carte("CarteTestPointVictoire", BLEU, 0, 0, 2, 0, 0);
+        c = new Carte("CarteTestPointVictoire", BLEU, 0, 0, 2, 0);
         c.ajouterRessource(MINERAI);
         c.ajouterRessource(MINERAI);
         c.ajouterRessource(BOIS);
         deckMain.add(c);
 
-        c = new Carte("CarteTestPointVictoire", BLEU, 0, 0, 3, 0, 0);
+        c = new Carte("CarteTestPointVictoire", BLEU, 0, 0, 3, 0);
         c.ajouterRessource(MINERAI);
         c.ajouterRessource(BOIS);
         deckMain.add(c);

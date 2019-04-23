@@ -29,7 +29,7 @@ public enum Ressource {
      */
     public static Ressource fromString(String nom){
         for(Ressource type : Ressource.values())
-            if(type.toString().equals(nom))
+            if(type.toString().equalsIgnoreCase(nom))
                 return type;
 
         return null;

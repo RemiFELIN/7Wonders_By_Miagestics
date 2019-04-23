@@ -6,14 +6,14 @@ package commun;
 public enum EffetGuilde {
     TRAVAILLEURS ("Travailleurs"),
     ARTISANS ("Artisans"),
-    COMMERCANTS ("Commerçants"),
+    COMMERCANTS ("Commercants"),
     PHILOSOPHES ("Philosophes"),
     ESPIONS ("Espions"),
-    STRATEGES ("Stratèges"),
+    STRATEGES ("Strateges"),
     ARMATEURS ("Armateurs"),
     SCIENTIFIQUES ("Scientifiques"),
     MAGISTRATS ("Magistrats"),
-    BATISSEURS ("Bâtisseurs");
+    BATISSEURS ("Batisseurs");
 
     private String nom = "";
 
@@ -32,7 +32,7 @@ public enum EffetGuilde {
      */
     public static EffetGuilde fromString(String nom){
         for(EffetGuilde type : EffetGuilde.values())
-            if(type.toString().equals(nom))
+            if(type.toString().equalsIgnoreCase(nom))
                 return type;
 
         return null;

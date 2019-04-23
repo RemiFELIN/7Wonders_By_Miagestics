@@ -43,7 +43,7 @@ public enum SymboleScientifique {
      */
     public static SymboleScientifique fromString(String nom){
         for(SymboleScientifique type : SymboleScientifique.values())
-            if(type.toString().equals(nom))
+            if(type.toString().equalsIgnoreCase(nom))
                 return type;
 
         return null;

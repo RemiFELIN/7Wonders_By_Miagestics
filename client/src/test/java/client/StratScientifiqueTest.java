@@ -36,16 +36,16 @@ public class StratScientifiqueTest {
 
         deckMain = new ArrayList<Carte>();
 
-        Carte c = new Carte("CarteTestRessource", BLANC, 0,0,0,0,0);
+        Carte c = new Carte("CarteTestRessource", BLANC, 0, 0, 0, 0);
         deckMain.add(c);
 
-        c = new Carte("CarteTestScientifique", VERT, 0, COMPAS,"test");
+        c = new Carte("CarteTestScientifique", VERT, 0, COMPAS);
         c.ajouterRessource(MINERAI);
         c.ajouterRessource(MINERAI);
         c.ajouterRessource(BOIS);
         deckMain.add(c);
 
-        c = new Carte("CarteTestScientifique", VERT, 0, COMPAS,"test");
+        c = new Carte("CarteTestScientifique", VERT, 0, COMPAS);
         c.ajouterRessource(MINERAI);
         c.ajouterRessource(BOIS);
         deckMain.add(c);

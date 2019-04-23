@@ -6,6 +6,7 @@ import commun.Etape;
 import commun.Couleur;
 import commun.SymboleScientifique;
 import commun.Ressource;
+import commun.EffetGuilde;
 
 import org.json.JSONObject;
 import org.json.JSONArray;
@@ -77,15 +78,34 @@ public class JSONParser {
         ArrayList<Carte> deck = new ArrayList<Carte>();
         for(int i = 0; i < ja.length(); i++){
             JSONObject obj = ja.getJSONObject(i);
-            Carte c = new Carte(
-                obj.getString("nom"),
-                Couleur.fromString(obj.getString("couleur")),
-                obj.getInt("age"),
-                obj.getInt("coutPiece"),
-                obj.getInt("pointVictoire"),
-                obj.getInt("puissanceMilitaire"),
-                obj.getInt("piece")
-            );
+            Carte c;
+            if(obj.has("effetGuilde")){
+                //Si carte guilde
+                c = new Carte(EffetGuilde.fromString(obj.getString("effetGuilde")));
+            } else {
+                if(obj.has("symboleScientifique")){
+                    //si carte scientifique
+                    c = new Carte(
+                        obj.getString("nom"),
+                        Couleur.fromString(obj.getString("couleur")),
+                        obj.getInt("age"),
+                        SymboleScientifique.fromString(obj.getString("symboleScientifique")),
+                        obj.getString("batimentSuivant")
+                    );
+                } else {
+                    //Toutes les autres cartes
+                    c = new Carte(
+                        obj.getString("nom"),
+                        Couleur.fromString(obj.getString("couleur")),
+                        obj.getInt("age"),
+                        obj.getInt("coutPiece"),
+                        obj.getInt("pointVictoire"),
+                        obj.getInt("puissanceMilitaire"),
+                        obj.getString("batimentSuivant")
+                    );
+                }
+            }
+                
             Ressource[] cr = parseJSONArrayRessource(obj.getJSONArray("coutRessources"));
             for(int j=0; j<cr.length; j++)
                 c.ajouterCoutRessource(cr[j]);

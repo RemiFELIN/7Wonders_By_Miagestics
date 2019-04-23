@@ -31,7 +31,6 @@ public class JoueurTest {
     @Test
     public final void testGetterInitial(){
         assertEquals("joueur id inital :", 1, joueur.getId());
-        assertEquals("joueur nombre de piece inital :", 5, joueur.getPiece());
         assertEquals("joueur score inital :", 1, joueur.getScore());
         assertEquals("joueur taille deck main inital :", 0, joueur.getDeckMain().size());
         assertEquals("joueur taille deck plateau inital :", 0, joueur.getDeckPlateau().size());
@@ -47,7 +46,7 @@ public class JoueurTest {
 
         final int nbCarte = 5;
         for(byte i = 0; i<nbCarte; i++)
-            deck.add(new Carte("CarteTest", BLANC, 1, 0, 2, 0, 0));
+            deck.add(new Carte("CarteTest", BLANC, 1, 0, 2, 0));
      
         joueur.setDeckMain(deck);
         for(byte i = 0; i<nbCarte; i++)
@@ -103,15 +102,15 @@ public class JoueurTest {
     public final void testGetForceMilitaire(){
         ArrayList<Carte> deck = new ArrayList<Carte>();
 
-        deck.add(new Carte("CarteMilitaireTest", ROUGE, 1, 0, 0, 1, 0));
+        deck.add(new Carte("CarteMilitaireTest", ROUGE, 1, 0, 0, 1));
         joueur.setDeckMain(deck);
         joueur.poserCarte(0);
         deck.clear();
 
         assertEquals("force militaire avec 1 carte :", 1, joueur.getForceMilitaire());
 
-        deck.add(new Carte("CarteMilitaireTest", ROUGE, 1, 0, 0, 5, 0));
-        deck.add(new Carte("CarteMilitaireTest", ROUGE, 1, 0, 0, 4, 0));
+        deck.add(new Carte("CarteMilitaireTest", ROUGE, 1, 0, 0, 5));
+        deck.add(new Carte("CarteMilitaireTest", ROUGE, 1, 0, 0, 4));
         joueur.setDeckMain(deck);
         joueur.poserCarte(0);
         joueur.poserCarte(0);
@@ -180,11 +179,10 @@ public class JoueurTest {
         assertEquals("carte equal cout piece :", c.getCoutPiece(), d.getCoutPiece());
         assertEquals("carte equal pointVictoire :", c.getPointVictoire(), d.getPointVictoire());
         assertEquals("carte equal puissance militaire :", c.getPuissanceMilitaire(), d.getPuissanceMilitaire());
-        assertEquals("carte equal piece :", c.getPiece(), d.getPiece());
         assertEquals("carte equal symbole scientifique :", c.getSymboleScientifique(), d.getSymboleScientifique());
         assertEquals("carte equal cout ressources :", c.getCoutRessources(), d.getCoutRessources());
         assertEquals("carte equal ressources :", c.getRessources(), d.getRessources());
-        assertEquals("carte equal ressources reçues :", c.getRessourcesRecues(), d.getRessourcesRecues());
-        assertEquals("carte equal batiment suivant :", c.getBatimentSuivant(),d.getBatimentSuivant());
+        assertEquals("carte equal batiment suivant :", c.getBatimentSuivant(), d.getBatimentSuivant());
+        assertEquals("carte equal effet guilde :", c.getEffetGuilde(), d.getEffetGuilde());
     }
 }
