@@ -22,11 +22,10 @@ import static org.junit.Assert.*;
 public class JeuTest {
 
     private Jeu testDuJeu;
-    private final int NOMBRE_JOUEURS = 3;
 
     @Before
     public void setUp() {
-        testDuJeu = new Jeu(NOMBRE_JOUEURS);
+        testDuJeu = new Jeu(7);
     }
 
     @Test
@@ -131,7 +130,7 @@ public class JeuTest {
    
    @Test
    public void testCompareConfiltsJoueur(){
-        assertArrayEquals(new int[]{2, 2, 2}, getScoreJoueurs());
+        assertArrayEquals(new int[]{1, 1, 1, 1, 1, 1, 1}, getScoreJoueurs());
 
         ArrayList<Carte> cs = new ArrayList<Carte>(1);
         cs.add(new Carte("CarteTestMilitaire", BLANC, 1, 0, 0, 1, 0));
@@ -144,7 +143,7 @@ public class JeuTest {
         //J1 perd et égalité => - 1
         //J2 gagne 2 fois => + 2
         //J3 perd et égalité => - 1
-        assertArrayEquals(new int[]{1, 4, 1}, getScoreJoueurs());
+        assertArrayEquals(new int[]{0, 3, 0, 1, 1, 1, 1}, getScoreJoueurs());
 
         cs = new ArrayList<Carte>(1);
         cs.add(new Carte("CarteTestMilitaire", BLANC, 1, 0, 0, 2, 0));
@@ -157,7 +156,8 @@ public class JeuTest {
         //J1 perd 2 fois => - 2
         //J2 gagne et perd => + 3 - 1
         //J3 gagne 2 fois => + 6
-        assertArrayEquals(new int[]{0, 6, 7}, getScoreJoueurs());
+        //J4 perd => -1
+        assertArrayEquals(new int[]{0, 5, 6, 0, 1, 1, 1}, getScoreJoueurs());
    }
 
    private int[] getScoreJoueurs(){
@@ -171,9 +171,10 @@ public class JeuTest {
 
    @Test
    public void getVisionJeuTest(){
-       ArrayList<VisionJeu> vj = new ArrayList<VisionJeu>(NOMBRE_JOUEURS);
        ArrayList<Joueur> joueurs = testDuJeu.getJoueurs();
-       for(int i=0; i<NOMBRE_JOUEURS; i++){
+       int nbJoueurs = joueurs.size();
+       ArrayList<VisionJeu> vj = new ArrayList<VisionJeu>(nbJoueurs);
+       for(int i=0; i<nbJoueurs; i++){
            Joueur j = joueurs.get(i);
            vj.add(new VisionJeu(j));
        }
@@ -183,19 +184,19 @@ public class JeuTest {
        VisionJeu j = vj.get(0);
        VisionJeu c = vc.get(0);
        assertEqualsVisionJeu(j, c);
-       assertEqualsVisionJeuVoisin(c, vj.get(NOMBRE_JOUEURS-1), vc.get(1));
+       assertEqualsVisionJeuVoisin(c, vj.get(nbJoueurs-1), vc.get(1));
 
-       for(int i=1; i<NOMBRE_JOUEURS-1; i++){
+       for(int i=1; i<nbJoueurs-1; i++){
            j = vj.get(i);
            c = vc.get(i);
            assertEqualsVisionJeu(j, c);
            assertEqualsVisionJeuVoisin(c, vj.get(i-1), vc.get(i+1));
        }
 
-       j = vj.get(NOMBRE_JOUEURS-1);
-       c = vc.get(NOMBRE_JOUEURS-1);
+       j = vj.get(nbJoueurs-1);
+       c = vc.get(nbJoueurs-1);
        assertEqualsVisionJeu(j, c);
-       assertEqualsVisionJeuVoisin(c, vj.get(NOMBRE_JOUEURS-2), vc.get(0));
+       assertEqualsVisionJeuVoisin(c, vj.get(nbJoueurs-2), vc.get(0));
    }
 
    private void assertEqualsVisionJeu(VisionJeu a, VisionJeu b){

@@ -148,7 +148,7 @@ public class Joueur {
 
         //2. Contenu du trésor
         //chaque lot de 3 piece => + 1 de score
-        score += piece % 3;
+        score += (piece - piece % 3)/3;
         
         //3. Merveilles
         for(Etape e : plateau.getEtapes())
