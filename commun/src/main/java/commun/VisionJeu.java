@@ -65,6 +65,18 @@ public class VisionJeu {
     }
 
     //Vision de soi-même
+    public final int getNbEtapes(){
+        int i=0;
+        for(Etape e : plateau.getEtapes())
+            if(e.getEtat()){
+                i++;
+            }
+        return i;
+    }
+    /**
+     * @return le nom de la merveille
+     */
+    public final String getNomMerveille(){ return dPlateau.getNom(); }
     /**
      * @return notre id
      */

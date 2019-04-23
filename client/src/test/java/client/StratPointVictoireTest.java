@@ -60,7 +60,7 @@ public class StratPointVictoireTest {
 
     @Test
     public void testStratPointVictoire() throws Exception {
-        stratClient = new StratPointVictoire();
+        stratClient = new StratPointVictoire(false);
 
         Action pc = stratClient.getAction(vj);
         assertEquals(2, pc.getNumeroCarte());

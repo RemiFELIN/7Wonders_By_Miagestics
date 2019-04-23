@@ -7,6 +7,9 @@ import commun.Action;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+
+import static commun.ConsoleLogger.*;
 
 /**
  * Permet au Client de faire l'action la plus adéquate à sa situation
@@ -15,6 +18,11 @@ import java.util.HashMap;
 public abstract class Strategie {
     
     private HashMap<Ressource, Integer> resSeul;
+    private boolean log;
+
+    public Strategie(boolean log){
+        this.log = log;
+    }
 
     /**
      * Récupère l'action à effectuer selon la classe héritée
@@ -24,6 +32,22 @@ public abstract class Strategie {
      */
 	public final Action getAction(VisionJeu j){
         boolean[] posSeul = getPossibilitesSeul(j);
+        if(log){
+            int jetonVic[] = j.getJetonsVictoire();
+            StringBuilder textClas = new StringBuilder();
+            textClas.append(PURPLE_BOLD_BRIGHT + "Joueur " + j.getId() + " : \n");
+            textClas.append("Pieces : " + j.getPiece() + "\n" );
+            textClas.append("Nom étape : " + j.getNomMerveille() + "\n");
+            textClas.append("Nombre d'étapes construite : " + j.getNbEtapes() + "\n");
+            textClas.append("Jetons victoire  : Age 1 : " + jetonVic[0] + " | Age 2 : " + jetonVic[1] + " | Age 3 : " + jetonVic[2] + "\n");
+            textClas.append("Jetons défaite : " + j.getJetonsDefaite() + "\n" );
+            textClas.append("Ressources  : \n");
+            for(Map.Entry resentry : resSeul.entrySet())
+                textClas.append(resentry.getKey() + " : " + resentry.getValue()+ " | " );
+                textClas.append("\n------------------------------------------------------------------------------------------\n");
+            log(textClas.toString());
+        }
+
         boolean[] posGauche = getPossibilitesGauche(j, posSeul, resSeul);
         boolean[] posDroite = getPossibilitesDroite(j, posSeul, resSeul);
         return getAction(j, posSeul, posGauche, posDroite);
@@ -150,7 +174,7 @@ public abstract class Strategie {
     }
     /**
      * Décrit la stratégie actuelle
-     * @see Strategie toutes les classe héritées de Strategie
+     * @see Strategie toutes les classes héritées de Strategie
      * @return description
      */
 	@Override

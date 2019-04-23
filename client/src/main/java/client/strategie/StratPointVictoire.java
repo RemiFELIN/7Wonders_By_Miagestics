@@ -14,6 +14,9 @@ import java.util.Random;
  */
 public class StratPointVictoire extends Strategie {
 
+    public StratPointVictoire(boolean log){
+        super(log);
+    }
     /**
      * Récupère l'action la plus adéquate à effectuer
      * @param j vision de jeu actuelle

@@ -44,7 +44,7 @@ public class StratRessourcesTest {
 
     @Test
     public void testStratRessources() throws Exception {
-        stratClient = new StratRessources();
+        stratClient = new StratRessources(false);
 
         Action pc = stratClient.getAction(vj);
         assertEquals(1, pc.getNumeroCarte());

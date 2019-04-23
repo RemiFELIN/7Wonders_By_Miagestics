@@ -39,7 +39,7 @@ public class Client {
         this.id = id;
         String urlAdresse = "http://" + adresse + ":" + port;
 
-        Strategie[] mesStrat = new Strategie[]{new StratPointVictoire(), new StratRandom(), new StratRessources(), new StratMilitaire(), new StratScientifique()};
+        Strategie[] mesStrat = new Strategie[]{new StratPointVictoire(true), new StratRandom(true), new StratRessources(true), new StratMilitaire(true), new StratScientifique(true)};
         stratClient = mesStrat[new Random().nextInt(mesStrat.length)];
 
         try {
@@ -74,7 +74,7 @@ public class Client {
                         parseJSONArrayCarte(jo.getJSONArray("deckMain")),
                         parseJSONArrayCarte(jo.getJSONArray("deckPlateau"))
                     );
-                    log(PURPLE_BOLD_BRIGHT + "Le client " + id + " possède " + j.getPiece() +" pieces ");
+                    
 
                     VisionJeu g = new VisionJeu(
                         jo.getInt("voisinGaucheId"),

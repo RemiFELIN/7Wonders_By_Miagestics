@@ -50,7 +50,7 @@ public class StratRandomTest {
 
     @Test
     public void testStratRandom() throws Exception {
-        stratClient = new StratRandom();
+        stratClient = new StratRandom(false);
 
         StratRandom stratRandomMock = mock(StratRandom.class);
         when(stratRandomMock.getAction(vj)).thenReturn(new Action(PoserCarte,0, 2));

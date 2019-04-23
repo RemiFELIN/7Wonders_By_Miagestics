@@ -68,7 +68,7 @@ public class StratScientifiqueTest {
 
     @Test
     public void testStratScientifique() throws Exception {
-        stratClient = new StratScientifique();
+        stratClient = new StratScientifique(false);
 
         Action pc = stratClient.getAction(j);
         assertEquals(2, pc.getNumeroCarte());

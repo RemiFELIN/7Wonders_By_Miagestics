@@ -15,6 +15,9 @@ import java.util.Random;
 
 public class StratRessources extends Strategie {
 
+    public StratRessources(boolean log){
+        super(log);
+	}
     /**
      * Récupère l'action la plus adéquate à effectuer
      * @param j vision de jeu actuelle

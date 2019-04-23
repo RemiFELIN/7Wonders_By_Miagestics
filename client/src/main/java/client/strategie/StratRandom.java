@@ -12,6 +12,10 @@ import java.util.Random;
  */
 public class StratRandom extends Strategie {
 
+    public StratRandom(boolean log){
+        super(log);
+	}
+	
 	/**
 	 * Récupère une Action de manière aléatoire
 	 * @param j vision de jeu actuelle

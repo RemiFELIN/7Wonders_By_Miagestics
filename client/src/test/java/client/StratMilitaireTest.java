@@ -47,7 +47,7 @@ public class StratMilitaireTest {
 
     @Test
     public void testStratMilitaire() throws Exception {
-        stratClient = new StratMilitaire();
+        stratClient = new StratMilitaire(false);
 
         Action pc = stratClient.getAction(vj);
         assertEquals(2, pc.getNumeroCarte());

@@ -14,6 +14,9 @@ import java.util.ArrayList;
 
 public class StratMilitaire extends Strategie {
 
+    public StratMilitaire(boolean log){
+        super(log);
+    }
     /**
      * Récupère l'action la plus adéquate à effectuer
      * @param j vision de jeu actuelle
