@@ -153,6 +153,7 @@ public class Jeu {
         Carte c;
         Joueur j = mesJoueurs.get(ja.getIdJoueur());
         String desc = "";
+        boolean carteGratuite = false;
         switch(ja.getType()){
 
             case DefausserCarte:
@@ -162,35 +163,46 @@ public class Jeu {
             break;
 
             case AcheterRessource:
-                int idJoueurAPayer=ja.getIdJoueur()+ja.getNumVoisin();
+            
 
-                if(idJoueurAPayer<0)
-                {
-                    idJoueurAPayer=mesJoueurs.size()-1;
-                }
-                else if(idJoueurAPayer>mesJoueurs.size()-1)
-                {
-                    idJoueurAPayer=0;
-                }
+                    int idJoueurAPayer=ja.getIdJoueur()+ja.getNumVoisin();
 
-                mesJoueurs.get(idJoueurAPayer).recevoirPaiement(j.payer(2));
-                desc = "Le joueur "+ja.getIdJoueur()+" a acheté des ressources au joueur "+ idJoueurAPayer + "\n";
+                    if(idJoueurAPayer<0)
+                    {
+                        idJoueurAPayer=mesJoueurs.size()-1;
+                    }
+                    else if(idJoueurAPayer>mesJoueurs.size()-1)
+                    {
+                        idJoueurAPayer=0;
+                    }
 
+                    mesJoueurs.get(idJoueurAPayer).recevoirPaiement(j.payer(2));
+                    desc = "Le joueur "+ja.getIdJoueur()+" a acheté des ressources au joueur "+ idJoueurAPayer + "\n";
+                
             case PoserCarte:
                 c = j.poserCarte(ja.getNumeroCarte());
                 desc += "Le joueur "+ja.getIdJoueur()+" a posé la carte "+Couleur.consoleColor(c.getCouleur())+c.getNom();
-                ArrayList<Ressource> cr = c.getCoutRessources();
-                if(cr.size() > 0){
-                    desc += WHITE + " qui coûte ";
-                    HashMap<Ressource, Integer> hr = new HashMap<Ressource, Integer>();
+                for (int k = 0; k < j.getDeckPlateau().size(); k++){
+                    if(j.getDeckPlateau().get(k).getBatimentSuivant() == c.getNom()){
+                        desc += WHITE + " gratuitement grâce à la carte ";
+                        desc += Couleur.consoleColor(j.getDeckPlateau().get(k).getCouleur()) + j.getDeckPlateau().get(k).getNom();
+                        carteGratuite = true;
+                    }
+                }
+                if (carteGratuite == false){
+                    ArrayList<Ressource> cr = c.getCoutRessources();
+                    if(cr.size() > 0){
+                        desc += WHITE + " qui coûte ";
+                        HashMap<Ressource, Integer> hr = new HashMap<Ressource, Integer>();
 
-                    for(Ressource r : cr)
-                        hr.put(r, hr.get(r) == null ? 1 : hr.get(r)+1);
+                        for(Ressource r : cr)
+                            hr.put(r, hr.get(r) == null ? 1 : hr.get(r)+1);
 
-                    for(Ressource r : hr.keySet())
-                            desc += hr.get(r) + " de "+r.toString()+", ";
-                    
-                    desc = desc.substring(0, desc.length()-2);
+                        for(Ressource r : hr.keySet())
+                                desc += hr.get(r) + " de "+r.toString()+", ";
+                        
+                        desc = desc.substring(0, desc.length()-2);
+                    }
                 }
             break;
 

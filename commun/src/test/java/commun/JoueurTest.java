@@ -64,7 +64,7 @@ public class JoueurTest {
         final int nbCarte = 5;
         
         for(byte i = 0; i<nbCarte; i++)
-            deck.add(new Carte("CarteTest", VERT, 0, COMPAS));
+            deck.add(new Carte("CarteTest", VERT, 0, COMPAS,"test"));
         
         joueur.setDeckMain(deck);
         assertEquals("joueur taille deck aprés ajout cartes :", nbCarte, joueur.getDeckMain().size());
@@ -83,9 +83,9 @@ public class JoueurTest {
         final int nbCarte = 3;
         ArrayList<Carte> deck = new ArrayList<Carte>(nbCarte);
 
-        deck.add(new Carte("CarteTest", VERT, 0, COMPAS));
-        deck.add(new Carte("CarteTest", VERT, 0, TABLETTE));
-        deck.add(new Carte("CarteTest", VERT, 0, ROUAGE));
+        deck.add(new Carte("CarteTest", VERT, 0, COMPAS,"test"));
+        deck.add(new Carte("CarteTest", VERT, 0, TABLETTE,"test"));
+        deck.add(new Carte("CarteTest", VERT, 0, ROUAGE,"test"));
 
         joueur.setDeckMain(deck);
         assertEquals("joueur taille deck aprés ajout cartes :", nbCarte, joueur.getDeckMain().size());
@@ -185,5 +185,6 @@ public class JoueurTest {
         assertEquals("carte equal cout ressources :", c.getCoutRessources(), d.getCoutRessources());
         assertEquals("carte equal ressources :", c.getRessources(), d.getRessources());
         assertEquals("carte equal ressources reçues :", c.getRessourcesRecues(), d.getRessourcesRecues());
+        assertEquals("carte equal batiment suivant :", c.getBatimentSuivant(),d.getBatimentSuivant());
     }
 }

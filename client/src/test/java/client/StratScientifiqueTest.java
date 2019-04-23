@@ -39,13 +39,13 @@ public class StratScientifiqueTest {
         Carte c = new Carte("CarteTestRessource", BLANC, 0,0,0,0,0);
         deckMain.add(c);
 
-        c = new Carte("CarteTestScientifique", VERT, 0, COMPAS);
+        c = new Carte("CarteTestScientifique", VERT, 0, COMPAS,"test");
         c.ajouterRessource(MINERAI);
         c.ajouterRessource(MINERAI);
         c.ajouterRessource(BOIS);
         deckMain.add(c);
 
-        c = new Carte("CarteTestScientifique", VERT, 0, COMPAS);
+        c = new Carte("CarteTestScientifique", VERT, 0, COMPAS,"test");
         c.ajouterRessource(MINERAI);
         c.ajouterRessource(BOIS);
         deckMain.add(c);
