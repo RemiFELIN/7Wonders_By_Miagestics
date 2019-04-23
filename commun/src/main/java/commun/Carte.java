@@ -20,6 +20,7 @@ public class Carte {
     private ArrayList<Ressource> coutRessources = new ArrayList<Ressource>();
     private ArrayList<Ressource> ressources = new ArrayList<Ressource>();
     private ArrayList<Ressource> ressourcesRecues = new ArrayList<Ressource>();
+    private String batSuiv = "";
 
     //TODO Dans une future itération
     /*
@@ -61,12 +62,32 @@ public class Carte {
      * @param couleur couleur
      * @param age âge
      * @param symboleScientifique symbole scientifique bonus si posé
+     * @param batSuiv batiment suivant gratuit
      */
-    public Carte(String nom, Couleur couleur, int age, SymboleScientifique symboleScientifique){
+    public Carte(String nom, Couleur couleur, int age, SymboleScientifique symboleScientifique,String batSuiv){
         this(nom, couleur, age);
         this.symboleScientifique = symboleScientifique;
+        this.batSuiv = batSuiv;
     }
-
+    /**
+     * Constructeur carte complete
+     * @param nom nom
+     * @param couleur couleur
+     * @param age âge
+     * @param coutPiece coût pièce pour pouvoir poser
+     * @param laurier nombre de laurier bonus si posé
+     * @param puissanceMilitaire puissance militaire si posé
+     * @param piece nombre de piece bonus si posé
+     * @param batsuiv batiment suivant gratuit
+     */
+    public Carte(String nom, Couleur couleur, int age, int coutPiece, int laurier, int puissanceMilitaire, int piece,String batSuiv){
+        this(nom, couleur, age);
+        this.coutPiece = coutPiece;
+        this.pointVictoire = laurier;
+        this.puissanceMilitaire = puissanceMilitaire;
+        this.piece = piece;
+        this.batSuiv = batSuiv;
+    }
     /**
      * @return la couleur
      */
@@ -111,6 +132,10 @@ public class Carte {
      * @return les ressources bonus de guilde
      */
     public final ArrayList<Ressource> getRessourcesRecues(){ return ressourcesRecues; }
+    /**
+     * @return le batiment suivant gratuit
+     */
+    public final String getBatimentSuivant(){ return batSuiv; }
     
     //TODO Dans une future itération
     /*
@@ -166,14 +191,14 @@ public class Carte {
      */
     public final static ArrayList<Carte> getDeckGuildes(int nombreDeJoueur){
         ArrayList<Carte> deckDeGuilde = genererCarteGuildes();
-        ArrayList<Carte> deckUtilisé = new ArrayList<Carte>();
+        ArrayList<Carte> deckUtilise = new ArrayList<Carte>();
         //on melange
         Collections.shuffle(deckDeGuilde);
         //on constitue ...
         for(int i=0; i<nombreDeJoueur+2; i++)
-            deckUtilisé.add(deckDeGuilde.get(i));
+            deckUtilise.add(deckDeGuilde.get(i));
         //on retourne
-        return deckUtilisé;
+        return deckUtilise;
     }
     /**
      * Parseur de carte guildes
@@ -305,29 +330,29 @@ public class Carte {
         switch(age) {
             // Cartes scientifiques age 1
             case 1:
-                Carte c = new Carte("Apothicaire",VERT,1,COMPAS);
+                Carte c = new Carte("Officine",VERT,1,COMPAS,"Dispensaire");
                 c.ajouterRessource(TEXTILE);
                 deck.add(c);
 
-                c = new Carte("Scriptorium",VERT,1,TABLETTE);
+                c = new Carte("Scriptorium",VERT,1,TABLETTE,"Bibliotheque");
                 c.ajouterCoutRessource(PAPYRUS);
                 deck.add(c);
 
-                c = new Carte("Atelier",VERT,1,ROUAGE);
+                c = new Carte("Atelier",VERT,1,ROUAGE,"Laboratoire");
                 c.ajouterCoutRessource(VERRE);
                 deck.add(c);
                 if(nbJoueurs >= 4){
-                    c = new Carte("Scriptorium",VERT,1,TABLETTE);
+                    c = new Carte("Scriptorium",VERT,1,TABLETTE,"Bibliotheque");
                     c.ajouterCoutRessource(PAPYRUS);
                     deck.add(c);
                 }
                 if(nbJoueurs >= 5){
-                    c = new Carte("Apothicaire",VERT,1,COMPAS);
+                    c = new Carte("Officine",VERT,1,COMPAS,"Dispensaire");
                     c.ajouterRessource(TEXTILE);
                     deck.add(c);
                 }
                 if(nbJoueurs >= 7){
-                    c = new Carte("Atelier",VERT,1,ROUAGE);
+                    c = new Carte("Atelier",VERT,1,ROUAGE,"Laboratoire");
                     c.ajouterCoutRessource(VERRE);
                     deck.add(c);
                 }
@@ -335,51 +360,51 @@ public class Carte {
 
             // Cartes scientifiques age 2      
             case 2:
-                c = new Carte("Laboratoire",VERT,2,ROUAGE);
+                c = new Carte("Laboratoire",VERT,2,ROUAGE,"Observatoire");
                 c.ajouterCoutRessource(ARGILE);
                 c.ajouterCoutRessource(ARGILE);
                 c.ajouterCoutRessource(PAPYRUS);
                 deck.add(c);
 
                 if(nbJoueurs >= 5){
-                    c = new Carte("Laboratoire",VERT,2,ROUAGE);
+                    c = new Carte("Laboratoire",VERT,2,ROUAGE,"Observatoire");
                     c.ajouterCoutRessource(ARGILE);
                     c.ajouterCoutRessource(ARGILE);
                     c.ajouterCoutRessource(PAPYRUS);
                     deck.add(c);
                 }
 
-                c = new Carte("Ecole",VERT,2,TABLETTE);
+                c = new Carte("Ecole",VERT,2,TABLETTE,"Etude");
                 c.ajouterCoutRessource(BOIS);
                 c.ajouterCoutRessource(PAPYRUS);
                 deck.add(c);
 
                 if(nbJoueurs >= 7){
-                    c = new Carte("Ecole",VERT,2,TABLETTE);
+                    c = new Carte("Ecole",VERT,2,TABLETTE,"Etude");
                     c.ajouterCoutRessource(BOIS);
                     c.ajouterCoutRessource(PAPYRUS);
                     deck.add(c);
                 }
-                c = new Carte("Dispensaire",VERT,2,COMPAS);
+                c = new Carte("Dispensaire",VERT,2,COMPAS,"Loge");
                 c.ajouterCoutRessource(MINERAI);
                 c.ajouterCoutRessource(MINERAI);
                 c.ajouterCoutRessource(VERRE);
                 deck.add(c);
 
                 if(nbJoueurs >= 4){
-                    c = new Carte("Dispensaire",VERT,2,COMPAS);
+                    c = new Carte("Dispensaire",VERT,2,COMPAS,"Loge");
                     c.ajouterCoutRessource(MINERAI);
                     c.ajouterCoutRessource(MINERAI);
                     c.ajouterCoutRessource(VERRE);
                     deck.add(c);
                 }
-                c = new Carte("Librairie",VERT,2,TABLETTE);
+                c = new Carte("Bibliotheque",VERT,2,TABLETTE,"Universite");
                 c.ajouterCoutRessource(PIERRE);
                 c.ajouterCoutRessource(PIERRE);
                 c.ajouterCoutRessource(TEXTILE);
                 deck.add(c);
                 if(nbJoueurs >= 6){
-                    c = new Carte("Librairie",VERT,2,TABLETTE);
+                    c = new Carte("Bibliotheque",VERT,2,TABLETTE,"Universite");
                     c.ajouterCoutRessource(PIERRE);
                     c.ajouterCoutRessource(PIERRE);
                     c.ajouterCoutRessource(TEXTILE);
@@ -389,61 +414,61 @@ public class Carte {
 
             // Cartes scientifiques age 3
             case 3:
-                c = new Carte("Academie",VERT,3,COMPAS);
+                c = new Carte("Academie",VERT,3,COMPAS,"");
                 c.ajouterCoutRessource(PIERRE);
                 c.ajouterCoutRessource(PIERRE);
                 c.ajouterCoutRessource(PIERRE);
                 c.ajouterCoutRessource(VERRE);
                 deck.add(c);
 
-                c = new Carte("Universite",VERT,3,TABLETTE);
+                c = new Carte("Universite",VERT,3,TABLETTE,"");
                 c.ajouterCoutRessource(BOIS);
                 c.ajouterCoutRessource(BOIS);
                 c.ajouterCoutRessource(PAPYRUS);
                 c.ajouterCoutRessource(VERRE);
                 deck.add(c);
                 if(nbJoueurs >= 4){
-                    c = new Carte("Universite",VERT,3,TABLETTE);
+                    c = new Carte("Universite",VERT,3,TABLETTE,"");
                     c.ajouterCoutRessource(BOIS);
                     c.ajouterCoutRessource(BOIS);
                     c.ajouterCoutRessource(PAPYRUS);
                     c.ajouterCoutRessource(VERRE);
                     deck.add(c);
                 }
-                c = new Carte("Loge",VERT,3,COMPAS);
+                c = new Carte("Loge",VERT,3,COMPAS,"");
                 c.ajouterCoutRessource(ARGILE);
                 c.ajouterCoutRessource(ARGILE);
                 c.ajouterCoutRessource(PAPYRUS);
                 c.ajouterCoutRessource(TEXTILE);
                 deck.add(c);
                 if(nbJoueurs >= 6){
-                    c = new Carte("Loge",VERT,3,COMPAS);
+                    c = new Carte("Loge",VERT,3,COMPAS,"");
                     c.ajouterCoutRessource(ARGILE);
                     c.ajouterCoutRessource(ARGILE);
                     c.ajouterCoutRessource(PAPYRUS);
                     c.ajouterCoutRessource(TEXTILE);
                     deck.add(c);
                 }
-                c = new Carte("Salle d'etude",VERT,3,ROUAGE);
+                c = new Carte("Etude",VERT,3,ROUAGE,"");
                 c.ajouterCoutRessource(ARGILE);
                 c.ajouterCoutRessource(PAPYRUS);
                 c.ajouterCoutRessource(TEXTILE);
                 deck.add(c);
                 if(nbJoueurs >= 5){
-                    c = new Carte("Salle d'etude",VERT,3,ROUAGE);
+                    c = new Carte("Etude",VERT,3,ROUAGE,"");
                     c.ajouterCoutRessource(ARGILE);
                     c.ajouterCoutRessource(PAPYRUS);
                     c.ajouterCoutRessource(TEXTILE);
                     deck.add(c); 
                 }
-                c = new Carte("Observatoire",VERT,3,ROUAGE);
+                c = new Carte("Observatoire",VERT,3,ROUAGE,"");
                 c.ajouterCoutRessource(MINERAI);
                 c.ajouterCoutRessource(MINERAI);
                 c.ajouterCoutRessource(VERRE);
                 c.ajouterCoutRessource(TEXTILE);
                 deck.add(c);
                 if(nbJoueurs >= 7){
-                    c = new Carte("Observatoire",VERT,3,ROUAGE);
+                    c = new Carte("Observatoire",VERT,3,ROUAGE,"");
                     c.ajouterCoutRessource(MINERAI);
                     c.ajouterCoutRessource(MINERAI);
                     c.ajouterCoutRessource(VERRE);
@@ -649,31 +674,31 @@ public class Carte {
             //cartes victoire de l'âge 1
             case 1:
                 
-                deck.add(new Carte("Theatre", BLEU, 1, 0, 2, 0, 0));
+                deck.add(new Carte("Theatre", BLEU, 1, 0, 2, 0, 0,"Statue"));
 
                 if(nbJoueurs >= 4){
                     c =new Carte("Prêteur sur gage", BLEU, 1, 0, 2, 0, 0);
                     deck.add(c);
                 }
                 if(nbJoueurs >= 5){
-                    c = new Carte("Autel", BLEU, 1, 0, 2, 0, 0);
+                    c = new Carte("Autel", BLEU, 1, 0, 2, 0, 0,"Temple");
                     deck.add(c);
                 }
                 if(nbJoueurs >= 6){
-                    deck.add(new Carte("Theatre", BLEU, 1, 0, 2, 0, 0));
+                    deck.add(new Carte("Theatre", BLEU, 1, 0, 2, 0, 0,"Statue"));
                 }
                 if(nbJoueurs >= 7){
                     c =new Carte("Prêteur sur gage", BLEU, 1, 0, 2, 0, 0);
                     deck.add(c);
 
-                    c = new Carte("Bains", BLEU, 1, 0, 3, 0, 0);
+                    c = new Carte("Bains", BLEU, 1, 0, 3, 0, 0,"Aqueduc");
                     c.ajouterCoutRessource(PIERRE);
                     deck.add(c);
                 }
-                c = new Carte("Autel", BLEU, 1, 0, 2, 0, 0);
+                c = new Carte("Autel", BLEU, 1, 0, 2, 0, 0,"Temple");
                 deck.add(c);
 
-                c = new Carte("Bains", BLEU, 1, 0, 3, 0, 0);
+                c = new Carte("Bains", BLEU, 1, 0, 3, 0, 0,"Aqueduc");
                 c.ajouterCoutRessource(PIERRE);
                 deck.add(c);
                 break;
@@ -693,14 +718,14 @@ public class Carte {
                     deck.add(c);
                 }
                 if(nbJoueurs >=6){
-                    c = new Carte("Temple", BLEU, 2, 0, 3, 0, 0);
+                    c = new Carte("Temple", BLEU, 2, 0, 3, 0, 0,"Pantheon");
                     c.ajouterCoutRessource(BOIS);
                     c.ajouterCoutRessource(ARGILE);
                     c.ajouterCoutRessource(VERRE);
                     deck.add(c);
                 }
                 if(nbJoueurs >=7){
-                    c = new Carte("Statue", BLEU, 2, 0, 4, 0, 0);
+                    c = new Carte("Statue", BLEU, 2, 0, 4, 0, 0,"Jardins");
                     c.ajouterCoutRessource(MINERAI);
                     c.ajouterCoutRessource(MINERAI);
                     c.ajouterCoutRessource(BOIS);
@@ -712,13 +737,13 @@ public class Carte {
                     c.ajouterCoutRessource(PIERRE);
                     deck.add(c);
                 }
-                c = new Carte("Statue", BLEU, 2, 0, 4, 0, 0);
+                c = new Carte("Statue", BLEU, 2, 0, 4, 0, 0,"Jardins");
                 c.ajouterCoutRessource(MINERAI);
                 c.ajouterCoutRessource(MINERAI);
                 c.ajouterCoutRessource(BOIS);
                 deck.add(c);
 
-                c = new Carte("Temple", BLEU, 2, 0, 3, 0, 0);
+                c = new Carte("Temple", BLEU, 2, 0, 3, 0, 0,"Pantheon");
                 c.ajouterCoutRessource(BOIS);
                 c.ajouterCoutRessource(ARGILE);
                 c.ajouterCoutRessource(VERRE);
@@ -749,7 +774,7 @@ public class Carte {
                 c.ajouterCoutRessource(BOIS);
                 deck.add(c);
 
-                c = new Carte("Panthéon", BLEU, 3, 0, 7, 0, 0);
+                c = new Carte("Pantheon", BLEU, 3, 0, 7, 0, 0);
                 c.ajouterCoutRessource(ARGILE);
                 c.ajouterCoutRessource(ARGILE);
                 c.ajouterCoutRessource(MINERAI);
@@ -765,7 +790,7 @@ public class Carte {
                 c.ajouterCoutRessource(VERRE);
                 deck.add(c);
 
-                c = new Carte("Sénat", BLEU, 3, 0, 6, 0, 0);
+                c = new Carte("Senat", BLEU, 3, 0, 6, 0, 0);
                 c.ajouterCoutRessource(BOIS);
                 c.ajouterCoutRessource(BOIS);
                 c.ajouterCoutRessource(PIERRE);
@@ -786,7 +811,7 @@ public class Carte {
                     c.ajouterCoutRessource(VERRE);
                     deck.add(c);
 
-                    c = new Carte("Sénat", BLEU, 3, 0, 6, 0, 0);
+                    c = new Carte("Senat", BLEU, 3, 0, 6, 0, 0);
                     c.ajouterCoutRessource(BOIS);
                     c.ajouterCoutRessource(BOIS);
                     c.ajouterCoutRessource(PIERRE);
@@ -794,7 +819,7 @@ public class Carte {
                     deck.add(c);
                 }
                 if(nbJoueurs >= 6){
-                    c = new Carte("Panthéon", BLEU, 3, 0, 7, 0, 0);
+                    c = new Carte("Pantheon", BLEU, 3, 0, 7, 0, 0);
                     c.ajouterCoutRessource(ARGILE);
                     c.ajouterCoutRessource(ARGILE);
                     c.ajouterCoutRessource(MINERAI);
@@ -1014,13 +1039,13 @@ public class Carte {
     private final static void addCartesMarchandes(ArrayList<Carte> deck, int age, int nbJoueurs){
         switch(age){
             case 1:
-                    Carte c = new Carte("Commerce Est", JAUNE, 1, 0, 0, 0, 0);
+                    Carte c = new Carte("Commerce Est", JAUNE, 1, 0, 0, 0, 0,"Forum");
                     deck.add(c);
 
-                    c = new Carte("Commerce Ouest", JAUNE, 1, 0, 0, 0, 0);
+                    c = new Carte("Commerce Ouest", JAUNE, 1, 0, 0, 0, 0,"Forum");
                     deck.add(c);
 
-                    c = new Carte("Marché", JAUNE, 1, 0, 0, 0, 0);
+                    c = new Carte("Marche", JAUNE, 1, 0, 0, 0, 0,"Caranvaserail");
                     deck.add(c);
 
                     if(nbJoueurs >= 4){
@@ -1032,7 +1057,7 @@ public class Carte {
                         deck.add(c);
                     }
                     if(nbJoueurs >= 6){
-                        c = new Carte("Marché", JAUNE, 1, 0, 0, 0, 0);
+                        c = new Carte("Marche", JAUNE, 1, 0, 0, 0, 0,"Caranvaserail");
                         deck.add(c);
                     }
 
@@ -1040,10 +1065,10 @@ public class Carte {
                         c = new Carte("Taverne", JAUNE, 1, 0, 0, 0, 5);
                         deck.add(c);
 
-                        c = new Carte("Commerce Ouest", JAUNE, 1, 0, 0, 0, 0);
+                        c = new Carte("Commerce Ouest", JAUNE, 1, 0, 0, 0, 0,"Forum");
                         deck.add(c);
 
-                        c = new Carte("Commerce Est", JAUNE, 1, 0, 0, 0, 0);
+                        c = new Carte("Commerce Est", JAUNE, 1, 0, 0, 0, 0,"Forum");
                         deck.add(c);
 
                     }
@@ -1052,12 +1077,12 @@ public class Carte {
                 c = new Carte("Vignoble", JAUNE, 2, 0, 0, 0, 0);
                 deck.add(c);
 
-                c = new Carte("Forum", JAUNE, 2, 0, 0, 0, 0);
+                c = new Carte("Forum", JAUNE, 2, 0, 0, 0, 0,"Port");
                 c.ajouterCoutRessource(ARGILE);
                 c.ajouterCoutRessource(ARGILE);
                 deck.add(c);
 
-                c = new Carte("Caravanserie", JAUNE, 2, 0, 0, 0, 0);
+                c = new Carte("Caranvaserail", JAUNE, 2, 0, 0, 0, 0,"Phare");
                 c.ajouterCoutRessource(BOIS);
                 c.ajouterCoutRessource(BOIS);
                 deck.add(c);
@@ -1067,18 +1092,18 @@ public class Carte {
                     deck.add(c);
                 }
                 if(nbJoueurs >= 5){
-                    c = new Carte("Caravanserie", JAUNE, 2, 0, 0, 0, 0);
+                    c = new Carte("Caranvaserail", JAUNE, 2, 0, 0, 0, 0,"Phare");
                     c.ajouterCoutRessource(BOIS);
                     c.ajouterCoutRessource(BOIS);
                     deck.add(c);
                 }
                 if(nbJoueurs >= 6){
-                    c = new Carte("Caravanserie", JAUNE, 2, 0, 0, 0, 0);
+                    c = new Carte("Caranvaserail", JAUNE, 2, 0, 0, 0, 0,"Phare");
                     c.ajouterCoutRessource(BOIS);
                     c.ajouterCoutRessource(BOIS);
                     deck.add(c);
 
-                    c = new Carte("Forum", JAUNE, 2, 0, 0, 0, 0);
+                    c = new Carte("Forum", JAUNE, 2, 0, 0, 0, 0,"Port");
                     c.ajouterCoutRessource(ARGILE);
                     c.ajouterCoutRessource(ARGILE);
                     deck.add(c);

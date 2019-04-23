@@ -123,20 +123,27 @@ public abstract class Strategie {
     protected final boolean[] getPossibilitesSeul(VisionJeu j){
         ArrayList<Carte> deckMain = j.getDeckMain();
         boolean[] possibilites = new boolean[deckMain.size()];
-
         resSeul = calculRessources(j.getDeckPlateau());
 
         for (int i = 0; i < deckMain.size(); i++){
 
-            HashMap<Ressource, Integer> prixCarte = calculPrixCarte(deckMain.get(i));
-            boolean achetable = true;
+            for (int k = 0; k < j.getDeckPlateau().size(); k++){
+                if(j.getDeckPlateau().get(k).getBatimentSuivant() == deckMain.get(i).getNom())
+                    possibilites[i] = true; 
+            }
+            if(possibilites[i] == false){
+                HashMap<Ressource, Integer> prixCarte = calculPrixCarte(deckMain.get(i));
+                boolean achetable = true;
 
             for(Ressource r : Ressource.values())
                 if(resSeul.get(r) - prixCarte.get(r) < 0 || j.getPiece() < deckMain.get(i).getCoutPiece()){
                     achetable = false;
                     break;
+
                 }
-            possibilites[i] = achetable;
+                possibilites[i] = achetable;
+            }
+            
         }
         return possibilites;
     }
