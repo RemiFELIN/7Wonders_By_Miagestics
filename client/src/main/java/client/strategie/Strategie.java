@@ -79,7 +79,7 @@ public abstract class Strategie {
                 HashMap<Ressource, Integer> prixCarte = calculPrixCarte(deckMain.get(i));
                 boolean achetable = true;
                 for(Ressource r : Ressource.values())
-                    if(resSeul.get(r) + ressourcesJ.get(r) - prixCarte.get(r) < 0 || j.getPiece() < deckMain.get(i).getCoutPiece()){
+                    if(resSeul.get(r) + ressourcesJ.get(r) - prixCarte.get(r) < 0 && j.getPiece() < 2){
                         achetable = false;
                         break;
                     }
@@ -106,7 +106,7 @@ public abstract class Strategie {
                 HashMap<Ressource, Integer> prixCarte = calculPrixCarte(deckMain.get(i));
                 boolean achetable = true;
                 for(Ressource r : Ressource.values())
-                    if(resSeul.get(r) + ressourcesJ.get(r) - prixCarte.get(r) < 0 || j.getPiece() < deckMain.get(i).getCoutPiece()){
+                    if(resSeul.get(r) + ressourcesJ.get(r) - prixCarte.get(r) < 0 && j.getPiece() < 2){
                         achetable = false;
                         break;
                     }
@@ -136,7 +136,7 @@ public abstract class Strategie {
                 boolean achetable = true;
 
             for(Ressource r : Ressource.values())
-                if(resSeul.get(r) - prixCarte.get(r) < 0 || j.getPiece() < deckMain.get(i).getCoutPiece()){
+                if(resSeul.get(r) - prixCarte.get(r) < 0){
                     achetable = false;
                     break;
 
