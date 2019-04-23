@@ -29,7 +29,7 @@ public class StratScientifiqueTest {
     ArrayList<Carte> deckMain, deckPlateau;
 
     @Before
-    public void setUp() {
+    public final void setUp() {
         central = new Joueur(0);
         gauche = new Joueur(1);
         droite = new Joueur(2);
@@ -67,7 +67,7 @@ public class StratScientifiqueTest {
     }
 
     @Test
-    public void testStratScientifique() throws Exception {
+    public final void testStratScientifique() throws Exception {
         stratClient = new StratScientifique(false);
 
         Action pc = stratClient.getAction(j);

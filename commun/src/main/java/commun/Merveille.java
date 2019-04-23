@@ -59,7 +59,7 @@ public class Merveille {
      * @param etape (une instance d'étape)
      * @param indice (en d'autres termes, son positionnement dans le plateau)
      */
-    public void ajouterEtape(Etape etape, int indice){
+    public final void ajouterEtape(Etape etape, int indice){
         etapes[indice - 1] = etape;
     }
 

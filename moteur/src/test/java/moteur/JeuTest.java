@@ -24,12 +24,12 @@ public class JeuTest {
     private Jeu testDuJeu;
 
     @Before
-    public void setUp() {
+    public final void setUp() {
         testDuJeu = new Jeu(7);
     }
 
     @Test
-    public void distributionCarteTest() {
+    public final void distributionCarteTest() {
         /*
          * Tests : le paquet se décrémente t-il lorsque le joueur tire une carte ?
          */
@@ -44,7 +44,7 @@ public class JeuTest {
     }
 
     @Test
-    public void roulementCarteTest() {
+    public final void roulementCarteTest() {
         /*
          * Test : est-ce que chaques joueurs ont bien donné leur deck respectif au
          * joueur suivant ?
@@ -71,7 +71,7 @@ public class JeuTest {
     }
 
     @Test
-    public void finAgeTest() {
+    public final void finAgeTest() {
         // Le jeu n'a pas été touché donc l'age n'est pas fini
         assertEquals(false, testDuJeu.finAge());
 
@@ -97,7 +97,7 @@ public class JeuTest {
     }
 
     @Test
-    public void finJeuTest() {
+    public final void finJeuTest() {
         changeField("age", 1);
         assertEquals(false, testDuJeu.finJeu());
         changeField("age", 4);
@@ -105,7 +105,7 @@ public class JeuTest {
     }
 
     @Test
-    public void jouerActionTest() {
+    public final void jouerActionTest() {
         testDuJeu.distributionCarte();
 
         Action ja = new Action(PoserCarte, 0, 2);
@@ -129,7 +129,7 @@ public class JeuTest {
     }
 
     @Test
-    public void testCompareConfiltsJoueur() {
+    public final void testCompareConfiltsJoueur() {
         assertArrayEquals(new int[] { 1, 1, 1, 1, 1, 1, 1 }, getScoreJoueurs());
 
         ArrayList<Carte> cs = new ArrayList<Carte>(1);
@@ -170,7 +170,7 @@ public class JeuTest {
     }
 
     @Test
-    public void getVisionJeuTest() {
+    public final void getVisionJeuTest() {
         ArrayList<Joueur> joueurs = testDuJeu.getJoueurs();
         int nbJoueurs = joueurs.size();
         ArrayList<VisionJeu> vj = new ArrayList<VisionJeu>(nbJoueurs);
@@ -199,7 +199,7 @@ public class JeuTest {
         assertEqualsVisionJeuVoisin(c, vj.get(nbJoueurs - 2), vc.get(0));
     }
 
-    private void assertEqualsVisionJeu(VisionJeu a, VisionJeu b) {
+    private final void assertEqualsVisionJeu(VisionJeu a, VisionJeu b) {
         assertEquals(a.getId(), b.getId());
         assertEquals(a.getPiece(), b.getPiece());
         assertEquals(a.getJetonsVictoire(), b.getJetonsVictoire());
@@ -208,7 +208,7 @@ public class JeuTest {
         assertEquals(a.getDeckPlateau(), b.getDeckPlateau());
     }
 
-    private void assertEqualsVisionJeuVoisin(VisionJeu j, VisionJeu g, VisionJeu d) {
+    private final void assertEqualsVisionJeuVoisin(VisionJeu j, VisionJeu g, VisionJeu d) {
         assertEquals(j.getVoisinGaucheId(), g.getId());
         assertEquals(j.getVoisinGauchePiece(), g.getPiece());
         assertEquals(j.getVoisinGaucheJetonsVictoire(), g.getJetonsVictoire());
@@ -224,7 +224,7 @@ public class JeuTest {
         assertEquals(j.getVoisinDroitePlateau(), d.getPlateau());
     }
 
-    private void changeField(String nomField, Object value) {
+    private final void changeField(String nomField, Object value) {
         Field f;
         try {
             f = Jeu.class.getDeclaredField(nomField);

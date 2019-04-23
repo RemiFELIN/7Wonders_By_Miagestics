@@ -25,7 +25,7 @@ public class StratMilitaireTest {
     VisionJeu vj;
 
     @Before
-    public void setUp() {
+    public final void setUp() {
         ArrayList<Carte> deckMain = new ArrayList<Carte>();
         deckMain.add(new Carte("CarteTestVide", BLANC, 0));
 
@@ -46,7 +46,7 @@ public class StratMilitaireTest {
     }
 
     @Test
-    public void testStratMilitaire() throws Exception {
+    public final void testStratMilitaire() throws Exception {
         stratClient = new StratMilitaire(false);
 
         Action pc = stratClient.getAction(vj);

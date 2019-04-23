@@ -25,7 +25,7 @@ public class StratRessourcesTest {
     VisionJeu vj;
 
     @Before
-    public void setUp() {
+    public final void setUp() {
         ArrayList<Carte> deckMain = new ArrayList<Carte>();
         deckMain.add(new Carte("CarteTestVide", BLANC, 0));
 
@@ -43,7 +43,7 @@ public class StratRessourcesTest {
     }
 
     @Test
-    public void testStratRessources() throws Exception {
+    public final void testStratRessources() throws Exception {
         stratClient = new StratRessources(false);
 
         Action pc = stratClient.getAction(vj);

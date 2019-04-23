@@ -21,17 +21,17 @@ public class Lanceur {
         log(YELLOW_BOLD_BRIGHT + "Début programme !!");
 
         try {
-            Jeu.main(new String[]{adresse, port+""});
-        } catch (BindException e){
-            log(RED_BOLD+"Adresse "+adresse+":"+port+" déja utilisé, veuillez en utiliser un autre");
+            Jeu.main(new String[] { adresse, port + "" });
+        } catch (BindException e) {
+            log(RED_BOLD + "Adresse " + adresse + ":" + port + " déja utilisé, veuillez en utiliser un autre");
             return;
         }
 
         for (int i = 0; i < nombre_joueurs; i++) {
-            final String infoJoueur[] = new String[]{adresse, port+"", Integer.toString(i) };
+            final String infoJoueur[] = new String[] { adresse, port + "", Integer.toString(i) };
             new Thread(new Runnable() {
                 @Override
-                public void run() {
+                public final void run() {
                     Client.main(infoJoueur);
                 }
             }).start();

@@ -31,7 +31,7 @@ public class StratRandomTest {
     VisionJeu vj;
 
     @Before
-    public void setUp() {
+    public final void setUp() {
         ArrayList<Carte> deckMain = new ArrayList<Carte>();
         deckMain.add(new Carte("CarteTestVide", BLANC, 0));
 
@@ -49,7 +49,7 @@ public class StratRandomTest {
     }
 
     @Test
-    public void testStratRandom() throws Exception {
+    public final void testStratRandom() throws Exception {
         stratClient = new StratRandom(false);
 
         StratRandom stratRandomMock = mock(StratRandom.class);

@@ -25,7 +25,7 @@ public class StratRandom extends Strategie {
 	 * @return l'action à effectuer determinée
 	 */
 	@Override
-	protected Action getAction(VisionJeu j, boolean[] posSeul, boolean[] posGauche, boolean[] posDroite) {
+	protected final Action getAction(VisionJeu j, boolean[] posSeul, boolean[] posGauche, boolean[] posDroite) {
 		return new Action(PoserCarte, j.getId(), new Random().nextInt(j.getDeckMain().size()));
 	}
 
@@ -35,7 +35,7 @@ public class StratRandom extends Strategie {
 	 * @return description
 	 */
 	@Override
-	public String toString() {
+	public final String toString() {
 		return super.toString() + " random";
 	}
 }

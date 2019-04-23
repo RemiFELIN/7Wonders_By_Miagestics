@@ -316,7 +316,7 @@ public class Jeu {
         ArrayList<Joueur> classé = new ArrayList<Joueur>(mesJoueurs);
 
         classé.sort(new Comparator<Joueur>() {
-            public int compare(Joueur j1, Joueur j2) {
+            public final int compare(Joueur j1, Joueur j2) {
                 // j2 > j1 ? j2,j1 : j1,j2
                 return Integer.compare(j2.getScore(), j1.getScore());
             }

@@ -37,7 +37,7 @@ public class Etape {
     /**
      * Cela permet de modifier l'état de l'étape, permettant de signaler que l'etape est 'construite' ('etat' passe de 'false' à 'true')
      */
-    public void construire(){
+    public final void construire(){
         etat = true;
     }
 

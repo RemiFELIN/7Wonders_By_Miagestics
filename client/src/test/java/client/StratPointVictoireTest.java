@@ -25,7 +25,7 @@ public class StratPointVictoireTest {
     VisionJeu vj;
 
     @Before
-    public void setUp() {
+    public final void setUp() {
         ArrayList<Carte> deckMain = new ArrayList<Carte>();
 
         Carte c = new Carte("CarteTestRessource", BLANC, 0);
@@ -59,7 +59,7 @@ public class StratPointVictoireTest {
     }
 
     @Test
-    public void testStratPointVictoire() throws Exception {
+    public final void testStratPointVictoire() throws Exception {
         stratClient = new StratPointVictoire(false);
 
         Action pc = stratClient.getAction(vj);

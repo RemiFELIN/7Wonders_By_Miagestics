@@ -28,7 +28,7 @@ public class StratMilitaire extends Strategie {
      * @return l'action à effectuer determinée
      */
     @Override
-    protected Action getAction(VisionJeu j, boolean[] posSeul, boolean[] posGauche, boolean[] posDroite) {
+    protected final Action getAction(VisionJeu j, boolean[] posSeul, boolean[] posGauche, boolean[] posDroite) {
 
         ArrayList<Carte> deck = j.getDeckMain();
         int pMilitaire = 0, carteN = 0, joueurAQuiPiocher = 0, prixAchat = 2;
@@ -75,7 +75,7 @@ public class StratMilitaire extends Strategie {
      * @return description
      */
     @Override
-    public String toString() {
+    public final String toString() {
         return super.toString() + " militaire";
     }
 }
