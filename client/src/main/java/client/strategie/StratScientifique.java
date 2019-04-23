@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * Choisit la meilleure carte octroyant une ou des ressources scientifiques, selon le jeu du Joueur et celui des voisins
+ * Choisit la meilleure carte octroyant une ressource scientifique, selon le jeu du Joueur et celui des voisins
  * @authors Benoît Montorsi, Pierre Saunders
  */
 
@@ -33,43 +33,38 @@ public class StratScientifique extends Strategie {
 
         ArrayList<Carte> deck = j.getDeckMain();
 
-        boolean trouveCarteScientifique = false;
         int carteN = 0, joueurAQuiPiocher=0;
+        int prixAchat=2;
 
         for (int i = 0; i < deck.size(); i++)
             if(posSeul[i]){
                 Carte c = deck.get(i);
                 if(c.getCouleur() == Couleur.VERT){
                     carteN = i;
-                    trouveCarteScientifique = true;
                 }
             }
 
-        if(trouveCarteScientifique == false)
             for (int i = 0; i < deck.size(); i++)
                 if(posGauche[i]){
                     Carte c = deck.get(i);
-                    if(c.getCouleur() == Couleur.VERT){
+                    if(c.getCouleur() == Couleur.VERT && j.getPiece() > prixAchat){
                         carteN = i;
-                        trouveCarteScientifique = true;
                         joueurAQuiPiocher = -1;
                     }
                 }
 
-        if(trouveCarteScientifique == false)
             for (int i = 0; i < deck.size(); i++)
                 if(posDroite[i]){
                     Carte c = deck.get(i);
-                    if(c.getCouleur() == Couleur.VERT){
+                    if(c.getCouleur() == Couleur.VERT && j.getPiece() > prixAchat){
                         carteN = i;
-                        trouveCarteScientifique = true;
                         joueurAQuiPiocher = 1;
                     }
                 }
 
         if(joueurAQuiPiocher != 0) return new Action(AcheterRessource, j.getId(), joueurAQuiPiocher, carteN);
 
-        if(carteN == 0 && trouveCarteScientifique) carteN = new Random().nextInt(deck.size());
+        if(carteN == 0) carteN = new Random().nextInt(deck.size());
 
         return new Action(PoserCarte,j.getId(), carteN);
     }

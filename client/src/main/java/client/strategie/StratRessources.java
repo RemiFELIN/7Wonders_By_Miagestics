@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.Random;
 
 /**
- * Choisit la meilleure carte octroyant une ou des ressources, selon le jeu du Joueur et celui des voisins
+ * Choisit la meilleure carte octroyant une ou des ressources, uniquement selon le jeu du Joueur
  * @authors Benoît Montorsi, Pierre Saunders
  */
 
@@ -41,28 +41,6 @@ public class StratRessources extends Strategie {
                     carteN = i;
                 }
             }
-
-        for (int i = 0; i < deck.size(); i++)
-            if(posGauche[i]){
-                int value = deck.get(i).getRessources().size();
-                if(value > nbRessources){
-                    nbRessources = value;
-                    carteN = i;
-                    joueurAQuiPiocher = -1;
-                }
-            }
-
-        for (int i = 0; i < deck.size(); i++)
-            if(posDroite[i]){
-                int value = deck.get(i).getRessources().size();
-                if(value > nbRessources){
-                    nbRessources = value;
-                    carteN = i;
-                    joueurAQuiPiocher = 1;
-                }
-            }
-
-        if(joueurAQuiPiocher != 0) return new Action(AcheterRessource, j.getId(), joueurAQuiPiocher, carteN);
 
         if(carteN == 0 && nbRessources == 0) carteN = new Random().nextInt(deck.size());
 

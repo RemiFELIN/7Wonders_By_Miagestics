@@ -30,8 +30,10 @@ public class StratPointVictoire extends Strategie {
     protected Action getAction(VisionJeu j, boolean[] posSeul, boolean[] posGauche, boolean[] posDroite) {
 
         ArrayList<Carte> deck = j.getDeckMain();
+        int prixAchat=2;
 
         int carteN = 0, nbPointVictoire = 0, joueurAQuiPiocher = 0;
+
         for (int i = 0; i < deck.size(); i++)
             if(posSeul[i]){
                 int value = deck.get(i).getPointVictoire();
@@ -44,7 +46,7 @@ public class StratPointVictoire extends Strategie {
         for (int i = 0; i < deck.size(); i++)
             if(posGauche[i]){
                 int value = deck.get(i).getPointVictoire();
-                if(value > nbPointVictoire){
+                if(value > nbPointVictoire && j.getPiece() > prixAchat){
                     nbPointVictoire = value;
                     carteN = i;
                     joueurAQuiPiocher = -1;
@@ -54,7 +56,7 @@ public class StratPointVictoire extends Strategie {
         for (int i = 0; i < deck.size(); i++)
             if(posDroite[i]){
                 int value = deck.get(i).getPointVictoire();
-                if(value > nbPointVictoire){
+                if(value > nbPointVictoire && j.getPiece() > prixAchat){
                     nbPointVictoire = value;
                     carteN = i;
                     joueurAQuiPiocher = 1;
