@@ -39,7 +39,7 @@ public class Client {
         this.id = id;
         String urlAdresse = "http://" + adresse + ":" + port;
 
-        Strategie[] mesStrat = new Strategie[]{new StratPointVictoire(true), new StratRandom(true), new StratRessources(true), new StratMilitaire(true), new StratScientifique(true)};
+        Strategie[] mesStrat = new Strategie[] { new StratPointVictoire(true), new StratRandom(true), new StratRessources(true), new StratMilitaire(true), new StratScientifique(true) };
         stratClient = mesStrat[new Random().nextInt(mesStrat.length)];
 
         try {
@@ -65,47 +65,27 @@ public class Client {
                 try {
                     JSONObject jo = (JSONObject) args[0];
 
-                    VisionJeu j = new VisionJeu(
-                        jo.getInt("id"),
-                        jo.getInt("piece"),
-                        parseJSONArrayInt(jo.getJSONArray("jetonsVictoire")),
-                        jo.getInt("jetonsDefaite"),
-                        parseJSONMerveille(jo.getJSONObject("plateau")),
-                        parseJSONArrayCarte(jo.getJSONArray("deckMain")),
-                        parseJSONArrayCarte(jo.getJSONArray("deckPlateau"))
-                    );
-                    
+                    VisionJeu j = new VisionJeu(jo.getInt("id"), jo.getInt("piece"), parseJSONArrayInt(jo.getJSONArray("jetonsVictoire")), jo.getInt("jetonsDefaite"),
+                            parseJSONMerveille(jo.getJSONObject("plateau")), parseJSONArrayCarte(jo.getJSONArray("deckMain")), parseJSONArrayCarte(jo.getJSONArray("deckPlateau")));
 
-                    VisionJeu g = new VisionJeu(
-                        jo.getInt("voisinGaucheId"),
-                        jo.getInt("voisinGauchePiece"),
-                        parseJSONArrayInt(jo.getJSONArray("voisinGaucheJetonsVictoire")),
-                        jo.getInt("voisinGaucheJetonsDefaite"),
-                        parseJSONMerveille(jo.getJSONObject("plateau")),
-                        parseJSONArrayCarte(jo.getJSONArray("voisinGaucheDeckPlateau"))
-                    );
+                    VisionJeu g = new VisionJeu(jo.getInt("voisinGaucheId"), jo.getInt("voisinGauchePiece"), parseJSONArrayInt(jo.getJSONArray("voisinGaucheJetonsVictoire")),
+                            jo.getInt("voisinGaucheJetonsDefaite"), parseJSONMerveille(jo.getJSONObject("plateau")), parseJSONArrayCarte(jo.getJSONArray("voisinGaucheDeckPlateau")));
                     j.setVoisinGauche(g);
 
-                    VisionJeu d = new VisionJeu(
-                        jo.getInt("voisinDroiteId"),
-                        jo.getInt("voisinDroitePiece"),
-                        parseJSONArrayInt(jo.getJSONArray("voisinDroiteJetonsVictoire")),
-                        jo.getInt("voisinDroiteJetonsDefaite"),
-                        parseJSONMerveille(jo.getJSONObject("plateau")),
-                        parseJSONArrayCarte(jo.getJSONArray("voisinDroiteDeckPlateau"))
-                    );
+                    VisionJeu d = new VisionJeu(jo.getInt("voisinDroiteId"), jo.getInt("voisinDroitePiece"), parseJSONArrayInt(jo.getJSONArray("voisinDroiteJetonsVictoire")),
+                            jo.getInt("voisinDroiteJetonsDefaite"), parseJSONMerveille(jo.getJSONObject("plateau")), parseJSONArrayCarte(jo.getJSONArray("voisinDroiteDeckPlateau")));
                     j.setVoisinDroite(d);
 
                     actionAJouer = stratClient.getAction(j);
                     connexion.emit(RECU_CARTE, id);
 
-                } catch (JSONException e){
-                    error("Client "+id+" erreur getVision !", e);
+                } catch (JSONException e) {
+                    error("Client " + id + " erreur getVision !", e);
                 }
             }
         });
 
-        connexion.on(DEBUT_TOUR, new Emitter.Listener(){
+        connexion.on(DEBUT_TOUR, new Emitter.Listener() {
             @Override
             public final void call(Object... args) {
                 connexion.emit(JOUER_ACTION, new JSONObject(actionAJouer));
@@ -116,7 +96,7 @@ public class Client {
             @Override
             public final void call(Object... args) {
                 JSONArray info = (JSONArray) args[0];
-                log(BLUE_BOLD_BRIGHT + "Le client " + id + " est à la place "+info.getInt(0) + " avec " + info.getInt(1)+" de score");
+                log(BLUE_BOLD_BRIGHT + "Le client " + id + " est à la place " + info.getInt(0) + " avec " + info.getInt(1) + " de score");
             }
         });
 
@@ -124,8 +104,8 @@ public class Client {
             @Override
             public final void call(Object... args) {
                 log(BLUE_BOLD_BRIGHT + "Le client " + id + " est déconnecté ");
-                //connexion.off();
-                //connexion.disconnect();
+                // connexion.off();
+                // connexion.disconnect();
                 connexion.close();
             }
         });

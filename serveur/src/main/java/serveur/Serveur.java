@@ -68,8 +68,7 @@ public class Serveur {
     public final void onRejoindreJeu(Consumer<Integer> fnc) {
         serveur.addEventListener(REJOINDRE_JEU, Integer.class, new DataListener<Integer>() {
             @Override
-            public final void onData(SocketIOClient socketIOClient, Integer id, AckRequest ackRequest)
-                    throws Exception {
+            public final void onData(SocketIOClient socketIOClient, Integer id, AckRequest ackRequest) throws Exception {
                 if (nbJoueursConnectees > MAX_JOUEURS) {
                     log(RED_BOLD_BRIGHT + "Connexion impossible: déjà " + MAX_JOUEURS + " joueurs dans la partie");
                 } else {
@@ -105,8 +104,7 @@ public class Serveur {
                             nbJoueurActionRecu = 0;
                             actionRecu.clear();
                         } else {
-                            log(GREEN_BOLD_BRIGHT + "Serveur: action du joueur " + idJoueur
-                                    + " est incorrect\n en attente d'un renvoi");
+                            log(GREEN_BOLD_BRIGHT + "Serveur: action du joueur " + idJoueur + " est incorrect\n en attente d'un renvoi");
                             actionRecu.remove(idJoueur);
                             nbJoueurActionRecu--;
                         }
@@ -161,8 +159,7 @@ public class Serveur {
 
         serveur.addEventListener(RECU_CARTE, Integer.class, new DataListener<Integer>() {
             @Override
-            public final void onData(SocketIOClient socketIOClient, Integer id, AckRequest ackRequest)
-                    throws Exception {
+            public final void onData(SocketIOClient socketIOClient, Integer id, AckRequest ackRequest) throws Exception {
                 carteDistribué++;
                 if (carteDistribué == nbJoueursConnectees) {
                     carteDistribué = 0;

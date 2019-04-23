@@ -36,7 +36,7 @@ public class JeuTest {
         ArrayList<Carte> deck = testDuJeu.getDecks().get(0);
         ArrayList<Joueur> joueurs = testDuJeu.getJoueurs();
         int TAILLE_DECK = deck.size();
-        int NB_CARTES_PAR_JOUEURS = TAILLE_DECK/joueurs.size();
+        int NB_CARTES_PAR_JOUEURS = TAILLE_DECK / joueurs.size();
         testDuJeu.distributionCarte();
 
         int TAILLE_DECK_ATTENDU = TAILLE_DECK - joueurs.size() * NB_CARTES_PAR_JOUEURS;
@@ -55,57 +55,57 @@ public class JeuTest {
 
         for (int j = 0; j < joueurs.size() - 1; j++)
             assertEquals(joueurs.get(j).getDeckMain(), joueurs.get(j + 1).getDeckMain());
-        
+
         assertEquals(joueurs.get(joueurs.size() - 1).getDeckMain(), first);
 
         changeField("age", 2);
-        int size = joueurs.size()-1;
+        int size = joueurs.size() - 1;
         ArrayList<Carte> last = joueurs.get(size).getDeckMain();
-        
+
         testDuJeu.roulementCarte();
 
-        for(int j=size; j>0; j--)
+        for (int j = size; j > 0; j--)
             assertEquals(joueurs.get(j).getDeckMain(), joueurs.get(j - 1).getDeckMain());
-        
+
         assertEquals(joueurs.get(0).getDeckMain(), last);
     }
 
-   @Test
-   public void finAgeTest() {
-       //Le jeu n'a pas été touché donc l'age n'est pas fini
+    @Test
+    public void finAgeTest() {
+        // Le jeu n'a pas été touché donc l'age n'est pas fini
         assertEquals(false, testDuJeu.finAge());
 
-        //Est que le finAge se termine aprés 6 tour ?
+        // Est que le finAge se termine aprés 6 tour ?
         changeField("tour", 7);
         assertEquals(false, testDuJeu.finAge());
         changeField("tour", 5);
 
-       // modifier le deck main pour qu'il reste qu'une seule carte
-       ArrayList<Joueur> joueurs = testDuJeu.getJoueurs();
-       ArrayList<Carte> c = new ArrayList<Carte>();
-       c.add(new Carte("CarteTest", BLANC, 0));
-       for (int i = 0; i < joueurs.size(); i++) {
-           joueurs.get(0).setDeckMain(c);
-       }
+        // modifier le deck main pour qu'il reste qu'une seule carte
+        ArrayList<Joueur> joueurs = testDuJeu.getJoueurs();
+        ArrayList<Carte> c = new ArrayList<Carte>();
+        c.add(new Carte("CarteTest", BLANC, 0));
+        for (int i = 0; i < joueurs.size(); i++) {
+            joueurs.get(0).setDeckMain(c);
+        }
         assertEquals(false, testDuJeu.finAge());
-       // modifier le deck main pour qu'il reste plusieurs cartes
-       c.add(new Carte("CarteTest", BLANC, 0));
-       for (int i = 0; i < joueurs.size(); i++) {
-           joueurs.get(0).setDeckMain(c);
-       }
-       assertEquals(false, testDuJeu.finAge());
-   }
+        // modifier le deck main pour qu'il reste plusieurs cartes
+        c.add(new Carte("CarteTest", BLANC, 0));
+        for (int i = 0; i < joueurs.size(); i++) {
+            joueurs.get(0).setDeckMain(c);
+        }
+        assertEquals(false, testDuJeu.finAge());
+    }
 
-   @Test
-   public void finJeuTest() {
-       changeField("age", 1);
-       assertEquals(false, testDuJeu.finJeu());
-       changeField("age", 4);
-       assertEquals(true, testDuJeu.finJeu());
-   }
+    @Test
+    public void finJeuTest() {
+        changeField("age", 1);
+        assertEquals(false, testDuJeu.finJeu());
+        changeField("age", 4);
+        assertEquals(true, testDuJeu.finJeu());
+    }
 
-   @Test
-   public void jouerActionTest(){
+    @Test
+    public void jouerActionTest() {
         testDuJeu.distributionCarte();
 
         Action ja = new Action(PoserCarte, 0, 2);
@@ -113,7 +113,7 @@ public class JeuTest {
         int prevSize = testDuJeu.getJoueurs().get(0).getDeckMain().size();
         assertNotEquals(null, testDuJeu.jouerAction(ja));
         int afterSize = testDuJeu.getJoueurs().get(0).getDeckMain().size();
-        assertEquals(afterSize, prevSize-1);
+        assertEquals(afterSize, prevSize - 1);
 
         ja = new Action(DefausserCarte, 1, 0);
 
@@ -124,13 +124,13 @@ public class JeuTest {
         assertNotEquals(null, testDuJeu.jouerAction(ja));
         afterSize = testDuJeu.getJoueurs().get(1).getDeckMain().size();
         int afterPiece = testDuJeu.getJoueurs().get(1).getPiece();
-        assertEquals(afterSize, prevSize-1);
-        assertEquals(prevPiece+3, afterPiece);
-   }
-   
-   @Test
-   public void testCompareConfiltsJoueur(){
-        assertArrayEquals(new int[]{1, 1, 1, 1, 1, 1, 1}, getScoreJoueurs());
+        assertEquals(afterSize, prevSize - 1);
+        assertEquals(prevPiece + 3, afterPiece);
+    }
+
+    @Test
+    public void testCompareConfiltsJoueur() {
+        assertArrayEquals(new int[] { 1, 1, 1, 1, 1, 1, 1 }, getScoreJoueurs());
 
         ArrayList<Carte> cs = new ArrayList<Carte>(1);
         cs.add(new Carte("CarteTestMilitaire", BLANC, 1, 0, 0, 1));
@@ -140,10 +140,10 @@ public class JeuTest {
 
         testDuJeu.ageSuivant();
 
-        //J1 perd et égalité => - 1
-        //J2 gagne 2 fois => + 2
-        //J3 perd et égalité => - 1
-        assertArrayEquals(new int[]{0, 3, 0, 1, 1, 1, 1}, getScoreJoueurs());
+        // J1 perd et égalité => - 1
+        // J2 gagne 2 fois => + 2
+        // J3 perd et égalité => - 1
+        assertArrayEquals(new int[] { 0, 3, 0, 1, 1, 1, 1 }, getScoreJoueurs());
 
         cs = new ArrayList<Carte>(1);
         cs.add(new Carte("CarteTestMilitaire", BLANC, 1, 0, 0, 2));
@@ -153,85 +153,85 @@ public class JeuTest {
 
         testDuJeu.ageSuivant();
 
-        //J1 perd 2 fois => - 2
-        //J2 gagne et perd => + 3 - 1
-        //J3 gagne 2 fois => + 6
-        //J4 perd => -1
-        assertArrayEquals(new int[]{0, 5, 6, 0, 1, 1, 1}, getScoreJoueurs());
-   }
+        // J1 perd 2 fois => - 2
+        // J2 gagne et perd => + 3 - 1
+        // J3 gagne 2 fois => + 6
+        // J4 perd => -1
+        assertArrayEquals(new int[] { 0, 5, 6, 0, 1, 1, 1 }, getScoreJoueurs());
+    }
 
-   private int[] getScoreJoueurs(){
+    private int[] getScoreJoueurs() {
         ArrayList<Joueur> mj = testDuJeu.getJoueurs();
         int[] lesScores = new int[mj.size()];
-        for(byte i=0; i<mj.size(); i++)
+        for (byte i = 0; i < mj.size(); i++)
             lesScores[i] = mj.get(i).getScore();
-        
+
         return lesScores;
-   }
+    }
 
-   @Test
-   public void getVisionJeuTest(){
-       ArrayList<Joueur> joueurs = testDuJeu.getJoueurs();
-       int nbJoueurs = joueurs.size();
-       ArrayList<VisionJeu> vj = new ArrayList<VisionJeu>(nbJoueurs);
-       for(int i=0; i<nbJoueurs; i++){
-           Joueur j = joueurs.get(i);
-           vj.add(new VisionJeu(j));
-       }
+    @Test
+    public void getVisionJeuTest() {
+        ArrayList<Joueur> joueurs = testDuJeu.getJoueurs();
+        int nbJoueurs = joueurs.size();
+        ArrayList<VisionJeu> vj = new ArrayList<VisionJeu>(nbJoueurs);
+        for (int i = 0; i < nbJoueurs; i++) {
+            Joueur j = joueurs.get(i);
+            vj.add(new VisionJeu(j));
+        }
 
-       ArrayList<VisionJeu> vc = testDuJeu.getVisionsJeu();
+        ArrayList<VisionJeu> vc = testDuJeu.getVisionsJeu();
 
-       VisionJeu j = vj.get(0);
-       VisionJeu c = vc.get(0);
-       assertEqualsVisionJeu(j, c);
-       assertEqualsVisionJeuVoisin(c, vj.get(nbJoueurs-1), vc.get(1));
+        VisionJeu j = vj.get(0);
+        VisionJeu c = vc.get(0);
+        assertEqualsVisionJeu(j, c);
+        assertEqualsVisionJeuVoisin(c, vj.get(nbJoueurs - 1), vc.get(1));
 
-       for(int i=1; i<nbJoueurs-1; i++){
-           j = vj.get(i);
-           c = vc.get(i);
-           assertEqualsVisionJeu(j, c);
-           assertEqualsVisionJeuVoisin(c, vj.get(i-1), vc.get(i+1));
-       }
+        for (int i = 1; i < nbJoueurs - 1; i++) {
+            j = vj.get(i);
+            c = vc.get(i);
+            assertEqualsVisionJeu(j, c);
+            assertEqualsVisionJeuVoisin(c, vj.get(i - 1), vc.get(i + 1));
+        }
 
-       j = vj.get(nbJoueurs-1);
-       c = vc.get(nbJoueurs-1);
-       assertEqualsVisionJeu(j, c);
-       assertEqualsVisionJeuVoisin(c, vj.get(nbJoueurs-2), vc.get(0));
-   }
+        j = vj.get(nbJoueurs - 1);
+        c = vc.get(nbJoueurs - 1);
+        assertEqualsVisionJeu(j, c);
+        assertEqualsVisionJeuVoisin(c, vj.get(nbJoueurs - 2), vc.get(0));
+    }
 
-   private void assertEqualsVisionJeu(VisionJeu a, VisionJeu b){
-       assertEquals(a.getId(), b.getId());
-       assertEquals(a.getPiece(), b.getPiece());
-       assertEquals(a.getJetonsVictoire(), b.getJetonsVictoire());
-       assertEquals(a.getJetonsDefaite(), b.getJetonsDefaite());
-       assertEquals(a.getPlateau(), b.getPlateau());
-       assertEquals(a.getDeckPlateau(), b.getDeckPlateau());
-   }
+    private void assertEqualsVisionJeu(VisionJeu a, VisionJeu b) {
+        assertEquals(a.getId(), b.getId());
+        assertEquals(a.getPiece(), b.getPiece());
+        assertEquals(a.getJetonsVictoire(), b.getJetonsVictoire());
+        assertEquals(a.getJetonsDefaite(), b.getJetonsDefaite());
+        assertEquals(a.getPlateau(), b.getPlateau());
+        assertEquals(a.getDeckPlateau(), b.getDeckPlateau());
+    }
 
-   private void assertEqualsVisionJeuVoisin(VisionJeu j, VisionJeu g, VisionJeu d){
-       assertEquals(j.getVoisinGaucheId(), g.getId());
-       assertEquals(j.getVoisinGauchePiece(), g.getPiece());
-       assertEquals(j.getVoisinGaucheJetonsVictoire(), g.getJetonsVictoire());
-       assertEquals(j.getVoisinGaucheJetonsDefaite(), g.getJetonsDefaite());
-       assertEquals(j.getVoisinGaucheDeckPlateau(), g.getDeckPlateau());
-       assertEquals(j.getVoisinGauchePlateau(), g.getPlateau());
+    private void assertEqualsVisionJeuVoisin(VisionJeu j, VisionJeu g, VisionJeu d) {
+        assertEquals(j.getVoisinGaucheId(), g.getId());
+        assertEquals(j.getVoisinGauchePiece(), g.getPiece());
+        assertEquals(j.getVoisinGaucheJetonsVictoire(), g.getJetonsVictoire());
+        assertEquals(j.getVoisinGaucheJetonsDefaite(), g.getJetonsDefaite());
+        assertEquals(j.getVoisinGaucheDeckPlateau(), g.getDeckPlateau());
+        assertEquals(j.getVoisinGauchePlateau(), g.getPlateau());
 
-       assertEquals(j.getVoisinDroiteId(), d.getId());
-       assertEquals(j.getVoisinDroitePiece(), d.getPiece());
-       assertEquals(j.getVoisinDroiteJetonsVictoire(), d.getJetonsVictoire());
-       assertEquals(j.getVoisinDroiteJetonsDefaite(), d.getJetonsDefaite());
-       assertEquals(j.getVoisinDroiteDeckPlateau(), d.getDeckPlateau());
-       assertEquals(j.getVoisinDroitePlateau(), d.getPlateau());
-   }
+        assertEquals(j.getVoisinDroiteId(), d.getId());
+        assertEquals(j.getVoisinDroitePiece(), d.getPiece());
+        assertEquals(j.getVoisinDroiteJetonsVictoire(), d.getJetonsVictoire());
+        assertEquals(j.getVoisinDroiteJetonsDefaite(), d.getJetonsDefaite());
+        assertEquals(j.getVoisinDroiteDeckPlateau(), d.getDeckPlateau());
+        assertEquals(j.getVoisinDroitePlateau(), d.getPlateau());
+    }
 
-   private void changeField(String nomField, Object value){
-       Field f;
-       try {
-           f = Jeu.class.getDeclaredField(nomField);
-           f.setAccessible(true);
-           f.set(testDuJeu, value); 
-       } catch (Exception e) {
-           error("Test: Impossible de modifier le champ "+nomField, e);
-       } 
-   }
+    private void changeField(String nomField, Object value) {
+        Field f;
+        try {
+            f = Jeu.class.getDeclaredField(nomField);
+            f.setAccessible(true);
+            f.set(testDuJeu, value);
+        } catch (Exception e) {
+            error("Test: Impossible de modifier le champ " + nomField, e);
+        }
+    }
 }

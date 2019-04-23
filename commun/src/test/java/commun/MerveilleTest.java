@@ -15,11 +15,13 @@ import java.util.ArrayList;
 public class MerveilleTest {
 
     private Merveille merveille;
-    private Etape[] etapes = new Etape[3];
+    private final Etape[] etapes = new Etape[3];
+    private final String nom = "Le Colosse de Rhodes";
+    private final char face = 'A';
 
     @Before
-    public void setUp(){
-        merveille = new Merveille("Le Colosse de Rhodes", 'A', MINERAI, 3);
+    public final void setUp(){
+        merveille = new Merveille(nom, face, MINERAI, 3);
         etapes[0] = new Etape(new Ressource[]{BOIS, BOIS}, 3, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "effet etape 1");
         merveille.ajouterEtape(etapes[0], 1);
         etapes[1] = new Etape(new Ressource[]{MINERAI, MINERAI, MINERAI}, 0, 5, 2, new Ressource[]{}, new SymboleScientifique[]{TABLETTE}, "effet etape 2");
@@ -29,22 +31,10 @@ public class MerveilleTest {
     }
 
     @Test
-    public void testGetFace() {
-        assertEquals("testGetFace", 'A', merveille.getFace());
-    }
-
-    @Test
-    public void testGetNom() {
-        assertEquals("testGetNom", "Le Colosse de Rhodes", merveille.getNom());
-    }
-
-    @Test
-    public void testGetRessource() {
+    public final void testGetter() {
+        assertEquals("testGetFace", face, merveille.getFace());
+        assertEquals("testGetNom", nom, merveille.getNom());
         assertEquals("testGetRessource", MINERAI, merveille.getRessource());
-    }
-
-    @Test
-    public void testGetEtape() {
         for(byte i=0; i<etapes.length; i++)
             testEqualEtape(etapes[i], merveille.getEtape(i+1));
     }

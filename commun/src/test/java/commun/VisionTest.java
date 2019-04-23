@@ -20,15 +20,15 @@ public class VisionTest {
     //Merveille de soi, voisin gauche et voisin droite respectivement
     private Merveille m, m1, m2;
     //Deck plateau de soi, voisin gauche et voisin droite respectivement
-    private ArrayList<Carte> d = new ArrayList<Carte>();
-    private ArrayList<Carte> d1 = new ArrayList<Carte>();
-    private ArrayList<Carte> d2 = new ArrayList<Carte>();
+    private final ArrayList<Carte> d = new ArrayList<Carte>();
+    private final ArrayList<Carte> d1 = new ArrayList<Carte>();
+    private final ArrayList<Carte> d2 = new ArrayList<Carte>();
 
     private int nbPiece, id, jDef;
     private int[] jVic;
 
     @Before
-    public void setUp(){
+    public final void setUp(){
         d.add(new Carte("CarteTestVide", BLANC, 0));        
         d.add(new Carte("CarteTestPointVictoire", BLANC, 0, 0, 2, 0));
 
@@ -55,7 +55,7 @@ public class VisionTest {
     }
 
     @Test
-    public void testGetter() {
+    public final void testGetter() {
         assertEquals("visionJeu getId :", id, vj.getId());
         assertEquals("visionJeu getPiece :", nbPiece, vj.getPiece());
         assertEquals("visionJeu getPlateau", m, vj.getPlateau());

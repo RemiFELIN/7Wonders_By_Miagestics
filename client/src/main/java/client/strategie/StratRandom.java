@@ -12,10 +12,10 @@ import java.util.Random;
  */
 public class StratRandom extends Strategie {
 
-    public StratRandom(boolean log){
-        super(log);
+	public StratRandom(boolean log) {
+		super(log);
 	}
-	
+
 	/**
 	 * Récupère une Action de manière aléatoire
 	 * @param j vision de jeu actuelle
@@ -26,13 +26,16 @@ public class StratRandom extends Strategie {
 	 */
 	@Override
 	protected Action getAction(VisionJeu j, boolean[] posSeul, boolean[] posGauche, boolean[] posDroite) {
-		return new Action(PoserCarte,j.getId(), new Random().nextInt(j.getDeckMain().size()));
+		return new Action(PoserCarte, j.getId(), new Random().nextInt(j.getDeckMain().size()));
 	}
-    /**
-     * Décrit la stratégie actuelle
-     * @see Strategie
-     * @return description
-     */
+
+	/**
+	 * Décrit la stratégie actuelle
+	 * @see Strategie
+	 * @return description
+	 */
 	@Override
-	public String toString(){ return super.toString() + " random"; }
+	public String toString() {
+		return super.toString() + " random";
+	}
 }

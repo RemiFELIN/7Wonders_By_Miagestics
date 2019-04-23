@@ -15,7 +15,7 @@ public class ActionTest {
     private final int idJ = 2, nV = 1, nC = 4;
 
     @Test
-    public void testGetterInitial(){
+    public final void testGetterInitial(){
         a = new Action();
         assertNull("action inital type :", a.getType());
         assertEquals("action inital id joueur :", -1, a.getIdJoueur());
@@ -24,38 +24,33 @@ public class ActionTest {
     } 
     
     @Test
-    public void testGetterPoserCarte(){
+    public final void testGetterPoserCarte(){
         a = new Action(PoserCarte, idJ, nC);
-        assertEquals("action PoserCarte type :", PoserCarte, a.getType());
-        assertEquals("action PoserCarte id joueur :", idJ, a.getIdJoueur());
-        assertEquals("action PoserCarte numero carte :", nC, a.getNumeroCarte());
-        assertEquals("action PoserCarte num voisin :", 0, a.getNumVoisin());
+        testAction(a, PoserCarte, idJ, nC, 0);
     }
     
     @Test
-    public void testGetterDefausserCarte(){
+    public final void testGetterDefausserCarte(){
         a = new Action(DefausserCarte, idJ, nC);
-        assertEquals("action DefausserCarte type :", DefausserCarte, a.getType());
-        assertEquals("action DefausserCarte id joueur :", idJ, a.getIdJoueur());
-        assertEquals("action DefausserCarte numero carte :", nC, a.getNumeroCarte());
-        assertEquals("action DefausserCarte num voisin :", 0, a.getNumVoisin());
+        testAction(a, DefausserCarte, idJ, nC, 0);
     }
     
     @Test
-    public void testGetterConstruireMerveille(){
+    public final void testGetterConstruireMerveille(){
         a = new Action(ConstruireMerveille, idJ, nC);
-        assertEquals("action ConstruireMerveille type :", ConstruireMerveille, a.getType());
-        assertEquals("action ConstruireMerveille id joueur :", idJ, a.getIdJoueur());
-        assertEquals("action ConstruireMerveille numero carte :", nC, a.getNumeroCarte());
-        assertEquals("action ConstruireMerveille num voisin :", 0, a.getNumVoisin());
+        testAction(a, ConstruireMerveille, idJ, nC, 0);
     }
     
     @Test
-    public void testGetterAcheterRessource(){
+    public final void testGetterAcheterRessource(){
         a = new Action(AcheterRessource, idJ, nV, nC);
-        assertEquals("action AcheterRessource type :", AcheterRessource, a.getType());
-        assertEquals("action AcheterRessource id joueur :", idJ, a.getIdJoueur());
-        assertEquals("action AcheterRessource numero carte :", nC, a.getNumeroCarte());
-        assertEquals("action AcheterRessource num voisin :", nV, a.getNumVoisin());
+        testAction(a, AcheterRessource, idJ, nC, nV);
+    }
+
+    private final void testAction(Action a, TypeAction ta, int id, int nc, int nv){
+        assertEquals("action "+ta.toString()+" type :", ta, a.getType());
+        assertEquals("action "+ta.toString()+" id joueur :", id, a.getIdJoueur());
+        assertEquals("action "+ta.toString()+" numero carte :", nc, a.getNumeroCarte());
+        assertEquals("action "+ta.toString()+" num voisin :", nv, a.getNumVoisin());
     }
 }

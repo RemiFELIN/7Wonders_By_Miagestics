@@ -16,9 +16,10 @@ import java.util.Random;
 
 public class StratScientifique extends Strategie {
 
-    public StratScientifique(boolean log){
+    public StratScientifique(boolean log) {
         super(log);
-	}
+    }
+
     /**
      * Récupère l'action la plus adéquate à effectuer
      * @param j vision de jeu actuelle
@@ -27,52 +28,54 @@ public class StratScientifique extends Strategie {
      * @param posDroite possibilités d'achat avec le voisin de droite
      * @return l'action à effectuer determinée
      */
-
     @Override
     protected Action getAction(VisionJeu j, boolean[] posSeul, boolean[] posGauche, boolean[] posDroite) {
 
         ArrayList<Carte> deck = j.getDeckMain();
-
-        int carteN = 0, joueurAQuiPiocher=0;
-        int prixAchat=2;
+        int carteN = 0, joueurAQuiPiocher = 0, prixAchat = 2;
 
         for (int i = 0; i < deck.size(); i++)
-            if(posSeul[i]){
+            if (posSeul[i]) {
                 Carte c = deck.get(i);
-                if(c.getCouleur() == Couleur.VERT){
+                if (c.getCouleur() == Couleur.VERT) {
                     carteN = i;
                 }
             }
 
-            for (int i = 0; i < deck.size(); i++)
-                if(posGauche[i]){
-                    Carte c = deck.get(i);
-                    if(c.getCouleur() == Couleur.VERT && j.getPiece() > prixAchat){
-                        carteN = i;
-                        joueurAQuiPiocher = -1;
-                    }
+        for (int i = 0; i < deck.size(); i++)
+            if (posGauche[i]) {
+                Carte c = deck.get(i);
+                if (c.getCouleur() == Couleur.VERT && j.getPiece() > prixAchat) {
+                    carteN = i;
+                    joueurAQuiPiocher = -1;
                 }
+            }
 
-            for (int i = 0; i < deck.size(); i++)
-                if(posDroite[i]){
-                    Carte c = deck.get(i);
-                    if(c.getCouleur() == Couleur.VERT && j.getPiece() > prixAchat){
-                        carteN = i;
-                        joueurAQuiPiocher = 1;
-                    }
+        for (int i = 0; i < deck.size(); i++)
+            if (posDroite[i]) {
+                Carte c = deck.get(i);
+                if (c.getCouleur() == Couleur.VERT && j.getPiece() > prixAchat) {
+                    carteN = i;
+                    joueurAQuiPiocher = 1;
                 }
+            }
 
-        if(joueurAQuiPiocher != 0) return new Action(AcheterRessource, j.getId(), joueurAQuiPiocher, carteN);
+        if (joueurAQuiPiocher != 0)
+            return new Action(AcheterRessource, j.getId(), joueurAQuiPiocher, carteN);
 
-        if(carteN == 0) carteN = new Random().nextInt(deck.size());
+        if (carteN == 0)
+            carteN = new Random().nextInt(deck.size());
 
-        return new Action(PoserCarte,j.getId(), carteN);
+        return new Action(PoserCarte, j.getId(), carteN);
     }
+
     /**
      * Décris la stratégie actuelle
      * @see Strategie
      * @return description
      */
     @Override
-    public String toString(){ return super.toString() + " scientifique"; }
+    public String toString() {
+        return super.toString() + " scientifique";
+    }
 }

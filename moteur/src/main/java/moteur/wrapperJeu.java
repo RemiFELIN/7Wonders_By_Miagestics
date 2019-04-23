@@ -2,7 +2,7 @@ package moteur;
 
 import serveur.Serveur;
 
-import commun. Action;
+import commun.Action;
 import commun.Joueur;
 import static commun.ConsoleLogger.*;
 
@@ -26,36 +26,37 @@ public class wrapperJeu {
      * @param un port
      */
     public wrapperJeu(String adresse, int port) throws BindException {
-        //super(adresse, port);
+        // super(adresse, port);
         serveur = new Serveur(adresse, port, 4, 7);
         serveur.onRejoindreJeu(this::onRejoindreJeu);
         serveur.onDebutTour(this::onDebutTour);
         serveur.démarrer();
     }
+
     /**
      * Permet lorsque suffisament de joueurs se soit connectées de lancer la partie
      * @param nbJoueursConnectees
      */
-    public final void onRejoindreJeu(int nbJoueursConnectees){
+    public final void onRejoindreJeu(int nbJoueursConnectees) {
         log(YELLOW_BOLD_BRIGHT + "\n-----------------------------------------------");
-        log(YELLOW_BOLD_BRIGHT + "- 7 WONDERS : nombre de joueurs connectés : " + nbJoueursConnectees
-                + " -");
+        log(YELLOW_BOLD_BRIGHT + "- 7 WONDERS : nombre de joueurs connectés : " + nbJoueursConnectees + " -");
         log(YELLOW_BOLD_BRIGHT + "-----------------------------------------------\n");
         jeu = new Jeu(nbJoueursConnectees);
         jeu.distributionCarte();
         serveur.sendVisionsJeu(jeu.getVisionsJeu());
     }
+
     /**
      * Permet lors de la fin d'un tour de poursuivre le dérouelement de la partie
      * @return nombre de joueurs d'on le Action est fini
      */
-    public final int onDebutTour(HashMap<Integer, Action> acs){
+    public final int onDebutTour(HashMap<Integer, Action> acs) {
 
-        for(int i=0; i<acs.size(); i++){
+        for (int i = 0; i < acs.size(); i++) {
             Action ja = acs.get(i);
             String descJouer = jeu.jouerAction(ja);
-            if (descJouer == null){
-                log("Action du joueur "+i+" de type "+ja.getType().toString()+" est impossible !");
+            if (descJouer == null) {
+                log("Action du joueur " + i + " de type " + ja.getType().toString() + " est impossible !");
                 return i;
             } else
                 log(descJouer);
@@ -77,11 +78,11 @@ public class wrapperJeu {
                 int[][] sClas = new int[clas.size()][];
                 // 7 + 3 + 8 + 6 + 3 + 1
                 StringBuilder textClas = new StringBuilder(clas.size() * 28);
-                for (int i = 1; i < clas.size()+1; i++) {
-                    Joueur j = clas.get(i-1);
+                for (int i = 1; i < clas.size() + 1; i++) {
+                    Joueur j = clas.get(i - 1);
                     int s = j.getScore();
                     textClas.append(YELLOW_BOLD_BRIGHT + i + " > " + j.toString() + " avec " + s + "\n");
-                    sClas[j.getId()] = new int[]{i, s};
+                    sClas[j.getId()] = new int[] { i, s };
                 }
                 serveur.sendClassement(sClas);
                 log(textClas.toString());
@@ -98,7 +99,7 @@ public class wrapperJeu {
             log(GREEN_BOLD + "\nDébut du tour " + jeu.getTour());
             log(GREEN_BOLD + "-------------------------\n");
             jeu.roulementCarte();
-            serveur.sendVisionsJeu(jeu.getVisionsJeu());                
+            serveur.sendVisionsJeu(jeu.getVisionsJeu());
         }
         return acs.size();
     }
