@@ -32,7 +32,7 @@ public class JoueurTest {
     public final void testGetterInitial(){
         assertEquals("joueur id inital :", 1, joueur.getId());
         assertEquals("joueur nombre de piece inital :", 5, joueur.getPiece());
-        assertEquals("joueur score inital :", 2, joueur.getScore());
+        assertEquals("joueur score inital :", 1, joueur.getScore());
         assertEquals("joueur taille deck main inital :", 0, joueur.getDeckMain().size());
         assertEquals("joueur taille deck plateau inital :", 0, joueur.getDeckPlateau().size());
         assertArrayEquals("joueur jetons victoire initial :", joueur.getJetonsVictoire(), new int[]{0, 0, 0});
@@ -54,7 +54,7 @@ public class JoueurTest {
             joueur.poserCarte(0);
 
         //2 point d'or + 10 Score pointVictoire
-        assertEquals("joueur score avec les pointVictoires :", 12, joueur.getScore());
+        assertEquals("joueur score avec les pointVictoires :", 11, joueur.getScore());
     }
 
     @Test
@@ -75,7 +75,7 @@ public class JoueurTest {
         assertEquals("joueur taille deck aprés pose :", 0, joueur.getDeckMain().size());
 
         // Le joueur joue 5 cartes donc score = 5*5 + les 2 point d'or donc score = 27
-        assertEquals("joueur score aprés pose :", 27, joueur.getScore());
+        assertEquals("joueur score aprés pose :", 26, joueur.getScore());
     }
 
     @Test
@@ -95,8 +95,8 @@ public class JoueurTest {
 
         assertEquals("joueur taille deck aprés pose :", 0, joueur.getDeckMain().size());
      
-        // Le joueur joue 3 cartes scientifique différentes donc score = 7 + 3 + 2
-        assertEquals("joueur score aprés pose :", 12, joueur.getScore());
+        // Le joueur joue 3 cartes scientifique différentes donc score = 7 + 3 + 1
+        assertEquals("joueur score aprés pose :", 11, joueur.getScore());
     }
 
     @Test
@@ -123,28 +123,28 @@ public class JoueurTest {
     public final void testCalculConflitsMilitaire(){
 
         //Jeton victoire age 1
-        joueur.ajouterJetonVictoire(1); //Valeur jeton 1 donc 2 + 1
+        joueur.ajouterJetonVictoire(1); //Valeur jeton 1 donc 1 + 1
         assertArrayEquals("joueur jetons victoire aprés ajout 1 :", joueur.getJetonsVictoire(), new int[]{1, 0, 0});
         assertEquals("joueur jetons défaite aprés ajout 1 :", joueur.getJetonsDefaite(), 0);
-        assertEquals("joueur score aprés ajout 1 :", 3, joueur.getScore());
+        assertEquals("joueur score aprés ajout 1 :", 2, joueur.getScore());
 
         //Jeton victoire age 2
-        joueur.ajouterJetonVictoire(2); //Valeur jeton 3 donc 3 + 3
+        joueur.ajouterJetonVictoire(2); //Valeur jeton 3 donc 2 + 3
         assertArrayEquals("joueur jetons victoire aprés ajout 2 :", joueur.getJetonsVictoire(), new int[]{1, 1, 0});
         assertEquals("joueur jetons défaite aprés ajout 2 :", joueur.getJetonsDefaite(), 0);
-        assertEquals("joueur score aprés ajout 2 :", 6, joueur.getScore());
+        assertEquals("joueur score aprés ajout 2 :", 5, joueur.getScore());
 
         //Jeton victoire age 3
-        joueur.ajouterJetonVictoire(3); //Valeur jeton 5 donc 6 + 5
+        joueur.ajouterJetonVictoire(3); //Valeur jeton 5 donc 5 + 5
         assertArrayEquals("joueur jetons victoire aprés ajout 3 :", joueur.getJetonsVictoire(), new int[]{1, 1, 1});
         assertEquals("joueur jetons défaite aprés ajout 3 :", joueur.getJetonsDefaite(), 0);
-        assertEquals("joueur score aprés ajout 3 :", 11, joueur.getScore());
+        assertEquals("joueur score aprés ajout 3 :", 10, joueur.getScore());
 
         //Jeton age 3
-        joueur.ajouterJetonDefaite(); //Valeur jeton -1 donc 11 - 1
+        joueur.ajouterJetonDefaite(); //Valeur jeton -1 donc 10 - 1
         assertArrayEquals("joueur jetons victoire aprés ajout 4 :", joueur.getJetonsVictoire(), new int[]{1, 1, 1});
         assertEquals("joueur jetons défaite aprés ajout 4 :", joueur.getJetonsDefaite(), 1);
-        assertEquals("joueur score aprés ajout 4 :", 10, joueur.getScore());
+        assertEquals("joueur score aprés ajout 4 :", 9, joueur.getScore());
     }
 
     @Test
