@@ -29,7 +29,7 @@ public class StratScientifique extends Strategie {
      * @return l'action à effectuer determinée
      */
     @Override
-    protected final Action getAction(VisionJeu j, boolean[] posSeul, boolean[] posGauche, boolean[] posDroite) {
+    protected Action getAction(VisionJeu j, boolean[] posSeul, boolean[] posGauche, boolean[] posDroite) {
 
         ArrayList<Carte> deck = j.getDeckMain();
         int carteN = 0, joueurAQuiPiocher = 0, prixAchat = 2;
