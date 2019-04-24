@@ -177,10 +177,17 @@ public class Jeu {
      * @return description de l'action effectuée
      */
     public final String jouerAction(Action ja) {
-        Carte c;
         Joueur j = mesJoueurs.get(ja.getIdJoueur());
+        Carte c = j.getDeckMain().get(ja.getNumeroCarte());
         String desc = "";
-        boolean carteGratuite = false;
+        boolean gratuit = false;
+        Carte carteGratuite = c;
+        for (int k = 0; k < (j.getDeckPlateau().size()-1); k++) {
+            if (j.getDeckPlateau().get(k).getBatimentSuivant() == c.getNom()) {
+                carteGratuite = j.getDeckPlateau().get(k);
+                gratuit =  true;
+            }
+        }
         switch (ja.getType()) {
 
         case DefausserCarte:
@@ -190,29 +197,27 @@ public class Jeu {
             break;
 
         case AcheterRessource:
+            if(!gratuit){
+                int idJoueurAPayer = ja.getIdJoueur() + ja.getNumVoisin();
 
-            int idJoueurAPayer = ja.getIdJoueur() + ja.getNumVoisin();
+                if (idJoueurAPayer < 0) {
+                    idJoueurAPayer = mesJoueurs.size() - 1;
+                } else if (idJoueurAPayer > mesJoueurs.size() - 1) {
+                    idJoueurAPayer = 0;
+                }
 
-            if (idJoueurAPayer < 0) {
-                idJoueurAPayer = mesJoueurs.size() - 1;
-            } else if (idJoueurAPayer > mesJoueurs.size() - 1) {
-                idJoueurAPayer = 0;
+                mesJoueurs.get(idJoueurAPayer).recevoirPaiement(j.payer(2));
+                desc = "Le joueur " + ja.getIdJoueur() + " a acheté des ressources au joueur " + idJoueurAPayer + "\n";
             }
-
-            mesJoueurs.get(idJoueurAPayer).recevoirPaiement(j.payer(2));
-            desc = "Le joueur " + ja.getIdJoueur() + " a acheté des ressources au joueur " + idJoueurAPayer + "\n";
 
         case PoserCarte:
             c = j.poserCarte(ja.getNumeroCarte());
             desc += "Le joueur " + ja.getIdJoueur() + " a posé la carte " + Couleur.consoleColor(c.getCouleur()) + c.getNom();
-            for (int k = 0; k < j.getDeckPlateau().size(); k++) {
-                if (j.getDeckPlateau().get(k).getBatimentSuivant() == c.getNom()) {
-                    desc += WHITE + " gratuitement grâce à la carte ";
-                    desc += Couleur.consoleColor(j.getDeckPlateau().get(k).getCouleur()) + j.getDeckPlateau().get(k).getNom();
-                    carteGratuite = true;
-                }
+            if(gratuit){
+                desc += WHITE + " gratuitement grâce à la carte ";
+                desc += Couleur.consoleColor(carteGratuite.getCouleur()) + carteGratuite.getNom();
             }
-            if (carteGratuite == false) {
+            else {
                 ArrayList<Ressource> cr = c.getCoutRessources();
                 if (cr.size() > 0) {
                     desc += WHITE + " qui coûte ";
