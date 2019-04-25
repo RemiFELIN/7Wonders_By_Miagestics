@@ -30,14 +30,6 @@ public class Jeu {
     private final ArrayList<ArrayList<Carte>> tabDeck = new ArrayList<ArrayList<Carte>>(3);
     private int age = 1, tour = 1;
 
-    public static final void main(String args[]) throws BindException {
-        if (args.length == 2) {
-            String adresse = args[0];
-            int port = Integer.parseInt(args[1]);
-            new wrapperJeu(adresse, port);
-        }
-    }
-
     /**
      * Constructeur qui permet d'initialiser le début de partie
      * @param nbJoueurs nombre de joueurs dans la partie

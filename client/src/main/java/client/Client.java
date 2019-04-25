@@ -117,14 +117,4 @@ public class Client {
     public final void démarrer() {
         connexion.connect();
     }
-
-    public final static void main(String args[]) {
-        if (args.length == 3) {
-            String adresse = args[0];
-            int port = Integer.parseInt(args[1]);
-            int id = Integer.parseInt(args[2]);
-            Client c = new Client(id, adresse, port);
-            c.démarrer();
-        }
-    }
 }

@@ -1,7 +1,7 @@
 package lanceur;
 
 import client.Client;
-import moteur.Jeu;
+import moteur.wrapperJeu;
 import static commun.ConsoleLogger.*;
 
 import java.net.BindException;
@@ -21,18 +21,18 @@ public class Lanceur {
         log(YELLOW_BOLD_BRIGHT + "Début programme !!");
 
         try {
-            Jeu.main(new String[] { adresse, port + "" });
+            new wrapperJeu(adresse, port);
         } catch (BindException e) {
             log(RED_BOLD + "Adresse " + adresse + ":" + port + " déja utilisé, veuillez en utiliser un autre");
             return;
         }
 
         for (int i = 0; i < nombre_joueurs; i++) {
-            final String infoJoueur[] = new String[] { adresse, port + "", Integer.toString(i) };
+            final int id = i;
             new Thread(new Runnable() {
                 @Override
                 public final void run() {
-                    Client.main(infoJoueur);
+                    (new Client(id, adresse, port)).démarrer();
                 }
             }).start();
         }
