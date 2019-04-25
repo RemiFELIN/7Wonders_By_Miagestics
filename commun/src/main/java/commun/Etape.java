@@ -10,27 +10,46 @@ public class Etape {
     private int piece;
     private Ressource[] ressourcesCout;
     private Ressource[] ressourcesBonus;
-    private String effet;
+    private EffetMerveille effetMerveille;
     private SymboleScientifique[] symboleScientifique;
     private boolean etat = false;
 
     /**
+     * Constructeur etape
      * @param ressourcesCout (Le coût en ressources de l'étape)
      * @param pointVictoire (Les points de victoires que l'étape peut confèrer au joueur)
      * @param pointMilitaire (Les points militaires que l'étape peut confèrer au joueur)
      * @param piece (Les pièces que l'étape peut confèrer au joueur)
      * @param ressourcesBonus (Le tableau de ressources bonus que l'étape peut confèrer au joueur)
      * @param symboleScientifique (Le tableau des symbôles scientifique que l'étape peut confèrer au joueur)
-     * @param effet (L'effet que l'étape peut confèrer au joueur (cet effet est valable uniquement pour l'étape concerné) )
      */
     public Etape(Ressource[] ressourcesCout, int pointVictoire, int pointMilitaire, int piece,
-        Ressource[] ressourcesBonus, SymboleScientifique[] symboleScientifique, String effet){
+        Ressource[] ressourcesBonus, SymboleScientifique[] symboleScientifique){
             this.ressourcesCout = ressourcesCout;
             this.pointVictoire = pointVictoire;
             this.pointMilitaire = pointMilitaire;
             this.piece = piece;
             this.ressourcesBonus = ressourcesBonus;
-            this.effet = effet;
+            this.symboleScientifique = symboleScientifique;
+    }
+    /**
+     * Constructeur etape avec effet
+     * @param ressourcesCout (Le coût en ressources de l'étape)
+     * @param pointVictoire (Les points de victoires que l'étape peut confèrer au joueur)
+     * @param pointMilitaire (Les points militaires que l'étape peut confèrer au joueur)
+     * @param piece (Les pièces que l'étape peut confèrer au joueur)
+     * @param ressourcesBonus (Le tableau de ressources bonus que l'étape peut confèrer au joueur)
+     * @param symboleScientifique (Le tableau des symbôles scientifique que l'étape peut confèrer au joueur)
+     * @param effetMerveille (L'effet que l'étape peut confèrer au joueur (cet effet est valable uniquement pour l'étape concerné) )
+     */
+    public Etape(Ressource[] ressourcesCout, int pointVictoire, int pointMilitaire, int piece,
+        Ressource[] ressourcesBonus, SymboleScientifique[] symboleScientifique, EffetMerveille effetMerveille){
+            this.ressourcesCout = ressourcesCout;
+            this.pointVictoire = pointVictoire;
+            this.pointMilitaire = pointMilitaire;
+            this.piece = piece;
+            this.ressourcesBonus = ressourcesBonus;
+            this.effetMerveille = effetMerveille;
             this.symboleScientifique = symboleScientifique;
     }
 
@@ -76,7 +95,7 @@ public class Etape {
     /**
      * @return l'effet (autrement dit une action de jeu) que l'étape confère au joueur
      */
-    public final String getEffet(){ return effet; }
+    public final EffetMerveille getEffetMerveille(){ return effetMerveille; }
 
     /**
      * @return le tableau des symboles scientifiques que l'étape confère au joueur

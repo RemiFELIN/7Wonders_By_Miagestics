@@ -3,6 +3,7 @@ package commun;
 import java.util.ArrayList;
 
 import static commun.Ressource.*;
+import static commun.EffetMerveille.*;
 
 /**
  * @authors Rémi Felin, Yannick Cardini
@@ -78,23 +79,23 @@ public class Merveille {
 
         m = new Merveille("Le Colosse de Rhodes", 'A', MINERAI, 3);
             //etape 1
-            etape = new Etape(new Ressource[]{BOIS, BOIS}, 3, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "");
+            etape = new Etape(new Ressource[]{BOIS, BOIS}, 3, 0, 0, new Ressource[]{}, new SymboleScientifique[]{});
             m.ajouterEtape(etape, 1);
             //etape 2
-            etape = new Etape(new Ressource[]{ARGILE, ARGILE, ARGILE}, 0, 2, 0, new Ressource[]{}, new SymboleScientifique[]{}, "");
+            etape = new Etape(new Ressource[]{ARGILE, ARGILE, ARGILE}, 0, 2, 0, new Ressource[]{}, new SymboleScientifique[]{});
             m.ajouterEtape(etape, 2);
             //etape 3
-            etape = new Etape(new Ressource[]{MINERAI, MINERAI, MINERAI, MINERAI}, 7, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "");
+            etape = new Etape(new Ressource[]{MINERAI, MINERAI, MINERAI, MINERAI}, 7, 0, 0, new Ressource[]{}, new SymboleScientifique[]{});
             m.ajouterEtape(etape, 3);
             //fin
         plateaux.add(m);
 
         m = new Merveille("Le Colosse de Rhodes", 'B', MINERAI, 2);
             //etape 1
-            etape = new Etape(new Ressource[]{PIERRE, PIERRE, PIERRE}, 3, 1, 3, new Ressource[]{}, new SymboleScientifique[]{}, "");
+            etape = new Etape(new Ressource[]{PIERRE, PIERRE, PIERRE}, 3, 1, 3, new Ressource[]{}, new SymboleScientifique[]{});
             m.ajouterEtape(etape, 1);
             //etape 2
-            etape = new Etape(new Ressource[]{MINERAI, MINERAI, MINERAI, MINERAI}, 4, 1, 4, new Ressource[]{}, new SymboleScientifique[]{}, "");
+            etape = new Etape(new Ressource[]{MINERAI, MINERAI, MINERAI, MINERAI}, 4, 1, 4, new Ressource[]{}, new SymboleScientifique[]{});
             m.ajouterEtape(etape, 2);
             //fin
         plateaux.add(m);
@@ -105,26 +106,26 @@ public class Merveille {
 
         m = new Merveille("Le phare d’Alexandrie", 'A', VERRE, 3);
             //etape 1
-            etape = new Etape(new Ressource[]{PIERRE, PIERRE}, 3, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "");
+            etape = new Etape(new Ressource[]{PIERRE, PIERRE}, 3, 0, 0, new Ressource[]{}, new SymboleScientifique[]{});
             m.ajouterEtape(etape, 1);
             //etape 2
-            etape = new Etape(new Ressource[]{MINERAI, MINERAI}, 0, 0, 0, new Ressource[]{ARGILE, MINERAI, BOIS, PIERRE}, new SymboleScientifique[]{}, "");
+            etape = new Etape(new Ressource[]{MINERAI, MINERAI}, 0, 0, 0, new Ressource[]{ARGILE, MINERAI, BOIS, PIERRE}, new SymboleScientifique[]{});
             m.ajouterEtape(etape, 2);
             //etape 3
-            etape = new Etape(new Ressource[]{VERRE, VERRE}, 7, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "");
+            etape = new Etape(new Ressource[]{VERRE, VERRE}, 7, 0, 0, new Ressource[]{}, new SymboleScientifique[]{});
             m.ajouterEtape(etape, 3);
             //fin
         plateaux.add(m);
 
         m = new Merveille("Le Phare d'Alexandrie", 'B', VERRE, 3);
             //etape 1
-            etape = new Etape(new Ressource[]{ARGILE, ARGILE}, 0, 0, 0, new Ressource[]{BOIS, PIERRE, MINERAI, ARGILE}, new SymboleScientifique[]{}, "");
+            etape = new Etape(new Ressource[]{ARGILE, ARGILE}, 0, 0, 0, new Ressource[]{BOIS, PIERRE, MINERAI, ARGILE}, new SymboleScientifique[]{});
             m.ajouterEtape(etape, 1);
             //etape 2
-            etape = new Etape(new Ressource[]{BOIS, BOIS}, 0, 0, 0, new Ressource[]{VERRE, TEXTILE, PAPYRUS}, new SymboleScientifique[]{}, "");
+            etape = new Etape(new Ressource[]{BOIS, BOIS}, 0, 0, 0, new Ressource[]{VERRE, TEXTILE, PAPYRUS}, new SymboleScientifique[]{});
             m.ajouterEtape(etape, 2);
             //etape 3
-            etape = new Etape(new Ressource[]{PIERRE, PIERRE, PIERRE}, 7, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "");
+            etape = new Etape(new Ressource[]{PIERRE, PIERRE, PIERRE}, 7, 0, 0, new Ressource[]{}, new SymboleScientifique[]{});
             m.ajouterEtape(etape, 3);
             //fin
         plateaux.add(m);
@@ -135,26 +136,26 @@ public class Merveille {
 
         m = new Merveille("Le temple d’Artémis à Ephèse", 'A', PAPYRUS, 3);
             //etape 1
-            etape = new Etape(new Ressource[]{PIERRE, PIERRE}, 3, 0, 0, new Ressource[]{}, new SymboleScientifique[]{},"");
+            etape = new Etape(new Ressource[]{PIERRE, PIERRE}, 3, 0, 0, new Ressource[]{}, new SymboleScientifique[]{});
             m.ajouterEtape(etape, 1);
             //etape 2
-            etape = new Etape(new Ressource[]{BOIS, BOIS}, 0, 0, 9, new Ressource[]{}, new SymboleScientifique[]{}, "");
+            etape = new Etape(new Ressource[]{BOIS, BOIS}, 0, 0, 9, new Ressource[]{}, new SymboleScientifique[]{});
             m.ajouterEtape(etape, 2);
             //etape 3
-            etape = new Etape(new Ressource[]{PAPYRUS, PAPYRUS}, 7, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "");
+            etape = new Etape(new Ressource[]{PAPYRUS, PAPYRUS}, 7, 0, 0, new Ressource[]{}, new SymboleScientifique[]{});
             m.ajouterEtape(etape, 3);
             //fin
         plateaux.add(m);
 
         m = new Merveille("Le temple d’Artémis à Ephèse", 'B', PAPYRUS, 3);
             //etape 1
-            etape = new Etape(new Ressource[]{PIERRE, PIERRE}, 2, 0, 4, new Ressource[]{}, new SymboleScientifique[]{}, "");
+            etape = new Etape(new Ressource[]{PIERRE, PIERRE}, 2, 0, 4, new Ressource[]{}, new SymboleScientifique[]{});
             m.ajouterEtape(etape, 1);
             //etape 2
-            etape = new Etape(new Ressource[]{BOIS, BOIS}, 3, 0,4, new Ressource[]{}, new SymboleScientifique[]{}, "");
+            etape = new Etape(new Ressource[]{BOIS, BOIS}, 3, 0,4, new Ressource[]{}, new SymboleScientifique[]{});
             m.ajouterEtape(etape, 2);
             //etape 3
-            etape = new Etape(new Ressource[]{PAPYRUS, TEXTILE, VERRE}, 5, 0, 4, new Ressource[]{}, new SymboleScientifique[]{}, "");
+            etape = new Etape(new Ressource[]{PAPYRUS, TEXTILE, VERRE}, 5, 0, 4, new Ressource[]{}, new SymboleScientifique[]{});
             m.ajouterEtape(etape, 3);
             //fin
         plateaux.add(m);
@@ -165,26 +166,26 @@ public class Merveille {
 
         m = new Merveille("Les jardins suspendus de Babylone", 'A', ARGILE, 3);
             //etape 1
-            etape = new Etape(new Ressource[]{ARGILE, ARGILE}, 3, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "");
+            etape = new Etape(new Ressource[]{ARGILE, ARGILE}, 3, 0, 0, new Ressource[]{}, new SymboleScientifique[]{});
             m.ajouterEtape(etape, 1);
             //etape 2
-            etape = new Etape(new Ressource[]{BOIS, BOIS, BOIS}, 0, 0, 0, new Ressource[]{}, new SymboleScientifique[]{SymboleScientifique.choisirSymbole()}, "");
+            etape = new Etape(new Ressource[]{BOIS, BOIS, BOIS}, 0, 0, 0, new Ressource[]{}, new SymboleScientifique[]{SymboleScientifique.choisirSymbole()});
             m.ajouterEtape(etape, 2);
             //etape 3
-            etape = new Etape(new Ressource[]{ARGILE, ARGILE, ARGILE, ARGILE}, 7, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "");
+            etape = new Etape(new Ressource[]{ARGILE, ARGILE, ARGILE, ARGILE}, 7, 0, 0, new Ressource[]{}, new SymboleScientifique[]{});
             m.ajouterEtape(etape, 3);
             //fin
         plateaux.add(m);
 
         m = new Merveille("Les jardins suspendus de Babylone", 'B', ARGILE, 3);
             //etape 1
-            etape = new Etape(new Ressource[]{TEXTILE, ARGILE}, 3, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "");
+            etape = new Etape(new Ressource[]{TEXTILE, ARGILE}, 3, 0, 0, new Ressource[]{}, new SymboleScientifique[]{});
             m.ajouterEtape(etape, 1);
             //etape 2
-            etape = new Etape(new Ressource[]{VERRE, BOIS, BOIS}, 0, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "Jouer une carte en plus");
+            etape = new Etape(new Ressource[]{VERRE, BOIS, BOIS}, 0, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, JOUER_DEFAUSSER);
             m.ajouterEtape(etape, 2);
             //etape 3
-            etape = new Etape(new Ressource[]{ARGILE, ARGILE, ARGILE, PAPYRUS}, 0, 0, 0, new Ressource[]{}, new SymboleScientifique[]{SymboleScientifique.choisirSymbole()}, "");
+            etape = new Etape(new Ressource[]{ARGILE, ARGILE, ARGILE, PAPYRUS}, 0, 0, 0, new Ressource[]{}, new SymboleScientifique[]{SymboleScientifique.choisirSymbole()});
             m.ajouterEtape(etape, 3);
             //fin
         plateaux.add(m);
@@ -195,27 +196,27 @@ public class Merveille {
 
         m = new Merveille("La statue de Zeus à Olympie", 'A', BOIS, 3);
             //etape 1
-            etape = new Etape(new Ressource[]{BOIS, BOIS}, 3, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "");
+            etape = new Etape(new Ressource[]{BOIS, BOIS}, 3, 0, 0, new Ressource[]{}, new SymboleScientifique[]{});
             m.ajouterEtape(etape, 1);
             //etape 2
-            etape = new Etape(new Ressource[]{PIERRE, PIERRE}, 0, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "construire un bâtiment de mon choix");
+            etape = new Etape(new Ressource[]{PIERRE, PIERRE}, 0, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, CONSTRUCTION_GRATUITE);
             m.ajouterEtape(etape, 2);
             //etape 3
-            etape = new Etape(new Ressource[]{MINERAI, MINERAI}, 7, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "");
+            etape = new Etape(new Ressource[]{MINERAI, MINERAI}, 7, 0, 0, new Ressource[]{}, new SymboleScientifique[]{});
             m.ajouterEtape(etape, 3);
             //fin
         plateaux.add(m);
 
         m = new Merveille("La statue de Zeus à Olympie", 'B', BOIS, 3);
             //etape 1
-            etape = new Etape(new Ressource[]{BOIS, BOIS}, 0, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "Payer les ressources aux voisins pour 1 pièce");
+            etape = new Etape(new Ressource[]{BOIS, BOIS}, 0, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, ACHAT_MATIERE);
                 //cas particulier : le bonus modifie le prix des ressources que l'on peut acheter au voisin
             m.ajouterEtape(etape, 1);
             //etape 2
-            etape = new Etape(new Ressource[]{PIERRE, PIERRE}, 5, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "");
+            etape = new Etape(new Ressource[]{PIERRE, PIERRE}, 5, 0, 0, new Ressource[]{}, new SymboleScientifique[]{});
             m.ajouterEtape(etape, 2);
             //etape 3
-            etape = new Etape(new Ressource[]{MINERAI, MINERAI, TEXTILE}, 0, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "Copier une guilde de mon choix");
+            etape = new Etape(new Ressource[]{MINERAI, MINERAI, TEXTILE}, 0, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, COPIE_GUILDE);
             m.ajouterEtape(etape, 3);
             //fin
         plateaux.add(m);
@@ -226,26 +227,26 @@ public class Merveille {
 
         m = new Merveille("Le mausolée d’Halicarnasse", 'A', TEXTILE, 3);
             //etape 1
-            etape = new Etape(new Ressource[]{ARGILE, ARGILE}, 3, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "");
+            etape = new Etape(new Ressource[]{ARGILE, ARGILE}, 3, 0, 0, new Ressource[]{}, new SymboleScientifique[]{});
             m.ajouterEtape(etape, 1);
             //etape 2
-            etape = new Etape(new Ressource[]{MINERAI, MINERAI, MINERAI}, 0, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "piocher une carte dans la fosse");
+            etape = new Etape(new Ressource[]{MINERAI, MINERAI, MINERAI}, 0, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, DEFAUSSAGE);
             m.ajouterEtape(etape, 2);
             //etape 3
-            etape = new Etape(new Ressource[]{TEXTILE, TEXTILE}, 7, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "");
+            etape = new Etape(new Ressource[]{TEXTILE, TEXTILE}, 7, 0, 0, new Ressource[]{}, new SymboleScientifique[]{});
             m.ajouterEtape(etape, 3);
             //fin
         plateaux.add(m);
 
         m = new Merveille("Le mausolée d’Halicarnasse", 'B', TEXTILE, 3);
             //etape 1
-            etape = new Etape(new Ressource[]{MINERAI, MINERAI}, 2, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "piocher une carte dans la fosse");
+            etape = new Etape(new Ressource[]{MINERAI, MINERAI}, 2, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, DEFAUSSAGE);
             m.ajouterEtape(etape, 1);
             //etape 2
-            etape = new Etape(new Ressource[]{ARGILE, ARGILE, ARGILE}, 1, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "piocher une carte dans la fosse");
+            etape = new Etape(new Ressource[]{ARGILE, ARGILE, ARGILE}, 1, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, DEFAUSSAGE);
             m.ajouterEtape(etape, 2);
             //etape 3
-            etape = new Etape(new Ressource[]{VERRE, PAPYRUS, TEXTILE}, 0, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "piocher une carte dans la fosse");
+            etape = new Etape(new Ressource[]{VERRE, PAPYRUS, TEXTILE}, 0, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, DEFAUSSAGE);
             m.ajouterEtape(etape, 3);
             //fin
         plateaux.add(m);
@@ -256,29 +257,29 @@ public class Merveille {
 
         m = new Merveille("La grande pyramide de Gizeh", 'A', PIERRE, 3);
             //etape 1
-            etape = new Etape(new Ressource[]{PIERRE, PIERRE}, 3, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "");
+            etape = new Etape(new Ressource[]{PIERRE, PIERRE}, 3, 0, 0, new Ressource[]{}, new SymboleScientifique[]{});
             m.ajouterEtape(etape, 1);
             //etape 2
-            etape = new Etape(new Ressource[]{BOIS, BOIS, BOIS}, 5, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "");
+            etape = new Etape(new Ressource[]{BOIS, BOIS, BOIS}, 5, 0, 0, new Ressource[]{}, new SymboleScientifique[]{});
             m.ajouterEtape(etape, 2);
             //etape 3
-            etape = new Etape(new Ressource[]{PIERRE, PIERRE, PIERRE, PIERRE}, 7, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "");
+            etape = new Etape(new Ressource[]{PIERRE, PIERRE, PIERRE, PIERRE}, 7, 0, 0, new Ressource[]{}, new SymboleScientifique[]{});
             m.ajouterEtape(etape, 3);
             //fin
         plateaux.add(m);
 
         m = new Merveille("La grande pyramide de Gizeh", 'B', PIERRE, 4);
             //etape 1
-            etape = new Etape(new Ressource[]{BOIS, BOIS}, 3, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "");
+            etape = new Etape(new Ressource[]{BOIS, BOIS}, 3, 0, 0, new Ressource[]{}, new SymboleScientifique[]{});
             m.ajouterEtape(etape, 1);
             //etape 2
-            etape = new Etape(new Ressource[]{PIERRE, PIERRE, PIERRE}, 5, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "");
+            etape = new Etape(new Ressource[]{PIERRE, PIERRE, PIERRE}, 5, 0, 0, new Ressource[]{}, new SymboleScientifique[]{});
             m.ajouterEtape(etape, 2);
             //etape 3
-            etape = new Etape(new Ressource[]{ARGILE, ARGILE, ARGILE}, 5, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "");
+            etape = new Etape(new Ressource[]{ARGILE, ARGILE, ARGILE}, 5, 0, 0, new Ressource[]{}, new SymboleScientifique[]{});
             m.ajouterEtape(etape, 3);
             //etape 4
-            etape = new Etape(new Ressource[]{PIERRE, PIERRE, PIERRE, PIERRE, PAPYRUS}, 7, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "");
+            etape = new Etape(new Ressource[]{PIERRE, PIERRE, PIERRE, PIERRE, PAPYRUS}, 7, 0, 0, new Ressource[]{}, new SymboleScientifique[]{});
             m.ajouterEtape(etape, 4);
             //fin
         plateaux.add(m);

@@ -8,6 +8,7 @@ import commun.SymboleScientifique;
 import commun.Ressource;
 import commun.EffetGuilde;
 import commun.EffetCommercial;
+import commun.EffetMerveille;
 
 import org.json.JSONObject;
 import org.json.JSONArray;
@@ -130,8 +131,14 @@ public class JSONParser {
 
         for (byte i = 0; i < et.length(); i++) {
             JSONObject je = et.getJSONObject(i);
-            Etape e = new Etape(parseJSONArrayRessource(je.getJSONArray("ressourcesCout")), je.getInt("pointVictoire"), je.getInt("pointMilitaire"), je.getInt("piece"),
-                    parseJSONArrayRessource(je.getJSONArray("ressourcesBonus")), parseJSONArraySymbole(je.getJSONArray("symboleScientifique")), je.getString("effet"));
+            Etape e;
+            if (je.has("effetMerveille"))
+                e = new Etape(parseJSONArrayRessource(je.getJSONArray("ressourcesCout")), je.getInt("pointVictoire"), je.getInt("pointMilitaire"), je.getInt("piece"),
+                        parseJSONArrayRessource(je.getJSONArray("ressourcesBonus")), parseJSONArraySymbole(je.getJSONArray("symboleScientifique")),
+                        EffetMerveille.fromString(je.getString("effetMerveille")));
+            else
+                e = new Etape(parseJSONArrayRessource(je.getJSONArray("ressourcesCout")), je.getInt("pointVictoire"), je.getInt("pointMilitaire"), je.getInt("piece"),
+                        parseJSONArrayRessource(je.getJSONArray("ressourcesBonus")), parseJSONArraySymbole(je.getJSONArray("symboleScientifique")));
             m.ajouterEtape(e, i + 1);
         }
         return m;

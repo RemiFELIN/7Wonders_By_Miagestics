@@ -27,7 +27,7 @@ public class JoueurTest {
     public final void setUp(){
         joueur = new Joueur(1);
         Merveille m = new Merveille("MerveilleTest", 'A', MINERAI, 1);
-        m.ajouterEtape(new Etape(new Ressource[]{BOIS, BOIS}, 3, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, ""), 1);
+        m.ajouterEtape(new Etape(new Ressource[]{BOIS, BOIS}, 3, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}), 1);
         joueur.setPlateau(m);
         vGauche = new VisionJeu(0, 0, new int[]{0,0,0}, 0, m, new ArrayList<Carte>());
         vDroite = new VisionJeu(2, 0, new int[]{0,0,0}, 0, m, new ArrayList<Carte>());
@@ -199,10 +199,10 @@ public class JoueurTest {
         deckG.add(new Carte("CarteBleuTest", BLEU, 1));
         deckG.add(new Carte("CarteMarronTest", MARRON, 1));
         Merveille mG = new Merveille("MerveilleTestGauche", 'A', MINERAI, 2);
-        Etape e = new Etape(new Ressource[]{}, 0, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "");
+        Etape e = new Etape(new Ressource[]{}, 0, 0, 0, new Ressource[]{}, new SymboleScientifique[]{});
         e.construire();
         mG.ajouterEtape(e, 1);
-        mG.ajouterEtape(new Etape(new Ressource[]{}, 0, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, ""), 2);
+        mG.ajouterEtape(new Etape(new Ressource[]{}, 0, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}), 2);
         vGauche = new VisionJeu(0, 0, new int[]{0,0,0}, 2, mG, deckG);
 
         ArrayList<Carte> deckD = new ArrayList<Carte>(3);
@@ -210,13 +210,13 @@ public class JoueurTest {
         deckD.add(new Carte("CarteJauneTest", JAUNE, 1));
         deckD.add(new Carte("CarteVertTest", VERT, 1));
         Merveille mD = new Merveille("MerveilleTestDroite", 'B', ARGILE, 3);
-        e = new Etape(new Ressource[]{}, 0, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "");
+        e = new Etape(new Ressource[]{}, 0, 0, 0, new Ressource[]{}, new SymboleScientifique[]{});
         e.construire();
         mD.ajouterEtape(e, 1);
-        e = new Etape(new Ressource[]{}, 0, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "");
+        e = new Etape(new Ressource[]{}, 0, 0, 0, new Ressource[]{}, new SymboleScientifique[]{});
         e.construire();
         mD.ajouterEtape(e, 2);
-        mD.ajouterEtape(new Etape(new Ressource[]{}, 0, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, ""), 3);
+        mD.ajouterEtape(new Etape(new Ressource[]{}, 0, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}), 3);
         vDroite = new VisionJeu(2, 0, new int[]{0,0,0}, 1, mD, deckD);
         
         ArrayList<Carte> deck = new ArrayList<Carte>(10);

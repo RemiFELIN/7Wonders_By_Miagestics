@@ -22,11 +22,11 @@ public class MerveilleTest {
     @Before
     public final void setUp(){
         merveille = new Merveille(nom, face, MINERAI, 3);
-        etapes[0] = new Etape(new Ressource[]{BOIS, BOIS}, 3, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "effet etape 1");
+        etapes[0] = new Etape(new Ressource[]{BOIS, BOIS}, 3, 0, 0, new Ressource[]{}, new SymboleScientifique[]{});
         merveille.ajouterEtape(etapes[0], 1);
-        etapes[1] = new Etape(new Ressource[]{MINERAI, MINERAI, MINERAI}, 0, 5, 2, new Ressource[]{}, new SymboleScientifique[]{TABLETTE}, "effet etape 2");
+        etapes[1] = new Etape(new Ressource[]{MINERAI, MINERAI, MINERAI}, 0, 5, 2, new Ressource[]{}, new SymboleScientifique[]{TABLETTE});
         merveille.ajouterEtape(etapes[1], 2);
-        etapes[2] = new Etape(new Ressource[]{ARGILE}, 0, 0, 3, new Ressource[]{VERRE, VERRE}, new SymboleScientifique[]{}, "effet etape 3");
+        etapes[2] = new Etape(new Ressource[]{ARGILE}, 0, 0, 3, new Ressource[]{VERRE, VERRE}, new SymboleScientifique[]{});
         merveille.ajouterEtape(etapes[2], 3);
     }
 
@@ -45,7 +45,7 @@ public class MerveilleTest {
         assertEquals("etape equal piece :", etape.getPiece(), etape1.getPiece());
         assertEquals("etape equal cout ressources :", etape.getRessourcesCout(), etape1.getRessourcesCout());
         assertEquals("etape equal ressources bonus :", etape.getRessourcesBonus(), etape1.getRessourcesBonus());
-        assertEquals("etape equal effet :", etape.getEffet(), etape1.getEffet());
+        assertEquals("etape equal effet :", etape.getEffetMerveille(), etape1.getEffetMerveille());
         assertEquals("etape equal symbole scientifique :", etape.getSymboleScientifique(), etape1.getSymboleScientifique());
     }
 }
