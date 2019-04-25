@@ -135,10 +135,39 @@ public class Joueur {
         return c;
     }
     /**
-     * @return le score total
+     * @return le score total de fin de tour
+     * @author Pierre Saunders
+     */
+    public final int getScoreFinTour(VisionJeu vGauche, VisionJeu vDroite) {
+        
+        int score = getScore(vGauche, vDroite);
+        // Famille de symboles identiques
+        HashMap<SymboleScientifique, Integer> scientifique = new HashMap<SymboleScientifique, Integer>();
+        for(SymboleScientifique s : SymboleScientifique.values())
+            scientifique.put(s, 0);
+
+        for(Carte c : deckPlateau){
+            SymboleScientifique symb = c.getSymboleScientifique();
+            if(symb != null)
+                scientifique.put(symb, scientifique.get(symb)+1);
+        }
+
+        //Groupe de 3 symboles différents
+        int groupe = 99;
+        for(SymboleScientifique s : SymboleScientifique.values()){
+            int val = scientifique.get(s);
+            score += Math.pow(val, 2);
+            groupe = Math.min(groupe, val);
+        }
+        score += 7 * groupe;
+
+        return score;
+    }
+    /**
+     * @return le score sans scientifique
      * @author Rémi Felin, Pierre Saunders, Thomas Gauci
      */
-    public final int getScore(VisionJeu vGauche, VisionJeu vDroite) {
+    private final int getScore(VisionJeu vGauche, VisionJeu vDroite) {
 
         int score = 0;
 
@@ -163,28 +192,10 @@ public class Joueur {
             score += c.getPointVictoire();
 
         //5. Bâtiments scientifiques
-        // Famille de symboles identiques
-        HashMap<SymboleScientifique, Integer> scientifique = new HashMap<SymboleScientifique, Integer>();
-        for(SymboleScientifique s : SymboleScientifique.values())
-            scientifique.put(s, 0);
-
-        for(Carte c : deckPlateau){
-            SymboleScientifique symb = c.getSymboleScientifique();
-            if(symb != null)
-                scientifique.put(symb, scientifique.get(symb)+1);
-        }
-
-        //Groupe de 3 symboles différents
-        int groupe = 99;
-        for(SymboleScientifique s : SymboleScientifique.values()){
-            int val = scientifique.get(s);
-            score += Math.pow(val, 2);
-            groupe = Math.min(groupe, val);
-        }
-        score += 7 * groupe;
+        //Voir getScoreScientifique();
 
         //6. Baîments commerciaux
-        //Voir score bonus fin de partie
+        //Voir getScoreBonusFinPartie();
 
         //7. Guildes
         for(Carte c : deckPlateau){
@@ -242,7 +253,6 @@ public class Joueur {
                     break;
                     
                     case ARMATEURS:
-                        score++; //La carte se compte elle-même
                         for(Carte cp : deckPlateau){
                             Couleur clp = cp.getCouleur();
                             if(clp == MARRON || clp == GRIS || clp == VIOLET)
@@ -261,42 +271,75 @@ public class Joueur {
     }
     /**
      * @return le score bonus lors de la fin de partie (voir régles page 6, Batîments commerciaux)
+     * @note à utiliser en complément de getScore() mais pas avec getScoreScientifique()
      * @author Pierre Saunders
      */
-    public final int getScoreBonusFinPartie(VisionJeu vGauche, VisionJeu vDroite) {
+    public final int getScoreFinPartie(VisionJeu vGauche, VisionJeu vDroite) {
         
         int score = 0;
-
-        //case SCIENTIFIQUES:
-            //TODO ajouter EventConnection choisir SymboleScientifique
-            SymboleScientifique.choisirSymbole();
-        //break;
-
-        //5. Bâtiments scientifiques
-        // Famille de symboles identiques
-        HashMap<SymboleScientifique, Integer> scientifique = new HashMap<SymboleScientifique, Integer>();
-        for(SymboleScientifique s : SymboleScientifique.values())
-            scientifique.put(s, 0);
-
-        for(Carte c : deckPlateau){
-            SymboleScientifique symb = c.getSymboleScientifique();
-            if(symb != null)
-                scientifique.put(symb, scientifique.get(symb)+1);
-        }
-
-        //Groupe de 3 symboles différents
-        int groupe = 99;
-        for(SymboleScientifique s : SymboleScientifique.values()){
-            int val = scientifique.get(s);
-            score += Math.pow(val, 2);
-            groupe = Math.min(groupe, val);
-        }
-        score += 7 * groupe;
         
-        //6. Bâtiments commerciaux
-        //Voir fin de partie
+        for(Carte c : deckPlateau){
+            EffetGuilde eg = c.getEffetGuilde();
+            if(eg != null && eg == EffetGuilde.SCIENTIFIQUES){
+    
+                //5. Bâtiments scientifiques
+                // Famille de symboles identiques
+                HashMap<SymboleScientifique, Integer> scientifique = new HashMap<SymboleScientifique, Integer>();
+                for(SymboleScientifique s : SymboleScientifique.values())
+                    scientifique.put(s, 0);
+    
+                for(Carte cs : deckPlateau){
+                    SymboleScientifique symb = cs.getSymboleScientifique();
+                    if(symb != null)
+                        scientifique.put(symb, scientifique.get(symb)+1);
+                }
+                
+                //TODO ajouter EventConnection choisir SymboleScientifique
+                SymboleScientifique bonus = SymboleScientifique.choisirSymbole();
+                scientifique.put(bonus, scientifique.get(bonus)+1);
 
-        return score;
+                //Groupe de 3 symboles différents
+                int groupe = 99;
+                for(SymboleScientifique s : SymboleScientifique.values()){
+                    int val = scientifique.get(s);
+                    score += Math.pow(val, 2);
+                    groupe = Math.min(groupe, val);
+                }
+                score += 7 * groupe;
+
+            } else {
+                //6. Bâtiments commerciaux
+                EffetCommercial ec = c.getEffetCommercial();
+                if(ec != null)
+                    switch(ec){
+                    case BONUS_ETAPE_MERVEILLE:
+                        for (Etape e : plateau.getEtapes())
+                            if (e.getEtat())
+                                score++;
+                        break;
+
+                    case BONUS_CARTE_MARRON:
+                        for (Carte cj : deckPlateau)
+                            if (cj.getCouleur() == MARRON)
+                            score++;
+                        break;
+
+                    case BONUS_CARTE_GRIS:
+                        for (Carte cj : deckPlateau)
+                            if (cj.getCouleur() == GRIS)
+                            score+=2;
+                        break;
+
+                    case BONUS_CARTE_JAUNE:
+                        for (Carte cj : deckPlateau)
+                            if (cj.getCouleur() == JAUNE)
+                            score++;
+                        break;
+                    }
+            }
+        }
+
+        return getScore(vGauche, vDroite) + score;
     }
     /**
      * @author Benoît Montorsi

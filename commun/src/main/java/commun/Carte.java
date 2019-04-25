@@ -7,6 +7,7 @@ import static commun.Couleur.*;
 import static commun.SymboleScientifique.*;
 import static commun.Ressource.*;
 import static commun.EffetGuilde.*;
+import static commun.EffetCommercial.*;
 
 /**
  * @author Yannick Cardini, Benoît Montorsi, Rémi Felin, Pierre Saunders, Gauci Thomas
@@ -23,6 +24,7 @@ public class Carte {
     private ArrayList<Ressource> ressources = new ArrayList<Ressource>();
     private String batSuiv = "";
     private EffetGuilde effetGuilde;
+    private EffetCommercial effetCommercial;
 
     /**
      * Constructeur carte basique
@@ -49,6 +51,29 @@ public class Carte {
         this.coutPiece = coutPiece;
         this.pointVictoire = pointVictoire;
         this.puissanceMilitaire = puissanceMilitaire;
+    }
+    /**
+     * Constructeur carte à effet special commercial
+     * @param nom nom
+     * @param couleur couleur
+     * @param age âge
+     * @param EffetCommercial l'effet spécial
+     */
+    public Carte(String nom, Couleur couleur, int age, EffetCommercial effetCommercial){
+        this(nom, couleur, age);
+        this.effetCommercial = effetCommercial;
+    }
+    /**
+     * Constructeur carte à effet special commercial avec batîment suivant
+     * @param nom nom
+     * @param couleur couleur
+     * @param age âge
+     * @param EffetCommercial l'effet spécial
+     * @batSuiv batiment suivant gratuit
+     */
+    public Carte(String nom, Couleur couleur, int age, EffetCommercial effetCommercial, String batSuiv){
+        this(nom, couleur, age);
+        this.effetCommercial = effetCommercial;
     }
     /**
      * Constructeur carte scientifique
@@ -141,6 +166,10 @@ public class Carte {
      * @return l'effet de guilde
      */
     public final EffetGuilde getEffetGuilde(){ return effetGuilde; }
+    /**
+     * @return l'effet special
+     */
+    public final EffetCommercial getEffetCommercial(){ return effetCommercial; }
 
     //TODO Dans une future itération
     /*
@@ -1031,45 +1060,42 @@ public class Carte {
     private final static void addCartesMarchandes(ArrayList<Carte> deck, int age, int nbJoueurs){
         switch(age){
             case 1:
-                    Carte c = new Carte("Commerce Est", JAUNE, 1, 0, 0, 0,"Forum");
+                    Carte c = new Carte("Commerce Est", JAUNE, 1, ACHAT_MATIERE_DROITE, "Forum");
                     deck.add(c);
 
-                    c = new Carte("Commerce Ouest", JAUNE, 1, 0, 0, 0,"Forum");
+                    c = new Carte("Commerce Ouest", JAUNE, 1, ACHAT_MATIERE_GAUCHE, "Forum");
                     deck.add(c);
 
-                    c = new Carte("Marche", JAUNE, 1, 0, 0, 0,"Caranvaserail");
+                    c = new Carte("Marche", JAUNE, 1, ACHAT_PREMIERE, "Caranvaserail");
                     deck.add(c);
 
                     if(nbJoueurs >= 4){
-                        c = new Carte("Taverne", JAUNE, 1, 0, 0, 0);
-                        //TODO ajouter effet special +5 piece lors pose
+                        c = new Carte("Taverne", JAUNE, 1, BONUS_OR);
                         deck.add(c);
                     }
                     if(nbJoueurs >= 5){
-                        c = new Carte("Taverne", JAUNE, 1, 0, 0, 0);
-                        //TODO ajouter effet special +5 piece lors pose
+                        c = new Carte("Taverne", JAUNE, 1, BONUS_OR);
                         deck.add(c);
                     }
                     if(nbJoueurs >= 6){
-                        c = new Carte("Marche", JAUNE, 1, 0, 0, 0,"Caranvaserail");
+                        c = new Carte("Marche", JAUNE, 1, ACHAT_PREMIERE, "Caranvaserail");
                         deck.add(c);
                     }
 
                     if(nbJoueurs >= 7){
-                        c = new Carte("Taverne", JAUNE, 1, 0, 0, 0);
-                        //TODO ajouter effet special +5 piece lors pose
+                        c = new Carte("Taverne", JAUNE, 1, BONUS_OR);
                         deck.add(c);
 
-                        c = new Carte("Commerce Ouest", JAUNE, 1, 0, 0, 0,"Forum");
+                        c = new Carte("Commerce Ouest", JAUNE, 1, ACHAT_MATIERE_GAUCHE, "Forum");
                         deck.add(c);
 
-                        c = new Carte("Commerce Est", JAUNE, 1, 0, 0, 0,"Forum");
+                        c = new Carte("Commerce Est", JAUNE, 1, ACHAT_MATIERE_DROITE, "Forum");
                         deck.add(c);
 
                     }
                 break;
             case 2:
-                c = new Carte("Vignoble", JAUNE, 2, 0, 0, 0);
+                c = new Carte("Vignoble", JAUNE, 2, OR_CARTE_MARRON);
                 deck.add(c);
 
                 c = new Carte("Forum", JAUNE, 2, 0, 0, 0,"Port");
@@ -1083,7 +1109,7 @@ public class Carte {
                 deck.add(c);
 
                 if(nbJoueurs >= 4){
-                    c = new Carte("Bazar", JAUNE, 2, 0, 0, 0);
+                    c = new Carte("Bazar", JAUNE, 2, OR_CARTE_GRIS);
                     deck.add(c);
                 }
                 if(nbJoueurs >= 5){
@@ -1103,40 +1129,40 @@ public class Carte {
                     c.ajouterCoutRessource(ARGILE);
                     deck.add(c);
 
-                    c = new Carte("Vignoble", JAUNE, 2, 0, 0, 0);
+                    c = new Carte("Vignoble", JAUNE, 2, OR_CARTE_MARRON);
                     deck.add(c);
                 }
                 if(nbJoueurs >= 7){
-                    c = new Carte("Bazar", JAUNE, 2, 0, 0, 0);
+                    c = new Carte("Bazar", JAUNE, 2, OR_CARTE_GRIS);
                     deck.add(c);
                 }
                 break;
             case 3:
-                c = new Carte("Arene", JAUNE, 3, 0, 0, 0);
+                c = new Carte("Arene", JAUNE, 3, BONUS_ETAPE_MERVEILLE);
                 c.ajouterCoutRessource(PIERRE);
                 c.ajouterCoutRessource(PIERRE);
                 c.ajouterCoutRessource(MINERAI);
                 deck.add(c);
 
-                c = new Carte("Havre", JAUNE, 3, 0, 0, 0);
+                c = new Carte("Havre", JAUNE, 3, BONUS_CARTE_MARRON);
                 c.ajouterCoutRessource(BOIS);
                 c.ajouterCoutRessource(MINERAI);
                 c.ajouterCoutRessource(TEXTILE);
                 deck.add(c);
 
-                c = new Carte("Phare", JAUNE, 3, 0, 0, 0);
+                c = new Carte("Phare", JAUNE, 3, BONUS_CARTE_JAUNE);
                 c.ajouterCoutRessource(PIERRE);
                 c.ajouterCoutRessource(VERRE);
                 deck.add(c);
 
                 if(nbJoueurs >= 4){
-                    c = new Carte("Chambre du commerce", JAUNE, 3, 0, 0, 0);
+                    c = new Carte("Chambre du commerce", JAUNE, 3, BONUS_CARTE_GRIS);
                     c.ajouterCoutRessource(ARGILE);
                     c.ajouterCoutRessource(ARGILE);
                     c.ajouterCoutRessource(PAPYRUS);
                     deck.add(c);
 
-                    c = new Carte("Havre", JAUNE, 3, 0, 0, 0);
+                    c = new Carte("Havre", JAUNE, 3, BONUS_CARTE_MARRON);
                     c.ajouterCoutRessource(BOIS);
                     c.ajouterCoutRessource(MINERAI);
                     c.ajouterCoutRessource(TEXTILE);
@@ -1144,13 +1170,13 @@ public class Carte {
                 }
 
                 if(nbJoueurs >= 6){
-                    c = new Carte("Chambre du commerce", JAUNE, 3, 0, 0, 0);
+                    c = new Carte("Chambre du commerce", JAUNE, 3, BONUS_CARTE_GRIS);
                     c.ajouterCoutRessource(ARGILE);
                     c.ajouterCoutRessource(ARGILE);
                     c.ajouterCoutRessource(PAPYRUS);
                     deck.add(c);
 
-                    c = new Carte("Phare", JAUNE, 3, 0, 0, 0);
+                    c = new Carte("Phare", JAUNE, 3, BONUS_CARTE_JAUNE);
                     c.ajouterCoutRessource(PIERRE);
                     c.ajouterCoutRessource(VERRE);
                     deck.add(c);

@@ -169,7 +169,7 @@ public class JeuTest {
         VisionJeu vGauche = new VisionJeu(0, 0, new int[] { 0, 0, 0 }, 0, m, new ArrayList<Carte>());
         VisionJeu vDroite = new VisionJeu(2, 0, new int[] { 0, 0, 0 }, 0, m, new ArrayList<Carte>());
         for (byte i = 0; i < mj.size(); i++)
-            lesScores[i] = mj.get(i).getScore(vGauche, vDroite);
+            lesScores[i] = mj.get(i).getScoreFinTour(vGauche, vDroite);
 
         return lesScores;
     }

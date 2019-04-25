@@ -3,11 +3,15 @@ package moteur;
 import commun.Action;
 import commun.Ressource;
 import commun.Couleur;
+import commun.Etape;
 import commun.Carte;
 import commun.Merveille;
 import commun.Joueur;
 import commun.VisionJeu;
+import commun.EffetCommercial;
 import static commun.ConsoleLogger.*;
+import static commun.Couleur.*;
+import static commun.EffetCommercial.*;
 
 import java.net.BindException;
 
@@ -198,16 +202,21 @@ public class Jeu {
 
         case AcheterRessource:
             if (!gratuit) {
-                int idJoueurAPayer = ja.getIdJoueur() + ja.getNumVoisin();
+                int idJoueurAPayer = (ja.getIdJoueur() + ja.getNumVoisin()) % mesJoueurs.size();
 
-                if (idJoueurAPayer < 0) {
+                if (idJoueurAPayer < 0)
                     idJoueurAPayer = mesJoueurs.size() - 1;
-                } else if (idJoueurAPayer > mesJoueurs.size() - 1) {
-                    idJoueurAPayer = 0;
-                }
 
-                mesJoueurs.get(idJoueurAPayer).recevoirPaiement(j.payer(2));
-                desc.append("Le joueur " + ja.getIdJoueur() + " a acheté des ressources au joueur " + idJoueurAPayer + "\n");
+                int montantPaiement = 2;
+                EffetCommercial ec = c.getEffetCommercial();
+                if (ec != null && ((ec == ACHAT_MATIERE_DROITE && ja.getNumVoisin() == 1) || (ec == ACHAT_MATIERE_GAUCHE && ja.getNumVoisin() == -1) || (ec == ACHAT_PREMIERE))) {
+                    montantPaiement = 1;
+                    desc.append("Grâce à un effet commercial, le joueur " + ja.getIdJoueur() + " a acheté des ressources à coût réduits ");
+                } else {
+                    desc.append("Le joueur " + ja.getIdJoueur() + " a acheté des ressources");
+                }
+                desc.append(" au joueur " + idJoueurAPayer + "\n");
+                mesJoueurs.get(idJoueurAPayer).recevoirPaiement(j.payer(montantPaiement));
             }
 
         case PoserCarte:
@@ -229,6 +238,88 @@ public class Jeu {
                         desc.append(hr.get(r) + " de " + r.toString() + ", ");
 
                     desc.setLength(desc.length() - 2);
+                }
+
+                EffetCommercial ec = c.getEffetCommercial();
+                int pieceBonus = 0;
+                if (ec != null) {
+                    desc.append("\n Grâce à un effet commercial, le joueur reçoit ");
+                    switch (ec) {
+                    case BONUS_OR:
+                        j.recevoirPaiement(5);
+                        desc.append("5 pièces d'or\n");
+                        break;
+
+                    case OR_CARTE_MARRON:
+                        for (Carte cj : j.getDeckPlateau())
+                            if (cj.getCouleur() == MARRON)
+                                pieceBonus++;
+
+                        for (Carte cj : mesJoueurs.get((ja.getIdJoueur() + 1) % mesJoueurs.size()).getDeckPlateau())
+                            if (cj.getCouleur() == MARRON)
+                                pieceBonus++;
+
+                        for (Carte cj : mesJoueurs.get(ja.getIdJoueur() - 1 < 0 ? mesJoueurs.size() - 1 : ja.getIdJoueur() - 1).getDeckPlateau())
+                            if (cj.getCouleur() == MARRON)
+                                pieceBonus++;
+
+                        j.recevoirPaiement(pieceBonus);
+                        desc.append("1 pièce d'or par carte marron dans son deck et celui de ses voisins direct pour un total de +" + pieceBonus + "\n");
+                        break;
+
+                    case OR_CARTE_GRIS:
+                        for (Carte cj : j.getDeckPlateau())
+                            if (cj.getCouleur() == GRIS)
+                                pieceBonus += 2;
+
+                        for (Carte cj : mesJoueurs.get((ja.getIdJoueur() + 1) % mesJoueurs.size()).getDeckPlateau())
+                            if (cj.getCouleur() == GRIS)
+                                pieceBonus += 2;
+
+                        for (Carte cj : mesJoueurs.get(ja.getIdJoueur() - 1 < 0 ? mesJoueurs.size() - 1 : ja.getIdJoueur() - 1).getDeckPlateau())
+                            if (cj.getCouleur() == GRIS)
+                                pieceBonus += 2;
+
+                        j.recevoirPaiement(pieceBonus);
+                        desc.append("2 pièces d'or par carte grise dans son deck et celui de ses voisins direct pour un total de +" + pieceBonus + "\n");
+                        break;
+
+                    case BONUS_ETAPE_MERVEILLE:
+                        for (Etape e : j.getPlateau().getEtapes())
+                            if (e.getEtat())
+                                pieceBonus += 3;
+
+                        j.recevoirPaiement(pieceBonus);
+                        desc.append("3 pièces d'or par étapes construite de sa merveille pour un total de +" + pieceBonus + "\n");
+                        break;
+
+                    case BONUS_CARTE_MARRON:
+                        for (Carte cj : j.getDeckPlateau())
+                            if (cj.getCouleur() == MARRON)
+                                pieceBonus++;
+
+                        j.recevoirPaiement(pieceBonus);
+                        desc.append("1 pièce d'or par carte marron dans son deck pour un total de +" + pieceBonus + "\n");
+                        break;
+
+                    case BONUS_CARTE_GRIS:
+                        for (Carte cj : j.getDeckPlateau())
+                            if (cj.getCouleur() == GRIS)
+                                pieceBonus += 2;
+
+                        j.recevoirPaiement(pieceBonus);
+                        desc.append("2 pièce d'or par carte grise dans son deck pour un total de +" + pieceBonus + "\n");
+                        break;
+
+                    case BONUS_CARTE_JAUNE:
+                        for (Carte cj : j.getDeckPlateau())
+                            if (cj.getCouleur() == JAUNE)
+                                pieceBonus++;
+
+                        j.recevoirPaiement(pieceBonus);
+                        desc.append("1 pièce d'or par carte jaune dans son deck pour un total de +" + pieceBonus + "\n");
+                        break;
+                    }
                 }
             }
             break;
@@ -321,7 +412,7 @@ public class Jeu {
 
         for (byte i = 0; i < classé.size(); i++) {
             Joueur j = classé.get(i);
-            int score = j.getScore(new VisionJeu(classé.get(i - 1 < 0 ? classé.size() - 1 : i - 1)), new VisionJeu(classé.get((i + 1) % classé.size())));
+            int score = j.getScoreFinPartie(new VisionJeu(classé.get(i - 1 < 0 ? classé.size() - 1 : i - 1)), new VisionJeu(classé.get((i + 1) % classé.size())));
             int id = j.getId();
 
             classement.add(new int[] { id, score });

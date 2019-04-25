@@ -30,7 +30,7 @@ public enum EffetGuilde {
      * @param nom nom de l'EffetGuilde
      * @return l'enum EffetGuilde correspondante
      */
-    public static EffetGuilde fromString(String nom){
+    public final static EffetGuilde fromString(String nom){
         for(EffetGuilde type : EffetGuilde.values())
             if(type.toString().equalsIgnoreCase(nom))
                 return type;

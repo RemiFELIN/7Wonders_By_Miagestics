@@ -64,10 +64,10 @@ public class wrapperJeu {
                 log(descJouer);
         }
 
-        log(YELLOW + "\nFin du tour " + jeu.getTour() + " Les scores :");
+        log(YELLOW + "\nFin du tour " + jeu.getTour() + " de l'âge " + jeu.getAge() + "\nLes scores :");
         ArrayList<Joueur> tabJ = jeu.getJoueurs();
         for (int i = 0; i < tabJ.size(); i++)
-            log(YELLOW + "Score joueur " + i + " : " + tabJ.get(i).getScore(new VisionJeu(tabJ.get(i - 1 < 0 ? tabJ.size() - 1 : i - 1)), new VisionJeu(tabJ.get((i + 1) % tabJ.size()))));
+            log(YELLOW + "Score joueur " + i + " : " + tabJ.get(i).getScoreFinTour(new VisionJeu(tabJ.get(i - 1 < 0 ? tabJ.size() - 1 : i - 1)), new VisionJeu(tabJ.get((i + 1) % tabJ.size()))));
 
         if (jeu.finAge()) {
             log("\n--------------------");

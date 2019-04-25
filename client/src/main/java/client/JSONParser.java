@@ -7,6 +7,7 @@ import commun.Couleur;
 import commun.SymboleScientifique;
 import commun.Ressource;
 import commun.EffetGuilde;
+import commun.EffetCommercial;
 
 import org.json.JSONObject;
 import org.json.JSONArray;
@@ -86,6 +87,13 @@ public class JSONParser {
             if (obj.has("effetGuilde")) {
                 // Si carte guilde
                 c = new Carte(EffetGuilde.fromString(obj.getString("effetGuilde")));
+            } else if (obj.has("effetCommercial")) {
+                if (obj.has("batimentSuivant"))
+                    c = new Carte(obj.getString("nom"), Couleur.fromString(obj.getString("couleur")), obj.getInt("age"), EffetCommercial.fromString(obj.getString("effetCommercial")),
+                            obj.getString("batimentSuivant"));
+                else
+                    c = new Carte(obj.getString("nom"), Couleur.fromString(obj.getString("couleur")), obj.getInt("age"), EffetCommercial.fromString(obj.getString("effetCommercial")));
+
             } else {
                 if (obj.has("symboleScientifique")) {
                     // si carte scientifique

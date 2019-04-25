@@ -36,7 +36,7 @@ public class JoueurTest {
     @Test
     public final void testGetterInitial(){
         assertEquals("joueur id inital :", 1, joueur.getId());
-        assertEquals("joueur score inital :", 1, joueur.getScore(vGauche, vDroite));
+        assertEquals("joueur score inital :", 1, joueur.getScoreFinTour(vGauche, vDroite));
         assertEquals("joueur taille deck main inital :", 0, joueur.getDeckMain().size());
         assertEquals("joueur taille deck plateau inital :", 0, joueur.getDeckPlateau().size());
         assertArrayEquals("joueur jetons victoire initial :", joueur.getJetonsVictoire(), new int[]{0, 0, 0});
@@ -58,7 +58,7 @@ public class JoueurTest {
             joueur.poserCarte(0);
 
         //2 point d'or + 10 Score pointVictoire
-        assertEquals("joueur score avec les pointVictoires :", 11, joueur.getScore(vGauche, vDroite));
+        assertEquals("joueur score avec les pointVictoires :", 11, joueur.getScoreFinTour(vGauche, vDroite));
     }
 
     @Test
@@ -79,7 +79,7 @@ public class JoueurTest {
         assertEquals("joueur taille deck aprés pose :", 0, joueur.getDeckMain().size());
 
         // Le joueur joue 5 cartes donc score = 5*5 + les 2 point d'or donc score = 27
-        assertEquals("joueur score aprés pose :", 26, joueur.getScore(vGauche, vDroite));
+        assertEquals("joueur score aprés pose :", 26, joueur.getScoreFinTour(vGauche, vDroite));
     }
 
     @Test
@@ -100,7 +100,7 @@ public class JoueurTest {
         assertEquals("joueur taille deck aprés pose :", 0, joueur.getDeckMain().size());
      
         // Le joueur joue 3 cartes scientifique différentes donc score = 7 + 3 + 1
-        assertEquals("joueur score aprés pose :", 11, joueur.getScore(vGauche, vDroite));
+        assertEquals("joueur score aprés pose :", 11, joueur.getScoreFinTour(vGauche, vDroite));
     }
 
     @Test
@@ -130,25 +130,25 @@ public class JoueurTest {
         joueur.ajouterJetonVictoire(1); //Valeur jeton 1 donc 1 + 1
         assertArrayEquals("joueur jetons victoire aprés ajout 1 :", joueur.getJetonsVictoire(), new int[]{1, 0, 0});
         assertEquals("joueur jetons défaite aprés ajout 1 :", joueur.getJetonsDefaite(), 0);
-        assertEquals("joueur score aprés ajout 1 :", 2, joueur.getScore(vGauche, vDroite));
+        assertEquals("joueur score aprés ajout 1 :", 2, joueur.getScoreFinTour(vGauche, vDroite));
 
         //Jeton victoire age 2
         joueur.ajouterJetonVictoire(2); //Valeur jeton 3 donc 2 + 3
         assertArrayEquals("joueur jetons victoire aprés ajout 2 :", joueur.getJetonsVictoire(), new int[]{1, 1, 0});
         assertEquals("joueur jetons défaite aprés ajout 2 :", joueur.getJetonsDefaite(), 0);
-        assertEquals("joueur score aprés ajout 2 :", 5, joueur.getScore(vGauche, vDroite));
+        assertEquals("joueur score aprés ajout 2 :", 5, joueur.getScoreFinTour(vGauche, vDroite));
 
         //Jeton victoire age 3
         joueur.ajouterJetonVictoire(3); //Valeur jeton 5 donc 5 + 5
         assertArrayEquals("joueur jetons victoire aprés ajout 3 :", joueur.getJetonsVictoire(), new int[]{1, 1, 1});
         assertEquals("joueur jetons défaite aprés ajout 3 :", joueur.getJetonsDefaite(), 0);
-        assertEquals("joueur score aprés ajout 3 :", 10, joueur.getScore(vGauche, vDroite));
+        assertEquals("joueur score aprés ajout 3 :", 10, joueur.getScoreFinTour(vGauche, vDroite));
 
         //Jeton age 3
         joueur.ajouterJetonDefaite(); //Valeur jeton -1 donc 10 - 1
         assertArrayEquals("joueur jetons victoire aprés ajout 4 :", joueur.getJetonsVictoire(), new int[]{1, 1, 1});
         assertEquals("joueur jetons défaite aprés ajout 4 :", joueur.getJetonsDefaite(), 1);
-        assertEquals("joueur score aprés ajout 4 :", 9, joueur.getScore(vGauche, vDroite));
+        assertEquals("joueur score aprés ajout 4 :", 9, joueur.getScoreFinTour(vGauche, vDroite));
     }
 
     @Test
@@ -233,24 +233,24 @@ public class JoueurTest {
         joueur.setDeckMain(deck);
 
         joueur.poserCarte(0);
-        assertEquals("score guilde ESPIONS", 2, joueur.getScore(vGauche, vDroite));
+        assertEquals("score guilde ESPIONS", 2, joueur.getScoreFinPartie(vGauche, vDroite));
         joueur.poserCarte(0);
-        assertEquals("score guilde MAGISTRATS", 3, joueur.getScore(vGauche, vDroite));
+        assertEquals("score guilde MAGISTRATS", 3, joueur.getScoreFinPartie(vGauche, vDroite));
         joueur.poserCarte(0);
-        assertEquals("score guilde TRAVAILLEURS", 4, joueur.getScore(vGauche, vDroite));
+        assertEquals("score guilde TRAVAILLEURS", 4, joueur.getScoreFinPartie(vGauche, vDroite));
         joueur.poserCarte(0);
-        assertEquals("score guilde ARTISANS", 6, joueur.getScore(vGauche, vDroite));
+        assertEquals("score guilde ARTISANS", 6, joueur.getScoreFinPartie(vGauche, vDroite));
         joueur.poserCarte(0);
-        assertEquals("score guilde COMMERCANTS", 7, joueur.getScore(vGauche, vDroite));
+        assertEquals("score guilde COMMERCANTS", 7, joueur.getScoreFinPartie(vGauche, vDroite));
         joueur.poserCarte(0);
-        assertEquals("score guilde PHILOSOPHES", 8, joueur.getScore(vGauche, vDroite));
+        assertEquals("score guilde PHILOSOPHES", 8, joueur.getScoreFinPartie(vGauche, vDroite));
         joueur.poserCarte(0);
-        assertEquals("score guilde BATISSEURS", 11, joueur.getScore(vGauche, vDroite));
+        assertEquals("score guilde BATISSEURS", 11, joueur.getScoreFinPartie(vGauche, vDroite));
         joueur.poserCarte(0);
-        assertEquals("score guilde ARMATEURS", 20, joueur.getScore(vGauche, vDroite));
+        assertEquals("score guilde ARMATEURS", 19, joueur.getScoreFinPartie(vGauche, vDroite));
         joueur.poserCarte(0);
-        assertEquals("score guilde STRATEGES", 24, joueur.getScore(vGauche, vDroite));
+        assertEquals("score guilde STRATEGES", 23, joueur.getScoreFinPartie(vGauche, vDroite));
         joueur.poserCarte(0);
-        assertEquals("score guilde SCIENTIFIQUES", 25, joueur.getScore(vGauche, vDroite));
+        assertEquals("score guilde SCIENTIFIQUES", 25, joueur.getScoreFinPartie(vGauche, vDroite));
     }
 }
