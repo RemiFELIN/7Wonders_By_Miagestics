@@ -4,6 +4,8 @@ import serveur.Serveur;
 
 import commun.Action;
 import commun.Joueur;
+import commun.VisionJeu;
+
 import static commun.ConsoleLogger.*;
 
 import java.net.BindException;
@@ -65,7 +67,7 @@ public class wrapperJeu {
         log(YELLOW + "\nFin du tour " + jeu.getTour() + " Les scores :");
         ArrayList<Joueur> tabJ = jeu.getJoueurs();
         for (int i = 0; i < tabJ.size(); i++)
-            log(YELLOW + "Score joueur " + i + " : " + tabJ.get(i).getScore());
+            log(YELLOW + "Score joueur " + i + " : " + tabJ.get(i).getScore(new VisionJeu(tabJ.get(i - 1 < 0 ? tabJ.size() - 1 : i - 1)), new VisionJeu(tabJ.get((i + 1) % tabJ.size()))));
 
         if (jeu.finAge()) {
             log("\n--------------------");
@@ -74,17 +76,14 @@ public class wrapperJeu {
 
             if (jeu.finJeu()) {
                 log(YELLOW_BOLD_BRIGHT + "Fin du jeu !");
-                ArrayList<Joueur> clas = jeu.getClassement();
-                int[][] sClas = new int[clas.size()][];
+                ArrayList<int[]> clas = jeu.getClassement();
                 // 7 + 3 + 8 + 6 + 3 + 1
                 StringBuilder textClas = new StringBuilder(clas.size() * 28);
-                for (int i = 1; i < clas.size() + 1; i++) {
-                    Joueur j = clas.get(i - 1);
-                    int s = j.getScore();
-                    textClas.append(YELLOW_BOLD_BRIGHT + i + " > " + j.toString() + " avec " + s + "\n");
-                    sClas[j.getId()] = new int[] { i, s };
+                for (int i = 0; i < clas.size(); i++) {
+                    int[] data = clas.get(i);
+                    textClas.append(YELLOW_BOLD_BRIGHT + (i + 1) + " > Joueur " + data[0] + " avec " + data[1] + "\n");
                 }
-                serveur.sendClassement(sClas);
+                serveur.sendClassement(clas);
                 log(textClas.toString());
                 serveur.terminer();
             } else {

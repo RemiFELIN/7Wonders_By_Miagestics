@@ -3,8 +3,10 @@ package moteur;
 import commun.Carte;
 import commun.Action;
 import commun.Joueur;
+import commun.Merveille;
 import commun.VisionJeu;
 import static commun.Couleur.*;
+import static commun.Ressource.*;
 import static commun.TypeAction.*;
 import static commun.ConsoleLogger.error;
 
@@ -163,8 +165,11 @@ public class JeuTest {
     private int[] getScoreJoueurs() {
         ArrayList<Joueur> mj = testDuJeu.getJoueurs();
         int[] lesScores = new int[mj.size()];
+        Merveille m = new Merveille("MerveilleTest", 'A', MINERAI, 3);
+        VisionJeu vGauche = new VisionJeu(0, 0, new int[] { 0, 0, 0 }, 0, m, new ArrayList<Carte>());
+        VisionJeu vDroite = new VisionJeu(2, 0, new int[] { 0, 0, 0 }, 0, m, new ArrayList<Carte>());
         for (byte i = 0; i < mj.size(); i++)
-            lesScores[i] = mj.get(i).getScore();
+            lesScores[i] = mj.get(i).getScore(vGauche, vDroite);
 
         return lesScores;
     }
@@ -181,22 +186,14 @@ public class JeuTest {
 
         ArrayList<VisionJeu> vc = testDuJeu.getVisionsJeu();
 
-        VisionJeu j = vj.get(0);
-        VisionJeu c = vc.get(0);
-        assertEqualsVisionJeu(j, c);
-        assertEqualsVisionJeuVoisin(c, vj.get(nbJoueurs - 1), vc.get(1));
+        VisionJeu j, c;
 
-        for (int i = 1; i < nbJoueurs - 1; i++) {
+        for (int i = 0; i < nbJoueurs; i++) {
             j = vj.get(i);
             c = vc.get(i);
             assertEqualsVisionJeu(j, c);
-            assertEqualsVisionJeuVoisin(c, vj.get(i - 1), vc.get(i + 1));
+            assertEqualsVisionJeuVoisin(c, vj.get(i - 1 < 0 ? nbJoueurs - 1 : i - 1), vc.get((i + 1) % nbJoueurs));
         }
-
-        j = vj.get(nbJoueurs - 1);
-        c = vc.get(nbJoueurs - 1);
-        assertEqualsVisionJeu(j, c);
-        assertEqualsVisionJeuVoisin(c, vj.get(nbJoueurs - 2), vc.get(0));
     }
 
     private final void assertEqualsVisionJeu(VisionJeu a, VisionJeu b) {

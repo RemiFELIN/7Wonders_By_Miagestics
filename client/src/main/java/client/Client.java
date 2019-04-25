@@ -96,7 +96,7 @@ public class Client {
             @Override
             public final void call(Object... args) {
                 JSONArray info = (JSONArray) args[0];
-                log(BLUE_BOLD_BRIGHT + "Le client " + id + " est à la place " + info.getInt(0) + " avec " + info.getInt(1) + " de score");
+                log(BLUE_BOLD_BRIGHT + "Le client " + id + " est à la place " + info.getInt(0) + " avec " + info.get(1) + " de score");
             }
         });
 

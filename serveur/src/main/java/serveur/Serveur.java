@@ -120,10 +120,12 @@ public class Serveur {
      * 
      * @param clas tableau bi-dimensionnel de format clas[idJoueur] = [place, score]
      */
-    public final void sendClassement(int[][] clas) {
-        for (byte i = 0; i < clas.length; i++)
+    public final void sendClassement(ArrayList<int[]> clas) {
+        for (byte i = 0; i < clas.size(); i++) {
+            int[] data = clas.get(i);
             for (SocketIOClient client : clients)
-                client.sendEvent(FIN_JEU(i), clas[i]);
+                client.sendEvent(FIN_JEU(data[0]), new int[] { i + 1, data[1] });
+        }
     }
 
     /**

@@ -7,8 +7,10 @@ import static org.junit.Assert.*;
 import commun.Carte;
 import commun.Joueur;
 import commun.Merveille;
+import commun.VisionJeu;
 import static commun.Couleur.*;
 import static commun.Ressource.*;
+import static commun.EffetGuilde.*;
 import static commun.SymboleScientifique.*;
 
 import java.util.ArrayList;
@@ -19,19 +21,22 @@ import java.util.ArrayList;
 public class JoueurTest {
 
     private Joueur joueur;
+    private VisionJeu vGauche, vDroite;
 
     @Before
     public final void setUp(){
         joueur = new Joueur(1);
-        Merveille m = new Merveille("MerveilleTest", 'A', MINERAI, 3);
+        Merveille m = new Merveille("MerveilleTest", 'A', MINERAI, 1);
         m.ajouterEtape(new Etape(new Ressource[]{BOIS, BOIS}, 3, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, ""), 1);
         joueur.setPlateau(m);
+        vGauche = new VisionJeu(0, 0, new int[]{0,0,0}, 0, m, new ArrayList<Carte>());
+        vDroite = new VisionJeu(2, 0, new int[]{0,0,0}, 0, m, new ArrayList<Carte>());
     }
 
     @Test
     public final void testGetterInitial(){
         assertEquals("joueur id inital :", 1, joueur.getId());
-        assertEquals("joueur score inital :", 1, joueur.getScore());
+        assertEquals("joueur score inital :", 1, joueur.getScore(vGauche, vDroite));
         assertEquals("joueur taille deck main inital :", 0, joueur.getDeckMain().size());
         assertEquals("joueur taille deck plateau inital :", 0, joueur.getDeckPlateau().size());
         assertArrayEquals("joueur jetons victoire initial :", joueur.getJetonsVictoire(), new int[]{0, 0, 0});
@@ -53,7 +58,7 @@ public class JoueurTest {
             joueur.poserCarte(0);
 
         //2 point d'or + 10 Score pointVictoire
-        assertEquals("joueur score avec les pointVictoires :", 11, joueur.getScore());
+        assertEquals("joueur score avec les pointVictoires :", 11, joueur.getScore(vGauche, vDroite));
     }
 
     @Test
@@ -74,7 +79,7 @@ public class JoueurTest {
         assertEquals("joueur taille deck aprés pose :", 0, joueur.getDeckMain().size());
 
         // Le joueur joue 5 cartes donc score = 5*5 + les 2 point d'or donc score = 27
-        assertEquals("joueur score aprés pose :", 26, joueur.getScore());
+        assertEquals("joueur score aprés pose :", 26, joueur.getScore(vGauche, vDroite));
     }
 
     @Test
@@ -95,7 +100,7 @@ public class JoueurTest {
         assertEquals("joueur taille deck aprés pose :", 0, joueur.getDeckMain().size());
      
         // Le joueur joue 3 cartes scientifique différentes donc score = 7 + 3 + 1
-        assertEquals("joueur score aprés pose :", 11, joueur.getScore());
+        assertEquals("joueur score aprés pose :", 11, joueur.getScore(vGauche, vDroite));
     }
 
     @Test
@@ -125,25 +130,25 @@ public class JoueurTest {
         joueur.ajouterJetonVictoire(1); //Valeur jeton 1 donc 1 + 1
         assertArrayEquals("joueur jetons victoire aprés ajout 1 :", joueur.getJetonsVictoire(), new int[]{1, 0, 0});
         assertEquals("joueur jetons défaite aprés ajout 1 :", joueur.getJetonsDefaite(), 0);
-        assertEquals("joueur score aprés ajout 1 :", 2, joueur.getScore());
+        assertEquals("joueur score aprés ajout 1 :", 2, joueur.getScore(vGauche, vDroite));
 
         //Jeton victoire age 2
         joueur.ajouterJetonVictoire(2); //Valeur jeton 3 donc 2 + 3
         assertArrayEquals("joueur jetons victoire aprés ajout 2 :", joueur.getJetonsVictoire(), new int[]{1, 1, 0});
         assertEquals("joueur jetons défaite aprés ajout 2 :", joueur.getJetonsDefaite(), 0);
-        assertEquals("joueur score aprés ajout 2 :", 5, joueur.getScore());
+        assertEquals("joueur score aprés ajout 2 :", 5, joueur.getScore(vGauche, vDroite));
 
         //Jeton victoire age 3
         joueur.ajouterJetonVictoire(3); //Valeur jeton 5 donc 5 + 5
         assertArrayEquals("joueur jetons victoire aprés ajout 3 :", joueur.getJetonsVictoire(), new int[]{1, 1, 1});
         assertEquals("joueur jetons défaite aprés ajout 3 :", joueur.getJetonsDefaite(), 0);
-        assertEquals("joueur score aprés ajout 3 :", 10, joueur.getScore());
+        assertEquals("joueur score aprés ajout 3 :", 10, joueur.getScore(vGauche, vDroite));
 
         //Jeton age 3
         joueur.ajouterJetonDefaite(); //Valeur jeton -1 donc 10 - 1
         assertArrayEquals("joueur jetons victoire aprés ajout 4 :", joueur.getJetonsVictoire(), new int[]{1, 1, 1});
         assertEquals("joueur jetons défaite aprés ajout 4 :", joueur.getJetonsDefaite(), 1);
-        assertEquals("joueur score aprés ajout 4 :", 9, joueur.getScore());
+        assertEquals("joueur score aprés ajout 4 :", 9, joueur.getScore(vGauche, vDroite));
     }
 
     @Test
@@ -184,5 +189,68 @@ public class JoueurTest {
         assertEquals("carte equal ressources :", c.getRessources(), d.getRessources());
         assertEquals("carte equal batiment suivant :", c.getBatimentSuivant(), d.getBatimentSuivant());
         assertEquals("carte equal effet guilde :", c.getEffetGuilde(), d.getEffetGuilde());
+    }
+
+    @Test
+    public final void testScoreGuilde(){
+
+        ArrayList<Carte> deckG = new ArrayList<Carte>(3);
+        deckG.add(new Carte("CarteRougeTest", ROUGE, 1));
+        deckG.add(new Carte("CarteBleuTest", BLEU, 1));
+        deckG.add(new Carte("CarteMarronTest", MARRON, 1));
+        Merveille mG = new Merveille("MerveilleTestGauche", 'A', MINERAI, 2);
+        Etape e = new Etape(new Ressource[]{}, 0, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "");
+        e.construire();
+        mG.ajouterEtape(e, 1);
+        mG.ajouterEtape(new Etape(new Ressource[]{}, 0, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, ""), 2);
+        vGauche = new VisionJeu(0, 0, new int[]{0,0,0}, 2, mG, deckG);
+
+        ArrayList<Carte> deckD = new ArrayList<Carte>(3);
+        deckD.add(new Carte("CarteGrisTest", GRIS, 1));
+        deckD.add(new Carte("CarteJauneTest", JAUNE, 1));
+        deckD.add(new Carte("CarteVertTest", VERT, 1));
+        Merveille mD = new Merveille("MerveilleTestDroite", 'B', ARGILE, 3);
+        e = new Etape(new Ressource[]{}, 0, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "");
+        e.construire();
+        mD.ajouterEtape(e, 1);
+        e = new Etape(new Ressource[]{}, 0, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, "");
+        e.construire();
+        mD.ajouterEtape(e, 2);
+        mD.ajouterEtape(new Etape(new Ressource[]{}, 0, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}, ""), 3);
+        vDroite = new VisionJeu(2, 0, new int[]{0,0,0}, 1, mD, deckD);
+        
+        ArrayList<Carte> deck = new ArrayList<Carte>(10);
+        deck.add(new Carte(ESPIONS));
+        deck.add(new Carte(MAGISTRATS));
+        deck.add(new Carte(TRAVAILLEURS));
+        deck.add(new Carte(ARTISANS));
+        deck.add(new Carte(COMMERCANTS));
+        deck.add(new Carte(PHILOSOPHES));
+        deck.add(new Carte(BATISSEURS));
+        deck.add(new Carte(ARMATEURS));
+        deck.add(new Carte(STRATEGES));
+        deck.add(new Carte(SCIENTIFIQUES));
+        joueur.setDeckMain(deck);
+
+        joueur.poserCarte(0);
+        assertEquals("score guilde ESPIONS", 2, joueur.getScore(vGauche, vDroite));
+        joueur.poserCarte(0);
+        assertEquals("score guilde MAGISTRATS", 3, joueur.getScore(vGauche, vDroite));
+        joueur.poserCarte(0);
+        assertEquals("score guilde TRAVAILLEURS", 4, joueur.getScore(vGauche, vDroite));
+        joueur.poserCarte(0);
+        assertEquals("score guilde ARTISANS", 6, joueur.getScore(vGauche, vDroite));
+        joueur.poserCarte(0);
+        assertEquals("score guilde COMMERCANTS", 7, joueur.getScore(vGauche, vDroite));
+        joueur.poserCarte(0);
+        assertEquals("score guilde PHILOSOPHES", 8, joueur.getScore(vGauche, vDroite));
+        joueur.poserCarte(0);
+        assertEquals("score guilde BATISSEURS", 11, joueur.getScore(vGauche, vDroite));
+        joueur.poserCarte(0);
+        assertEquals("score guilde ARMATEURS", 20, joueur.getScore(vGauche, vDroite));
+        joueur.poserCarte(0);
+        assertEquals("score guilde STRATEGES", 24, joueur.getScore(vGauche, vDroite));
+        joueur.poserCarte(0);
+        assertEquals("score guilde SCIENTIFIQUES", 25, joueur.getScore(vGauche, vDroite));
     }
 }

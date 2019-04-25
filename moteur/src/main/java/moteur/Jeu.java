@@ -179,25 +179,25 @@ public class Jeu {
     public final String jouerAction(Action ja) {
         Joueur j = mesJoueurs.get(ja.getIdJoueur());
         Carte c = j.getDeckMain().get(ja.getNumeroCarte());
-        String desc = "";
+        StringBuilder desc = new StringBuilder();
         boolean gratuit = false;
         Carte carteGratuite = c;
-        for (int k = 0; k < (j.getDeckPlateau().size()-1); k++) {
+        for (int k = 0; k < (j.getDeckPlateau().size() - 1); k++) {
             if (j.getDeckPlateau().get(k).getBatimentSuivant() == c.getNom()) {
                 carteGratuite = j.getDeckPlateau().get(k);
-                gratuit =  true;
+                gratuit = true;
             }
         }
         switch (ja.getType()) {
 
         case DefausserCarte:
             c = j.defausserCarte(ja.getNumeroCarte());
-            desc = "Le joueur " + ja.getIdJoueur() + " a défaussé la carte " + Couleur.consoleColor(c.getCouleur()) + c.getNom();
+            desc.append("Le joueur " + ja.getIdJoueur() + " a défaussé la carte " + Couleur.consoleColor(c.getCouleur()) + c.getNom());
             tabDeck.get(this.age - 1).add(c);
             break;
 
         case AcheterRessource:
-            if(!gratuit){
+            if (!gratuit) {
                 int idJoueurAPayer = ja.getIdJoueur() + ja.getNumVoisin();
 
                 if (idJoueurAPayer < 0) {
@@ -207,29 +207,28 @@ public class Jeu {
                 }
 
                 mesJoueurs.get(idJoueurAPayer).recevoirPaiement(j.payer(2));
-                desc = "Le joueur " + ja.getIdJoueur() + " a acheté des ressources au joueur " + idJoueurAPayer + "\n";
+                desc.append("Le joueur " + ja.getIdJoueur() + " a acheté des ressources au joueur " + idJoueurAPayer + "\n");
             }
 
         case PoserCarte:
             c = j.poserCarte(ja.getNumeroCarte());
-            desc += "Le joueur " + ja.getIdJoueur() + " a posé la carte " + Couleur.consoleColor(c.getCouleur()) + c.getNom();
-            if(gratuit){
-                desc += WHITE + " gratuitement grâce à la carte ";
-                desc += Couleur.consoleColor(carteGratuite.getCouleur()) + carteGratuite.getNom();
-            }
-            else {
+            desc.append("Le joueur " + ja.getIdJoueur() + " a posé la carte " + Couleur.consoleColor(c.getCouleur()) + c.getNom());
+            if (gratuit) {
+                desc.append(WHITE + " gratuitement grâce à la carte ");
+                desc.append(Couleur.consoleColor(carteGratuite.getCouleur()) + carteGratuite.getNom());
+            } else {
                 ArrayList<Ressource> cr = c.getCoutRessources();
                 if (cr.size() > 0) {
-                    desc += WHITE + " qui coûte ";
+                    desc.append(WHITE + " qui coûte ");
                     HashMap<Ressource, Integer> hr = new HashMap<Ressource, Integer>();
 
                     for (Ressource r : cr)
                         hr.put(r, hr.get(r) == null ? 1 : hr.get(r) + 1);
 
                     for (Ressource r : hr.keySet())
-                        desc += hr.get(r) + " de " + r.toString() + ", ";
+                        desc.append(hr.get(r) + " de " + r.toString() + ", ");
 
-                    desc = desc.substring(0, desc.length() - 2);
+                    desc.setLength(desc.length() - 2);
                 }
             }
             break;
@@ -241,10 +240,10 @@ public class Jeu {
             } else
                 j.getPlateau().getEtape(age).construire();
             int etape = j.construireEtape(age, ja.getNumeroCarte());
-            desc = "Le joueur " + ja.getIdJoueur() + " a construit l'étape " + etape + " de sa merveille " + j.getPlateau().getNom();
+            desc.append("Le joueur " + ja.getIdJoueur() + " a construit l'étape " + etape + " de sa merveille " + j.getPlateau().getNom());
             break;
         }
-        return desc;
+        return desc.toString();
     }
 
     /**
@@ -257,8 +256,8 @@ public class Jeu {
             return true;
 
         Boolean isFin = true;
-        for (byte i = 0; i < mesJoueurs.size(); i++) {
-            if (mesJoueurs.get(i).getDeckMain().size() != 1) {
+        for (Joueur j : mesJoueurs) {
+            if (j.getDeckMain().size() != 1) {
                 isFin = false;
                 break;
             }
@@ -294,10 +293,8 @@ public class Jeu {
     public final void ageSuivant() {
 
         // Calcul confilts militaire
-        for (byte i = 0; i < mesJoueurs.size() - 1; i++)
-            compareConfiltsJoueur(mesJoueurs.get(i), mesJoueurs.get(i + 1));
-
-        compareConfiltsJoueur(mesJoueurs.get(mesJoueurs.size() - 1), mesJoueurs.get(0));
+        for (byte i = 0; i < mesJoueurs.size(); i++)
+            compareConfiltsJoueur(mesJoueurs.get(i), mesJoueurs.get((i + 1) % mesJoueurs.size()));
 
         age++;
         tour = 1; // reset tour
@@ -317,16 +314,26 @@ public class Jeu {
      * @author Pierre Saunders
      * @return liste classée des joueurs
      */
-    public final ArrayList<Joueur> getClassement() {
+    public final ArrayList<int[]> getClassement() {
         ArrayList<Joueur> classé = new ArrayList<Joueur>(mesJoueurs);
 
-        classé.sort(new Comparator<Joueur>() {
-            public final int compare(Joueur j1, Joueur j2) {
+        ArrayList<int[]> classement = new ArrayList<int[]>(classé.size());
+
+        for (byte i = 0; i < classé.size(); i++) {
+            Joueur j = classé.get(i);
+            int score = j.getScore(new VisionJeu(classé.get(i - 1 < 0 ? classé.size() - 1 : i - 1)), new VisionJeu(classé.get((i + 1) % classé.size())));
+            int id = j.getId();
+
+            classement.add(new int[] { id, score });
+        }
+
+        classement.sort(new Comparator<int[]>() {
+            public final int compare(int[] j1, int[] j2) {
                 // j2 > j1 ? j2,j1 : j1,j2
-                return Integer.compare(j2.getScore(), j1.getScore());
+                return Integer.compare(j2[1], j1[1]);
             }
         });
-        return classé;
+        return classement;
     }
 
     /**
@@ -340,16 +347,10 @@ public class Jeu {
         for (Joueur j : mesJoueurs)
             v.add(new VisionJeu(j));
 
-        v.get(0).setVoisinGauche(v.get(v.size() - 1));
-        v.get(0).setVoisinDroite(v.get(1));
-
-        for (int i = 1; i < v.size() - 1; i++) {
-            v.get(i).setVoisinGauche(v.get(i - 1));
-            v.get(i).setVoisinDroite(v.get(i + 1));
+        for (int i = 0; i < v.size(); i++) {
+            v.get(i).setVoisinGauche(v.get(i - 1 < 0 ? v.size() - 1 : i - 1));
+            v.get(i).setVoisinDroite(v.get((i + 1) % v.size()));
         }
-
-        v.get(v.size() - 1).setVoisinGauche(v.get(v.size() - 2));
-        v.get(v.size() - 1).setVoisinDroite(v.get(0));
 
         return v;
     }
