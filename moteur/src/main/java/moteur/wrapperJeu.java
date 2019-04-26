@@ -15,24 +15,51 @@ import java.util.HashMap;
 
 /**
  * Permet de lancer le jeu avec le serveur
- * @author Pierre Saunders
+ * @author Pierre Saunders, Rémi Felin
  */
 public class wrapperJeu {
 
     private Serveur serveur;
     private Jeu jeu;
+    private boolean reset = false;
+    private int nombreDeParties, partieCourante;
+    //STRAT
+    private String[] mesJoueurs = new String[5];
+    private double[] mean = new double[5];
+    private double[] meanJ = new double[5];
+    private String[] stratDesJoueurs = new String[]{"pointVictoire", "random", "ressources", "militaire", "scientifiques"};
+    private int[] nbVictoiresJ = new int[5];
 
     /**
      * Permet de lancer le serveur du jeu
-     * @param une adresse
-     * @param un port
+     * @param adresse une adresse
+     * @param port un port
      */
-    public wrapperJeu(String adresse, int port) throws BindException {
+    public wrapperJeu(String adresse, int port, int minJ, int maxJ) throws BindException {
         // super(adresse, port);
-        serveur = new Serveur(adresse, port, 4, 7);
+        serveur = new Serveur(adresse, port, minJ, maxJ);
         serveur.onRejoindreJeu(this::onRejoindreJeu);
         serveur.onDebutTour(this::onDebutTour);
         serveur.démarrer();
+    }
+
+    /**
+     * permet de lancer le serveur pour le lanceur strat
+     * @param adresse
+     * @param port
+     * @param nombreDeParties
+     * @throws BindException
+     */
+    public wrapperJeu(String adresse, int port, int nombreDeParties) throws BindException {
+        this(adresse, port, 5, 5);
+        this.nombreDeParties = nombreDeParties;
+        reset = true;
+    }
+
+    private final void creerJeu(int nbJoueursConnectees){
+        jeu = new Jeu(nbJoueursConnectees);
+        jeu.distributionCarte();
+        serveur.sendVisionsJeu(jeu.getVisionsJeu());
     }
 
     /**
@@ -43,9 +70,7 @@ public class wrapperJeu {
         log(YELLOW_BOLD_BRIGHT + "\n-----------------------------------------------");
         log(YELLOW_BOLD_BRIGHT + "- 7 WONDERS : nombre de joueurs connectés : " + nbJoueursConnectees + " -");
         log(YELLOW_BOLD_BRIGHT + "-----------------------------------------------\n");
-        jeu = new Jeu(nbJoueursConnectees);
-        jeu.distributionCarte();
-        serveur.sendVisionsJeu(jeu.getVisionsJeu());
+        creerJeu(nbJoueursConnectees);
     }
 
     /**
@@ -81,11 +106,39 @@ public class wrapperJeu {
                 StringBuilder textClas = new StringBuilder(clas.size() * 28);
                 for (int i = 0; i < clas.size(); i++) {
                     int[] data = clas.get(i);
+                    //on sauvegarde le premier
+                    if(i == 0)
+                       nbVictoiresJ[data[0]] += 1;
                     textClas.append(YELLOW_BOLD_BRIGHT + (i + 1) + " > Joueur " + data[0] + " avec " + data[1] + "\n");
+                    meanJ[i] += data[1];
                 }
-                serveur.sendClassement(clas);
-                log(textClas.toString());
-                serveur.terminer();
+                if(reset == false) {
+                    serveur.sendClassement(clas);
+                    log(textClas.toString());
+                    serveur.terminer();
+                } else {
+                    //strat : sauvegarde data
+                    partieCourante++;
+                    if(partieCourante > nombreDeParties - 1){
+                        System.out.println("\nLes résultat de la simulation :\n");
+                        //calcul moyenne points joueurs
+                        for(int i = 0; i < tabJ.size(); i++)
+                            mean[i] = meanJ[i] / nombreDeParties;
+
+                        reactiverLog();
+                        serveur.sendClassement(clas);
+                        //on affiche les joueurs, leur strat, la moyenne de leur point et le nb de victoires
+                        for(int i = 0; i < tabJ.size(); i++)
+                            System.out.println("Joueur " + i + " - " + stratDesJoueurs[i] + " - " + mean[i] + " - " + nbVictoiresJ[i]);
+                        log("");
+                        serveur.terminer();
+                    } else {
+                        creerJeu(tabJ.size());
+                        reactiverLog();
+                        log("simulation :  " + partieCourante + " / 500");
+                        desactiverLog();
+                    }
+                }
             } else {
                 jeu.ageSuivant();
                 jeu.distributionCarte();

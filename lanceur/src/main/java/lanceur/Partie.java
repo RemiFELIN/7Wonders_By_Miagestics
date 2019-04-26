@@ -2,6 +2,7 @@ package lanceur;
 
 import client.Client;
 import moteur.wrapperJeu;
+
 import static commun.ConsoleLogger.*;
 
 import java.net.BindException;
@@ -10,7 +11,7 @@ import java.net.BindException;
  * Permet de lancer une partie avec un nombre défini de joueurs
  * @author Pierre Saunders
  */
-public class Lanceur {
+public class Partie {
 
     private final static String adresse = "127.0.0.1";
     private final static int port = 10101;
@@ -21,7 +22,7 @@ public class Lanceur {
         log(YELLOW_BOLD_BRIGHT + "Début programme !!");
 
         try {
-            new wrapperJeu(adresse, port);
+            new wrapperJeu(adresse, port, nombre_joueurs, 7);
         } catch (BindException e) {
             log(RED_BOLD + "Adresse " + adresse + ":" + port + " déja utilisé, veuillez en utiliser un autre");
             return;

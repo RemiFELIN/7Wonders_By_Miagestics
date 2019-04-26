@@ -14,21 +14,37 @@
     <version>0.1</version>
 
     <build>
-        <sourceDirectory>src/main/java</sourceDirectory>
+        <!--<sourceDirectory>src/main/java</sourceDirectory>-->
         <plugins>            
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>1.6.0</version> <!-- à ne pas changer : c'est la version du plugin (et pas de java) -->
                 <executions>
+
                     <execution>
+                        <id>partie</id>
                         <goals>
                             <goal>java</goal>
                         </goals>
+                        <configuration>
+                            <mainClass> lanceur.Partie </mainClass>
+                        </configuration>
                     </execution>
+
+                    <execution>
+                        <id>stat</id>
+                        <goals>
+                            <goal>java</goal>
+                        </goals>
+                        <configuration>
+                            <mainClass> lanceur.Stat </mainClass>
+                        </configuration>
+                    </execution>
+
                 </executions>
                 <configuration>
-                    <mainClass>lanceur.Lanceur</mainClass>
+                    <mainClass>lanceur.Partie</mainClass>
                 </configuration>
             </plugin>  
         </plugins>

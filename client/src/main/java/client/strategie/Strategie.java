@@ -23,7 +23,7 @@ public abstract class Strategie {
 
     /**
      * Constructeur d'une stratégie
-     * @see les classes hérités / filles
+     * @see Strategie les classes hérités / filles
      * @param log si on affiche à la console les informations d'actions
      */
     public Strategie(boolean log) {

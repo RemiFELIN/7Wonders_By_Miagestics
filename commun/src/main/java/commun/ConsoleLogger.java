@@ -8,10 +8,23 @@ public abstract class ConsoleLogger {
     /**
      * @param obj l'objet à afficher dans la console
      */
+
+    private static boolean isLog = true;
+
+    public final static void desactiverLog(){
+        isLog = false;
+    }
+
+    public final static void reactiverLog(){
+        isLog = true;
+    }
+
     public final static void log(Object obj) {
-        synchronized(System.out){
-            System.out.print(obj);
-            System.out.println(" "+RESET);
+        if(isLog) {
+            synchronized (System.out) {
+                System.out.print(obj);
+                System.out.println(" " + RESET);
+            }
         }
     }
     /**

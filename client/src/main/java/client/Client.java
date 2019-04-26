@@ -20,7 +20,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 
 /**
- * @authors Pierre Saunders, Yannick Cardini, Benoît Montorsi
+ * @authors Pierre Saunders, Yannick Cardini, Benoît Montorsi, Rémi Felin
  */
 public class Client {
 
@@ -28,19 +28,42 @@ public class Client {
     private int id;
     private Strategie stratClient = null;
     private Action actionAJouer;
+    private boolean isLog = true;
 
     /**
-     * Constructeur
+     * Constructeur concu pour le lanceur Strat
+     * @param id
+     * @param adresse
+     * @param port
+     * @param strat
+     */
+    public Client(int id, String adresse, int port, Strategie strat){
+        stratClient = strat;
+        initClient(id, adresse, port);
+        isLog = false;
+    }
+
+    //getter concu pour le lanceur Strat
+    public String getStrategie(){
+        return stratClient + "";
+    }
+
+    /**
+     * Constructeur concu pour le lanceur partie
      * @param id id
      * @param adresse l'adresse du serveur
      * @param port port du serveur
      */
-    public Client(final int id, String adresse, int port) {
+    public Client(int id, String adresse, int port) {
+        Strategie[] mesStrat = new Strategie[] { new StratPointVictoire(true), new StratRandom(true), new StratRessources(true), new StratMilitaire(true), new StratScientifique(true) };
+        stratClient = mesStrat[new Random().nextInt(mesStrat.length)];
+        initClient(id, adresse, port);
+    }
+
+    private final void initClient(final int id, String adresse, int port){
         this.id = id;
         String urlAdresse = "http://" + adresse + ":" + port;
 
-        Strategie[] mesStrat = new Strategie[] { new StratPointVictoire(true), new StratRandom(true), new StratRessources(true), new StratMilitaire(true), new StratScientifique(true) };
-        stratClient = mesStrat[new Random().nextInt(mesStrat.length)];
 
         try {
             connexion = IO.socket(urlAdresse);
@@ -48,12 +71,14 @@ public class Client {
             error("Client: Crash dans Joueur " + this.id, e);
             return;
         }
-        log(BLUE_BOLD_BRIGHT + "Client: Abonnement connexion Joueur " + this.id);
+        if(isLog)
+            log(BLUE_BOLD_BRIGHT + "Client: Abonnement connexion Joueur " + this.id);
 
         connexion.on(CONNEXION, new Emitter.Listener() {
             @Override
             public final void call(Object... args) {
-                log(BLUE_BOLD_BRIGHT + "Client: connexion Joueur " + id);
+                if(isLog)
+                    log(BLUE_BOLD_BRIGHT + "Client: connexion Joueur " + id);
                 connexion.emit(REJOINDRE_JEU, id);
             }
         });
@@ -61,7 +86,8 @@ public class Client {
         connexion.on(GET_VISIONJEU(id), new Emitter.Listener() {
             @Override
             public final void call(Object... args) {
-                log(BLUE_BOLD_BRIGHT + "Le client " + id + " a reçu sa vision de jeu");
+                if(isLog)
+                    log(BLUE_BOLD_BRIGHT + "Le client " + id + " a reçu sa vision de jeu");
                 try {
                     JSONObject jo = (JSONObject) args[0];
 
@@ -96,14 +122,16 @@ public class Client {
             @Override
             public final void call(Object... args) {
                 JSONArray info = (JSONArray) args[0];
-                log(BLUE_BOLD_BRIGHT + "Le client " + id + " est à la place " + info.getInt(0) + " avec " + info.get(1) + " de score");
+                if(isLog)
+                    log(BLUE_BOLD_BRIGHT + "Le client " + id + " est à la place " + info.getInt(0) + " avec " + info.get(1) + " de score");
             }
         });
 
         connexion.on(DECONNEXION, new Emitter.Listener() {
             @Override
             public final void call(Object... args) {
-                log(BLUE_BOLD_BRIGHT + "Le client " + id + " est déconnecté ");
+                if(isLog)
+                    log(BLUE_BOLD_BRIGHT + "Le client " + id + " est déconnecté ");
                 // connexion.off();
                 // connexion.disconnect();
                 connexion.close();
