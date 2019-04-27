@@ -37,6 +37,7 @@ public class JoueurTest {
     @Test
     public final void testGetterInitial(){
         assertEquals("joueur id inital :", 1, joueur.getId());
+        assertEquals("joueur piece inital :", 5, joueur.getPiece());
         assertEquals("joueur score inital :", 1, joueur.getScoreFinTour(vGauche, vDroite));
         assertEquals("joueur taille deck main inital :", 0, joueur.getDeckMain().size());
         assertEquals("joueur taille deck plateau inital :", 0, joueur.getDeckPlateau().size());

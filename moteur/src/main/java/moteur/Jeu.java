@@ -13,8 +13,6 @@ import static commun.ConsoleLogger.*;
 import static commun.Couleur.*;
 import static commun.EffetCommercial.*;
 
-import java.net.BindException;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -310,6 +308,10 @@ public class Jeu {
 
                         j.recevoirPaiement(pieceBonus);
                         desc.append("1 pièce d'or par carte jaune dans son deck pour un total de +" + pieceBonus + "\n");
+                        break;
+
+                    default:
+                        // les autres cartes n'ont pas d'effet lorsqu'on la pose
                         break;
                     }
                 }

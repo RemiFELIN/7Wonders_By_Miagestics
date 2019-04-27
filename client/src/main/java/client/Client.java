@@ -37,15 +37,18 @@ public class Client {
      * @param port
      * @param strat
      */
-    public Client(int id, String adresse, int port, Strategie strat){
+    public Client(int id, String adresse, int port, Strategie strat) {
         stratClient = strat;
-        initClient(id, adresse, port);
         isLog = false;
+        initClient(id, adresse, port);
     }
 
-    //getter concu pour le lanceur Strat
-    public String getStrategie(){
-        return stratClient + "";
+    /**
+     * Getter concu pour le lanceur Strat
+     * @return nom de stratégie utilisée
+     */
+    public String getStrategie() {
+        return stratClient.toString();
     }
 
     /**
@@ -60,10 +63,15 @@ public class Client {
         initClient(id, adresse, port);
     }
 
-    private final void initClient(final int id, String adresse, int port){
+    /**
+     * Permet d'initialiser le socket client
+     * @param id
+     * @param adresse
+     * @param port
+     */
+    private final void initClient(final int id, String adresse, int port) {
         this.id = id;
         String urlAdresse = "http://" + adresse + ":" + port;
-
 
         try {
             connexion = IO.socket(urlAdresse);
@@ -71,13 +79,13 @@ public class Client {
             error("Client: Crash dans Joueur " + this.id, e);
             return;
         }
-        if(isLog)
+        if (isLog)
             log(BLUE_BOLD_BRIGHT + "Client: Abonnement connexion Joueur " + this.id);
 
         connexion.on(CONNEXION, new Emitter.Listener() {
             @Override
             public final void call(Object... args) {
-                if(isLog)
+                if (isLog)
                     log(BLUE_BOLD_BRIGHT + "Client: connexion Joueur " + id);
                 connexion.emit(REJOINDRE_JEU, id);
             }
@@ -86,7 +94,7 @@ public class Client {
         connexion.on(GET_VISIONJEU(id), new Emitter.Listener() {
             @Override
             public final void call(Object... args) {
-                if(isLog)
+                if (isLog)
                     log(BLUE_BOLD_BRIGHT + "Le client " + id + " a reçu sa vision de jeu");
                 try {
                     JSONObject jo = (JSONObject) args[0];
@@ -122,7 +130,7 @@ public class Client {
             @Override
             public final void call(Object... args) {
                 JSONArray info = (JSONArray) args[0];
-                if(isLog)
+                if (isLog)
                     log(BLUE_BOLD_BRIGHT + "Le client " + id + " est à la place " + info.getInt(0) + " avec " + info.get(1) + " de score");
             }
         });
@@ -130,7 +138,7 @@ public class Client {
         connexion.on(DECONNEXION, new Emitter.Listener() {
             @Override
             public final void call(Object... args) {
-                if(isLog)
+                if (isLog)
                     log(BLUE_BOLD_BRIGHT + "Le client " + id + " est déconnecté ");
                 // connexion.off();
                 // connexion.disconnect();

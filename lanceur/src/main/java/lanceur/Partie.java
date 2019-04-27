@@ -1,7 +1,7 @@
 package lanceur;
 
 import client.Client;
-import moteur.wrapperJeu;
+import moteur.WrapperJeu;
 
 import static commun.ConsoleLogger.*;
 
@@ -22,7 +22,7 @@ public class Partie {
         log(YELLOW_BOLD_BRIGHT + "Début programme !!");
 
         try {
-            new wrapperJeu(adresse, port, nombre_joueurs, 7);
+            new WrapperJeu(adresse, port, nombre_joueurs, 7);
         } catch (BindException e) {
             log(RED_BOLD + "Adresse " + adresse + ":" + port + " déja utilisé, veuillez en utiliser un autre");
             return;

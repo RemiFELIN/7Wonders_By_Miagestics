@@ -8,6 +8,7 @@ import commun.VisionJeu;
 import static commun.Couleur.*;
 import static commun.Ressource.*;
 import static commun.TypeAction.*;
+import static commun.EffetCommercial.*;
 import static commun.ConsoleLogger.error;
 
 import java.util.ArrayList;
@@ -107,7 +108,7 @@ public class JeuTest {
     }
 
     @Test
-    public final void jouerActionTest() {
+    public final void testJouerAction() {
         testDuJeu.distributionCarte();
 
         Action ja = new Action(PoserCarte, 0, 2);
@@ -128,6 +129,38 @@ public class JeuTest {
         int afterPiece = testDuJeu.getJoueurs().get(1).getPiece();
         assertEquals(afterSize, prevSize - 1);
         assertEquals(prevPiece + 3, afterPiece);
+    }
+
+    @Test
+    public final void jouerCarteCommercial() {
+        ArrayList<Carte> deck = new ArrayList<Carte>(7);
+        deck.add(new Carte("bonusOr", JAUNE, 1, BONUS_OR));
+        deck.add(new Carte("bonusEtapeMerveille", JAUNE, 1, BONUS_ETAPE_MERVEILLE));
+        deck.add(new Carte("bonusCarteMarron", MARRON, 1, BONUS_CARTE_MARRON));
+        deck.add(new Carte("bonusCarteGris", GRIS, 1, BONUS_CARTE_GRIS));
+        deck.add(new Carte("bonusCarteJaune", JAUNE, 1, BONUS_CARTE_JAUNE));
+        deck.add(new Carte("orCarteMarron", JAUNE, 1, OR_CARTE_MARRON));
+        deck.add(new Carte("orCarteGris", JAUNE, 1, OR_CARTE_GRIS));
+
+        testDuJeu.getJoueurs().get(2).setDeckMain(deck);
+        testDuJeu.getJoueurs().get(2).getPlateau().getEtape(1).construire();
+
+        Action pc = new Action(PoserCarte, 2, 0);
+
+        testDuJeu.jouerAction(pc);
+        assertEquals("test bonusOr :", 10, testDuJeu.getJoueurs().get(2).getPiece());
+        testDuJeu.jouerAction(pc);
+        assertEquals("test bonusEtapeMerveille :", 13, testDuJeu.getJoueurs().get(2).getPiece());
+        testDuJeu.jouerAction(pc);
+        assertEquals("test bonusCarteMarron :", 14, testDuJeu.getJoueurs().get(2).getPiece());
+        testDuJeu.jouerAction(pc);
+        assertEquals("test bonusCarteGris :", 16, testDuJeu.getJoueurs().get(2).getPiece());
+        testDuJeu.jouerAction(pc);
+        assertEquals("test bonusCarteJaune :", 19, testDuJeu.getJoueurs().get(2).getPiece());
+        testDuJeu.jouerAction(pc);
+        assertEquals("test orCarteMarron :", 20, testDuJeu.getJoueurs().get(2).getPiece());
+        testDuJeu.jouerAction(pc);
+        assertEquals("test orCarteGris  :", 22, testDuJeu.getJoueurs().get(2).getPiece());
     }
 
     @Test

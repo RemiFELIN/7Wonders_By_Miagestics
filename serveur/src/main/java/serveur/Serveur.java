@@ -31,9 +31,10 @@ public class Serveur {
     private int nbJoueursConnectees, nbJoueurActionRecu, carteDistribué = 0;
     private int MIN_JOUEURS, MAX_JOUEURS;
     private HashMap<Integer, Action> actionRecu;
+    private boolean isLog = true;
 
     /**
-     * Constructeur
+     * Constructeur serveur avec log
      * 
      * @param adresse adresse
      * @param port    port
@@ -61,6 +62,19 @@ public class Serveur {
     }
 
     /**
+     * Constructeur serveur sans log
+     * 
+     * @param adresse
+     * @param port
+     * @param nombreJoueurs
+     * @throws BindException
+     */
+    public Serveur(String adresse, int port, int nombreJoueurs) throws BindException {
+        this(adresse, port, nombreJoueurs, nombreJoueurs);
+        isLog = false;
+    }
+
+    /**
      * Permet de s'abonner à l'événement d'un client qui se connecte au serveur
      * 
      * @param fnc callback
@@ -70,12 +84,15 @@ public class Serveur {
             @Override
             public final void onData(SocketIOClient socketIOClient, Integer id, AckRequest ackRequest) throws Exception {
                 if (nbJoueursConnectees > MAX_JOUEURS) {
-                    log(RED_BOLD_BRIGHT + "Connexion impossible: déjà " + MAX_JOUEURS + " joueurs dans la partie");
+                    if (isLog)
+                        log(RED_BOLD_BRIGHT + "Connexion impossible: déjà " + MAX_JOUEURS + " joueurs dans la partie");
                 } else {
-                    log(GREEN_BOLD_BRIGHT + "Serveur: Connexion de joueur " + id);
+                    if (isLog)
+                        log(GREEN_BOLD_BRIGHT + "Serveur: Connexion de joueur " + id);
                     nbJoueursConnectees++;
                     if (nbJoueursConnectees == MIN_JOUEURS) {
-                        log(GREEN_BOLD_BRIGHT + MIN_JOUEURS + " joueurs de connectés: début de la partie\n");
+                        if (isLog)
+                            log(GREEN_BOLD_BRIGHT + MIN_JOUEURS + " joueurs de connectés: début de la partie\n");
                         actionRecu = new HashMap<Integer, Action>(nbJoueursConnectees);
                         fnc.accept(nbJoueursConnectees);
                     }
@@ -98,18 +115,20 @@ public class Serveur {
                     nbJoueurActionRecu++;
                     actionRecu.put(ja.getIdJoueur(), ja);
                     if (nbJoueurActionRecu == nbJoueursConnectees) {
-                        log(GREEN_BOLD_BRIGHT + "Serveur: fin du tour\n");
+                        if (isLog)
+                            log(GREEN_BOLD_BRIGHT + "Serveur: fin du tour\n");
                         int idJoueur = debutTour.apply(actionRecu);
                         if (idJoueur == nbJoueursConnectees) {
                             nbJoueurActionRecu = 0;
                             actionRecu.clear();
                         } else {
-                            log(GREEN_BOLD_BRIGHT + "Serveur: action du joueur " + idJoueur + " est incorrect\n en attente d'un renvoi");
+                            if (isLog)
+                                log(GREEN_BOLD_BRIGHT + "Serveur: action du joueur " + idJoueur + " est incorrect\n en attente d'un renvoi");
                             actionRecu.remove(idJoueur);
                             nbJoueurActionRecu--;
                         }
                     }
-                } else
+                } else if (isLog)
                     log(GREEN_BOLD_BRIGHT + "Serveur: action du joueur " + ja.getIdJoueur() + " déja reçu");
             }
         });
@@ -143,7 +162,8 @@ public class Serveur {
      * Permet de se désabonner des évenements et fermer le serveur
      */
     public final void terminer() {
-        log(GREEN_BOLD_BRIGHT + "Serveur: Fermeture");
+        if (isLog)
+            log(GREEN_BOLD_BRIGHT + "Serveur: Fermeture");
         for (SocketIOClient client : clients)
             client.disconnect();
         serveur.removeAllListeners(REJOINDRE_JEU);
@@ -157,7 +177,8 @@ public class Serveur {
      * Permet de démarrer le serveur
      */
     public final void démarrer() {
-        log(GREEN_BOLD_BRIGHT + "Serveur: Démarrage");
+        if (isLog)
+            log(GREEN_BOLD_BRIGHT + "Serveur: Démarrage");
 
         serveur.addEventListener(RECU_CARTE, Integer.class, new DataListener<Integer>() {
             @Override
@@ -165,7 +186,8 @@ public class Serveur {
                 carteDistribué++;
                 if (carteDistribué == nbJoueursConnectees) {
                     carteDistribué = 0;
-                    log(GREEN_BOLD + "Tous les clients ont reçu leur vision, début du tour\n");
+                    if (isLog)
+                        log(GREEN_BOLD + "Tous les clients ont reçu leur vision, début du tour\n");
                     for (SocketIOClient client : clients)
                         client.sendEvent(DEBUT_TOUR);
                 }

@@ -77,6 +77,6 @@ public class StratPointVictoire extends Strategie {
      */
     @Override
     public final String toString() {
-        return super.toString() + " PointVictoire";
+        return super.toString() + "pointVictoire";
     }
 }

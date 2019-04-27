@@ -8,27 +8,15 @@ public abstract class ConsoleLogger {
     /**
      * @param obj l'objet à afficher dans la console
      */
-
-    private static boolean isLog = true;
-
-    public final static void desactiverLog(){
-        isLog = false;
-    }
-
-    public final static void reactiverLog(){
-        isLog = true;
-    }
-
     public final static void log(Object obj) {
-        if(isLog) {
-            synchronized (System.out) {
-                System.out.print(obj);
-                System.out.println(" " + RESET);
-            }
+        synchronized (System.out) {
+            System.out.print(obj);
+            System.out.println(" " + RESET);
         }
     }
+
     /**
-     * @param s l'objet à afficher en erreur dans la console
+     * @param s le message à afficher en erreur dans la console
      * @param err exception
      */
     public final static void error(String s, Exception err){
@@ -38,6 +26,15 @@ public abstract class ConsoleLogger {
             err.printStackTrace();
             System.out.print(RESET);
         }
+    }
+
+    /**
+     * @param s le message à afficher en erreur dans la console
+     */
+    public final static void error(String s){
+        String msg = RED_BOLD + s + RESET;
+        System.out.println(msg);
+        System.err.println(msg);
     }
 
     // Reset
