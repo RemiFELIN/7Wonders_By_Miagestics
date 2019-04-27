@@ -11,6 +11,7 @@ import commun.VisionJeu;
 import static commun.Couleur.*;
 import static commun.Ressource.*;
 import static commun.EffetGuilde.*;
+import static commun.EffetCommercial.*;
 import static commun.SymboleScientifique.*;
 
 import java.util.ArrayList;
@@ -62,6 +63,53 @@ public class JoueurTest {
     }
 
     @Test
+    public final void testJouerActionCarteCommercial(){
+
+        ArrayList<Carte> deckG = new ArrayList<Carte>(3);
+        deckG.add(new Carte("CarteRougeTest", ROUGE, 1));
+        deckG.add(new Carte("CarteBleuTest", BLEU, 1));
+        deckG.add(new Carte("CarteMarronTest", MARRON, 1));
+        Merveille mG = new Merveille("MerveilleTestGauche", 'A', MINERAI, 2);
+        Etape e = new Etape(new Ressource[]{}, 0, 0, 0, new Ressource[]{}, new SymboleScientifique[]{});
+        e.construire();
+        mG.ajouterEtape(e, 1);
+        mG.ajouterEtape(new Etape(new Ressource[]{}, 0, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}), 2);
+        vGauche = new VisionJeu(0, 0, new int[]{0,0,0}, 2, mG, deckG);
+
+        ArrayList<Carte> deckD = new ArrayList<Carte>(3);
+        deckD.add(new Carte("CarteGrisTest", GRIS, 1));
+        deckD.add(new Carte("CarteJauneTest", JAUNE, 1));
+        deckD.add(new Carte("CarteVertTest", VERT, 1));
+        Merveille mD = new Merveille("MerveilleTestDroite", 'B', ARGILE, 3);
+        e = new Etape(new Ressource[]{}, 0, 0, 0, new Ressource[]{}, new SymboleScientifique[]{});
+        e.construire();
+        mD.ajouterEtape(e, 1);
+        e = new Etape(new Ressource[]{}, 0, 0, 0, new Ressource[]{}, new SymboleScientifique[]{});
+        e.construire();
+        mD.ajouterEtape(e, 2);
+        mD.ajouterEtape(new Etape(new Ressource[]{}, 0, 0, 0, new Ressource[]{}, new SymboleScientifique[]{}), 3);
+        vDroite = new VisionJeu(2, 0, new int[]{0,0,0}, 1, mD, deckD);
+
+        joueur.getPlateau().getEtape(1).construire();
+
+        ArrayList<Carte> deck = new ArrayList<Carte>(4);
+        deck.add(new Carte("bonusEtapeMerveille", JAUNE, 1, BONUS_ETAPE_MERVEILLE));
+        deck.add(new Carte("bonusCarteMarron", MARRON, 1, BONUS_CARTE_MARRON));
+        deck.add(new Carte("bonusCarteGris", GRIS, 1, BONUS_CARTE_GRIS));
+        deck.add(new Carte("bonusCarteJaune", JAUNE, 1, BONUS_CARTE_JAUNE));
+
+        joueur.setDeckMain(deck);
+        Carte c = joueur.poserCarte(0);
+        assertEquals("score final carte commercial "+c.getEffetCommercial().toString()+" :", 5, joueur.getScoreFinPartie(vGauche, vDroite));
+        c = joueur.poserCarte(0);
+        assertEquals("score final carte commercial "+c.getEffetCommercial().toString()+" :", 6, joueur.getScoreFinPartie(vGauche, vDroite));
+        c = joueur.poserCarte(0);
+        assertEquals("score final carte commercial "+c.getEffetCommercial().toString()+" :", 8, joueur.getScoreFinPartie(vGauche, vDroite));
+        c = joueur.poserCarte(0);
+        assertEquals("score final carte commercial "+c.getEffetCommercial().toString()+" :", 10, joueur.getScoreFinPartie(vGauche, vDroite));
+    }
+
+    @Test
     public final void testCalculScoreScientifiqueUnique(){
         ArrayList<Carte> deck = new ArrayList<Carte>(5);
 
@@ -87,9 +135,9 @@ public class JoueurTest {
         final int nbCarte = 3;
         ArrayList<Carte> deck = new ArrayList<Carte>(nbCarte);
 
-        deck.add(new Carte("CarteTest", VERT, 0, COMPAS,"test"));
-        deck.add(new Carte("CarteTest", VERT, 0, TABLETTE,"test"));
-        deck.add(new Carte("CarteTest", VERT, 0, ROUAGE,"test"));
+        deck.add(new Carte("CarteTest", VERT, 0, COMPAS, "test"));
+        deck.add(new Carte("CarteTest", VERT, 0, TABLETTE, "test"));
+        deck.add(new Carte("CarteTest", VERT, 0, ROUAGE, "test"));
 
         joueur.setDeckMain(deck);
         assertEquals("joueur taille deck aprés ajout cartes :", nbCarte, joueur.getDeckMain().size());
@@ -189,6 +237,7 @@ public class JoueurTest {
         assertEquals("carte equal ressources :", c.getRessources(), d.getRessources());
         assertEquals("carte equal batiment suivant :", c.getBatimentSuivant(), d.getBatimentSuivant());
         assertEquals("carte equal effet guilde :", c.getEffetGuilde(), d.getEffetGuilde());
+        assertEquals("carte equal effet commercial :", c.getEffetCommercial(), d.getEffetCommercial());
     }
 
     @Test

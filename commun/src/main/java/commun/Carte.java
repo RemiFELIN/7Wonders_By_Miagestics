@@ -69,11 +69,12 @@ public class Carte {
      * @param couleur couleur
      * @param age âge
      * @param EffetCommercial l'effet spécial
-     * @batSuiv batiment suivant gratuit
+     * @param batSuiv batiment suivant gratuit
      */
     public Carte(String nom, Couleur couleur, int age, EffetCommercial effetCommercial, String batSuiv){
         this(nom, couleur, age);
         this.effetCommercial = effetCommercial;
+        this.batSuiv = batSuiv;
     }
     /**
      * Constructeur carte scientifique
