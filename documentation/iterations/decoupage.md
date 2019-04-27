@@ -72,7 +72,7 @@
 >
 > améliorations *IA* joueurs
 
-### Livraison 7 ![in-progress](https://img.icons8.com/metro/26/000000/in-progress.png)
+### Livraison 7 ![checkmark](https://img.icons8.com/metro/26/000000/checkmark.png)
 
 > Vérification globale de notre projet et validation
 >
