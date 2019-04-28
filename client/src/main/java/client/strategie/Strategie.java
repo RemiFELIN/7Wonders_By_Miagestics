@@ -19,15 +19,15 @@ import static commun.ConsoleLogger.*;
 public abstract class Strategie {
 
     private HashMap<Ressource, Integer> resSeul;
-    private boolean log;
+    private boolean isLog;
 
     /**
      * Constructeur d'une stratégie
      * @see Strategie les classes hérités / filles
-     * @param log si on affiche à la console les informations d'actions
+     * @param isLog si on affiche à la console les informations d'actions
      */
-    public Strategie(boolean log) {
-        this.log = log;
+    public Strategie(boolean isLog) {
+        this.isLog = isLog;
     }
 
     /**
@@ -38,7 +38,7 @@ public abstract class Strategie {
      */
     public final Action getAction(VisionJeu j) {
         boolean[] posSeul = getPossibilitesSeul(j);
-        if (log) {
+        if (isLog) {
             int jetonVic[] = j.getJetonsVictoire();
             StringBuilder textClas = new StringBuilder();
             textClas.append(PURPLE_BOLD_BRIGHT + "Joueur " + j.getId() + " : \n");
